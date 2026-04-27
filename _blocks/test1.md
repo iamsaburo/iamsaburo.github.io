@@ -1,8 +1,8 @@
 ---
-title: test-one
-slug: test1
-image: ''
-description: ''
+title: GitHub Block 1
+slug: github-block-1
+image: https://i.postimg.cc/nhCfJDht/IMAGE-1.png
+description: Description (for homepage)
 ---
 
-grgrgrrggrgrgrgrgrgrrggr
+Info content (Markdown)
