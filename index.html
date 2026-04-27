@@ -1,14 +1,15 @@
 ---
 layout: default
+title: Saburo Community
 ---
 <h1>Community Blocks</h1>
 <div class="blocks-grid">
   {% for block in site.blocks %}
     <div class="block-card">
-      <img src="{{ block.image }}" alt="{{ block.title }}">
+      {% if block.image %}<img src="{{ block.image }}" alt="{{ block.title }}">{% endif %}
       <h3>{{ block.title }}</h3>
       <p>{{ block.description }}</p>
-      <a href="{{ block.url }}">Info</a>
+      <a href="/{{ block.slug }}-info.html">Info</a>
     </div>
   {% endfor %}
 </div>
