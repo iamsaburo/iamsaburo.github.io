@@ -1,0 +1,14 @@
+# Jekyll configuration
+collections:
+  blocks:
+    output: true
+    permalink: /:slug-info.html
+
+defaults:
+  - scope:
+      path: ""
+      type: "blocks"
+    values:
+      layout: "block-info"
+
+# Sveltia CMS will read this
