@@ -1,6 +1,6 @@
 ---
-title: Test1
-slug: slug
+title: test-one
+slug: test1
 image: ''
 description: ''
 ---
