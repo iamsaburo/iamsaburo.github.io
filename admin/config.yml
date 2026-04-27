@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: iamsaburo/iamsaburo.github.io
+  branch: main
+  base_url: https://sveltia-cms-auth.iamsaburo.workers.dev
+
+media_folder: "assets/uploads"
+site_url: https://iamsaburo.github.io
+
+collections:
+  - name: "blocks"
+    label: "Community Blocks"
+    folder: "_blocks"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, hyphens"] }
+      - { label: "Image URL", name: "image", widget: "string", required: false }
+      - { label: "Description (for homepage)", name: "description", widget: "text", required: false }
+      - { label: "Info Content (Markdown)", name: "body", widget: "markdown" }
