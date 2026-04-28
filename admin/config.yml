@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: iamsaburo.github.io
+  repo: iamsaburo/iamsaburo.github.io
   branch: main
   base_url: https://sveltia-cms-auth.iamsaburo.workers.dev
 
