@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} — Saburo Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #1a1b2e;
+      --surface: #242640;
+      --surf2:   #2d2f52;
+      --text:    #e8e8f0;
+      --muted:   #8888a8;
+      --primary: #5865F2;
+      --border:  rgba(255,255,255,0.07);
+      --r:       12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Navbar ───────────────────────────────────────────── */
+    .navbar {
+      border-bottom: 1px solid var(--border);
+      background: rgba(26,27,46,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 2rem;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .navbar-brand {
+      font-weight: 700; font-size: 1.1rem; color: #fff;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .navbar-brand .material-icons-round { color: var(--primary); }
+
+    /* ─── Page wrapper ─────────────────────────────────────── */
+    .page-content { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem; }
+
+    /* ─── Button base ──────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    /* ─── Style 1: Secondary — white, black text, icon ─────── */
+    .btn-secondary {
+      background: #fff;
+      color: #111;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+      color: #111;
+    }
+    .btn-secondary .material-icons-round {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    /* ─── Style 2: Primary — white → chrome gradient on hover ─ */
+    .btn-primary {
+      background: #fff;
+      color: #111;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 0;
+    }
+    .btn-primary .btn-label {
+      position: relative;
+      z-index: 2;
+      transition: color 0.3s ease;
+      pointer-events: none;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: linear-gradient(45deg,
+        #ff6ec7, #ff4e4e, #ffaa00, #ffe500,
+        #00e5ff, #2979ff, #7c4dff, #e040fb, #ff6ec7
+      );
+      background-size: 300% 100%;
+      animation: chromaSlide 3s linear infinite;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 1;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 18px;
+      background: linear-gradient(45deg,
+        #ff6ec7, #ff4e4e, #ffaa00, #ffe500,
+        #00e5ff, #2979ff, #7c4dff, #e040fb, #ff6ec7
+      );
+      background-size: 300% 100%;
+      animation: chromaSlide 3s linear infinite;
+      filter: blur(16px);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: -1;
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover::after  { opacity: 0.8; }
+    .btn-primary:hover .btn-label { color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: none; }
+
+    @keyframes chromaSlide {
+      0%   { background-position:   0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* ─── Footer ───────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+  </style>
+  {% if page.extra_css %}{{ page.extra_css }}{% endif %}
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="navbar-brand">
+    <span class="material-icons-round">hub</span>
+    Saburo Community
+  </a>
+</nav>
+
+<div class="page-content">
+  {{ content }}
+</div>
+
+<footer>
+  © {{ site.time | date: "%Y" }} Saburo Community &nbsp;·&nbsp; All rights reserved
+</footer>
+
+</body>
+</html>
