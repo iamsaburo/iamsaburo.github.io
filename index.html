@@ -2,14 +2,132 @@
 layout: default
 title: Saburo Community
 ---
-<h1>Community Blocks</h1>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 3rem 1rem 4rem;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .blocks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .block-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .block-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .block-card-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    background: var(--surf2);
+  }
+  .block-card-image-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--surf2), var(--surface));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .block-card-image-placeholder .material-icons-round {
+    font-size: 2.5rem;
+    color: var(--muted);
+    opacity: 0.4;
+  }
+
+  .block-card-body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .block-card-body h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .block-card-body p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .block-card-footer {
+    padding: 0 1.25rem 1.25rem;
+    display: flex;
+    gap: 0.6rem;
+  }
+  .block-card-footer .btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.87rem;
+    border-radius: 8px;
+    flex: 1;
+    justify-content: center;
+  }
+  /* tighten inner border-radius on nested ::before/::after for smaller buttons */
+  .block-card-footer .btn-primary::before { border-radius: 8px; }
+  .block-card-footer .btn-primary::after  { border-radius: 16px; }
+</style>
+
+<div class="hero">
+  <h1>Community Blocks</h1>
+  <p>Choose a community to explore. Membership verification required to access content.</p>
+</div>
+
 <div class="blocks-grid">
   {% for block in site.blocks %}
-    <div class="block-card">
-      {% if block.image %}<img src="{{ block.image }}" alt="{{ block.title }}">{% endif %}
+  <div class="block-card">
+    {% if block.image %}
+      <img class="block-card-image" src="{{ block.image }}" alt="{{ block.title }}">
+    {% else %}
+      <div class="block-card-image-placeholder">
+        <span class="material-icons-round">groups</span>
+      </div>
+    {% endif %}
+
+    <div class="block-card-body">
       <h3>{{ block.title }}</h3>
-      <p>{{ block.description }}</p>
-      <a href="/{{ block.slug }}-info.html">Info</a>
+      {% if block.description %}<p>{{ block.description }}</p>{% endif %}
     </div>
+
+    <div class="block-card-footer">
+      <a href="/{{ block.slug }}-info.html" class="btn btn-secondary">
+        <span class="material-icons-round">info</span>Info
+      </a>
+      <a href="https://ua.iamsaburo.workers.dev/{{ block.slug }}-access" class="btn btn-primary">
+        <span class="btn-label">Join</span>
+      </a>
+    </div>
+  </div>
   {% endfor %}
 </div>
