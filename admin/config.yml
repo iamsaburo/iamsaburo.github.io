@@ -14,8 +14,40 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string", pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, hyphens"] }
-      - { label: "Image URL", name: "image", widget: "string", required: false }
-      - { label: "Description (for homepage)", name: "description", widget: "text", required: false }
-      - { label: "Info Content (Markdown)", name: "body", widget: "markdown" }
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        required: true
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, hyphens"]
+        required: true
+      - label: "Static Image URL"
+        name: "image"
+        widget: "string"
+        required: true
+        hint: "Direct link to the static preview image (external URL allowed)"
+      - label: "GIF Image URL (optional)"
+        name: "gif_image"
+        widget: "string"
+        required: false
+        hint: "Direct link to the animated GIF shown on hover. Leave empty if not needed."
+      - label: "Categories"
+        name: "categories"
+        widget: "select"
+        required: true
+        multiple: true
+        options:
+          - "StreamElements"
+          - "Streamer.bot"
+          - "Twitch"
+          - "OBS"
+      - label: "Short Description (for homepage card)"
+        name: "description"
+        widget: "text"
+        required: false
+      - label: "Full Info Content (Markdown)"
+        name: "body"
+        widget: "markdown"
+        required: false
