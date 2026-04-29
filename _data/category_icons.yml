@@ -1,0 +1,12 @@
+- category: StreamElements
+  icon: /_svg/streamelements.svg
+  label: StreamElements
+- category: Streamer.bot
+  icon: /_svg/streamerbot.svg
+  label: Streamer.bot
+- category: Twitch
+  icon: /_svg/twitch.svg
+  label: Twitch
+- category: OBS
+  icon: /_svg/obs.svg
+  label: OBS
