@@ -30,7 +30,7 @@
     .ph-img{display:inline-block;flex-shrink:0}
     .page-wrap{flex:1}
 
-    /* Pill back button */
+    /* Pill back button (only for info pages) */
     .btn-pill{
       display:inline-flex;align-items:center;gap:8px;
       padding:0 14px;height:32px;border-radius:28px;
@@ -41,19 +41,6 @@
     }
     .btn-pill:hover{background:#404040}
     .btn-pill .material-icons-round{font-size:1.125rem}
-
-    /* Secondary white button */
-    .btn-secondary{
-      display:inline-flex;align-items:center;gap:.45rem;
-      padding:.7rem 1.4rem;border-radius:10px;
-      background:#fff;color:#111;
-      font:600 .95rem/1 'Inter',system-ui;letter-spacing:.04em;
-      box-shadow:0 2px 10px rgba(0,0,0,.3);
-      border:none;cursor:pointer;text-decoration:none;
-      transition:transform .2s,box-shadow .2s;white-space:nowrap
-    }
-    .btn-secondary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.4);color:#111}
-    .btn-secondary .material-icons-round{font-size:1.1rem}
 
     /* Primary chroma button (access pages) */
     .btn-primary{
@@ -207,13 +194,12 @@
       justify-content:center;margin-right:-8px;position:relative;z-index:1
     }
 
-    /* ---------- New precise hover button ---------- */
+    /* Hover button (block cards) */
     .btn-wrap{
       position:relative;
       margin-top:auto;
       border-radius:4px;
     }
-    /* Animated Glow */
     .btn-wrap::after{
       content:'';
       position:absolute;inset:0;
@@ -296,12 +282,11 @@
       margin-right:8px;
     }
 
-    /* no results & pagination ... */
+    /* No results & pagination */
     .no-results{
       text-align:center;padding:3rem 1rem;
       color:var(--muted);grid-column:1/-1
     }
-
     .pagination{
       display:flex;justify-content:center;align-items:center;
       gap:.6rem;padding:1.5rem 0 3rem;flex-wrap:wrap
@@ -365,9 +350,10 @@
 <nav class="navbar">
   <div class="nav-left">
     <a href="/" class="nav-brand">
-      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="24" height="24" alt="logo" class="ph-img">
+      <!-- Logo symbol placeholder -->
+      <img src="{{ '/_svg/logo-symbol.svg' | relative_url }}" width="24" height="24" alt="logo" class="ph-img">
       <div class="nav-wordmark">
-        <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="97" height="21" alt="wordmark" class="ph-img">
+        <img src="{{ '/_svg/wordmark.svg' | relative_url }}" width="97" height="21" alt="wordmark" class="ph-img">
         <span class="sep">|</span>
         <span>Корисне</span>
       </div>
@@ -381,11 +367,11 @@
   <div class="nav-right">
     <span class="nav-join">Приєднуйся:</span>
     <div class="social-row">
-      <a href="{{ site.social_twitch | default: '#' }}" target="_blank" rel="noopener" title="Twitch"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="14" height="16" alt="" class="ph-img"></a>
-      <a href="{{ site.social_telegram | default: '#' }}" target="_blank" rel="noopener" title="Telegram"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="17" height="14" alt="" class="ph-img"></a>
-      <a href="{{ site.social_discord | default: '#' }}" target="_blank" rel="noopener" title="Discord"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="17" height="13" alt="" class="ph-img"></a>
-      <a href="{{ site.social_youtube | default: '#' }}" target="_blank" rel="noopener" title="YouTube"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="17" height="12" alt="" class="ph-img"></a>
-      <a href="{{ site.social_tiktok | default: '#' }}" target="_blank" rel="noopener" title="TikTok"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="12" height="14" alt="" class="ph-img"></a>
+      <a href="https://twitch.tv/iamsaburo" target="_blank" rel="noopener" title="Twitch"><img src="{{ '/_svg/twitch.svg' | relative_url }}" width="14" height="16" alt="" class="ph-img"></a>
+      <a href="https://t.me/iamsaburo" target="_blank" rel="noopener" title="Telegram"><img src="{{ '/_svg/telegram.svg' | relative_url }}" width="17" height="14" alt="" class="ph-img"></a>
+      <a href="https://discord.gg/iamsaburo" target="_blank" rel="noopener" title="Discord"><img src="{{ '/_svg/discord.svg' | relative_url }}" width="17" height="13" alt="" class="ph-img"></a>
+      <a href="https://youtube.com/@iamsaburo" target="_blank" rel="noopener" title="YouTube"><img src="{{ '/_svg/youtube.svg' | relative_url }}" width="17" height="12" alt="" class="ph-img"></a>
+      <a href="https://tiktok.com/@iamsaburo" target="_blank" rel="noopener" title="TikTok"><img src="{{ '/_svg/tiktok.svg' | relative_url }}" width="12" height="14" alt="" class="ph-img"></a>
     </div>
   </div>
 </nav>
@@ -395,7 +381,7 @@
 <footer>
   <span class="footer-copy">© {{ site.time | date: "%Y" }} SABURO™</span>
   <div class="footer-center">
-    <a href="{{ site.support_url | default: '#' }}" class="btn-support">
+    <a href="https://patreon.com/iamsaburo" class="btn-support">
       <span class="heart-icon">favorite</span>Підтримати Мене
     </a>
   </div>
