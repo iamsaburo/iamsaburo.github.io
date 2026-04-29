@@ -7,6 +7,13 @@
   <title>Content Manager</title>
 </head>
 <body>
+  <!-- Enable verbose debug logging for Decap CMS -->
+  <script>
+    window.CMS_ENV = 'development';
+    console.log('Decap CMS debug mode enabled (CMS_ENV=development).');
+  </script>
+
+  <!-- Load Decap CMS (auto‑initialises with /admin/config.yml or admin_config.yml) -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
