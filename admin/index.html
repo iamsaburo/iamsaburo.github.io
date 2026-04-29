@@ -8,28 +8,39 @@
 </head>
 <body>
   <script>
-    function getCookie(name) {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? match[2] : null;
-    }
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
 
-    const token = getCookie('__Host-admin-token');
-
-    if (token) {
-      // Already authenticated – inject the backend config
-      window.CMS_CONFIG = {
-        backend: {
-          name: 'github',
-          repo: 'iamsaburo/iamsaburo.github.io',
-          branch: 'main',
-          base_url: 'https://decap-oauth.iamsaburo.workers.dev',
-          token: token
+      if (token) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        sessionStorage.setItem('decap-github-token', token);
+        window.CMS_CONFIG = {
+          backend: {
+            name: 'github',
+            repo: 'iamsaburo/iamsaburo.github.io',
+            branch: 'main',
+            base_url: 'https://decap-oauth.iamsaburo.workers.dev',
+            token: token
+          }
+        };
+      } else {
+        const storedToken = sessionStorage.getItem('decap-github-token');
+        if (storedToken) {
+          window.CMS_CONFIG = {
+            backend: {
+              name: 'github',
+              repo: 'iamsaburo/iamsaburo.github.io',
+              branch: 'main',
+              base_url: 'https://decap-oauth.iamsaburo.workers.dev',
+              token: storedToken
+            }
+          };
+        } else {
+          window.location.href = 'https://decap-oauth.iamsaburo.workers.dev/admin/auth';
         }
-      };
-    } else {
-      // Not authenticated – go to GitHub via our Worker
-      window.location.href = 'https://decap-oauth.iamsaburo.workers.dev/admin/auth';
-    }
+      }
+    })();
   </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
