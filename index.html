@@ -61,7 +61,12 @@ back_url: false
       </span>
       {% endfor %}
     </div>
-    <a href="https://ua.iamsaburo.workers.dev/{{ block.slug }}" class="btn-card">Дізнатись більше</a>
+    <div class="btn-wrap">
+      <a href="https://ua.iamsaburo.workers.dev/{{ block.slug }}" class="btn-chroma">
+        <span class="btn-label">Дізнатись більше</span>
+        <span class="material-icons-round">arrow_forward</span>
+      </a>
+    </div>
   </div>
   {% endfor %}
 </div>
