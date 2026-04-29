@@ -1,7 +1,6 @@
 ---
 layout: block-info
 title: "Врубай Дesign."
-back_url: false
 ---
 
 <!-- Hero -->
@@ -14,34 +13,16 @@ back_url: false
 <div class="filter-wrap">
   <div class="filter-bar" id="filterBar">
     <button class="filter-btn active" data-category="all">Усі</button>
-    <button class="filter-btn" data-category="discord">
-      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="20" height="20" alt="">
-      <span class="f-label">Discord</span>
+    {% for cat in site.data.category_icons %}
+    <button class="filter-btn" data-category="{{ cat.category }}">
+      <img src="{{ cat.icon | relative_url }}" width="20" height="20" alt="{{ cat.label }}">
+      <span class="f-label">{{ cat.label }}</span>
     </button>
-    <button class="filter-btn" data-category="twitch">
-      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="20" height="20" alt="">
-      <span class="f-label">Twitch</span>
-    </button>
-    <button class="filter-btn" data-category="telegram">
-      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="20" height="20" alt="">
-      <span class="f-label">Telegram</span>
-    </button>
-    <button class="filter-btn" data-category="youtube">
-      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="20" height="20" alt="">
-      <span class="f-label">YouTube</span>
-    </button>
-    <button class="filter-btn" data-category="tiktok">
-      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="20" height="20" alt="">
-      <span class="f-label">TikTok</span>
-    </button>
-    <button class="filter-btn" data-category="design">
-      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="20" height="20" alt="">
-      <span class="f-label">Design</span>
-    </button>
+    {% endfor %}
   </div>
 </div>
 
-<!-- Blocks -->
+<!-- Blocks Grid -->
 <div id="blockContainer" class="block-grid">
   {% for block in site.blocks %}
   <div class="block-card" data-categories="{{ block.categories | join: ',' }}">
@@ -55,10 +36,13 @@ back_url: false
     </div>
     <div class="card-title">{{ block.title }}</div>
     <div class="tags-row">
-      {% for cat in block.categories %}
-      <span class="tag-circle" title="{{ cat }}">
-        <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="20" height="20" alt="">
-      </span>
+      {% for cat_slug in block.categories %}
+        {% assign cat_data = site.data.category_icons | where: "category", cat_slug | first %}
+        {% if cat_data %}
+        <span class="tag-circle" title="{{ cat_data.label }}">
+          <img src="{{ cat_data.icon | relative_url }}" width="20" height="20" alt="{{ cat_data.label }}">
+        </span>
+        {% endif %}
       {% endfor %}
     </div>
     <div class="btn-wrap">
