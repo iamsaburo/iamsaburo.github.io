@@ -2,7 +2,7 @@
   icon: /_svg/streamelements.svg
   label: StreamElements
 - category: Streamer.bot
-  icon: /_svg/streamerbot.svg
+  icon: /_svg/streamer-bot.svg
   label: Streamer.bot
 - category: Twitch
   icon: /_svg/twitch.svg
