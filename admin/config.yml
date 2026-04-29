@@ -2,7 +2,7 @@ backend:
   name: github
   repo: iamsaburo/iamsaburo.github.io
   branch: main
-  base_url: https://sveltia-cms-auth.iamsaburo.workers.dev
+  base_url: https://decap-oauth.iamsaburo.workers.dev
 
 media_folder: "assets/uploads"
 site_url: https://iamsaburo.github.io
