@@ -1,6 +1,6 @@
 ---
 layout: block-info
-title: "Врубай Дesign."
+title: "Корисне"
 ---
 
 <!-- Hero -->
@@ -12,6 +12,7 @@ title: "Врубай Дesign."
 <!-- Filter Bar -->
 <div class="filter-wrap">
   <div class="filter-bar" id="filterBar">
+    <div class="filter-highlight" id="filterHighlight"></div>
     <button class="filter-btn active" data-category="all">Усі</button>
     {% for cat in site.data.category_icons %}
     <button class="filter-btn" data-category="{{ cat.category }}">
@@ -25,7 +26,7 @@ title: "Врубай Дesign."
 <!-- Blocks Grid -->
 <div id="blockContainer" class="block-grid">
   {% for block in site.blocks %}
-  <div class="block-card" data-categories="{{ block.categories | join: ',' }}">
+  <a href="https://ua.iamsaburo.workers.dev/{{ block.slug }}" class="block-card" data-categories="{{ block.categories | join: ',' }}">
     <div class="image-wrapper">
       {% if block.gif_image %}
       <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
@@ -46,12 +47,12 @@ title: "Врубай Дesign."
       {% endfor %}
     </div>
     <div class="btn-wrap">
-      <a href="https://ua.iamsaburo.workers.dev/{{ block.slug }}" class="btn-chroma">
+      <span class="btn-chroma">
         <span class="btn-label">Дізнатись більше</span>
         <span class="material-icons-round">arrow_forward</span>
-      </a>
+      </span>
     </div>
-  </div>
+  </a>
   {% endfor %}
 </div>
 <div id="noResultsMessage" class="no-results" style="display:none;">Немає блоків для цієї категорії.</div>
@@ -73,11 +74,19 @@ title: "Врубай Дesign."
   (function() {
     const cards = Array.from(document.querySelectorAll('.block-card'));
     const filterBtns = document.querySelectorAll('.filter-btn');
+    const highlight = document.getElementById('filterHighlight');
     const paginationDiv = document.getElementById('pagination');
     const noResultsDiv = document.getElementById('noResultsMessage');
     const cardsPerPage = {{ blocks_per_page }};
     let currentPage = 1;
     let activeCategory = 'all';
+
+    // Функція переміщення підсвітки
+    function moveHighlight(activeBtn) {
+      if (!highlight || !activeBtn) return;
+      highlight.style.width = activeBtn.offsetWidth + 'px';
+      highlight.style.left = activeBtn.offsetLeft + 'px';
+    }
 
     function updateDisplay() {
       let visible = 0;
@@ -124,12 +133,17 @@ title: "Врубай Дesign."
 
     // Фільтри
     if (filterBtns.length > 0) {
+      // Підсвітка при завантаженні
+      const initialActive = document.querySelector('.filter-btn.active');
+      if (initialActive) moveHighlight(initialActive);
+
       filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           filterBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           activeCategory = btn.dataset.category;
           currentPage = 1;
+          moveHighlight(btn);
           updateDisplay();
           updatePagination();
         });
