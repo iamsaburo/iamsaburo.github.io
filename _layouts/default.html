@@ -10,20 +10,14 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#141414;
-      --sur:#1A1A1A;
-      --sur2:#222;
-      --pill:#303030;
-      --text:#fff;
-      --muted:#ADADAD;
-      --border:rgba(255,255,255,.06);
-      --r:17px;
+      --bg:#141414;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
+      --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
       --chroma:linear-gradient(65deg,
         #9C96FF 0%,#9FE5F6 6%,#E4FFA8 12%,#FCFF91 20%,
         #CCFFBF 28%,#C2FAAB 36%,#E0E1C9 44%,#F3CDDA 52%,
         #FFBED0 60%,#F8C2FF 68%,#CFFFFA 76%,#A5F3FF 84%,
         #A0BBFF 92%,#9C96FF 100%);
-      --pad:248px;
+      --pad:248px
     }
     body{
       background:var(--bg);color:var(--text);
@@ -32,11 +26,9 @@
       -webkit-font-smoothing:antialiased
     }
     a{color:inherit;text-decoration:none}
-    img{display:block;max-width:100%}
-    .ph-svg{display:inline-flex;align-items:center;justify-content:center}
-    .ph-svg svg{width:100%;height:100%}
+    .ph-img{display:inline-block;flex-shrink:0}
 
-    /* Pill button */
+    /* Pill */
     .btn-pill{
       display:inline-flex;align-items:center;gap:8px;
       padding:0 14px;height:32px;border-radius:28px;
@@ -48,7 +40,7 @@
     .btn-pill:hover{background:#404040}
     .btn-pill .material-icons-round{font-size:1.125rem}
 
-    /* Secondary button */
+    /* Secondary */
     .btn-secondary{
       display:inline-flex;align-items:center;gap:.45rem;
       padding:.7rem 1.4rem;border-radius:10px;
@@ -61,10 +53,10 @@
     .btn-secondary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.4);color:#111}
     .btn-secondary .material-icons-round{font-size:1.1rem}
 
-    /* Chroma primary button */
+    /* Primary Chroma */
     .btn-primary{
-      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      padding:.7rem 1.4rem;border-radius:10px;
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:.5rem;padding:.7rem 1.4rem;border-radius:10px;
       background:#fff;color:#111;
       font:600 .95rem/1 'Inter',system-ui;letter-spacing:.04em;
       box-shadow:0 2px 10px rgba(0,0,0,.3);
@@ -111,6 +103,126 @@
     .social-row a{display:flex;align-items:center;opacity:.8;transition:opacity .2s}
     .social-row a:hover{opacity:1}
 
+    /* Hero */
+    .hero{
+      text-align:center;padding:4.5rem 1rem 1.5rem;
+    }
+    .hero h1{
+      font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;
+      margin-bottom:.5rem;color:#fff
+    }
+    .hero h1 .design{
+      background:var(--chroma);background-size:200% auto;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+      animation:chromaSlide 3s linear infinite;
+      display:inline-block;
+      transition:filter .3s;
+    }
+    .hero h1 .design:hover{
+      filter:brightness(1.2);
+    }
+    .hero p{
+      font-size:1rem;color:var(--muted);
+      letter-spacing:.06em;max-width:650px;margin:0 auto
+    }
+
+    /* Filter */
+    .filter-wrap{
+      display:flex;justify-content:center;
+      margin:1.5rem auto 2rem;padding:0 1rem
+    }
+    .filter-bar{
+      display:flex;align-items:center;gap:2px;
+      background:var(--sur);border-radius:40px;
+      padding:5px;overflow-x:auto
+    }
+    .filter-btn{
+      display:flex;align-items:center;gap:6px;
+      padding:0 14px;height:34px;border-radius:28px;
+      background:transparent;color:var(--text);
+      font:400 .9rem/1 'Inter',system-ui;letter-spacing:.04em;
+      border:none;cursor:pointer;white-space:nowrap;flex-shrink:0
+    }
+    .filter-btn.active{background:var(--bg);color:var(--text)}
+    .filter-btn .f-label{display:none;font-weight:500}
+    .filter-btn.active .f-label{display:inline}
+
+    /* Card grid */
+    .block-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:1.5rem;
+      padding:0 var(--pad) 2rem;
+      max-width:1520px;margin:0 auto
+    }
+    .block-card{
+      background:var(--sur);border-radius:var(--r);
+      padding:20px;
+      transition:transform .25s,background .25s;
+      display:flex;flex-direction:column;cursor:pointer
+    }
+    .block-card:hover{transform:translateY(-4px);background:var(--sur2)}
+    .image-wrapper{
+      width:100%;aspect-ratio:290/187;
+      border-radius:8px;overflow:hidden;
+      margin-bottom:20px;position:relative;background:#0d0d0d
+    }
+    .image-wrapper img{
+      width:100%;height:100%;object-fit:cover;
+      position:absolute;top:0;left:0;transition:opacity .35s
+    }
+    .image-wrapper .static-img{opacity:1}
+    .image-wrapper .gif-img{opacity:0}
+    .block-card:hover .image-wrapper .static-img{opacity:0}
+    .block-card:hover .image-wrapper .gif-img{opacity:1}
+    .card-title{
+      font-size:1.125rem;font-weight:700;color:#fff;
+      margin-bottom:8px;letter-spacing:.03em
+    }
+    .tags-row{
+      display:flex;gap:0;margin-bottom:20px;
+      height:34px;align-items:center
+    }
+    .tag-circle{
+      width:34px;height:34px;border-radius:50%;
+      background:#141414;display:flex;align-items:center;
+      justify-content:center;margin-right:-8px;position:relative;z-index:1
+    }
+    .btn-card{
+      margin-top:auto;display:flex;align-items:center;
+      justify-content:center;height:40px;border-radius:4px;
+      border:1px solid #303030;color:var(--text);
+      font-weight:600;font-size:.95rem;letter-spacing:.04em;
+      transition:all .25s;background:transparent;
+      cursor:pointer;text-decoration:none
+    }
+    .block-card:hover .btn-card{
+      background:#fff;color:#111;border-color:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,.3)
+    }
+
+    .no-results{
+      text-align:center;padding:3rem 1rem;
+      color:var(--muted);grid-column:1/-1
+    }
+
+    /* Pagination */
+    .pagination{
+      display:flex;justify-content:center;align-items:center;
+      gap:.6rem;padding:1.5rem 0 3rem;flex-wrap:wrap
+    }
+    .page-btn{
+      width:40px;height:40px;border-radius:50%;
+      background:var(--sur);color:var(--text);
+      display:flex;align-items:center;justify-content:center;
+      border:none;cursor:pointer;font-weight:600;font-size:.95rem;
+      font-family:'Inter',system-ui;transition:background .2s
+    }
+    .page-btn.active{background:var(--pill)}
+    .page-btn:hover{background:#404040}
+    .page-btn:disabled{opacity:.35;cursor:default;pointer-events:none}
+
     /* Footer */
     footer{
       height:56px;background:var(--sur);
@@ -132,21 +244,24 @@
     .btn-support .heart-icon{font-family:'Material Icons Round';font-size:1.1rem;color:#FFBC40}
     .footer-right{margin-left:auto;color:var(--muted);font-size:1rem;font-weight:500;letter-spacing:.06em}
 
-    /* Responsive */
-    @media (max-width:1400px){:root{--pad:2rem}.navbar{padding:0 2rem}footer{padding:0 2rem}}
+    @media (max-width:1400px){:root{--pad:2rem}.navbar{padding:0 2rem}footer{padding:0 2rem}.block-grid{padding:0 2rem 2rem}}
+    @media (max-width:1024px){.hero h1{font-size:3rem}}
     @media (max-width:768px){
       .navbar{padding:0 1rem}
       .nav-wordmark{display:none}
       .nav-join{display:none}
       .social-row{gap:12px}
       .nav-left{gap:12px}
+      .block-grid{grid-template-columns:1fr;padding:0 1rem 2rem}
+      .hero h1{font-size:2.2rem}
+      .hero{padding:2.5rem 1rem 1rem}
       footer{height:auto;padding:.75rem 1rem;flex-wrap:wrap;gap:.5rem}
       .footer-center{position:static;transform:none;order:3;width:100%;display:flex;justify-content:center}
       .footer-copy,.footer-right{font-size:.85rem}
     }
     @media (max-width:480px){
+      .hero h1{font-size:1.7rem}
       .social-row{gap:8px}
-      .social-row a svg{width:16px;height:16px}
     }
   </style>
   {% if page.extra_css %}{{ page.extra_css }}{% endif %}
@@ -155,11 +270,11 @@
 <nav class="navbar">
   <div class="nav-left">
     <a href="/" class="nav-brand">
-      <!-- Logo Symbol placeholder -->
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#D9D9D9"/></svg>
+      <!-- Logo Symbol -->
+      <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="24" height="24" alt="logo" class="ph-img">
       <div class="nav-wordmark">
-        <!-- Wordmark placeholder (scaled width/height) -->
-        <svg width="97" height="21" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#D9D9D9"/></svg>
+        <!-- Wordmark -->
+        <img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="97" height="21" alt="wordmark" class="ph-img">
         <span class="sep">|</span>
         <span>Корисне</span>
       </div>
@@ -173,27 +288,15 @@
   <div class="nav-right">
     <span class="nav-join">Приєднуйся:</span>
     <div class="social-row">
-      <a href="{{ site.social_twitch | default: '#' }}" target="_blank" rel="noopener" title="Twitch">
-        <svg width="14" height="16" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#D9D9D9"/></svg>
-      </a>
-      <a href="{{ site.social_telegram | default: '#' }}" target="_blank" rel="noopener" title="Telegram">
-        <svg width="17" height="14" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#D9D9D9"/></svg>
-      </a>
-      <a href="{{ site.social_discord | default: '#' }}" target="_blank" rel="noopener" title="Discord">
-        <svg width="17" height="13" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#D9D9D9"/></svg>
-      </a>
-      <a href="{{ site.social_youtube | default: '#' }}" target="_blank" rel="noopener" title="YouTube">
-        <svg width="17" height="12" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#D9D9D9"/></svg>
-      </a>
-      <a href="{{ site.social_tiktok | default: '#' }}" target="_blank" rel="noopener" title="TikTok">
-        <svg width="12" height="14" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#D9D9D9"/></svg>
-      </a>
+      <a href="{{ site.social_twitch | default: '#' }}" target="_blank" rel="noopener" title="Twitch"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="14" height="16" alt="" class="ph-img"></a>
+      <a href="{{ site.social_telegram | default: '#' }}" target="_blank" rel="noopener" title="Telegram"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="17" height="14" alt="" class="ph-img"></a>
+      <a href="{{ site.social_discord | default: '#' }}" target="_blank" rel="noopener" title="Discord"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="17" height="13" alt="" class="ph-img"></a>
+      <a href="{{ site.social_youtube | default: '#' }}" target="_blank" rel="noopener" title="YouTube"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="17" height="12" alt="" class="ph-img"></a>
+      <a href="{{ site.social_tiktok | default: '#' }}" target="_blank" rel="noopener" title="TikTok"><img src="{{ '/_svg/placeholder.svg' | relative_url }}" width="12" height="14" alt="" class="ph-img"></a>
     </div>
   </div>
 </nav>
-
 <div class="page-wrap">{{ content }}</div>
-
 <footer>
   <span class="footer-copy">© {{ site.time | date: "%Y" }} SABURO™</span>
   <div class="footer-center">
