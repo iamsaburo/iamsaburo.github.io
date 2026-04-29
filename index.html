@@ -87,11 +87,16 @@ title: "Врубай Дesign."
         card.style.display = match ? '' : 'none';
         if (match) visible++;
       });
-      noResultsDiv.style.display = visible === 0 ? 'block' : 'none';
-      if (paginationDiv) paginationDiv.style.display = visible > cardsPerPage ? 'flex' : 'none';
+      if (noResultsDiv) {
+        noResultsDiv.style.display = visible === 0 ? 'block' : 'none';
+      }
+      if (paginationDiv) {
+        paginationDiv.style.display = visible > cardsPerPage ? 'flex' : 'none';
+      }
     }
 
     function paginate() {
+      if (!paginationDiv) return;
       const visibleCards = cards.filter(c => c.style.display !== 'none');
       const start = (currentPage - 1) * cardsPerPage;
       visibleCards.forEach((card, idx) => {
@@ -100,43 +105,61 @@ title: "Врубай Дesign."
     }
 
     function updatePagination() {
+      if (!paginationDiv) return;
       const visibleCards = cards.filter(c => c.style.display !== 'none');
       const totalPages = Math.ceil(visibleCards.length / cardsPerPage);
+
       document.querySelectorAll('.page-num').forEach(btn => {
         const page = parseInt(btn.dataset.page);
         btn.style.display = page <= totalPages ? '' : 'none';
         btn.classList.toggle('active', page === currentPage);
       });
-      document.getElementById('prevPage').disabled = currentPage === 1;
-      document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
+
+      const prevBtn = document.getElementById('prevPage');
+      const nextBtn = document.getElementById('nextPage');
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
       paginate();
     }
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeCategory = btn.dataset.category;
-        currentPage = 1;
-        updateDisplay();
-        updatePagination();
+    // Фільтри
+    if (filterBtns.length > 0) {
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCategory = btn.dataset.category;
+          currentPage = 1;
+          updateDisplay();
+          updatePagination();
+        });
       });
-    });
+    }
 
-    document.querySelectorAll('.page-num').forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentPage = parseInt(btn.dataset.page);
-        updatePagination();
+    // Пагінація (тільки якщо панель існує)
+    if (paginationDiv) {
+      document.querySelectorAll('.page-num').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentPage = parseInt(btn.dataset.page);
+          updatePagination();
+        });
       });
-    });
-    document.getElementById('prevPage').addEventListener('click', () => {
-      if (currentPage > 1) { currentPage--; updatePagination(); }
-    });
-    document.getElementById('nextPage').addEventListener('click', () => {
-      const visibleCards = cards.filter(c => c.style.display !== 'none');
-      const totalPages = Math.ceil(visibleCards.length / cardsPerPage);
-      if (currentPage < totalPages) { currentPage++; updatePagination(); }
-    });
+
+      const prevBtn = document.getElementById('prevPage');
+      const nextBtn = document.getElementById('nextPage');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          if (currentPage > 1) { currentPage--; updatePagination(); }
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          const visibleCards = cards.filter(c => c.style.display !== 'none');
+          const totalPages = Math.ceil(visibleCards.length / cardsPerPage);
+          if (currentPage < totalPages) { currentPage++; updatePagination(); }
+        });
+      }
+    }
 
     updateDisplay();
     updatePagination();
