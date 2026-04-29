@@ -2,10 +2,11 @@
 title: Art Community
 slug: art-community
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
-description: short text for the homepage card
-layout: block-info
-back_url: /
-back_label: Головна
+gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
+categories:
+  - StreamElements
+  - Twitch
+description: Отримуйте ексклюзивні дизайни
 ---
 
-any Markdown text you want on the public info page
+Контент сторінки (Markdown) для публічної інформації.
