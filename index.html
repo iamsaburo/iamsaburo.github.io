@@ -1,9 +1,12 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }} — Saburo Community</title>
+  <title>Saburo Community – Home</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -140,6 +143,48 @@
       100% { background-position: 200% 50%; }
     }
 
+    /* ─── Blog card grid ──────────────────────────────────── */
+    .block-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .block-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .block-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+    }
+    .block-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .block-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .block-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .block-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
     /* ─── Footer ───────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -150,7 +195,6 @@
       margin-top: 4rem;
     }
   </style>
-  {% if page.extra_css %}{{ page.extra_css }}{% endif %}
 </head>
 <body>
 
@@ -162,7 +206,27 @@
 </nav>
 
 <div class="page-content">
-  {{ content }}
+  <h1 style="font-size:2rem; font-weight:700; color:#fff; margin-bottom:1.5rem;">
+    Community Blocks
+  </h1>
+  <p style="color:var(--muted); margin-bottom:2rem;">
+    Explore our exclusive content. Click any card to view details.
+  </p>
+
+  <div class="block-grid">
+    {% for block in site.blocks %}
+    <div class="block-card">
+      {% if block.image %}
+      <img src="{{ block.image }}" alt="{{ block.title }}">
+      {% endif %}
+      <h3>{{ block.title }}</h3>
+      <p>{{ block.description }}</p>
+      <a href="{{ block.url }}" class="btn btn-primary">
+        <span class="btn-label">View info</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 <footer>
