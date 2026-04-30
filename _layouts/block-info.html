@@ -7,12 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="icon" href="{{ '/svg/favicon.svg' | relative_url }}" type="image/svg+xml">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
       --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
       --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
-      --chroma:linear-gradient(-65deg,
+      --chroma:linear-gradient(7deg,
         #9C96FF 0%,#9FE5F6 6%,#E4FFA8 12%,#FCFF91 20%,
         #CCFFBF 28%,#C2FAAB 36%,#E0E1C9 44%,#F3CDDA 52%,
         #FFBED0 60%,#F8C2FF 68%,#CFFFFA 76%,#A5F3FF 84%,
@@ -37,14 +38,14 @@
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       position:relative;z-index:0;text-decoration:none;cursor:pointer;
       border:none;outline:none;font-family:'Inter',system-ui,sans-serif;
-      font-weight:600;font-size:0.95rem;letter-spacing:0.04em;line-height:1;
+      font-weight:500;font-size:0.95rem;letter-spacing:0.04em;line-height:1;
       width:var(--btn-w,auto);height:var(--btn-h,48px);border-radius:var(--radius,10px);
-      padding:0 1.4rem;box-sizing:border-box;
+      padding:0 1rem;box-sizing:border-box;
       transition:background-color 0.3s,color 0.3s,box-shadow 0.3s,transform 0.2s;
       white-space:nowrap;user-select:none;background:transparent;color:#fff;
     }
     .btn-saburo[data-visual="outline"]{
-      background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
+      background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #303030;
     }
     .btn-saburo[data-visual="white"]{
       background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);
@@ -92,8 +93,8 @@
     .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after{opacity:0;}
 
     @keyframes rainbowShift{
-      0%{background-position:0% 50%}
-      100%{background-position:200% 50%}
+      0%  {background-position:0%   50%}
+      100%{background-position:100% 50%}
     }
 
     .btn-saburo[data-hover]:hover,.block-card:hover .btn-saburo[data-hover]{transform:scale(1.02);}
@@ -126,7 +127,7 @@
     .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover::before,
     .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover::after{display:block;}
 
-    .btn-saburo .btn-icon-visual,.btn-saburo .btn-icon-hover{font-size:1.25rem;line-height:1;display:none;}
+    .btn-saburo .btn-icon-visual,.btn-saburo .btn-icon-hover{font-size:1.125rem;line-height:1;display:none;}
     .btn-saburo[data-icon-visual]:not([data-icon-visual="none"]) .btn-icon-visual{display:inline-flex;}
     .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-hover{display:none;}
     .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]):hover .btn-icon-visual{display:none;}
@@ -162,7 +163,7 @@
     .navbar{position:sticky;top:0;z-index:100;height:56px;background:var(--sur);display:flex;align-items:center;padding:0;}
     .nav-container{max-width:1425px;width:100%;margin:0 auto;display:flex;align-items:center;height:100%;padding:0 1rem;}
     .nav-left{display:flex;align-items:center;gap:35px}
-    .nav-brand{display:flex;align-items:center;gap:14px}
+    .nav-brand{display:flex;align-items:center;gap:8px}
     .nav-wordmark{display:flex;align-items:center;gap:6px;font-size:1rem;font-weight:500;letter-spacing:.06em;white-space:nowrap}
     .nav-wordmark .sep{opacity:.35;padding:0 4px}
     .nav-right{margin-left:auto;display:flex;align-items:center;gap:30px}
@@ -170,6 +171,7 @@
     .social-row{display:flex;align-items:center;gap:18px}
     .social-row a{display:flex;align-items:center;opacity:.8;transition:opacity .2s}
     .social-row a:hover{opacity:1}
+    .social-row a img { height: 20px; width: auto; }
 
     .hero{text-align:center;padding:4.5rem 1rem 1.5rem;}
     .hero h1{font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:.5rem;color:#fff}
@@ -198,10 +200,10 @@
     .filter-highlight{position:absolute;top:5px;height:34px;background:var(--bg);border-radius:28px;transition:left .3s ease,width .3s ease;z-index:0;pointer-events:none;}
     .filter-btn{display:flex;align-items:center;gap:6px;padding:0 14px;height:34px;border-radius:28px;background:transparent;color:var(--text);font:400 .9rem/1 'Inter',system-ui;letter-spacing:.04em;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;position:relative;z-index:1;}
     .filter-btn.active{background:transparent;color:var(--text)}
-    .filter-btn .f-label{display:inline-block;overflow:hidden;max-width:0;opacity:0;font-weight:500;transition:max-width .3s ease,opacity .3s ease;}
-    .filter-btn.active .f-label{max-width:100px;opacity:1;}
+    .filter-btn .f-label{display:inline-block;overflow:hidden;max-width:0;white-space:nowrap;opacity:0;font-weight:500;transition:max-width .3s ease,opacity .3s ease;}
+    .filter-btn.active .f-label{max-width:220px;opacity:1;}
 
-    .block-grid{display:grid;grid-template-columns:repeat(4,330px);gap:25px;justify-content:center;max-width:1425px;margin:0 auto;padding:0 0 2rem;}
+    .block-grid{display:grid;grid-template-columns:repeat(4,330px);gap:15px;justify-content:center;max-width:1425px;margin:0 auto;padding:0 0 2rem;}
     @media (max-width:1425px){.block-grid{padding:0 1rem 2rem}}
     .block-card{background:var(--sur);border-radius:var(--r);padding:20px;transition:transform .25s,background .25s;display:flex;flex-direction:column;text-decoration:none;color:inherit;gap:25px;}
     .image-wrapper{width:100%;aspect-ratio:290/187;border-radius:8px;overflow:hidden;position:relative;background:#0d0d0d;}
@@ -248,7 +250,7 @@
     @media (max-width:1024px){.hero h1{font-size:3rem}}
     @media (max-width:768px){
       .navbar{padding:0}
-      .nav-wordmark{display:none}
+      .nav-wordmark--info{display:none}
       .nav-join{display:none}
       .social-row{gap:12px}
       .nav-left{gap:12px}
@@ -277,7 +279,7 @@
     <div class="nav-left">
       <a href="/" class="nav-brand">
         <img src="{{ '/svg/logo_symbol.svg' | relative_url }}" width="24" height="24" alt="лого" class="ph-img">
-        <div class="nav-wordmark">
+        <div class="nav-wordmark{% if page.back_url %} nav-wordmark--info{% endif %}">
           <img src="{{ '/svg/logo_word-mark.svg' | relative_url }}" width="97" height="21" alt="SABURO" class="ph-img">
           <span class="sep">|</span>
           <span>Корисне</span>

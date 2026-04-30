@@ -8,58 +8,62 @@
 </head>
 <body>
   <script>
-    (function() {
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get('token');
+    (function () {
+      const params    = new URLSearchParams(window.location.search);
+      const urlToken  = params.get('token');
 
-      // If we received a token from the OAuth redirect, clean the URL and store it
-      if (token) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-        sessionStorage.setItem('decap-github-token', token);
+      if (urlToken) {
+        history.replaceState({}, '', location.pathname);
+        sessionStorage.setItem('decap-github-token', urlToken);
       }
 
-      // Try to get token (from URL parameter or from sessionStorage)
-      const storedToken = token || sessionStorage.getItem('decap-github-token');
+      const token = urlToken || sessionStorage.getItem('decap-github-token');
 
-      if (storedToken) {
-        // We have a token – inject the full backend config so Decap is already logged in
-        window.CMS_CONFIG = {
-          backend: {
-            name: 'github',
-            repo: 'iamsaburo/iamsaburo.github.io',
-            branch: 'main',
-            base_url: 'https://decap-oauth.iamsaburo.workers.dev',
-            token: storedToken
+      if (!token) {
+        // Redirect before Decap ever loads — this was the bug
+        location.replace('https://decap-oauth.iamsaburo.workers.dev/admin/auth');
+        return;
+      }
+
+      window.CMS_CONFIG = {
+        backend: {
+          name:          'github',
+          repo:          'iamsaburo/iamsaburo.github.io',
+          branch:        'main',
+          base_url:      'https://decap-oauth.iamsaburo.workers.dev',
+          auth_endpoint: 'auth',   // fallback popup if token expires
+          token:         token,
+        },
+        media_folder: 'assets/uploads',
+        site_url:     'https://iamsaburo.github.io',
+        collections: [
+          {
+            name: 'blocks', label: 'Community Blocks',
+            folder: '_blocks', create: true, slug: '{{slug}}',
+            fields: [
+              { label: 'Title',                      name: 'title',       widget: 'string',   required: true  },
+              { label: 'Slug',                        name: 'slug',        widget: 'string',   required: true,
+                pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens'] },
+              { label: 'Static Image URL',            name: 'image',       widget: 'string',   required: true  },
+              { label: 'GIF Image URL (optional)',    name: 'gif_image',   widget: 'string',   required: false },
+              { label: 'Categories',                  name: 'categories',  widget: 'select',   required: true,
+                multiple: true, options: ['StreamElements','Streamer.bot','Twitch','OBS'] },
+              { label: 'Short Description',           name: 'description', widget: 'text',     required: false },
+              { label: 'Full Info Content (Markdown)',name: 'body',        widget: 'markdown', required: false },
+            ],
           },
-          media_folder: 'assets/uploads',
-          site_url: 'https://iamsaburo.github.io',
-          collections: [
-            {
-              name: 'blocks',
-              label: 'Community Blocks',
-              folder: '_blocks',
-              create: true,
-              slug: '{{slug}}',
-              fields: [
-                { label: 'Title', name: 'title', widget: 'string', required: true },
-                { label: 'Slug', name: 'slug', widget: 'string', pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens'], required: true },
-                { label: 'Static Image URL', name: 'image', widget: 'string', required: true },
-                { label: 'GIF Image URL (optional)', name: 'gif_image', widget: 'string', required: false },
-                { label: 'Categories', name: 'categories', widget: 'select', required: true, multiple: true, options: ['StreamElements', 'Streamer.bot', 'Twitch', 'OBS'] },
-                { label: 'Short Description', name: 'description', widget: 'text', required: false },
-                { label: 'Full Info Content (Markdown)', name: 'body', widget: 'markdown', required: false }
-              ]
-            }
-          ]
-        };
-      } else {
-        // No token – redirect to the Worker to start OAuth immediately
-        window.location.href = 'https://decap-oauth.iamsaburo.workers.dev/admin/auth';
-      }
+        ],
+      };
+
+      // Only now load Decap — CMS_CONFIG is already set
+      const s = document.createElement('script');
+      s.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+      s.onerror = () => {
+        document.body.innerHTML =
+          '<p style="padding:2rem;font-family:sans-serif">Failed to load Decap CMS.</p>';
+      };
+      document.body.appendChild(s);
     })();
   </script>
-
-  <!-- Decap CMS loads after our redirect logic -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
