@@ -10,7 +10,7 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#141414;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
+      --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
       --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
       --chroma:linear-gradient(-65deg,
         #9C96FF 0%,#9FE5F6 6%,#E4FFA8 12%,#FCFF91 20%,
@@ -30,7 +30,7 @@
     .page-wrap{flex:1}
 
     .navbar,footer,.filter-bar,.block-card,.content-container{
-      box-shadow:0 0 0 1px rgba(255,255,255,0.3);
+      box-shadow:0 0 0 1px rgba(255,255,255,0.07);
     }
 
     .btn-saburo{
@@ -96,7 +96,7 @@
       100%{background-position:200% 50%}
     }
 
-    .btn-saburo[data-hover]:hover,.block-card:hover .btn-saburo[data-hover]{transform:scale(1.03);}
+    .btn-saburo[data-hover]:hover,.block-card:hover .btn-saburo[data-hover]{transform:scale(1.02);}
 
     .btn-saburo[data-hover="white"]:hover{
       background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
@@ -134,7 +134,7 @@
     .btn-saburo[data-icon-position="after"] .btn-icon-visual,
     .btn-saburo[data-icon-position="after"] .btn-icon-hover{order:1;}
 
-    .block-card:hover{transform:scale(1.03);background:var(--sur2);}
+    .block-card:hover{transform:scale(1.02);background:var(--sur2);}
     .block-card:hover .btn-saburo[data-hover="white"]{
       background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
     }
@@ -166,7 +166,7 @@
     .nav-wordmark{display:flex;align-items:center;gap:6px;font-size:1rem;font-weight:500;letter-spacing:.06em;white-space:nowrap}
     .nav-wordmark .sep{opacity:.35;padding:0 4px}
     .nav-right{margin-left:auto;display:flex;align-items:center;gap:30px}
-    .nav-join{font-size:1rem;letter-spacing:.06em;white-space:nowrap}
+    .nav-join{font-size:0.8rem;letter-spacing:.06em;white-space:nowrap}
     .social-row{display:flex;align-items:center;gap:18px}
     .social-row a{display:flex;align-items:center;opacity:.8;transition:opacity .2s}
     .social-row a:hover{opacity:1}
@@ -191,7 +191,7 @@
       .hero h1 .design{background:var(--chroma);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:rainbowShift 3s linear infinite;}
       .hero h1 .design::after{opacity:.6;animation-play-state:running;}
     }
-    .hero p{font-size:1rem;color:var(--muted);letter-spacing:.06em;max-width:650px;margin:0 auto}
+    .hero p{font-size:0.9rem;color:var(--muted);letter-spacing:.06em;max-width:700px;margin:0 auto}
 
     .filter-wrap{display:flex;justify-content:center;margin:1.5rem auto 2rem;padding:0 1rem;}
     .filter-bar{display:flex;align-items:center;gap:2px;background:var(--sur);border-radius:40px;padding:5px;overflow-x:auto;position:relative;}
@@ -240,9 +240,9 @@
 
     footer{height:56px;background:var(--sur);display:flex;align-items:center;padding:0;margin-top:2rem;position:relative;flex-shrink:0;}
     .footer-container{max-width:1425px;width:100%;margin:0 auto;display:flex;align-items:center;height:100%;padding:0 1rem;box-sizing:border-box;}
-    .footer-copy{color:var(--muted);font-size:1rem;font-weight:500;letter-spacing:.06em}
+    .footer-copy{color:var(--muted);font-size:0.8rem;font-weight:400;letter-spacing:.06em}
     .footer-center{position:absolute;left:50%;transform:translateX(-50%)}
-    .footer-right{margin-left:auto;color:var(--muted);font-size:1rem;font-weight:500;letter-spacing:.06em}
+    .footer-right{margin-left:auto;color:var(--muted);font-size:0.8rem;font-weight:400;letter-spacing:.06em}
 
     @media (max-width:1400px){.navbar{padding:0}footer{padding:0}}
     @media (max-width:1024px){.hero h1{font-size:3rem}}
@@ -264,7 +264,7 @@
       .content-container{margin:1rem;padding:1.5rem;}
     }
     @media (max-width:480px){
-      .hero h1{font-size:1.7rem}
+      .hero h1{font-size:2rem}
       .social-row{gap:8px}
       .block-grid{grid-template-columns:1fr;}
     }
@@ -307,9 +307,9 @@
   <div class="footer-container">
     <span class="footer-copy">© {{ site.time | date: "%Y" }} SABURO™</span>
     <div class="footer-center">
-      {% include btn-saburo.html label='Підтримати Мене' visual='pill' icon_visual='favorite' icon_hover='favorite' width='auto' height=32 radius=28 href='https://patreon.com/iamsaburo' %}
+      {% include btn-saburo.html label='💛 Підтримати Мене' visual='pill' icon_hover='favorite' width='auto' height=32 radius=28 href='https://patreon.com/iamsaburo' %}
     </div>
-    <span class="footer-right">Для своїх 🇺🇦</span>
+    <span class="footer-right">Зроблено для Своїх</span>
   </div>
 </footer>
 <script>
