@@ -1,20 +1,7 @@
 {%- comment -%}
-  Генерує кнопку або посилання з параметрами.
-  Параметри:
-    label         – текст кнопки (обов'язково)
-    visual        – стан за замовчуванням: "outline", "white", "rainbow", "pill" (default "outline")
-    hover         – стан при наведенні: "outline", "white", "rainbow", "pill", або false
-    icon_visual   – іконка Material Icons Round для звичайного стану, або "none"
-    icon_hover    – іконка при наведенні, або "none"
-    width         – ширина в px (або "auto")
-    height        – висота в px (default 48)
-    radius        – border-radius в px (default 10)
-    href          – якщо задано, генерує <a>, інакше <button>
-    class         – додаткові CSS класи
-    id            – необов'язковий id
-    icon_position – "before" (за замовчуванням) або "after"
+  Parameters:
+    label, visual, hover, icon_visual, icon_hover, width, height, radius, href, class, id, icon_position
 {%- endcomment -%}
-
 {% assign visual = include.visual | default: "outline" %}
 {% assign hover = include.hover | default: false %}
 {% assign icon_visual = include.icon_visual | default: "none" %}
@@ -27,25 +14,13 @@
 {% assign icon_position = include.icon_position | default: "before" %}
 
 {%- capture width_style -%}
-  {%- if width_raw == "auto" -%}
-    auto
-  {%- else -%}
-    {{ width_raw }}px
-  {%- endif -%}
+  {%- if width_raw == "auto" -%} auto {%- else -%} {{ width_raw }}px {%- endif -%}
 {%- endcapture -%}
-
 {%- capture height_style -%}
-  {%- if height_raw == "auto" -%}
-    auto
-  {%- else -%}
-    {{ height_raw }}px
-  {%- endif -%}
+  {%- if height_raw == "auto" -%} auto {%- else -%} {{ height_raw }}px {%- endif -%}
 {%- endcapture -%}
 
-{% assign element = "button" %}
-{% if href %}
-  {% assign element = "a" %}
-{% endif %}
+{% assign element = "button" %}{% if href %}{% assign element = "a" %}{% endif %}
 
 <{{ element }}
   class="btn-saburo {% if include.class %}{{ include.class }}{% endif %}"
@@ -59,20 +34,12 @@
   style="--btn-w: {{ width_style }}; --btn-h: {{ height_style }}; --radius: {{ radius }}px;"
 >
   {%- if icon_position == "before" %}
-    {% unless icon_visual == "none" %}
-      <span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>
-    {% endunless %}
-    {% unless icon_hover == "none" %}
-      <span class="material-icons-round btn-icon btn-icon-hover">{{ icon_hover }}</span>
-    {% endunless %}
+    {% unless icon_visual == "none" %}<span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>{% endunless %}
+    {% unless icon_hover == "none" %}<span class="material-icons-round btn-icon btn-icon-hover">{{ icon_hover }}</span>{% endunless %}
     <span class="btn-label">{{ label }}</span>
   {%- else %}
     <span class="btn-label">{{ label }}</span>
-    {% unless icon_visual == "none" %}
-      <span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>
-    {% endunless %}
-    {% unless icon_hover == "none" %}
-      <span class="material-icons-round btn-icon btn-icon-hover">{{ icon_hover }}</span>
-    {% endunless %}
+    {% unless icon_visual == "none" %}<span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>{% endunless %}
+    {% unless icon_hover == "none" %}<span class="material-icons-round btn-icon btn-icon-hover">{{ icon_hover }}</span>{% endunless %}
   {%- endif %}
 </{{ element }}>

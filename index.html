@@ -1,12 +1,12 @@
 ---
 layout: block-info
-title: "Корисне"
+title: "Врубай Дesign."
 ---
 
 <!-- Hero -->
 <div class="hero">
   <h1>Врубай <span class="design">Дesign.</span></h1>
-  <p>Ексклюзивний контент для учасників спільноти SABURO™</p>
+  <p>Ексклюзивний контент для спільноти SABURO — безкоштовно та зі смаком.</p>
 </div>
 
 <!-- Filter Bar -->
@@ -60,7 +60,7 @@ title: "Корисне"
   </a>
   {% endfor %}
 </div>
-<div id="noResultsMessage" class="no-results" style="display:none;">Категорія пуста.</div>
+<div id="noResultsMessage" class="no-results" style="display:none;">Немає блоків для цієї категорії.</div>
 
 <!-- Pagination -->
 {% assign blocks_per_page = 12 %}
@@ -100,12 +100,8 @@ title: "Корисне"
         card.style.display = match ? '' : 'none';
         if (match) visible++;
       });
-      if (noResultsDiv) {
-        noResultsDiv.style.display = visible === 0 ? 'block' : 'none';
-      }
-      if (paginationDiv) {
-        paginationDiv.style.display = visible > cardsPerPage ? 'flex' : 'none';
-      }
+      if (noResultsDiv) noResultsDiv.style.display = visible === 0 ? 'block' : 'none';
+      if (paginationDiv) paginationDiv.style.display = visible > cardsPerPage ? 'flex' : 'none';
     }
 
     function paginate() {
@@ -121,24 +117,19 @@ title: "Корисне"
       if (!paginationDiv) return;
       const visibleCards = cards.filter(c => c.style.display !== 'none');
       const totalPages = Math.ceil(visibleCards.length / cardsPerPage);
-
       document.querySelectorAll('.page-num').forEach(btn => {
         const page = parseInt(btn.dataset.page);
         btn.style.display = page <= totalPages ? '' : 'none';
         btn.classList.toggle('active', page === currentPage);
       });
-
-      const prevBtn = document.getElementById('prevPage');
-      const nextBtn = document.getElementById('nextPage');
-      if (prevBtn) prevBtn.disabled = currentPage === 1;
-      if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+      document.getElementById('prevPage').disabled = currentPage === 1;
+      document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
       paginate();
     }
 
     if (filterBtns.length > 0) {
       const initialActive = document.querySelector('.filter-btn.active');
       if (initialActive) moveHighlight(initialActive);
-
       filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           filterBtns.forEach(b => b.classList.remove('active'));
@@ -159,7 +150,6 @@ title: "Корисне"
           updatePagination();
         });
       });
-
       document.getElementById('prevPage').addEventListener('click', () => {
         if (currentPage > 1) { currentPage--; updatePagination(); }
       });

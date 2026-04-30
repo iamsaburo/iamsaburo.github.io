@@ -1,20 +1,21 @@
-title: Art Community
+---
+title: Демо кнопок
 slug: art-community
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 categories:
   - StreamElements
   - Twitch
-description: Демонстрація всіх можливостей
+description: Всі стилі кнопок та форматування
 layout: block-info
 back_url: /
 ---
 
 <div class="content-container">
 
-## Чотири стилі кнопок
+## 4 типи кнопок
 
-<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:2rem;">
+<div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
 
 {% include btn-saburo.html label="Outline" visual="outline" %}
 {% include btn-saburo.html label="White" visual="white" %}
@@ -23,75 +24,47 @@ back_url: /
 
 </div>
 
-## Комбінації з наведенням
+### З іконками
 
-<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:2rem;">
+{% include btn-saburo.html label="З іконкою" visual="outline" icon_visual="favorite" %}
+{% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="arrow_forward" icon_position="after" %}
 
-{% include btn-saburo.html label="Outline → Rainbow" visual="outline" hover="rainbow" %}
-{% include btn-saburo.html label="Rainbow → White" visual="rainbow" hover="white" %}
-{% include btn-saburo.html label="Pill → Outline" visual="pill" hover="outline" %}
+### Ширина за вмістом
 
-</div>
-
-## Іконки та позиціонування
-
-<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:2rem;">
-
-{% include btn-saburo.html label="Зірочка" visual="outline" icon_visual="star" %}
-{% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="favorite" icon_position="after" %}
-
-</div>
+{% include btn-saburo.html label="Автоширина" visual="pill" width="auto" %}
 
 ---
 
 ## Форматування тексту
 
-Це **жирний текст**, а це *курсив*. Можна ~~закреслити~~ слово.
+**Жирний**, *курсив*, ~~закреслений~~, `код`
+
+- список
+  - вкладений
+
+1. нумерований
+2. список
+
+> Цитата
+
+Роздільник:
+
+---
 
 ### Заголовки
 
 # H1
 ## H2
 ### H3
-#### H4
 
-### Списки
+[Посилання](https://example.com)
 
-- Ненумерований
-- Другий пункт
-  - Вкладений
+Картинка: ![лого]({{ '/svg/logo_symbol.svg' | relative_url }})
 
-1. Нумерований
-2. Другий
-   1. Вкладений
-
-### Цитата
-
-> Ексклюзивний контент для спільноти SABURO — безкоштовно та зі смаком.
-
-### Код
-
-Вбудований `код` всередині рядка.
-
-// блок коду
-function hello() {
-  console.log("Привіт, світе!");
-}
-
-### Горизонтальна лінія
-
----
-
-### Посилання та зображення
-
-[Посилання на головну](/)
-
-![Лого]({{ '/svg/logo_symbol.svg' | relative_url }})
-
-### Таблиця (якщо підтримується)
+Таблиця:
 
 | Стовпець 1 | Стовпець 2 |
 |------------|------------|
-| значення   | значення   |
+| дані       | дані       |
 
 </div>
