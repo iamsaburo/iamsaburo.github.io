@@ -65,6 +65,7 @@
       user-select: none;
       background: transparent;
       color: #fff;
+      min-width: fit-content;   /* гарантує, що кнопка не стиснеться менше контенту */
     }
 
     .btn-saburo[data-visual="outline"] {
@@ -90,7 +91,7 @@
       color: #111;
     }
 
-    /* ---------- Rainbow state (rotated -65°, outline + text shadow) ---------- */
+    /* ---------- Rainbow state ---------- */
     .btn-saburo[data-visual="rainbow"] {
       background: transparent;
       color: #111;
@@ -128,7 +129,7 @@
       100% { background-position: 200% 50%; }
     }
 
-    /* ---------- Hover: scale up, not shift up ---------- */
+    /* ---------- Hover: scale up ---------- */
     .btn-saburo[data-hover]:hover,
     .block-card:hover .btn-saburo[data-hover] {
       transform: scale(1.03);
@@ -263,7 +264,7 @@
       order: 0;
     }
 
-    /* Card-specific hover (mirror the scale & styles) */
+    /* Card-specific hover */
     .block-card:hover .btn-saburo[data-hover="white"] {
       background: #fff;
       color: #111;
@@ -347,8 +348,8 @@
     .hero h1 .design::after{
       content:'';position:absolute;top:0;left:0;width:100%;height:100%;
       background:var(--chroma);background-size:200% 100%;
-      border-radius:8px;
-      filter:blur(8px);
+      border-radius:0;               /* прилягає до тексту */
+      filter:blur(6px);
       opacity:0;z-index:-1;transition:opacity .3s;
       animation:rainbowShift 3s linear infinite paused;
     }
@@ -385,7 +386,6 @@
     .filter-bar{
       display:flex;align-items:center;gap:2px;background:var(--sur);
       border-radius:40px;padding:5px;overflow-x:auto;position:relative;
-      transition: width 0.3s ease;
     }
     .filter-highlight{
       position:absolute;top:5px;height:34px;background:var(--bg);
@@ -399,8 +399,13 @@
       flex-shrink:0;position:relative;z-index:1;
     }
     .filter-btn.active{background:transparent;color:var(--text)}
-    .filter-btn .f-label{display:none;font-weight:500}
-    .filter-btn.active .f-label{display:inline}
+    .filter-btn .f-label{
+      visibility: hidden;           /* завжди займає місце, щоб фільтр не стрибав */
+      font-weight:500;
+    }
+    .filter-btn.active .f-label{
+      visibility: visible;
+    }
 
     /* Card grid */
     .block-grid{
@@ -412,11 +417,16 @@
       background:var(--sur);border-radius:var(--r);padding:20px;
       transition:transform .25s,background .25s;
       display:flex;flex-direction:column;text-decoration:none;color:inherit;
+      gap:35px;                     /* однаковий проміжок між елементами */
     }
-    .block-card:hover{transform:translateY(-4px);background:var(--sur2)}
+    .block-card:hover{
+      transform:scale(1.02);
+      background:var(--sur2)
+    }
     .image-wrapper{
       width:100%;aspect-ratio:290/187;border-radius:8px;overflow:hidden;
-      margin-bottom:20px;position:relative;background:#0d0d0d
+      position:relative;background:#0d0d0d;
+      margin:0;
     }
     .image-wrapper img{
       width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;transition:opacity .35s
@@ -425,14 +435,16 @@
     .image-wrapper .gif-img{opacity:0}
     .block-card:hover .image-wrapper .static-img{opacity:0}
     .block-card:hover .image-wrapper .gif-img{opacity:1}
-    /* Forced GIF visibility (when element has .gif-visible) */
     .image-wrapper.gif-visible .static-img { opacity: 0; }
     .image-wrapper.gif-visible .gif-img { opacity: 1; }
     .card-title{
-      font-size:1.125rem;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:.03em
+      font-size:1.125rem;font-weight:700;color:#fff;
+      margin:0;
+      letter-spacing:.03em
     }
     .tags-row{
-      display:flex;gap:0;margin:35px 0;height:34px;align-items:center
+      display:flex;gap:0;height:34px;align-items:center;
+      margin:0;
     }
     .tag-circle{
       width:34px;height:34px;border-radius:50%;
@@ -441,7 +453,7 @@
     }
     .tag-circle:last-child{margin-right:0}
 
-    /* Content container for info pages */
+    /* Content container */
     .content-container {
       max-width: 1425px;
       margin: 2rem auto;
@@ -450,6 +462,7 @@
       border-radius: var(--r);
       color: var(--text);
     }
+    /* (стилі для тексту залишаються як раніше) */
     .content-container h2,
     .content-container h3 {
       margin-top: 2rem;
@@ -533,7 +546,6 @@
     .footer-copy{color:var(--muted);font-size:1rem;font-weight:500;letter-spacing:.06em}
     .footer-center{position:absolute;left:50%;transform:translateX(-50%)}
     .footer-right{margin-left:auto;color:var(--muted);font-size:1rem;font-weight:500;letter-spacing:.06em}
-    .footer-mobile-btn { display: none; }
 
     /* Responsive */
     @media (max-width:1400px){.navbar{padding:0}footer{padding:0}}
@@ -556,11 +568,7 @@
       .footer-container{flex-wrap:wrap;gap:.5rem;height:auto}
       .footer-center{position:static;transform:none;order:3;width:100%;display:flex;justify-content:center}
       .footer-copy,.footer-right{font-size:.85rem}
-      .footer-right { display: none; }
-      .footer-mobile-btn {
-        display: inline-flex;
-        margin-left: auto;
-      }
+      .footer-right{ display: none; }   /* приховати "Для своїх" на мобільних */
       .content-container {
         margin: 1rem;
         padding: 1.5rem;
@@ -569,9 +577,7 @@
     @media (max-width:480px){
       .hero h1{font-size:1.7rem}
       .social-row{gap:8px}
-      .block-grid{
-        grid-template-columns: 1fr;
-      }
+      /* 2 колонки залишаються */
     }
   </style>
   {% if page.extra_css %}{{ page.extra_css }}{% endif %}
@@ -605,19 +611,19 @@
     <div class="nav-right">
       <span class="nav-join">Приєднуйся:</span>
       <div class="social-row">
-        <a href="https://twitch.tv/iamsaburo" target="_blank" rel="noopener" title="Twitch">
+        <a href="https://www.twitch.tv/saburo_ua" target="_blank" rel="noopener" title="Twitch">
           <img src="{{ '/svg/sm_twitch.svg' | relative_url }}" width="14" height="16" alt="">
         </a>
-        <a href="https://t.me/iamsaburo" target="_blank" rel="noopener" title="Telegram">
+        <a href="https://t.me/saburo_ua" target="_blank" rel="noopener" title="Telegram">
           <img src="{{ '/svg/sm_telegram.svg' | relative_url }}" width="17" height="14" alt="">
         </a>
-        <a href="https://discord.gg/iamsaburo" target="_blank" rel="noopener" title="Discord">
+        <a href="https://discord.gg/4BK4MBUMWh" target="_blank" rel="noopener" title="Discord">
           <img src="{{ '/svg/sm_discord.svg' | relative_url }}" width="17" height="13" alt="">
         </a>
-        <a href="https://youtube.com/@iamsaburo" target="_blank" rel="noopener" title="YouTube">
+        <a href="https://youtube.com/@saburo_ua" target="_blank" rel="noopener" title="YouTube">
           <img src="{{ '/svg/sm_youtube.svg' | relative_url }}" width="17" height="12" alt="">
         </a>
-        <a href="https://tiktok.com/@iamsaburo" target="_blank" rel="noopener" title="TikTok">
+        <a href="https://tiktok.com/@saburo_ua" target="_blank" rel="noopener" title="TikTok">
           <img src="{{ '/svg/sm_tiktok.svg' | relative_url }}" width="12" height="14" alt="">
         </a>
       </div>
@@ -636,30 +642,17 @@
          visual='pill'
          icon_visual='favorite'
          icon_hover='favorite'
-         width=120
+         width='auto'            /* ← тепер обгортає вміст */
          height=32
          radius=28
          href='https://patreon.com/iamsaburo'
-         class='btn-support-footer'
       %}
     </div>
     <span class="footer-right">Для своїх 🇺🇦</span>
-    <span class="footer-mobile-btn">
-      {% include btn-saburo.html
-         label='Підтримати'
-         visual='pill'
-         icon_visual='favorite'
-         icon_hover='favorite'
-         width=90
-         height=32
-         radius=28
-         href='https://patreon.com/iamsaburo'
-      %}
-    </span>
   </div>
 </footer>
 
-<!-- Script: GIF activation for cards near center on mobile -->
+<!-- GIF activation script (без змін) -->
 <script>
   (function() {
     const mq = window.matchMedia('(hover: none)');

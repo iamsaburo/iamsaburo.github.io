@@ -1,4 +1,3 @@
----
 title: Art Community
 slug: art-community
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
@@ -6,87 +5,93 @@ gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 categories:
   - StreamElements
   - Twitch
-description: Демонстрація всіх варіантів кнопок
+description: Демонстрація всіх можливостей
 layout: block-info
 back_url: /
 ---
 
 <div class="content-container">
 
-## Усі стилі кнопок
+## Чотири стилі кнопок
 
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:2rem;">
 
-{% include btn-saburo.html label="Outline (default)" visual="outline" %}
+{% include btn-saburo.html label="Outline" visual="outline" %}
 {% include btn-saburo.html label="White" visual="white" %}
 {% include btn-saburo.html label="Rainbow" visual="rainbow" %}
 {% include btn-saburo.html label="Pill" visual="pill" %}
 
-{% include btn-saburo.html label="Outline → White" visual="outline" hover="white" %}
+</div>
+
+## Комбінації з наведенням
+
+<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:2rem;">
+
 {% include btn-saburo.html label="Outline → Rainbow" visual="outline" hover="rainbow" %}
-{% include btn-saburo.html label="White → Outline" visual="white" hover="outline" %}
-{% include btn-saburo.html label="White → Rainbow" visual="white" hover="rainbow" %}
-{% include btn-saburo.html label="Rainbow → Outline" visual="rainbow" hover="outline" %}
 {% include btn-saburo.html label="Rainbow → White" visual="rainbow" hover="white" %}
-{% include btn-saburo.html label="Pill → White" visual="pill" hover="white" %}
 {% include btn-saburo.html label="Pill → Outline" visual="pill" hover="outline" %}
-{% include btn-saburo.html label="Pill → Rainbow" visual="pill" hover="rainbow" %}
 
 </div>
 
-## З іконками
+## Іконки та позиціонування
 
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:2rem;">
 
-{% include btn-saburo.html label="Outline" visual="outline" icon_visual="favorite" %}
-{% include btn-saburo.html label="White" visual="white" icon_visual="star" %}
-{% include btn-saburo.html label="Rainbow" visual="rainbow" icon_visual="arrow_forward" %}
-{% include btn-saburo.html label="Pill" visual="pill" icon_visual="arrow_back" %}
-
-{% include btn-saburo.html label="Outline → Rainbow" visual="outline" hover="rainbow" icon_visual="arrow_forward" icon_hover="arrow_forward" %}
-{% include btn-saburo.html label="Rainbow → White" visual="rainbow" hover="white" icon_visual="favorite" icon_hover="favorite" %}
-
-{% include btn-saburo.html label="Іконка після" visual="outline" icon_visual="arrow_forward" icon_position="after" %}
-{% include btn-saburo.html label="Rainbow після" visual="rainbow" icon_visual="favorite" icon_position="after" %}
+{% include btn-saburo.html label="Зірочка" visual="outline" icon_visual="star" %}
+{% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="favorite" icon_position="after" %}
 
 </div>
-
-## Різні розміри та радіуси
-
-<div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
-
-{% include btn-saburo.html label="Маленька" visual="pill" width=100 height=30 radius=20 %}
-{% include btn-saburo.html label="Велика" visual="rainbow" width=250 height=60 radius=12 %}
-{% include btn-saburo.html label="Квадратна" visual="white" hover="outline" width=120 height=120 radius=0 %}
-
-</div>
-
-## Оформлення тексту
-
-Це **жирний текст**, а це *курсив*. Можна ~~закреслити~~ слово.
-
-- Ненумерований список
-- Другий пункт
-  - Вкладений
-
-1. Нумерований список
-2. Ще один
-   1. Вкладений
-
-> Цитата «Ексклюзивний контент для спільноти»
-
-`код всередині рядка`
-
-код блока
-
-[Посилання на головну](/)
-
-Розділова лінія:
 
 ---
 
-### Заголовок 3‑го рівня
+## Форматування тексту
 
-Зображення: ![лого]({{ '/svg/logo_symbol.svg' | relative_url }})
+Це **жирний текст**, а це *курсив*. Можна ~~закреслити~~ слово.
+
+### Заголовки
+
+# H1
+## H2
+### H3
+#### H4
+
+### Списки
+
+- Ненумерований
+- Другий пункт
+  - Вкладений
+
+1. Нумерований
+2. Другий
+   1. Вкладений
+
+### Цитата
+
+> Ексклюзивний контент для спільноти SABURO — безкоштовно та зі смаком.
+
+### Код
+
+Вбудований `код` всередині рядка.
+
+// блок коду
+function hello() {
+  console.log("Привіт, світе!");
+}
+
+### Горизонтальна лінія
+
+---
+
+### Посилання та зображення
+
+[Посилання на головну](/)
+
+![Лого]({{ '/svg/logo_symbol.svg' | relative_url }})
+
+### Таблиця (якщо підтримується)
+
+| Стовпець 1 | Стовпець 2 |
+|------------|------------|
+| значення   | значення   |
 
 </div>
