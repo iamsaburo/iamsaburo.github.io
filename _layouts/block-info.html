@@ -12,7 +12,7 @@
     :root{
       --bg:#141414;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
       --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
-      --chroma:linear-gradient(65deg,
+      --chroma:linear-gradient(-65deg,
         #9C96FF 0%,#9FE5F6 6%,#E4FFA8 12%,#FCFF91 20%,
         #CCFFBF 28%,#C2FAAB 36%,#E0E1C9 44%,#F3CDDA 52%,
         #FFBED0 60%,#F8C2FF 68%,#CFFFFA 76%,#A5F3FF 84%,
@@ -29,7 +29,16 @@
     .ph-img{display:inline-block;flex-shrink:0}
     .page-wrap{flex:1}
 
-    /* ===== ПОВНА СИСТЕМА КНОПОК ===== */
+    /* ---------- 1px 30% opacity outline for panels & widgets ---------- */
+    .navbar,
+    footer,
+    .filter-bar,
+    .block-card,
+    .content-container {
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.3);
+    }
+
+    /* ---------- NEW BUTTON SYSTEM ---------- */
     .btn-saburo {
       display: inline-flex;
       align-items: center;
@@ -54,28 +63,39 @@
       transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
       white-space: nowrap;
       user-select: none;
-      background: transparent; /* fallback */
+      background: transparent;
       color: #fff;
     }
 
-    /* Outline (default visual) */
     .btn-saburo[data-visual="outline"] {
       background: transparent;
       color: #fff;
       box-shadow: 0 0 0 2px rgba(255,255,255,0.6) inset;
     }
-
-    /* White */
     .btn-saburo[data-visual="white"] {
       background: #fff;
       color: #111;
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
+    .btn-saburo[data-visual="pill"] {
+      background: var(--pill);
+      color: var(--text);
+      box-shadow: none;
+    }
+    .btn-saburo[data-visual="pill"]:hover {
+      background: #404040;
+    }
+    .btn-saburo[data-visual="pill"][data-hover="white"]:hover {
+      background: #fff;
+      color: #111;
+    }
 
-    /* Rainbow */
+    /* ---------- Rainbow state (rotated -65°, outline + text shadow) ---------- */
     .btn-saburo[data-visual="rainbow"] {
       background: transparent;
       color: #111;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);   /* 2px white outline 35% opacity */
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);    /* 1px down white drop shadow 35% */
     }
     .btn-saburo[data-visual="rainbow"]::before {
       content: '';
@@ -99,16 +119,20 @@
       opacity: 0.8;
       z-index: -2;
     }
+    /* Rainbow hover: also keep the outline */
+    .btn-saburo[data-visual="rainbow"]:hover {
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+    }
 
-    /* Анімація райдуги – рух вліво, безперервно */
     @keyframes rainbowShift {
       0% { background-position: 0% 50%; }
       100% { background-position: 200% 50%; }
     }
 
-    /* Hover-стани */
-    .btn-saburo[data-hover]:hover {
-      transform: translateY(-2px);
+    /* ---------- Hover: scale up, not shift up ---------- */
+    .btn-saburo[data-hover]:hover,
+    .block-card:hover .btn-saburo[data-hover] {
+      transform: scale(1.03);
     }
 
     /* Outline -> White */
@@ -116,12 +140,14 @@
       background: #fff;
       color: #111;
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      text-shadow: none;
     }
     /* Outline -> Rainbow */
     .btn-saburo[data-hover="rainbow"]:hover {
       background: transparent;
       color: #111;
-      box-shadow: none;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
     }
     .btn-saburo[data-hover="rainbow"]:hover::before {
       content: '';
@@ -150,22 +176,25 @@
       background: transparent;
       color: #fff;
       box-shadow: 0 0 0 2px rgba(255,255,255,0.6) inset;
+      text-shadow: none;
     }
     /* White -> Rainbow */
     .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover {
       background: transparent;
       color: #111;
-      box-shadow: none;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
     }
     .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover::before,
     .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover::after {
-      display: block; /* спонукаємо створення псевдоелементів */
+      display: block;
     }
     /* Rainbow -> Outline */
     .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover {
       background: transparent;
       color: #fff;
       box-shadow: 0 0 0 2px rgba(255,255,255,0.6) inset;
+      text-shadow: none;
     }
     .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover::before,
     .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover::after {
@@ -176,13 +205,38 @@
       background: #fff;
       color: #111;
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      text-shadow: none;
     }
     .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::before,
     .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after {
       opacity: 0;
     }
 
-    /* Іконки */
+    /* Pill -> White */
+    .btn-saburo[data-visual="pill"][data-hover="white"]:hover {
+      background: #fff;
+      color: #111;
+      text-shadow: none;
+    }
+    /* Pill -> Outline */
+    .btn-saburo[data-visual="pill"][data-hover="outline"]:hover {
+      background: transparent;
+      color: #fff;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.6) inset;
+    }
+    /* Pill -> Rainbow */
+    .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover {
+      background: transparent;
+      color: #111;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover::before,
+    .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover::after {
+      display: block;
+    }
+
+    /* Icons */
     .btn-saburo .btn-icon-visual,
     .btn-saburo .btn-icon-hover {
       font-size: 1.25rem;
@@ -193,7 +247,7 @@
       display: inline-flex;
     }
     .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-hover {
-      display: none; /* прихована до наведення */
+      display: none;
     }
     .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]):hover .btn-icon-visual {
       display: none;
@@ -202,22 +256,18 @@
       display: inline-flex;
     }
 
-    /* Якщо кнопка всередині картки – обробляємо через батьківський hover */
-    .block-card .btn-saburo {
-      /* додаткові стилі не потрібні – все працює через data-атрибути та hover на картці */
-    }
-    .block-card:hover .btn-saburo[data-hover] {
-      /* активуємо hover-стилі, повторюючи селектори */
-    }
+    /* Card-specific hover (mirror the scale & styles) */
     .block-card:hover .btn-saburo[data-hover="white"] {
       background: #fff;
       color: #111;
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      text-shadow: none;
     }
     .block-card:hover .btn-saburo[data-hover="rainbow"] {
       background: transparent;
       color: #111;
-      box-shadow: none;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
     }
     .block-card:hover .btn-saburo[data-hover="rainbow"]::before,
     .block-card:hover .btn-saburo[data-hover="rainbow"]::after {
@@ -242,13 +292,12 @@
       background: transparent;
       color: #fff;
       box-shadow: 0 0 0 2px rgba(255,255,255,0.6) inset;
+      text-shadow: none;
     }
-    /* для rainbow -> outline при наведенні картки */
     .block-card:hover .btn-saburo[data-visual="rainbow"][data-hover="outline"]::before,
     .block-card:hover .btn-saburo[data-visual="rainbow"][data-hover="outline"]::after {
       opacity: 0;
     }
-    /* і т.д. – можна доповнити всі комбінації, але для типових достатньо */
 
     /* Navbar */
     .navbar{
@@ -283,11 +332,12 @@
       transition:background .3s, -webkit-text-fill-color .3s;
       display:inline-block;
     }
+    /* Subtle glow mimicking text shape */
     .hero h1 .design::after{
-      content:'';position:absolute;top:50%;left:50%;
-      width:120%;height:120%;transform:translate(-50%,-50%);
+      content:'';position:absolute;top:0;left:0;width:100%;height:100%;
       background:var(--chroma);background-size:200% 100%;
-      filter:blur(20px);border-radius:50%;
+      border-radius:8px;
+      filter:blur(8px);
       opacity:0;z-index:-1;transition:opacity .3s;
       animation:rainbowShift 3s linear infinite paused;
     }
@@ -299,7 +349,7 @@
       animation:rainbowShift 3s linear infinite;
     }
     .hero h1 .design:hover::after{
-      opacity:.8;animation-play-state:running;
+      opacity:.6;animation-play-state:running;
     }
     @media (hover: none){
       .hero h1 .design{
@@ -320,6 +370,7 @@
     .filter-bar{
       display:flex;align-items:center;gap:2px;background:var(--sur);
       border-radius:40px;padding:5px;overflow-x:auto;position:relative;
+      transition: width 0.3s ease;   /* smooth width change if buttons are added/removed */
     }
     .filter-highlight{
       position:absolute;top:5px;height:34px;background:var(--bg);
@@ -372,6 +423,16 @@
     }
     .tag-circle:last-child{margin-right:0}
 
+    /* Content container for info pages */
+    .content-container {
+      max-width: 1425px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--sur);
+      border-radius: var(--r);
+      color: var(--text);
+    }
+
     /* No results & pagination */
     .no-results{
       text-align:center;padding:3rem 1rem;color:var(--muted);grid-column:1/-1
@@ -420,6 +481,10 @@
       .footer-container{flex-wrap:wrap;gap:.5rem;height:auto}
       .footer-center{position:static;transform:none;order:3;width:100%;display:flex;justify-content:center}
       .footer-copy,.footer-right{font-size:.85rem}
+      .content-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
     }
     @media (max-width:480px){
       .hero h1{font-size:1.7rem}
@@ -441,11 +506,17 @@
         </div>
       </a>
       {% if page.back_url %}
-      <a href="{{ page.back_url }}" class="btn-saburo" data-visual="outline" data-hover="white"
-         data-icon-visual="arrow_back" data-icon-hover="arrow_back"
-         style="--btn-w: auto; --btn-h: 32px; --radius: 28px;">
-        <span class="btn-label">{{ page.back_label | default: 'Головна' }}</span>
-      </a>
+        {% include btn-saburo.html
+           label=page.back_label | default: 'Головна'
+           visual="pill"
+           hover=false
+           icon_visual="arrow_back"
+           icon_hover="arrow_back"
+           width="auto"
+           height=32
+           radius=28
+           href=page.back_url
+        %}
       {% endif %}
     </div>
     <div class="nav-right">
@@ -477,11 +548,10 @@
   <div class="footer-container">
     <span class="footer-copy">© {{ site.time | date: "%Y" }} SABURO™</span>
     <div class="footer-center">
-      <!-- Кнопка підтримки через інклюд -->
       {% include btn-saburo.html 
          label="Підтримати Мене"
-         visual="outline"
-         hover="white"
+         visual="pill"
+         hover=false
          icon_visual="favorite"
          icon_hover="favorite"
          width=120
