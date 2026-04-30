@@ -23,7 +23,7 @@ title: "Врубай Дesign."
 
 <div id="blockContainer" class="block-grid">
   {% for block in site.blocks %}
-  <a href="{{ block.slug | prepend: '/' | relative_url }}" class="block-card" data-categories="{{ block.categories | join: ',' }}">
+  <a href="{{ block.slug | append: '-info' | prepend: '/' | relative_url }}" class="block-card" data-categories="{{ block.categories | join: ',' }}">
     <div class="image-wrapper">
       {% if block.gif_image %}
       <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
