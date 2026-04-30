@@ -1,7 +1,3 @@
-{%- comment -%}
-  Parameters:
-    label, visual, hover, icon_visual, icon_hover, width, height, radius, href, class, id, icon_position
-{%- endcomment -%}
 {% assign visual = include.visual | default: "outline" %}
 {% assign hover = include.hover | default: false %}
 {% assign icon_visual = include.icon_visual | default: "none" %}
@@ -12,16 +8,14 @@
 {% assign radius = include.radius | default: "10" %}
 {% assign href = include.href | default: false %}
 {% assign icon_position = include.icon_position | default: "before" %}
-
 {%- capture width_style -%}
-  {%- if width_raw == "auto" -%} auto {%- else -%} {{ width_raw }}px {%- endif -%}
+  {%- if width_raw == "auto" -%}auto{%- else -%}{{ width_raw }}px{%- endif -%}
 {%- endcapture -%}
 {%- capture height_style -%}
-  {%- if height_raw == "auto" -%} auto {%- else -%} {{ height_raw }}px {%- endif -%}
+  {%- if height_raw == "auto" -%}auto{%- else -%}{{ height_raw }}px{%- endif -%}
 {%- endcapture -%}
-
-{% assign element = "button" %}{% if href %}{% assign element = "a" %}{% endif %}
-
+{% assign element = "button" %}
+{% if href %}{% assign element = "a" %}{% endif %}
 <{{ element }}
   class="btn-saburo {% if include.class %}{{ include.class }}{% endif %}"
   {% if include.id %}id="{{ include.id }}"{% endif %}

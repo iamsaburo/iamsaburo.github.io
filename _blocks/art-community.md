@@ -11,11 +11,11 @@ layout: block-info
 back_url: /
 ---
 
-<div class="content-container">
+<div class="content-container" markdown="1">
 
 ## 4 типи кнопок
 
-<div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
 
 {% include btn-saburo.html label="Outline" visual="outline" %}
 {% include btn-saburo.html label="White" visual="white" %}
