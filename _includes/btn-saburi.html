@@ -1,16 +1,17 @@
 {%- comment -%}
-  Параметри:
-    label         — текст кнопки (обов'язково)
-    visual        — тип у спокої: "outline", "white", "rainbow" (за замовчуванням outline)
-    hover         — тип при наведенні: "outline", "white", "rainbow" або false (не змінювати)
-    icon_visual   — назва іконки Material Icons Round для стану спокою, або "none"
-    icon_hover    — назва іконки при наведенні, або "none"
-    width         — ширина в px (або "auto"; за замовч. auto)
-    height        — висота в px (за замовч. 48)
-    radius        — радіус заокруглення в px (за замовч. 10)
-    href          — URL для посилання; якщо не задано – тег <button>
-    class         — додаткові CSS-класи
-    id            — id (не обов'язково)
+  Generates a button or link with visual/hover states, icon, and size.
+  Parameters:
+    label         – button text (required)
+    visual        – default state: "outline", "white", "rainbow" (default "outline")
+    hover         – hover state: "outline", "white", "rainbow", or false (no change)
+    icon_visual   – Material Icons Round name for default state, or "none"
+    icon_hover    – Material Icons Round name for hover state, or "none"
+    width         – width in px (or "auto")
+    height        – height in px (default 48)
+    radius        – border-radius in px (default 10)
+    href          – if provided, generates <a> otherwise <button>
+    class         – extra CSS classes
+    id            – optional id
 {%- endcomment -%}
 
 {% assign visual = include.visual | default: "outline" %}
