@@ -1,6 +1,6 @@
 ---
 layout: block-info
-title: "Корисне"
+title: "Врубай Дesign."
 ---
 
 <!-- Hero -->
@@ -46,15 +46,17 @@ title: "Корисне"
         {% endif %}
       {% endfor %}
     </div>
-    <!-- Кнопка: використовуємо span з data-атрибутами, без href -->
-    <span class="btn-saburo"
-          data-visual="outline"
-          data-hover="rainbow"
-          data-icon-visual="arrow_forward"
-          data-icon-hover="arrow_forward"
-          style="--btn-w: 290px; --btn-h: 40px; --radius: 4px;">
-      <span class="btn-label">Дізнатись більше</span>
-    </span>
+    {% include btn-saburo.html
+       label='Дізнатись більше'
+       visual='outline'
+       hover='rainbow'
+       icon_visual='arrow_forward'
+       icon_hover='arrow_forward'
+       width='auto'
+       height=40
+       radius=4
+       class='btn-block'
+    %}
   </a>
   {% endfor %}
 </div>
@@ -126,8 +128,10 @@ title: "Корисне"
         btn.classList.toggle('active', page === currentPage);
       });
 
-      document.getElementById('prevPage').disabled = currentPage === 1;
-      document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
+      const prevBtn = document.getElementById('prevPage');
+      const nextBtn = document.getElementById('nextPage');
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
       paginate();
     }
 

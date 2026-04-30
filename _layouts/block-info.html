@@ -94,8 +94,8 @@
     .btn-saburo[data-visual="rainbow"] {
       background: transparent;
       color: #111;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);   /* 2px white outline 35% opacity */
-      text-shadow: 0 1px 0 rgba(255,255,255,0.35);    /* 1px down white drop shadow 35% */
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
     }
     .btn-saburo[data-visual="rainbow"]::before {
       content: '';
@@ -119,7 +119,6 @@
       opacity: 0.8;
       z-index: -2;
     }
-    /* Rainbow hover: also keep the outline */
     .btn-saburo[data-visual="rainbow"]:hover {
       box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
     }
@@ -255,6 +254,14 @@
     .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]):hover .btn-icon-hover {
       display: inline-flex;
     }
+    /* Icon position: after label */
+    .btn-saburo[data-icon-position="after"] .btn-icon-visual,
+    .btn-saburo[data-icon-position="after"] .btn-icon-hover {
+      order: 1;
+    }
+    .btn-saburo[data-icon-position="after"] .btn-label {
+      order: 0;
+    }
 
     /* Card-specific hover (mirror the scale & styles) */
     .block-card:hover .btn-saburo[data-hover="white"] {
@@ -297,6 +304,11 @@
     .block-card:hover .btn-saburo[data-visual="rainbow"][data-hover="outline"]::before,
     .block-card:hover .btn-saburo[data-visual="rainbow"][data-hover="outline"]::after {
       opacity: 0;
+    }
+
+    /* Block card button width fix */
+    .block-card .btn-saburo.btn-block {
+      width: 100%;
     }
 
     /* Navbar */
@@ -356,6 +368,10 @@
         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
         background-clip:text;animation:rainbowShift 3s linear infinite;
       }
+      .hero h1 .design::after {
+        opacity: 0.6;
+        animation-play-state: running;
+      }
     }
     .hero p{
       font-size:1rem;color:var(--muted);
@@ -409,6 +425,9 @@
     .image-wrapper .gif-img{opacity:0}
     .block-card:hover .image-wrapper .static-img{opacity:0}
     .block-card:hover .image-wrapper .gif-img{opacity:1}
+    /* Forced GIF visibility (when element has .gif-visible) */
+    .image-wrapper.gif-visible .static-img { opacity: 0; }
+    .image-wrapper.gif-visible .gif-img { opacity: 1; }
     .card-title{
       font-size:1.125rem;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:.03em
     }
@@ -430,6 +449,57 @@
       background: var(--sur);
       border-radius: var(--r);
       color: var(--text);
+    }
+    .content-container h2,
+    .content-container h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .content-container p {
+      margin-bottom: 1rem;
+    }
+    .content-container ul,
+    .content-container ol {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .content-container li {
+      margin-bottom: 0.5rem;
+    }
+    .content-container code {
+      background: var(--pill);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    .content-container pre {
+      background: var(--pill);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    .content-container pre code {
+      background: none;
+      padding: 0;
+    }
+    .content-container blockquote {
+      border-left: 3px solid var(--muted);
+      padding-left: 1rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .content-container hr {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 2rem 0;
+    }
+    .content-container a {
+      color: #9C96FF;
+      text-decoration: underline;
+    }
+    .content-container a:hover {
+      color: #C2FAAB;
     }
 
     /* No results & pagination */
@@ -463,6 +533,7 @@
     .footer-copy{color:var(--muted);font-size:1rem;font-weight:500;letter-spacing:.06em}
     .footer-center{position:absolute;left:50%;transform:translateX(-50%)}
     .footer-right{margin-left:auto;color:var(--muted);font-size:1rem;font-weight:500;letter-spacing:.06em}
+    .footer-mobile-btn { display: none; }
 
     /* Responsive */
     @media (max-width:1400px){.navbar{padding:0}footer{padding:0}}
@@ -473,13 +544,23 @@
       .nav-join{display:none}
       .social-row{gap:12px}
       .nav-left{gap:12px}
-      .block-grid{grid-template-columns:1fr;max-width:100%;gap:1.5rem;padding:0 1rem 2rem}
+      .block-grid{
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
+        gap: 1rem;
+        padding: 0 1rem 2rem;
+      }
       .hero h1{font-size:2.2rem}
       .hero{padding:2.5rem 1rem 1rem}
       footer{height:auto;padding:.75rem 0}
       .footer-container{flex-wrap:wrap;gap:.5rem;height:auto}
       .footer-center{position:static;transform:none;order:3;width:100%;display:flex;justify-content:center}
       .footer-copy,.footer-right{font-size:.85rem}
+      .footer-right { display: none; }
+      .footer-mobile-btn {
+        display: inline-flex;
+        margin-left: auto;
+      }
       .content-container {
         margin: 1rem;
         padding: 1.5rem;
@@ -488,6 +569,9 @@
     @media (max-width:480px){
       .hero h1{font-size:1.7rem}
       .social-row{gap:8px}
+      .block-grid{
+        grid-template-columns: 1fr;
+      }
     }
   </style>
   {% if page.extra_css %}{{ page.extra_css }}{% endif %}
@@ -560,7 +644,45 @@
       %}
     </div>
     <span class="footer-right">Для своїх 🇺🇦</span>
+    <span class="footer-mobile-btn">
+      {% include btn-saburo.html
+         label='Підтримати'
+         visual='pill'
+         icon_visual='favorite'
+         icon_hover='favorite'
+         width=90
+         height=32
+         radius=28
+         href='https://patreon.com/iamsaburo'
+      %}
+    </span>
   </div>
 </footer>
+
+<!-- Script: GIF activation for cards near center on mobile -->
+<script>
+  (function() {
+    const mq = window.matchMedia('(hover: none)');
+    if (mq.matches) {
+      const cards = document.querySelectorAll('.block-card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const imgWrapper = entry.target.querySelector('.image-wrapper');
+          if (!imgWrapper) return;
+          if (entry.isIntersecting) {
+            imgWrapper.classList.add('gif-visible');
+          } else {
+            imgWrapper.classList.remove('gif-visible');
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '-30% 0px -30% 0px',
+        threshold: 0
+      });
+      cards.forEach(card => observer.observe(card));
+    }
+  })();
+</script>
 </body>
 </html>

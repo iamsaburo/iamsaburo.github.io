@@ -46,6 +46,9 @@ back_url: /
 {% include btn-saburo.html label="Outline → Rainbow" visual="outline" hover="rainbow" icon_visual="arrow_forward" icon_hover="arrow_forward" %}
 {% include btn-saburo.html label="Rainbow → White" visual="rainbow" hover="white" icon_visual="favorite" icon_hover="favorite" %}
 
+{% include btn-saburo.html label="Іконка після" visual="outline" icon_visual="arrow_forward" icon_position="after" %}
+{% include btn-saburo.html label="Rainbow після" visual="rainbow" icon_visual="favorite" icon_position="after" %}
+
 </div>
 
 ## Різні розміри та радіуси
@@ -57,5 +60,33 @@ back_url: /
 {% include btn-saburo.html label="Квадратна" visual="white" hover="outline" width=120 height=120 radius=0 %}
 
 </div>
+
+## Оформлення тексту
+
+Це **жирний текст**, а це *курсив*. Можна ~~закреслити~~ слово.
+
+- Ненумерований список
+- Другий пункт
+  - Вкладений
+
+1. Нумерований список
+2. Ще один
+   1. Вкладений
+
+> Цитата «Ексклюзивний контент для спільноти»
+
+`код всередині рядка`
+
+код блока
+
+[Посилання на головну](/)
+
+Розділова лінія:
+
+---
+
+### Заголовок 3‑го рівня
+
+Зображення: ![лого]({{ '/svg/logo_symbol.svg' | relative_url }})
 
 </div>

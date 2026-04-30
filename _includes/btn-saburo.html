@@ -12,6 +12,7 @@
     href          – if provided, generates <a> otherwise <button>
     class         – extra CSS classes
     id            – optional id
+    icon_position – "before" (default) or "after"
 {%- endcomment -%}
 
 {% assign visual = include.visual | default: "outline" %}
@@ -23,6 +24,7 @@
 {% assign height_raw = include.height | default: "48" %}
 {% assign radius = include.radius | default: "10" %}
 {% assign href = include.href | default: false %}
+{% assign icon_position = include.icon_position | default: "before" %}
 
 {%- capture width_style -%}
   {%- if width_raw == "auto" -%}
@@ -53,13 +55,24 @@
   {% if hover %}data-hover="{{ hover }}"{% endif %}
   data-icon-visual="{{ icon_visual }}"
   data-icon-hover="{{ icon_hover }}"
+  data-icon-position="{{ icon_position }}"
   style="--btn-w: {{ width_style }}; --btn-h: {{ height_style }}; --radius: {{ radius }}px;"
 >
-  {% unless icon_visual == "none" %}
-    <span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>
-  {% endunless %}
-  {% unless icon_hover == "none" %}
-    <span class="material-icons-round btn-icon btn-icon-hover">{{ icon_hover }}</span>
-  {% endunless %}
-  <span class="btn-label">{{ label }}</span>
+  {%- if icon_position == "before" %}
+    {% unless icon_visual == "none" %}
+      <span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>
+    {% endunless %}
+    {% unless icon_hover == "none" %}
+      <span class="material-icons-round btn-icon btn-icon-hover">{{ icon_hover }}</span>
+    {% endunless %}
+    <span class="btn-label">{{ label }}</span>
+  {%- else %}
+    <span class="btn-label">{{ label }}</span>
+    {% unless icon_visual == "none" %}
+      <span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>
+    {% endunless %}
+    {% unless icon_hover == "none" %}
+      <span class="material-icons-round btn-icon btn-icon-hover">{{ icon_hover }}</span>
+    {% endunless %}
+  {%- endif %}
 </{{ element }}>
