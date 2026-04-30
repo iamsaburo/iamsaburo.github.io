@@ -1,16 +1,17 @@
 {%- comment -%}
-  Параметри:
-    label         — текст кнопки (обов'язково)
-    visual        — тип у спокої: "outline", "white", "rainbow" (за замовчуванням outline)
-    hover         — тип при наведенні: "outline", "white", "rainbow" або false (не змінювати)
-    icon_visual   — назва іконки Material Icons Round для стану спокою, або "none"
-    icon_hover    — назва іконки при наведенні, або "none"
-    width         — ширина в px (або "auto"; за замовч. auto)
-    height        — висота в px (за замовч. 48)
-    radius        — радіус заокруглення в px (за замовч. 10)
-    href          — URL для посилання; якщо не задано – тег <button>
-    class         — додаткові CSS-класи
-    id            — id (не обов'язково)
+  Generates a button or link with visual/hover states, icon, and size.
+  Parameters:
+    label         – button text (required)
+    visual        – default state: "outline", "white", "rainbow", "pill" (default "outline")
+    hover         – hover state: "outline", "white", "rainbow", "pill", or false (no change)
+    icon_visual   – Material Icons Round name for default state, or "none"
+    icon_hover    – Material Icons Round name for hover state, or "none"
+    width         – width in px (or "auto")
+    height        – height in px (default 48)
+    radius        – border-radius in px (default 10)
+    href          – if provided, generates <a> otherwise <button>
+    class         – extra CSS classes
+    id            – optional id
 {%- endcomment -%}
 
 {% assign visual = include.visual | default: "outline" %}
@@ -18,10 +19,27 @@
 {% assign icon_visual = include.icon_visual | default: "none" %}
 {% assign icon_hover = include.icon_hover | default: "none" %}
 {% assign label = include.label %}
-{% assign width = include.width | default: "auto" %}
-{% assign height = include.height | default: "48" %}
+{% assign width_raw = include.width | default: "auto" %}
+{% assign height_raw = include.height | default: "48" %}
 {% assign radius = include.radius | default: "10" %}
 {% assign href = include.href | default: false %}
+
+{%- capture width_style -%}
+  {%- if width_raw == "auto" -%}
+    auto
+  {%- else -%}
+    {{ width_raw }}px
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture height_style -%}
+  {%- if height_raw == "auto" -%}
+    auto
+  {%- else -%}
+    {{ height_raw }}px
+  {%- endif -%}
+{%- endcapture -%}
+
 {% assign element = "button" %}
 {% if href %}
   {% assign element = "a" %}
@@ -35,7 +53,7 @@
   {% if hover %}data-hover="{{ hover }}"{% endif %}
   data-icon-visual="{{ icon_visual }}"
   data-icon-hover="{{ icon_hover }}"
-  style="--btn-w: {{ width }}px; --btn-h: {{ height }}px; --radius: {{ radius }}px;"
+  style="--btn-w: {{ width_style }}; --btn-h: {{ height_style }}; --radius: {{ radius }}px;"
 >
   {% unless icon_visual == "none" %}
     <span class="material-icons-round btn-icon btn-icon-visual">{{ icon_visual }}</span>
