@@ -1,36 +1,61 @@
 ---
 title: Art Community
 slug: art-community
-image: https://static0.thegamerimages.com/wordpress/wp-content/uploads/2024/11/the-legend-of-zelda-tears-of-the-kingdom.jpg
+image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 categories:
   - StreamElements
   - Twitch
-description: Що буде, якщо дати чату полотно і можливість малювати все що вони захочуть? Мабуть дуууже багато перстнів 😏 😆
+description: Демонстрація всіх варіантів кнопок
+layout: block-info
+back_url: /
 ---
 
-👾 ПІКСЕЛЬ-АРТ МАЛЮВАЛКА
+<div class="content-container">
 
-Що буде, якщо дати чату полотно і можливість малювати все що вони захочуть?
-Мабуть дуууже багато перстнів 😏 😆
+## Усі стилі кнопок
 
-ЯК ДОДАТИ СОБІ 👇
-➡️ ➡️ ІНСТРУКЦІЯ ⬅️ ⬅️ (https://telegra.ph/P%D1%96ksel-art-malyuvalka-03-15)
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
 
-ОСНОВНІ ФУНКЦІЇ
-◻️ 9×9 полотно для спільних артів
-🔢 До 9 пікселів в одній команді
-📝 Пам'ять артів між стрімами
-🧹 Ефектне очищення хвилею
-🔊 Звукові ефекти подій
-🎨 14 кольорів пікселів
-🌈 9 колірних тем
+{% include btn-saburo.html label="Outline (default)" visual="outline" %}
+{% include btn-saburo.html label="White" visual="white" %}
+{% include btn-saburo.html label="Rainbow" visual="rainbow" %}
+{% include btn-saburo.html label="Pill" visual="pill" %}
 
-КОМАНДИ
-!піксель [x] [y] [колір] – малює піксель
-!піксель-0 – очистити полотно (стрім. / мод.)
-!піксель-як – показати довідку
-!піксель-гра – показати/сховати віджет
+{% include btn-saburo.html label="Outline → White" visual="outline" hover="white" %}
+{% include btn-saburo.html label="Outline → Rainbow" visual="outline" hover="rainbow" %}
+{% include btn-saburo.html label="White → Outline" visual="white" hover="outline" %}
+{% include btn-saburo.html label="White → Rainbow" visual="white" hover="rainbow" %}
+{% include btn-saburo.html label="Rainbow → Outline" visual="rainbow" hover="outline" %}
+{% include btn-saburo.html label="Rainbow → White" visual="rainbow" hover="white" %}
+{% include btn-saburo.html label="Pill → White" visual="pill" hover="white" %}
+{% include btn-saburo.html label="Pill → Outline" visual="pill" hover="outline" %}
+{% include btn-saburo.html label="Pill → Rainbow" visual="pill" hover="rainbow" %}
 
-Приклад:
-!п 5 4 си, 5 5 жо - 🟦 в 5, 4 і 🟨 в 5, 5
+</div>
+
+## З іконками
+
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+
+{% include btn-saburo.html label="Outline" visual="outline" icon_visual="favorite" %}
+{% include btn-saburo.html label="White" visual="white" icon_visual="star" %}
+{% include btn-saburo.html label="Rainbow" visual="rainbow" icon_visual="arrow_forward" %}
+{% include btn-saburo.html label="Pill" visual="pill" icon_visual="arrow_back" %}
+
+{% include btn-saburo.html label="Outline → Rainbow" visual="outline" hover="rainbow" icon_visual="arrow_forward" icon_hover="arrow_forward" %}
+{% include btn-saburo.html label="Rainbow → White" visual="rainbow" hover="white" icon_visual="favorite" icon_hover="favorite" %}
+
+</div>
+
+## Різні розміри та радіуси
+
+<div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
+
+{% include btn-saburo.html label="Маленька" visual="pill" width=100 height=30 radius=20 %}
+{% include btn-saburo.html label="Велика" visual="rainbow" width=250 height=60 radius=12 %}
+{% include btn-saburo.html label="Квадратна" visual="white" hover="outline" width=120 height=120 radius=0 %}
+
+</div>
+
+</div>
