@@ -7,33 +7,25 @@
   <title>Content Manager</title>
 </head>
 <body>
+  <!-- Keep the BroadcastChannel relay script – it might still help in some setups -->
   <script>
-    // ------------------------------------------------------------
-    // 1. Listen for OAuth token via BroadcastChannel (same-origin)
-    //    and re-fire it as a standard window 'message' event so
-    //    Decap CMS picks it up.
-    // ------------------------------------------------------------
     (function () {
       try {
-        const bc = new BroadcastChannel('decap-oauth');
+        var bc = new BroadcastChannel('decap-oauth');
         bc.onmessage = function (e) {
-          // Re‑dispatch the exact payload that Decap expects
           window.dispatchEvent(
             new MessageEvent('message', {
-              data:   e.data,                     // "authorization:github:success:{...}"
-              origin: window.location.origin,     // must match window.location.origin
+              data:   e.data,
+              origin: window.location.origin,
             })
           );
-          // Keep the channel open – no need to close it
+          bc.close();
         };
       } catch (err) {
         console.warn('BroadcastChannel not available:', err);
       }
     })();
 
-    // ------------------------------------------------------------
-    // 2. Decap CMS configuration
-    // ------------------------------------------------------------
     window.CMS_CONFIG = {
       backend: {
         name:          'github',
@@ -45,25 +37,26 @@
       media_folder: 'assets/uploads',
       site_url:     'https://iamsaburo.github.io',
       collections: [
-        {
-          name: 'blocks', label: 'Community Blocks',
-          folder: '_blocks', create: true, slug: '{{slug}}',
-          fields: [
-            { label: 'Title',                       name: 'title',       widget: 'string',   required: true  },
-            { label: 'Slug',                         name: 'slug',        widget: 'string',   required: true,
-              pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens'] },
-            { label: 'Static Image URL',             name: 'image',       widget: 'string',   required: true  },
-            { label: 'GIF Image URL (optional)',     name: 'gif_image',   widget: 'string',   required: false },
-            { label: 'Categories',                   name: 'categories',  widget: 'select',   required: true,
-              multiple: true, options: ['StreamElements','Streamer.bot','Twitch','OBS'] },
-            { label: 'Short Description',            name: 'description', widget: 'text',     required: false },
-            { label: 'Full Info Content (Markdown)', name: 'body',        widget: 'markdown', required: false },
-          ],
-        },
+        // your collections …
       ],
     };
   </script>
-  <!-- Decap CMS itself -->
+
+  <!-- ⭐ NEW: inject token if present in URL -->
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var token = params.get('token');
+      if (token) {
+        // Immediately hide the token from the URL
+        history.replaceState({}, '', location.pathname + location.hash);
+        // Sneak the token into the backend config before the CMS loads
+        window.CMS_CONFIG.backend.token = token;
+        console.log('Token injected from URL – logging in automatically.');
+      }
+    })();
+  </script>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
