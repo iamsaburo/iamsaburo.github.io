@@ -38,15 +38,17 @@ content:
         required: false
       - name: categories
         label: Categories
-        type: select
+        type: multiselect
         required: true
-        multiple: true
-        display: checkboxes
         options:
-          - StreamElements
-          - Streamer.bot
-          - Twitch
-          - OBS
+          - label: StreamElements
+            value: StreamElements
+          - label: Streamer.bot
+            value: Streamer.bot
+          - label: Twitch
+            value: Twitch
+          - label: OBS
+            value: OBS
       - name: description
         label: Short Description
         type: text
