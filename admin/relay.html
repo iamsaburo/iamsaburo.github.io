@@ -9,7 +9,8 @@
   </style>
 </head>
 <body>
-  <p>Authorization complete — redirecting to CMS...</p>
+  <p>Authorization complete — you can close this window.</p>
+  <button onclick="window.close()">Close</button>
   <script>
     (function () {
       const hash  = new URLSearchParams(location.hash.slice(1));
@@ -20,40 +21,20 @@
         return;
       }
 
-      // Clear hash
       history.replaceState({}, '', location.pathname);
 
-      // The key Decap uses to store the GitHub token.
-      // Format: decap-cms-github-<backend.repo>
-      const TOKEN_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
-
-      // Also keep a backup in case the key format differs
-      const BACKUP_KEY = 'decap_oauth_token';
-
+      // Store token in both keys
       try {
-        // Save token directly where Decap looks for it
-        localStorage.setItem(TOKEN_KEY, token);
-        console.log('[relay] Token saved to', TOKEN_KEY);
-
-        // Backup
-        const backupData = { token, provider: 'github', timestamp: Date.now() };
-        localStorage.setItem(BACKUP_KEY, JSON.stringify(backupData));
-        console.log('[relay] Backup saved to', BACKUP_KEY);
+        localStorage.setItem('decap-cms-github-iamsaburo/iamsaburo.github.io', token);
+        localStorage.setItem('decap_oauth_token', JSON.stringify({
+          token: token,
+          provider: 'github',
+          timestamp: Date.now()
+        }));
+        console.log('[relay] Token saved to localStorage');
       } catch (e) {
         console.error('[relay] localStorage error:', e);
       }
-
-      // Now reload the opener window to force it to pick up the new token
-      if (window.opener && !window.opener.closed) {
-        try {
-          window.opener.location.reload();
-        } catch (e) {
-          console.error('[relay] Could not reload opener:', e);
-        }
-      }
-
-      // Close the popup
-      setTimeout(() => window.close(), 600);
     })();
   </script>
 </body>
