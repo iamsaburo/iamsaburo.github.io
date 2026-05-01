@@ -9,7 +9,7 @@ media:
 
 content:
   - name: blocks
-    label: Community Blocks
+    label: SABURO™ | Корисне
     type: collection
     path: _blocks
     format: yaml-frontmatter
