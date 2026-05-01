@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <meta http-equiv="Cross-Origin-Opener-Policy" content="unsafe-none" />
-  <title>Content Manager</title>
+  <title>Content Manager (Debug)</title>
+  <style>
+    #manual-retry {
+      position: fixed; bottom: 20px; right: 20px;
+      padding: 10px 20px; background: #ff9800; color: white;
+      border: none; border-radius: 4px; cursor: pointer; z-index: 1000;
+    }
+  </style>
 </head>
 <body>
+  <button id="manual-retry" onclick="manualRetry()">🔄 Manual Retry Login</button>
+
   <script>
+    console.log('[index] Page loaded. Setting up CMS config & poller.');
+
     window.CMS_CONFIG = {
       backend: {
         name:          'github',
@@ -38,45 +49,108 @@
       ],
     };
   </script>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
-  <!-- Token Poller: Guaranteed to catch the token from localStorage -->
+  <!-- Decap CMS loaded normally -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Poller + manual retry logic -->
   <script>
-    (function() {
-      const TOKEN_KEY = 'decap_oauth_token';
-      
-      function tryLogin() {
-        var rawToken = localStorage.getItem(TOKEN_KEY);
-        if (!rawToken) return;
+    const TOKEN_KEY = 'decap_oauth_token';
+    let pollTimer = null;
 
-        try {
-          var data = JSON.parse(rawToken);
-          if (!data.token) throw new Error('Token missing from stored data');
-          
-          // Clean up immediately to prevent re-use
-          localStorage.removeItem(TOKEN_KEY);
+    function dispatchToken(token, provider) {
+      const message = 'authorization:github:success:' + JSON.stringify({
+        token: token,
+        provider: provider || 'github'
+      });
+      console.log('[index] 📨 Dispatching message to Decap:', message.substring(0, 80) + '…');
+      try {
+        window.dispatchEvent(new MessageEvent('message', {
+          data: message,
+          origin: window.location.origin
+        }));
+        console.log('[index] ✅ Message dispatched successfully.');
+      } catch (e) {
+        console.error('[index] ❌ Dispatch error:', e);
+      }
+    }
 
-          // Create the message Decap CMS expects
-          var message = 'authorization:github:success:' + JSON.stringify({
-            token: data.token,
-            provider: 'github'
-          });
-
-          // Dispatch the event. Decap's listener will catch it.
-          window.dispatchEvent(new MessageEvent('message', {
-            data: message,
-            origin: window.location.origin
-          }));
-          
-          console.log('Successfully dispatched stored auth token to Decap CMS.');
-        } catch (e) {
-          console.error('Error processing stored auth token:', e);
-        }
+    function checkForToken() {
+      console.log('[index] 🔍 Polling localStorage for token...');
+      const raw = localStorage.getItem(TOKEN_KEY);
+      if (!raw) {
+        console.log('[index]   -> No token found.');
+        return;
       }
 
-      // Check every 500ms. The popup will have stored the token by the time this runs.
-      setInterval(tryLogin, 500);
-    })();
+      console.log('[index]   -> Token data found:', raw.substring(0, 80) + '…');
+      try {
+        const data = JSON.parse(raw);
+        if (!data.token) {
+          console.error('[index] ❌ Stored object has no token field:', data);
+          localStorage.removeItem(TOKEN_KEY);
+          return;
+ burada
+        }
+        // Clear token from storage (once)
+        localStorage.removeItem(TOKEN_KEY);
+        console.log('[index] 🗑️ Token removed from localStorage.');
+        
+        dispatchToken(data.token, data.provider);
+
+        // Stop polling after successful dispatch
+        if (pollTimer) {
+          clearInterval(pollTimer);
+          pollTimer = null;
+          console.log('[index] Polling stopped after successful dispatch.');
+        }
+      } catch (e) {
+        console.error('[index] ❌ Error parsing token JSON:', e);
+        localStorage.removeItem(TOKEN_KEY);
+      }
+    }
+
+    // Manual retry button
+    function manualRetry() {
+      console.log('[index] Manual retry triggered.');
+      checkForToken();
+    }
+
+    // Also listen for direct postMessage / BroadcastChannel, just in case
+    window.addEventListener('message', function(event) {
+      if (event.origin !== window.location.origin) return;
+      if (typeof event.data === 'string' && event.data.startsWith('authorization:github:success:')) {
+        console.log('[index] 📥 Received external message event:', event.data.substring(0, 80) + '…');
+        dispatchTokenFromMessage(event.data);
+      }
+    });
+
+    try {
+      const bc = new BroadcastChannel('decap-oauth');
+      bc.onmessage = function(e) {
+        console.log('[index] 📡 BroadcastChannel message received:', typeof e.data === 'string' ? e.data.substring(0, 80) : e.data);
+        if (typeof e.data === 'string' && e.data.startsWith('authorization:github:success:')) {
+          dispatchTokenFromMessage(e.data);
+        }
+      };
+    } catch (e) {
+      console.warn('[index] BroadcastChannel not supported:', e);
+    }
+
+    function dispatchTokenFromMessage(msgString) {
+      try {
+        const payload = JSON.parse(msgString.replace('authorization:github:success:', ''));
+        if (payload.token) {
+          dispatchToken(payload.token, payload.provider);
+        }
+      } catch (e) {
+        console.error('[index] Error parsing message payload:', e);
+      }
+    }
+
+    // Start polling every 500ms
+    pollTimer = setInterval(checkForToken, 500);
+    console.log('[index] Token poller started (interval 500ms).');
   </script>
 </body>
 </html>

@@ -1,39 +1,81 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><title>Authorizing…</title></head>
+<head>
+  <meta charset="utf-8">
+  <title>Authorizing… (Debug)</title>
+  <style>
+    body { font-family: monospace; padding: 2rem; background: #f5f5f5; }
+    button { padding: 0.5rem 1rem; margin-top: 1rem; }
+  </style>
+</head>
 <body>
-<p style="font-family:sans-serif;padding:2rem;color:#555">
-  Authorization complete — this window will close automatically.
-</p>
-<script>
-(function () {
-  const hash  = new URLSearchParams(location.hash.slice(1));
-  const token = hash.get('t');
+  <p>Authorization complete. <strong>Keep this window open for debugging.</strong></p>
+  <button onclick="window.close()">Close window manually</button>
+  
+  <script>
+    console.log('[relay] Script started. URL hash:', location.hash);
+    
+    (function () {
+      const hash  = new URLSearchParams(location.hash.slice(1));
+      const token = hash.get('t');
+      
+      console.log('[relay] Parsed token:', token ? `${token.substring(0, 6)}…` : 'null');
+      
+      if (!token) {
+        console.error('[relay] ❌ No token found in URL hash');
+        document.querySelector('p').textContent = 'Missing token — please try logging in again.';
+        return;
+      }
 
-  if (!token) {
-    document.querySelector('p').textContent =
-      'Missing token — please try logging in again.';
-    return;
-  }
+      // Clear hash from URL
+      history.replaceState({}, '', location.pathname);
+      console.log('[relay] Hash cleared. New URL:', location.href);
 
-  // Clear token from URL/history immediately
-  history.replaceState({}, '', location.pathname);
+      const msg = 'authorization:github:success:' +
+        JSON.stringify({ token: token, provider: 'github' });
+      const origin = window.location.origin;
 
-  // Store the token where the main page can reliably find it
-  try {
-    const authData = {
-      token: token,
-      provider: 'github',
-      timestamp: Date.now()
-    };
-    localStorage.setItem('decap_oauth_token', JSON.stringify(authData));
-  } catch (e) {
-    console.error('Failed to save token to localStorage:', e);
-  }
+      // 1. Try opener.postMessage
+      if (window.opener && !window.opener.closed) {
+        try {
+          console.log('[relay] 📤 Attempting opener.postMessage to', origin);
+          window.opener.postMessage(msg, origin);
+          console.log('[relay] ✅ opener.postMessage sent successfully.');
+        } catch (e) {
+          console.error('[relay] ❌ opener.postMessage failed:', e);
+        }
+      } else {
+        console.warn('[relay] ⚠️ window.opener is null or closed. Cannot use postMessage.');
+      }
 
-  // Close the popup after a short delay
-  setTimeout(() => window.close(), 800);
-})();
-</script>
+      // 2. BroadcastChannel fallback
+      try {
+        const bc = new BroadcastChannel('decap-oauth');
+        console.log('[relay] 📡 Broadcasting via BroadcastChannel...');
+        bc.postMessage(msg);
+        bc.close();
+        console.log('[relay] ✅ BroadcastChannel message sent & channel closed.');
+      } catch (e) {
+        console.error('[relay] ❌ BroadcastChannel error:', e);
+      }
+
+      // 3. localStorage (ultimate fallback)
+      try {
+        const authData = {
+          token: token,
+          provider: 'github',
+          timestamp: Date.now()
+        };
+        console.log('[relay] 💾 Saving token to localStorage:', authData);
+        localStorage.setItem('decap_oauth_token', JSON.stringify(authData));
+        console.log('[relay] ✅ Token saved to localStorage.');
+      } catch (e) {
+        console.error('[relay] ❌ localStorage write error:', e);
+      }
+
+      // DO NOT CLOSE WINDOW AUTOMATICALLY – let user inspect logs
+      console.log('[relay] Waiting for manual close. You can now inspect this console.');
+    })();
+  </script>
 </body>
 </html>
