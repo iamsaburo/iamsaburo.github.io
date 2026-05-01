@@ -1,6 +1,13 @@
+media:
+  - name: uploads
+    label: Uploads
+    input: assets/uploads
+    output: /assets/uploads
+    categories: [image]
+
 content:
   - name: blocks
-    label: SABURO™ | Корисне
+    label: Community Blocks
     type: collection
     path: _blocks
     format: yaml-frontmatter
@@ -31,8 +38,10 @@ content:
         required: false
       - name: categories
         label: Categories
-        type: multiselect
+        type: select
         required: true
+        multiple: true
+        display: checkboxes
         options:
           - StreamElements
           - Streamer.bot
