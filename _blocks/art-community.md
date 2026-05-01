@@ -24,7 +24,7 @@ back_label: Головна
 
 ## 4 типи кнопок
 
-<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
 
 {::nomarkdown}
 {% include btn-saburo.html label="Outline" visual="outline" %}
