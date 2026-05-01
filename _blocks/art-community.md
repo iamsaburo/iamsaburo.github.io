@@ -12,8 +12,6 @@ back_url: /
 back_label: Головна
 ---
 
-<div class="content-container" markdown="1">
-
 ## Hello World
 
 {% include btn-saburo.html label="Hello World" visual="outline" %}
@@ -73,5 +71,3 @@ back_label: Головна
 | Стовпець 1 | Стовпець 2 |
 |------------|------------|
 | дані       | дані       |
-
-</div>
