@@ -1,17 +1,17 @@
 ---
 title: Демо кнопок
 slug: art-community
+order: 2
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
+back_url: /
+back_label: Головна
 categories:
   - StreamElements
   - Twitch
+  - OBS
 description: Усі стилі кнопок та форматування
-layout: block-info
-back_url: /
-back_label: Головна
 ---
-
 <div class="content-container" markdown="1">
 
 ## Hello World
