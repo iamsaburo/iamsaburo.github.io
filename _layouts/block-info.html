@@ -89,45 +89,41 @@
     pointer-events:none;
   }
 
-  /* ── RAINBOW HOVER (applied on hover to any button with data-hover="rainbow") ── */
+  /* ── RAINBOW HOVER (for card buttons and other hover states) ── */
+  /* We use a simple background animation that stays inside the button */
   .btn-saburo[data-hover="rainbow"]:hover,
   .block-card:hover .btn-saburo[data-hover="rainbow"] {
-    overflow:hidden;
-    background:transparent;
-    color:#111;
+    background:transparent;color:#111;
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
     text-shadow:0 1px 0 rgba(255,255,255,.35);
   }
   .btn-saburo[data-hover="rainbow"]:hover::before,
   .block-card:hover .btn-saburo[data-hover="rainbow"]::before {
-    content:'';
-    position:absolute;
-    top:50%;left:50%;
-    width:290%;height:800%;
+    content:'';position:absolute;inset:0;border-radius:inherit;
     background:linear-gradient(-82deg,
-      #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
-      #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
-      #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
-      #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
-      #ADA8FF 100%
+      #ADA8FF, #9FE5F6, #C2FAAB, #FCFF91, #FFBED0, #F8C2FF,
+      #ADA8FF, #9FE5F6, #C2FAAB, #FCFF91, #FFBED0, #F8C2FF,
+      #ADA8FF, #9FE5F6, #C2FAAB, #FCFF91, #FFBED0, #F8C2FF,
+      #ADA8FF, #9FE5F6, #C2FAAB, #FCFF91, #FFBED0, #F8C2FF,
+      #ADA8FF
     );
-    background-size:100% 100%;
-    transform-origin:3% 61%;
-    transform:rotate(-82deg) translateX(35%);
-    animation:rainbowShift 8s ease-in-out infinite alternate;
+    background-size:200% 200%;
+    animation:simpleRainbowShift 8s ease-in-out infinite alternate;
     z-index:-1;
-    pointer-events:none;
   }
-
-  /* Rainbow hover also works on buttons that are already rainbow */
+  /* Ensure the rainbow hover doesn't interfere with rainbow visual */
   .btn-saburo[data-visual="rainbow"][data-hover="rainbow"]:hover::before {
-    /* already defined, but ensure it stays */
+    content:none; /* don't add a second pseudo-element */
   }
 
-  /* Keyframes for the rotating gradient */
+  /* Keyframes */
   @keyframes rainbowShift {
     0%   { transform: rotate(-82deg) translateX(35%); }
     100% { transform: rotate(-82deg) translateX(-40%); }
+  }
+  @keyframes simpleRainbowShift {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
   }
 
   /* Lighten border on hover for rainbow buttons */
@@ -177,7 +173,7 @@
   .block-card.gif-ready .image-wrapper .static-img{opacity:0}
   .block-card.gif-ready .image-wrapper .gif-img{opacity:1}
 
-  /* Card hover button states: white and outline remain as before */
+  /* Card hover button states (white and outline only, rainbow handled above) */
   .block-card:hover .btn-saburo[data-hover="white"]{
     background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
   }
