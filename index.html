@@ -63,90 +63,103 @@ title: "Корисне"
 
 <script>
 (function(){
-  const cards       = Array.from(document.querySelectorAll('.block-card'));
-  const filterBtns  = document.querySelectorAll('.filter-btn');
-  const highlight   = document.getElementById('filterHighlight');
-  const paginationDiv = document.getElementById('pagination');
-  const noResultsDiv  = document.getElementById('noResultsMessage');
-  const cardsPerPage  = {{ blocks_per_page }};
+  const cards        = Array.from(document.querySelectorAll('.block-card'));
+  const filterBtns   = document.querySelectorAll('.filter-btn');
+  const highlight    = document.getElementById('filterHighlight');
+  const paginationDiv= document.getElementById('pagination');
+  const noResultsDiv = document.getElementById('noResultsMessage');
+  const cardsPerPage = {{ blocks_per_page }};
 
   let currentPage    = 1;
   let activeCategory = 'all';
-  let filteredCards  = [...cards]; // separate from pagination state
+  let filteredCards  = [...cards];
 
-  /* ── highlight ── */
-  function moveHighlight(btn) {
-    if (!highlight || !btn) return;
-    highlight.style.width = btn.offsetWidth + 'px';
-    highlight.style.left  = btn.offsetLeft  + 'px';
+  /* ── Pre-measure a button's width as if its label were fully expanded,
+         without waiting for the CSS transition to finish.             ── */
+  function getExpandedWidth(btn) {
+    const label = btn.querySelector('.f-label');
+    if (!label) return btn.offsetWidth;
+    // Snapshot current inline styles
+    const prev = { transition: label.style.transition,
+                   maxWidth:   label.style.maxWidth,
+                   opacity:    label.style.opacity };
+    // Force-expand with no transition so offsetWidth reflects final state
+    label.style.cssText += ';transition:none!important;max-width:300px!important;opacity:1!important;';
+    const w = btn.offsetWidth;
+    // Restore (transition re-enables after reflow via rAF)
+    label.style.transition = prev.transition;
+    label.style.maxWidth   = prev.maxWidth;
+    label.style.opacity    = prev.opacity;
+    requestAnimationFrame(() => { label.style.cssText = label.style.cssText; });
+    return w;
   }
 
-  /* ── render: hide all, show current page of filteredCards ── */
+  function moveHighlight(btn, knownWidth) {
+    if (!highlight || !btn) return;
+    highlight.style.width = (knownWidth ?? btn.offsetWidth) + 'px';
+    highlight.style.left  = btn.offsetLeft + 'px';
+  }
+
+  /* ── Render: hide all cards, show current page of filteredCards ── */
   function render() {
     cards.forEach(c => c.style.display = 'none');
     const total = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
     if (currentPage > total) currentPage = total;
-
-    const start = (currentPage - 1) * cardsPerPage;
-    filteredCards.slice(start, start + cardsPerPage)
+    filteredCards.slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage)
                  .forEach(c => c.style.display = '');
-
     if (noResultsDiv)
       noResultsDiv.style.display = filteredCards.length === 0 ? 'block' : 'none';
-
     updatePaginationUI(total);
   }
 
   function updatePaginationUI(total) {
     if (!paginationDiv) return;
     paginationDiv.style.display = filteredCards.length > cardsPerPage ? 'flex' : 'none';
-
     document.querySelectorAll('.page-num').forEach(btn => {
       const p = parseInt(btn.dataset.page);
       btn.style.display = p <= total ? '' : 'none';
       btn.classList.toggle('active', p === currentPage);
     });
-
     const prev = document.getElementById('prevPage');
     const next = document.getElementById('nextPage');
     if (prev) prev.disabled = currentPage === 1;
     if (next) next.disabled = currentPage >= total;
   }
 
-  /* ── filter ── */
   function applyFilter() {
     filteredCards = cards.filter(card => {
-      const cats = card.dataset.categories
-        ? card.dataset.categories.split(',') : [];
+      const cats = card.dataset.categories ? card.dataset.categories.split(',') : [];
       return activeCategory === 'all' || cats.includes(activeCategory);
     });
     currentPage = 1;
     render();
   }
 
-  /* ── filter buttons ── */
+  /* ── Filter buttons ── */
   const initialActive = document.querySelector('.filter-btn.active');
   if (initialActive) moveHighlight(initialActive);
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
+      // 1. Measure the TARGET button's final width BEFORE changing any classes
+      const finalWidth = getExpandedWidth(btn);
+
+      // 2. Swap active class
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeCategory = btn.dataset.category;
-      moveHighlight(btn);
-      // Re-measure after the label CSS transition finishes (300 ms)
-      setTimeout(() => moveHighlight(btn), 320);
+
+      // 3. Move highlight directly to final dimensions — one smooth animation
+      moveHighlight(btn, finalWidth);
+
       applyFilter();
     });
   });
 
-  /* ── pagination buttons ── */
+  /* ── Pagination ── */
   if (paginationDiv) {
     document.querySelectorAll('.page-num').forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentPage = parseInt(btn.dataset.page);
-        render();
-      });
+      btn.addEventListener('click', () => { currentPage = parseInt(btn.dataset.page); render(); });
     });
     document.getElementById('prevPage')?.addEventListener('click', () => {
       if (currentPage > 1) { currentPage--; render(); }
@@ -157,6 +170,6 @@ title: "Корисне"
     });
   }
 
-  applyFilter(); // initial render
+  applyFilter();
 })();
 </script>
