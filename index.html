@@ -10,7 +10,6 @@ title: "Корисне"
 
 <div class="filter-wrap">
   <div class="filter-bar" id="filterBar">
-    <div class="filter-highlight" id="filterHighlight"></div>
     <button class="filter-btn active" data-category="all">Усі</button>
     {% for cat in site.data.category_icons %}
     <button class="filter-btn" data-category="{{ cat.category }}">
@@ -49,7 +48,7 @@ title: "Корисне"
 </div>
 <div id="noResultsMessage" class="no-results" style="display:none;">Категорія пуста.</div>
 
-{% assign blocks_per_page = 12 %}
+{% assign blocks_per_page = 9 %}
 {% assign total_pages = site.blocks.size | divided_by: blocks_per_page | plus: 1 %}
 {% if total_pages > 1 %}
 <div class="pagination" id="pagination">
@@ -65,7 +64,6 @@ title: "Корисне"
 (function(){
   const cards        = Array.from(document.querySelectorAll('.block-card'));
   const filterBtns   = document.querySelectorAll('.filter-btn');
-  const highlight    = document.getElementById('filterHighlight');
   const paginationDiv= document.getElementById('pagination');
   const noResultsDiv = document.getElementById('noResultsMessage');
   const cardsPerPage = {{ blocks_per_page }};
@@ -74,35 +72,32 @@ title: "Корисне"
   let activeCategory = 'all';
   let filteredCards  = [...cards];
 
-  /* ── Pre-measure a button's width as if its label were fully visible,
-         WITHOUT waiting for the CSS transition — done before class changes ── */
-  function expandedWidth(btn) {
-    const label = btn.querySelector('.f-label');
-    if (!label) return btn.offsetWidth;
-    const saved = label.style.cssText;
-    label.style.cssText += ';transition:none!important;max-width:300px!important;opacity:1!important;';
-    void btn.offsetWidth; // force reflow
-    const w = btn.offsetWidth;
-    label.style.cssText = saved;
-    return w;
+  function showCardsWithFade(visibleCards) {
+    cards.forEach(c => {
+      c.style.display = 'none';
+      c.classList.remove('visible');
+      c.style.transitionDelay = '0s';
+    });
+
+    visibleCards.forEach((card, i) => {
+      card.style.display = '';
+      card.style.transitionDelay = (i * 0.1) + 's';
+      requestAnimationFrame(() => {
+        card.classList.add('visible');
+      });
+    });
+
+    if (noResultsDiv) {
+      noResultsDiv.style.display = visibleCards.length === 0 ? 'block' : 'none';
+    }
   }
 
-  /* ── Place highlight — left snaps instantly, width CSS-transitions ── */
-  function placeHighlight(btn, w, l) {
-    if (!highlight) return;
-    highlight.style.width = (w ?? btn.offsetWidth) + 'px';
-    highlight.style.left  = (l ?? btn.offsetLeft)  + 'px';
-  }
-
-  /* ── Render page ── */
   function render() {
-    cards.forEach(c => c.style.display = 'none');
     const total = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
     if (currentPage > total) currentPage = total;
-    filteredCards.slice((currentPage-1)*cardsPerPage, currentPage*cardsPerPage)
-                 .forEach(c => c.style.display = '');
-    if (noResultsDiv)
-      noResultsDiv.style.display = filteredCards.length === 0 ? 'block' : 'none';
+    const start = (currentPage - 1) * cardsPerPage;
+    const pageCards = filteredCards.slice(start, start + cardsPerPage);
+    showCardsWithFade(pageCards);
     updatePaginationUI(total);
   }
 
@@ -129,46 +124,43 @@ title: "Корисне"
     render();
   }
 
-  /* ── Filter buttons ── */
-  const initBtn = document.querySelector('.filter-btn.active');
-  if (initBtn) requestAnimationFrame(() => placeHighlight(initBtn));
-
+  // Simple filter buttons
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // 1. Measure BEFORE any class changes (layout is stable)
-      const finalW = expandedWidth(btn);
-      const finalL = btn.offsetLeft;
-
-      // 2. Swap active class
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeCategory = btn.dataset.category;
-
-      // 3. Snap left, CSS-transition width to pre-measured final value
-      placeHighlight(btn, finalW, finalL);
-
-      // 4. After flex-layout shift settles (label CSS transition = 300 ms),
-      //    re-measure and correct any drift caused by collapsing sibling
-      setTimeout(() => placeHighlight(btn), 340);
-
       applyFilter();
     });
   });
 
-  /* ── Pagination ── */
+  // Pagination
   if (paginationDiv) {
     document.querySelectorAll('.page-num').forEach(btn => {
-      btn.addEventListener('click', () => { currentPage = parseInt(btn.dataset.page); render(); });
+      btn.addEventListener('click', () => {
+        currentPage = parseInt(btn.dataset.page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        render();
+      });
     });
     document.getElementById('prevPage')?.addEventListener('click', () => {
-      if (currentPage > 1) { currentPage--; render(); }
+      if (currentPage > 1) {
+        currentPage--;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        render();
+      }
     });
     document.getElementById('nextPage')?.addEventListener('click', () => {
       const total = Math.ceil(filteredCards.length / cardsPerPage);
-      if (currentPage < total) { currentPage++; render(); }
+      if (currentPage < total) {
+        currentPage++;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        render();
+      }
     });
   }
 
+  // Initial reveal
   applyFilter();
 })();
 </script>
