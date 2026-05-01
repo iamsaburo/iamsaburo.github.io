@@ -16,50 +16,23 @@
     return;
   }
 
-  // Clear token from URL immediately
+  // Clear token from URL/history immediately
   history.replaceState({}, '', location.pathname);
 
-  const msg = 'authorization:github:success:' +
-    JSON.stringify({ token: token, provider: 'github' });
-  const origin = window.location.origin;
-
-  // Attempt 1: window.opener (with retries)
-  function sendToOpener() {
-    if (window.opener && !window.opener.closed) {
-      try {
-        window.opener.postMessage(msg, origin);
-        return true;
-      } catch (e) { }
-    }
-    return false;
+  // Store the token where the main page can reliably find it
+  try {
+    const authData = {
+      token: token,
+      provider: 'github',
+      timestamp: Date.now()
+    };
+    localStorage.setItem('decap_oauth_token', JSON.stringify(authData));
+  } catch (e) {
+    console.error('Failed to save token to localStorage:', e);
   }
 
-  let attempts = 0;
-  const maxAttempts = 15;
-  const interval = setInterval(() => {
-    if (sendToOpener() || ++attempts >= maxAttempts) {
-      clearInterval(interval);
-      // After retries, fallback to BroadcastChannel + localStorage
-      if (attempts >= maxAttempts) {
-        // BroadcastChannel
-        try {
-          const bc = new BroadcastChannel('decap-oauth');
-          bc.postMessage(msg);
-          bc.close();
-        } catch (e) {}
-
-        // localStorage (ultimate fallback)
-        try {
-          localStorage.setItem('decap-github-token', JSON.stringify({
-            token: token,
-            provider: 'github',
-            timestamp: Date.now()
-          }));
-        } catch (e) {}
-      }
-      setTimeout(() => window.close(), 800);
-    }
-  }, 200);
+  // Close the popup after a short delay
+  setTimeout(() => window.close(), 800);
 })();
 </script>
 </body>

@@ -9,88 +9,6 @@
 </head>
 <body>
   <script>
-    // ── Token delivery system with retry ──────────────────────────────
-    (function() {
-      var pendingAuthMessage = null;
-      var dispatchInterval = null;
-      var dispatchCount = 0;
-      var MAX_DISPATCH = 30; // 30 attempts × 500ms = 15 seconds
-
-      function dispatchMessage() {
-        if (!pendingAuthMessage) return;
-        try {
-          window.dispatchEvent(
-            new MessageEvent('message', {
-              data: pendingAuthMessage,
-              origin: window.location.origin
-            })
-          );
-          console.log('[Decap Auth] Dispatched token message (attempt ' + (dispatchCount + 1) + ')');
-        } catch (e) {
-          console.error('[Decap Auth] Dispatch error:', e);
-        }
-        dispatchCount++;
-        if (dispatchCount >= MAX_DISPATCH) {
-          clearInterval(dispatchInterval);
-          console.log('[Decap Auth] Stopped retrying after max attempts');
-        }
-      }
-
-      function startDispatch(tokenMessage) {
-        pendingAuthMessage = tokenMessage;
-        dispatchCount = 0;
-        if (dispatchInterval) clearInterval(dispatchInterval);
-        // Try once immediately, then every 500ms
-        dispatchMessage();
-        dispatchInterval = setInterval(dispatchMessage, 500);
-      }
-
-      // 1. BroadcastChannel listener (from relay.html)
-      try {
-        var bc = new BroadcastChannel('decap-oauth');
-        bc.onmessage = function(e) {
-          console.log('[Decap Auth] BroadcastChannel received:', e.data);
-          startDispatch(e.data);
-          bc.close();
-        };
-      } catch (err) {
-        console.warn('BroadcastChannel not available:', err);
-      }
-
-      // 2. Direct postMessage listener (can be sent by relay.html opener fallback)
-      window.addEventListener('message', function(event) {
-        if (
-          event.origin === window.location.origin &&
-          typeof event.data === 'string' &&
-          event.data.startsWith('authorization:github:success:')
-        ) {
-          console.log('[Decap Auth] Received opener message:', event.data);
-          startDispatch(event.data);
-        }
-      });
-
-      // 3. localStorage poller (catches token set before this script ran)
-      (function pollLocalStorage() {
-        try {
-          var raw = localStorage.getItem('decap-github-token');
-          if (raw) {
-            var data = JSON.parse(raw);
-            localStorage.removeItem('decap-github-token');
-            var msg = 'authorization:github:success:' + JSON.stringify({
-              token: data.token,
-              provider: 'github'
-            });
-            console.log('[Decap Auth] Found token in localStorage, dispatching');
-            startDispatch(msg);
-            return; // token found, stop polling
-          }
-        } catch (e) {}
-        setTimeout(pollLocalStorage, 500);
-      })();
-    })();
-  </script>
-
-  <script>
     window.CMS_CONFIG = {
       backend: {
         name:          'github',
@@ -121,5 +39,44 @@
     };
   </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <!-- Token Poller: Guaranteed to catch the token from localStorage -->
+  <script>
+    (function() {
+      const TOKEN_KEY = 'decap_oauth_token';
+      
+      function tryLogin() {
+        var rawToken = localStorage.getItem(TOKEN_KEY);
+        if (!rawToken) return;
+
+        try {
+          var data = JSON.parse(rawToken);
+          if (!data.token) throw new Error('Token missing from stored data');
+          
+          // Clean up immediately to prevent re-use
+          localStorage.removeItem(TOKEN_KEY);
+
+          // Create the message Decap CMS expects
+          var message = 'authorization:github:success:' + JSON.stringify({
+            token: data.token,
+            provider: 'github'
+          });
+
+          // Dispatch the event. Decap's listener will catch it.
+          window.dispatchEvent(new MessageEvent('message', {
+            data: message,
+            origin: window.location.origin
+          }));
+          
+          console.log('Successfully dispatched stored auth token to Decap CMS.');
+        } catch (e) {
+          console.error('Error processing stored auth token:', e);
+        }
+      }
+
+      // Check every 500ms. The popup will have stored the token by the time this runs.
+      setInterval(tryLogin, 500);
+    })();
+  </script>
 </body>
 </html>
