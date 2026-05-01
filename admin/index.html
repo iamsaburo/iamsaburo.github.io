@@ -18,7 +18,7 @@
   </style>
 </head>
 <body>
-  <!-- Token prompt (will appear only if you enable the script below) -->
+  <!-- Token prompt (will appear only if you enable the fallback script) -->
   <div id="token-prompt">
     <h2>Enter GitHub Token</h2>
     <p style="font-size:0.9em; color:#555;">If OAuth fails, paste a fine‑grained token with <strong>Contents read/write</strong> access to your repo.</p>
@@ -29,7 +29,7 @@
 
   <script>
     // =====================================================
-    // Your existing CMS configuration (unchanged)
+    // Your CMS configuration (unchanged)
     // =====================================================
     window.CMS_CONFIG = {
       backend: {
@@ -61,12 +61,12 @@
     };
   </script>
 
-  <!-- Static CMS script (replaces Decap) -->
-  <script src="https://unpkg.com/@staticcms/core@^5.0.0/dist/static-cms.js"></script>
+  <!-- Static CMS (latest 5.x release, no caret) -->
+  <script src="https://unpkg.com/@staticcms/core@5/dist/static-cms.js"></script>
 
   <!-- =====================================================
-       OPTIONAL: Token prompt fallback (if OAuth still fails)
-       Uncomment the block below to enable.
+       OPTIONAL: Token prompt fallback
+       Uncomment the block below if OAuth still fails.
   ======================================================
   <script>
     const TOKEN_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
