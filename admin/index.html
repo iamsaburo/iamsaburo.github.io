@@ -4,11 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <meta http-equiv="Cross-Origin-Opener-Policy" content="unsafe-none" />
   <title>Content Manager</title>
+  <style>
+    /* Optional: Token prompt fallback (hidden by default) */
+    #token-prompt {
+      display: none;
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: white; padding: 2rem; box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center; z-index: 1000; font-family: sans-serif;
+    }
+    #token-prompt input { padding: 0.5rem; width: 300px; }
+    #token-prompt button { padding: 0.5rem 1rem; margin-top: 1rem; cursor: pointer; }
+  </style>
 </head>
 <body>
+  <!-- Token prompt (will appear only if you enable the script below) -->
+  <div id="token-prompt">
+    <h2>Enter GitHub Token</h2>
+    <p style="font-size:0.9em; color:#555;">If OAuth fails, paste a fine‑grained token with <strong>Contents read/write</strong> access to your repo.</p>
+    <input type="password" id="token-input" placeholder="github_pat_...">
+    <br>
+    <button onclick="saveToken()">Save & Login</button>
+  </div>
+
   <script>
+    // =====================================================
+    // Your existing CMS configuration (unchanged)
+    // =====================================================
     window.CMS_CONFIG = {
       backend: {
         name:          'github',
@@ -24,30 +46,40 @@
           name: 'blocks', label: 'Community Blocks',
           folder: '_blocks', create: true, slug: '{{slug}}',
           fields: [
-            { label: 'Title',                       name: 'title',       widget: 'string',   required: true  },
-            { label: 'Slug',                         name: 'slug',        widget: 'string',   required: true,
+            { label: 'Title', name: 'title', widget: 'string', required: true },
+            { label: 'Slug', name: 'slug', widget: 'string', required: true,
               pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens'] },
-            { label: 'Static Image URL',             name: 'image',       widget: 'string',   required: true  },
-            { label: 'GIF Image URL (optional)',     name: 'gif_image',   widget: 'string',   required: false },
-            { label: 'Categories',                   name: 'categories',  widget: 'select',   required: true,
+            { label: 'Static Image URL', name: 'image', widget: 'string', required: true },
+            { label: 'GIF Image URL (optional)', name: 'gif_image', widget: 'string', required: false },
+            { label: 'Categories', name: 'categories', widget: 'select', required: true,
               multiple: true, options: ['StreamElements','Streamer.bot','Twitch','OBS'] },
-            { label: 'Short Description',            name: 'description', widget: 'text',     required: false },
-            { label: 'Full Info Content (Markdown)', name: 'body',        widget: 'markdown', required: false },
+            { label: 'Short Description', name: 'description', widget: 'text', required: false },
+            { label: 'Full Info Content (Markdown)', name: 'body', widget: 'markdown', required: false },
           ],
         },
       ],
     };
   </script>
-  <!-- Decap CMS loaded – its own OAuth handler will listen for messages -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-  <!-- Temporary DEBUG listener – logs but does NOT re-dispatch -->
+  <!-- Static CMS script (replaces Decap) -->
+  <script src="https://unpkg.com/@staticcms/core@^5.0.0/dist/static-cms.js"></script>
+
+  <!-- =====================================================
+       OPTIONAL: Token prompt fallback (if OAuth still fails)
+       Uncomment the block below to enable.
+  ======================================================
   <script>
-    window.addEventListener('message', function(e) {
-      if (e.origin !== window.location.origin) return;
-      console.log('[DEBUG] Message received:', e.data);
-      // DO NOT dispatch anything else – just observe
-    });
+    const TOKEN_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
+    if (!localStorage.getItem(TOKEN_KEY)) {
+      document.getElementById('token-prompt').style.display = 'block';
+    }
+    function saveToken() {
+      const token = document.getElementById('token-input').value.trim();
+      if (!token) return;
+      localStorage.setItem(TOKEN_KEY, token);
+      window.location.reload();
+    }
   </script>
+  -->
 </body>
 </html>
