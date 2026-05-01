@@ -23,12 +23,20 @@ content:
         type: string
         required: true
       - name: image
-        label: Static Image
-        type: image
+        label: Static Image URL
+        type: string
         required: true
       - name: gif_image
-        label: GIF Image (optional)
-        type: image
+        label: GIF Image URL (optional)
+        type: string
+        required: false
+      - name: back_url
+        label: Back Button URL (optional)
+        type: string
+        required: false
+      - name: back_label
+        label: Back Button Label (optional)
+        type: string
         required: false
       - name: categories
         label: Categories
@@ -48,13 +56,7 @@ content:
         label: Full Info Content
         type: markdown
         required: false
-        description: >-
-          Use Markdown. Available include: btn-saburo
-          (label, visual [outline,white,rainbow,pill],
-          icon_visual, icon_hover, icon_position, width, height, radius, href).
-          Example: {% include btn-saburo.html label='Button' visual='outline' icon_visual='favorite' %}
-          Supports headings, code, tables, images, etc.
-      - name: layout
-        label: Layout
-        type: hidden
-        default: block-info
+        description: |
+          Cheat sheet for -info pages:
+          Buttons: {% include btn-saburo.html label="Label" visual="outline|white|rainbow|pill" … %}
+          All Markdown features: headings, bold, italic, lists, code, blockquote, tables, etc.
