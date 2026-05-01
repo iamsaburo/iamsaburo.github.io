@@ -2,24 +2,38 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authorizing…</title>
+  <title>Authorizing… (Debug)</title>
+  <style>
+    body { font-family: monospace; padding: 2rem; background: #fff; }
+    button { padding: 0.5rem 1rem; margin-top: 1rem; }
+  </style>
 </head>
 <body>
-  <p>Authorization complete — redirecting CMS…</p>
+  <p>Authorization complete. <strong>Keep this window open to see logs.</strong></p>
+  <button onclick="window.close()">Close manually</button>
+  <pre id="log"></pre>
   <script>
+    const logEl = document.getElementById('log');
+    function log(msg) {
+      console.log('[relay] ' + msg);
+      logEl.textContent += msg + '\n';
+    }
+
     (function () {
       const hash  = new URLSearchParams(location.hash.slice(1));
       const token = hash.get('t');
+      log('Hash token: ' + (token ? token.substring(0, 6) + '…' : 'null'));
 
       if (!token) {
-        document.body.textContent = 'Missing token — please try logging in again.';
+        log('❌ No token found in hash. Aborting.');
+        document.querySelector('p').textContent = 'Missing token.';
         return;
       }
 
-      // Clean URL
       history.replaceState({}, '', location.pathname);
+      log('Cleared hash.');
 
-      // Store token in both keys (for any future fallback)
+      // Store in both keys
       try {
         localStorage.setItem('decap-cms-github-iamsaburo/iamsaburo.github.io', token);
         localStorage.setItem('decap_oauth_token', JSON.stringify({
@@ -27,22 +41,29 @@
           provider: 'github',
           timestamp: Date.now()
         }));
-      } catch (e) {}
+        log('✅ Token saved to localStorage.');
+      } catch (e) {
+        log('❌ localStorage error: ' + e);
+      }
 
-      // Redirect the main window to Decap's token route
+      // Redirect URL
       const adminUrl = window.location.origin + '/admin/?token=' + encodeURIComponent(token);
+      log('🔄 Constructed admin URL: ' + adminUrl);
 
       if (window.opener && !window.opener.closed) {
+        log('🪟 Opener available. Attempting to redirect opener...');
         try {
-          // Same-origin? Redirect opener. If cross-origin, it'll fail silently and we fallback.
           window.opener.location.replace(adminUrl);
-          window.close();
+          log('✅ Opener redirected. Closing window...');
+          // Keep open for 5 seconds so you can read logs, then close
+          setTimeout(() => window.close(), 5000);
         } catch (e) {
-          // Cross-origin or blocked: redirect the popup itself
+          log('❌ Opener redirect blocked: ' + e.message);
+          log('➡️ Redirecting this window instead.');
           window.location.replace(adminUrl);
         }
       } else {
-        // No opener available (e.g., user refreshed the popup): just go there in this window
+        log('⚠️ No opener. Redirecting this popup to admin URL.');
         window.location.replace(adminUrl);
       }
     })();
