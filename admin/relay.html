@@ -2,79 +2,58 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authorizing… (Debug)</title>
+  <title>Authorizing…</title>
   <style>
     body { font-family: monospace; padding: 2rem; background: #f5f5f5; }
     button { padding: 0.5rem 1rem; margin-top: 1rem; }
   </style>
 </head>
 <body>
-  <p>Authorization complete. <strong>Keep this window open for debugging.</strong></p>
-  <button onclick="window.close()">Close window manually</button>
-  
+  <p>Authorization complete — redirecting to CMS...</p>
   <script>
-    console.log('[relay] Script started. URL hash:', location.hash);
-    
     (function () {
       const hash  = new URLSearchParams(location.hash.slice(1));
       const token = hash.get('t');
-      
-      console.log('[relay] Parsed token:', token ? `${token.substring(0, 6)}…` : 'null');
-      
+
       if (!token) {
-        console.error('[relay] ❌ No token found in URL hash');
         document.querySelector('p').textContent = 'Missing token — please try logging in again.';
         return;
       }
 
-      // Clear hash from URL
+      // Clear hash
       history.replaceState({}, '', location.pathname);
-      console.log('[relay] Hash cleared. New URL:', location.href);
 
-      const msg = 'authorization:github:success:' +
-        JSON.stringify({ token: token, provider: 'github' });
-      const origin = window.location.origin;
+      // The key Decap uses to store the GitHub token.
+      // Format: decap-cms-github-<backend.repo>
+      const TOKEN_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
 
-      // 1. Try opener.postMessage
+      // Also keep a backup in case the key format differs
+      const BACKUP_KEY = 'decap_oauth_token';
+
+      try {
+        // Save token directly where Decap looks for it
+        localStorage.setItem(TOKEN_KEY, token);
+        console.log('[relay] Token saved to', TOKEN_KEY);
+
+        // Backup
+        const backupData = { token, provider: 'github', timestamp: Date.now() };
+        localStorage.setItem(BACKUP_KEY, JSON.stringify(backupData));
+        console.log('[relay] Backup saved to', BACKUP_KEY);
+      } catch (e) {
+        console.error('[relay] localStorage error:', e);
+      }
+
+      // Now reload the opener window to force it to pick up the new token
       if (window.opener && !window.opener.closed) {
         try {
-          console.log('[relay] 📤 Attempting opener.postMessage to', origin);
-          window.opener.postMessage(msg, origin);
-          console.log('[relay] ✅ opener.postMessage sent successfully.');
+          window.opener.location.reload();
         } catch (e) {
-          console.error('[relay] ❌ opener.postMessage failed:', e);
+          console.error('[relay] Could not reload opener:', e);
         }
-      } else {
-        console.warn('[relay] ⚠️ window.opener is null or closed. Cannot use postMessage.');
       }
 
-      // 2. BroadcastChannel fallback
-      try {
-        const bc = new BroadcastChannel('decap-oauth');
-        console.log('[relay] 📡 Broadcasting via BroadcastChannel...');
-        bc.postMessage(msg);
-        bc.close();
-        console.log('[relay] ✅ BroadcastChannel message sent & channel closed.');
-      } catch (e) {
-        console.error('[relay] ❌ BroadcastChannel error:', e);
-      }
-
-      // 3. localStorage (ultimate fallback)
-      try {
-        const authData = {
-          token: token,
-          provider: 'github',
-          timestamp: Date.now()
-        };
-        console.log('[relay] 💾 Saving token to localStorage:', authData);
-        localStorage.setItem('decap_oauth_token', JSON.stringify(authData));
-        console.log('[relay] ✅ Token saved to localStorage.');
-      } catch (e) {
-        console.error('[relay] ❌ localStorage write error:', e);
-      }
-
-      // DO NOT CLOSE WINDOW AUTOMATICALLY – let user inspect logs
-      console.log('[relay] Waiting for manual close. You can now inspect this console.');
+      // Close the popup
+      setTimeout(() => window.close(), 600);
     })();
   </script>
 </body>
