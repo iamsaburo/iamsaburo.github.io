@@ -2,14 +2,14 @@
 
 media:
   - name: uploads
-    label: Uploads
+    label: SABURO™ | Корисне
     input: assets/uploads
     output: /assets/uploads
     categories: [image]
 
 content:
   - name: blocks
-    label: SABURO™ | Корисне
+    label: Community Blocks
     type: collection
     path: _blocks
     format: yaml-frontmatter
@@ -48,3 +48,8 @@ content:
         label: Full Info Content
         type: markdown
         required: false
+        description: >
+          **Cheat sheet:**  
+          `{% include btn-saburo.html label="Label" visual="outline|white|rainbow|pill" hover="outline|white|rainbow" icon_visual="icon_name" icon_hover="icon_name" icon_position="before|after" width="auto|140" height="48" radius="10" %}`  
+          **Markdown:** bold, italic, strikethrough, code, lists, blockquotes, tables, links, images.  
+          Use `<div class="content-container" markdown="1">` to wrap body content.
