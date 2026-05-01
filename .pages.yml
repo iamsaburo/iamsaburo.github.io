@@ -1,0 +1,57 @@
+# .pages.yml
+# The simplest CMS you'll ever need
+
+# 1. Define how media is handled
+# This tells Pages CMS where to find and store your image files.
+media:
+  - name: uploads
+    label: Uploads
+    input: assets/uploads   # The folder in your GitHub repo where images are stored
+    output: /assets/uploads  # The path used in your site's final URL
+    categories: [image]      # Only show image files in the media browser
+
+# 2. Define your content types
+# You have a "Community Blocks" collection, so we'll define a "blocks" collection.
+content:
+  - name: blocks
+    label: Community Blocks
+    type: collection          # A collection is a group of similar files (like blog posts)
+    path: _blocks             # The folder where your block files live
+    format: yaml-frontmatter  # This is the standard format for Jekyll/Hugo/e.t.c. pages
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+        # Optional: Add a pattern to enforce slug format, just like your Decap config
+        # pattern: '^[a-z0-9-]+$'
+      - name: image
+        label: Static Image
+        type: image           # This will open the media browser to pick an image
+        required: true
+      - name: gif_image
+        label: GIF Image (optional)
+        type: image
+        required: false
+      - name: categories
+        label: Categories
+        type: select
+        required: true
+        multiple: true
+        options:
+          - StreamElements
+          - Streamer.bot
+          - Twitch
+          - OBS
+      - name: description
+        label: Short Description
+        type: text             # A multi-line text field
+        required: false
+      - name: body
+        label: Full Info Content
+        type: markdown         # A rich Markdown editor, equivalent to your old 'markdown' widget
+        required: false
