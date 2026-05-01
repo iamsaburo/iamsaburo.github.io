@@ -1,14 +1,15 @@
 ---
-title: Art Community5
+title: ввівіівів5
 slug: art-community5
+order: 3
 image: https://static0.thegamerimages.com/wordpress/wp-content/uploads/2024/11/the-legend-of-zelda-tears-of-the-kingdom.jpg
 gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 categories:
   - StreamElements
   - Twitch
-description: Що буде, якщо дати чату полотно і можливість малювати все що вони захочуть? Мабуть дуууже багато перстнів 😏 😆
+description: Що буде, якщо дати чату полотно і можливість малювати все що вони
+  захочуть? Мабуть дуууже багато перстнів 😏 😆
 ---
-
 👾 ПІКСЕЛЬ-АРТ МАЛЮВАЛКА
 
 Що буде, якщо дати чату полотно і можливість малювати все що вони захочуть?
