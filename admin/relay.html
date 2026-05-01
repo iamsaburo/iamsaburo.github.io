@@ -16,49 +16,47 @@
     return;
   }
 
-  // Clear token from URL/history immediately
+  // Clear token from URL immediately
   history.replaceState({}, '', location.pathname);
 
   const msg = 'authorization:github:success:' +
     JSON.stringify({ token: token, provider: 'github' });
-  const origin = window.location.origin;   // same as main page origin
+  const origin = window.location.origin;
 
-  function sendViaOpener() {
+  // Attempt 1: window.opener (with retries)
+  function sendToOpener() {
     if (window.opener && !window.opener.closed) {
       try {
         window.opener.postMessage(msg, origin);
         return true;
-      } catch (e) {
-        return false;
-      }
+      } catch (e) { }
     }
     return false;
   }
 
-  // Try opener immediatelly, then retry
   let attempts = 0;
-  const maxAttempts = 15;   // ~3 seconds (200ms * 15)
+  const maxAttempts = 15;
   const interval = setInterval(() => {
-    if (sendViaOpener() || ++attempts >= maxAttempts) {
+    if (sendToOpener() || ++attempts >= maxAttempts) {
       clearInterval(interval);
-      // If still not sent, fallback to BroadcastChannel
+      // After retries, fallback to BroadcastChannel + localStorage
       if (attempts >= maxAttempts) {
+        // BroadcastChannel
         try {
           const bc = new BroadcastChannel('decap-oauth');
           bc.postMessage(msg);
           bc.close();
-        } catch (e) {
-          // Last resort: store token in localStorage so main page can pick it up
-          try {
-            localStorage.setItem('decap-github-token', JSON.stringify({
-              token: token,
-              provider: 'github',
-              timestamp: Date.now()
-            }));
-          } catch (e2) { /* ignore */ }
-        }
+        } catch (e) {}
+
+        // localStorage (ultimate fallback)
+        try {
+          localStorage.setItem('decap-github-token', JSON.stringify({
+            token: token,
+            provider: 'github',
+            timestamp: Date.now()
+          }));
+        } catch (e) {}
       }
-      // Give the main page a moment to process, then close
       setTimeout(() => window.close(), 800);
     }
   }, 200);
