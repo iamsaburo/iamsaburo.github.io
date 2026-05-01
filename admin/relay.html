@@ -1,63 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Authorizing…</title>
-</head>
+<head><meta charset="utf-8"><title>Authorizing…</title></head>
 <body>
-  <p>Sending login token to CMS…</p>
-  <script>
-    (function () {
-      const hash  = new URLSearchParams(location.hash.slice(1));
-      const token = hash.get('t');
+<p style="font-family:sans-serif;padding:2rem;color:#555">
+  Authorization complete — this window will close automatically.
+</p>
+<script>
+(function () {
+  // ---------- 1. Extract token from URL hash ----------
+  var hash  = new URLSearchParams(window.location.hash.slice(1));
+  var token = hash.get('t');
 
-      if (!token) {
-        document.body.innerHTML = '<p>Missing token.</p>';
-        return;
-      }
+  if (!token) {
+    document.querySelector('p').textContent =
+      'Missing token — please try logging in again.';
+    return;   // stop; the popup will stay open so you see the error
+  }
 
-      history.replaceState({}, '', location.pathname);
-      const msg = 'authorization:github:success:' +
-        JSON.stringify({ token: token, provider: 'github' });
-      const origin = window.location.origin;
+  // Remove token from URL/history immediately
+  history.replaceState({}, '', window.location.pathname);
 
-      let success = false;
+  // Build the exact message Decap CMS expects
+  var msg = 'authorization:github:success:' +
+    JSON.stringify({ token: token, provider: 'github' });
 
-      function trySend() {
-        if (success) return;
-        if (window.opener && !window.opener.closed) {
-          try {
-            window.opener.postMessage(msg, origin);
-            console.log('[relay] ✅ Sent via opener.postMessage');
-            success = true;
-            document.body.innerHTML = '<p>Login successful — you can close this window.</p>';
-            setTimeout(() => window.close(), 500);
-          } catch (e) {
-            console.warn('[relay] opener.postMessage error:', e);
-          }
-        } else {
-          console.warn('[relay] No opener available.');
-        }
-      }
+  // ---------- 2. Send the token back to the main window ----------
+  var opener = window.opener;
 
-      // Try immediately, then every 500ms for up to 10 seconds
-      trySend();
-      const interval = setInterval(trySend, 500);
-      setTimeout(() => {
-        clearInterval(interval);
-        if (!success) {
-          // Ultimate fallback: BroadcastChannel
-          try {
-            const bc = new BroadcastChannel('decap-oauth');
-            bc.postMessage(msg);
-            bc.close();
-            console.log('[relay] Fallback to BroadcastChannel');
-          } catch (e) {}
-          document.body.innerHTML += '<p>Could not send token automatically. Please close window and try again.</p>';
-        }
-        if (!success) setTimeout(() => window.close(), 3000);
-      }, 10000);
-    })();
-  </script>
+  // 2a. Try direct postMessage (only works if COOP allows it)
+  if (opener && !opener.closed) {
+    try {
+      opener.postMessage(msg, window.location.origin);
+      // Wait a tiny bit before closing, then close
+      setTimeout(function () { window.close(); }, 200);
+      return;
+    } catch (e) {
+      // Fall through to BroadcastChannel
+    }
+  }
+
+  // 2b. BroadcastChannel – always works same‑origin
+  try {
+    var bc = new BroadcastChannel('decap-oauth');
+    bc.postMessage(msg);
+    bc.close();
+  } catch (e) {
+    document.querySelector('p').textContent =
+      'Auth failed — your browser may not support BroadcastChannel.';
+    return;
+  }
+
+  // Close after a short delay to ensure message delivery
+  setTimeout(function () { window.close(); }, 400);
+})();
+</script>
 </body>
 </html>

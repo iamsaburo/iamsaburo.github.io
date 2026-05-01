@@ -5,51 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
-  <style>
-    #token-prompt {
-      display: none;
-      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: white; padding: 2rem; box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      text-align: center; z-index: 1000; font-family: sans-serif;
-    }
-    #token-prompt input { padding: 0.5rem; width: 300px; }
-    #token-prompt button { padding: 0.5rem 1rem; margin-top: 1rem; cursor: pointer; }
-  </style>
 </head>
 <body>
-  <div id="token-prompt">
-    <h2>Enter GitHub Token</h2>
-    <p style="font-size:0.9em; color:#555;">
-      Generate a <strong>fine-grained personal access token</strong> with 
-      <strong>Contents: Read and write</strong> access for the repository 
-      <strong>iamsaburo/iamsaburo.github.io</strong>.
-    </p>
-    <input type="password" id="token-input" placeholder="github_pat_...">
-    <br>
-    <button onclick="saveToken()">Save & Login</button>
-  </div>
-
   <script>
-    const TOKEN_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
+    // ------------------------------------------------------------
+    // 1. Listen for OAuth token via BroadcastChannel (same-origin)
+    //    and re-fire it as a standard window 'message' event so
+    //    Decap CMS picks it up.
+    // ------------------------------------------------------------
+    (function () {
+      try {
+        const bc = new BroadcastChannel('decap-oauth');
+        bc.onmessage = function (e) {
+          // Re‑dispatch the exact payload that Decap expects
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              data:   e.data,                     // "authorization:github:success:{...}"
+              origin: window.location.origin,     // must match window.location.origin
+            })
+          );
+          // Keep the channel open – no need to close it
+        };
+      } catch (err) {
+        console.warn('BroadcastChannel not available:', err);
+      }
+    })();
 
-    if (!localStorage.getItem(TOKEN_KEY)) {
-      document.getElementById('token-prompt').style.display = 'block';
-    }
-
-    function saveToken() {
-      const token = document.getElementById('token-input').value.trim();
-      if (!token) return alert('Please paste a token.');
-      localStorage.setItem(TOKEN_KEY, token);
-      window.location.reload();
-    }
-  </script>
-
-  <script>
+    // ------------------------------------------------------------
+    // 2. Decap CMS configuration
+    // ------------------------------------------------------------
     window.CMS_CONFIG = {
       backend: {
-        name:   'github',
-        repo:   'iamsaburo/iamsaburo.github.io',
-        branch: 'beta',               // ← changed from 'main' to 'beta'
+        name:          'github',
+        repo:          'iamsaburo/iamsaburo.github.io',
+        branch:        'main',
+        base_url:      'https://decap-oauth.iamsaburo.workers.dev',
+        auth_endpoint: 'auth',
       },
       media_folder: 'assets/uploads',
       site_url:     'https://iamsaburo.github.io',
@@ -58,20 +49,21 @@
           name: 'blocks', label: 'Community Blocks',
           folder: '_blocks', create: true, slug: '{{slug}}',
           fields: [
-            { label: 'Title', name: 'title', widget: 'string', required: true },
-            { label: 'Slug', name: 'slug', widget: 'string', required: true,
+            { label: 'Title',                       name: 'title',       widget: 'string',   required: true  },
+            { label: 'Slug',                         name: 'slug',        widget: 'string',   required: true,
               pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens'] },
-            { label: 'Static Image URL', name: 'image', widget: 'string', required: true },
-            { label: 'GIF Image URL (optional)', name: 'gif_image', widget: 'string', required: false },
-            { label: 'Categories', name: 'categories', widget: 'select', required: true,
+            { label: 'Static Image URL',             name: 'image',       widget: 'string',   required: true  },
+            { label: 'GIF Image URL (optional)',     name: 'gif_image',   widget: 'string',   required: false },
+            { label: 'Categories',                   name: 'categories',  widget: 'select',   required: true,
               multiple: true, options: ['StreamElements','Streamer.bot','Twitch','OBS'] },
-            { label: 'Short Description', name: 'description', widget: 'text', required: false },
-            { label: 'Full Info Content (Markdown)', name: 'body', widget: 'markdown', required: false },
+            { label: 'Short Description',            name: 'description', widget: 'text',     required: false },
+            { label: 'Full Info Content (Markdown)', name: 'body',        widget: 'markdown', required: false },
           ],
         },
       ],
     };
   </script>
+  <!-- Decap CMS itself -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
