@@ -4,34 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <meta http-equiv="Cross-Origin-Opener-Policy" content="unsafe-none" />
   <title>Content Manager</title>
 </head>
 <body>
   <script>
-    // === 1. Migrate any token from old backup to the official Decap key ===
+    // If a token was previously saved by the relay (old method), migrate it.
+    // This only runs if you somehow still have the old key in localStorage.
     (function () {
       var OLD_KEY = 'decap_oauth_token';
       var OFFICIAL_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
-
       try {
         var oldData = localStorage.getItem(OLD_KEY);
         if (oldData) {
           var parsed = JSON.parse(oldData);
-          if (parsed.token) {
+          if (parsed.token && !localStorage.getItem(OFFICIAL_KEY)) {
             localStorage.setItem(OFFICIAL_KEY, parsed.token);
-            console.log('[migrate] Copied token from backup to official key');
           }
           localStorage.removeItem(OLD_KEY);
         }
       } catch (e) {}
-
-      // For debugging
-      if (localStorage.getItem(OFFICIAL_KEY)) {
-        console.log('[migrate] Official token key is set. Will attempt auto-login.');
-      }
     })();
+  </script>
 
+  <script>
     window.CMS_CONFIG = {
       backend: {
         name:          'github',
@@ -62,44 +57,5 @@
     };
   </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-  <!-- === 2. Auto-login popup trick === -->
-  <script>
-    (function () {
-      var OFFICIAL_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
-      var token = null;
-
-      try {
-        token = localStorage.getItem(OFFICIAL_KEY);
-      } catch (e) {}
-
-      if (!token) return; // No token to use, normal login flow
-
-      // We have a valid token. Open a microscopic popup that posts it back.
-      // Use a Blob URL so the popup is same‑origin and can access window.opener.
-      var messagePayload = 'authorization:github:success:' + JSON.stringify({
-        token: token,
-        provider: 'github'
-      });
-
-      var popupHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><script>' +
-        'window.opener.postMessage(' + JSON.stringify(messagePayload) + ', window.location.origin);' +
-        'window.close();' +
-        '<\/script></body></html>';
-
-      var blob = new Blob([popupHtml], { type: 'text/html' });
-      var popupUrl = URL.createObjectURL(blob);
-
-      // Delay slightly to let Decap's message listener initialize.
-      setTimeout(function () {
-        var popup = window.open(popupUrl, 'decap_auto_auth', 'width=1,height=1');
-        // Clean up the Blob URL after a few seconds
-        setTimeout(function () {
-          URL.revokeObjectURL(popupUrl);
-          if (popup && !popup.closed) popup.close();
-        }, 3000);
-      }, 1000);
-    })();
-  </script>
 </body>
 </html>

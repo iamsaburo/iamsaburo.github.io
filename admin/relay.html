@@ -3,27 +3,23 @@
 <head>
   <meta charset="utf-8">
   <title>Authorizing…</title>
-  <style>
-    body { font-family: monospace; padding: 2rem; background: #f5f5f5; }
-    button { padding: 0.5rem 1rem; margin-top: 1rem; }
-  </style>
 </head>
 <body>
-  <p>Authorization complete — you can close this window.</p>
-  <button onclick="window.close()">Close</button>
+  <p>Authorization complete — redirecting CMS…</p>
   <script>
     (function () {
       const hash  = new URLSearchParams(location.hash.slice(1));
       const token = hash.get('t');
 
       if (!token) {
-        document.querySelector('p').textContent = 'Missing token — please try logging in again.';
+        document.body.textContent = 'Missing token — please try logging in again.';
         return;
       }
 
+      // Clean URL
       history.replaceState({}, '', location.pathname);
 
-      // Store token in both keys
+      // Store token in both keys (for any future fallback)
       try {
         localStorage.setItem('decap-cms-github-iamsaburo/iamsaburo.github.io', token);
         localStorage.setItem('decap_oauth_token', JSON.stringify({
@@ -31,9 +27,23 @@
           provider: 'github',
           timestamp: Date.now()
         }));
-        console.log('[relay] Token saved to localStorage');
-      } catch (e) {
-        console.error('[relay] localStorage error:', e);
+      } catch (e) {}
+
+      // Redirect the main window to Decap's token route
+      const adminUrl = window.location.origin + '/admin/?token=' + encodeURIComponent(token);
+
+      if (window.opener && !window.opener.closed) {
+        try {
+          // Same-origin? Redirect opener. If cross-origin, it'll fail silently and we fallback.
+          window.opener.location.replace(adminUrl);
+          window.close();
+        } catch (e) {
+          // Cross-origin or blocked: redirect the popup itself
+          window.location.replace(adminUrl);
+        }
+      } else {
+        // No opener available (e.g., user refreshed the popup): just go there in this window
+        window.location.replace(adminUrl);
       }
     })();
   </script>
