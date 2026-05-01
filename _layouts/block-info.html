@@ -13,7 +13,7 @@
   :root{
     --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
     --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
-    /* old gradient for hero (unchanged) */
+    /* hero gradient (unchanged) */
     --gradient: linear-gradient(105deg,
       #9C96FF  0%,  #9FE5F6  8.33%, #C2FAAB 16.67%,
       #FCFF91 25%,  #FFBED0 33.33%, #F8C2FF 41.67%,
@@ -62,31 +62,8 @@
   .btn-saburo[data-visual="pill"][data-hover="outline"]:hover{
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
   }
-  /* pill + rainbow hover – simple background animation, no rotation */
-  .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover{
-    background:transparent;color:#111;
-    box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
-    text-shadow:0 1px 0 rgba(255,255,255,0.35);
-  }
-  .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover::before{
-    content:'';position:absolute;inset:0;border-radius:inherit;
-    background:linear-gradient(-82deg,
-      #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
-      #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
-      #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
-      #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
-      #ADA8FF 100%
-    );
-    background-size:200% 200%;
-    animation:simpleRainbowShift 8s ease-in-out infinite alternate;
-    z-index:-1;
-  }
-  @keyframes simpleRainbowShift {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-  }
 
-  /* ── RAINBOW BUTTON (full rotating, for visual="rainbow" only) ── */
+  /* ── RAINBOW VISUAL (always on, for demo page) ── */
   .btn-saburo[data-visual="rainbow"]{
     background:transparent;color:#111;
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
@@ -111,23 +88,65 @@
     z-index:-1;
     pointer-events:none;
   }
-  @keyframes rainbowShift{
-    0%   {transform:rotate(-82deg) translateX(35%);}
-    100% {transform:rotate(-82deg) translateX(-40%);}
+
+  /* ── RAINBOW HOVER (applied on hover to any button with data-hover="rainbow") ── */
+  .btn-saburo[data-hover="rainbow"]:hover,
+  .block-card:hover .btn-saburo[data-hover="rainbow"] {
+    overflow:hidden;
+    background:transparent;
+    color:#111;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
+    text-shadow:0 1px 0 rgba(255,255,255,.35);
+  }
+  .btn-saburo[data-hover="rainbow"]:hover::before,
+  .block-card:hover .btn-saburo[data-hover="rainbow"]::before {
+    content:'';
+    position:absolute;
+    top:50%;left:50%;
+    width:290%;height:800%;
+    background:linear-gradient(-82deg,
+      #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
+      #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
+      #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
+      #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
+      #ADA8FF 100%
+    );
+    background-size:100% 100%;
+    transform-origin:3% 61%;
+    transform:rotate(-82deg) translateX(35%);
+    animation:rainbowShift 8s ease-in-out infinite alternate;
+    z-index:-1;
+    pointer-events:none;
   }
 
-  .btn-saburo[data-visual="rainbow"]:hover{
+  /* Rainbow hover also works on buttons that are already rainbow */
+  .btn-saburo[data-visual="rainbow"][data-hover="rainbow"]:hover::before {
+    /* already defined, but ensure it stays */
+  }
+
+  /* Keyframes for the rotating gradient */
+  @keyframes rainbowShift {
+    0%   { transform: rotate(-82deg) translateX(35%); }
+    100% { transform: rotate(-82deg) translateX(-40%); }
+  }
+
+  /* Lighten border on hover for rainbow buttons */
+  .btn-saburo[data-visual="rainbow"]:hover,
+  .btn-saburo[data-hover="rainbow"]:hover,
+  .block-card:hover .btn-saburo[data-visual="rainbow"],
+  .block-card:hover .btn-saburo[data-hover="rainbow"] {
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.8);
   }
+
+  /* Overrides for other hover types on rainbow buttons */
   .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
   }
   .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover{
     background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);
   }
-  .btn-saburo[data-visual="rainbow"][data-hover="rainbow"]:hover{}
 
-  /* Icon display (unchanged) */
+  /* ── Icon display (unchanged) ── */
   .btn-saburo .btn-icon-visual,.btn-saburo .btn-icon-hover{font-size:1.125rem;line-height:1;display:none;}
   .btn-saburo[data-icon-visual]:not([data-icon-visual="none"]) .btn-icon-visual{display:inline-flex;}
   .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-hover{display:none;}
@@ -158,37 +177,13 @@
   .block-card.gif-ready .image-wrapper .static-img{opacity:0}
   .block-card.gif-ready .image-wrapper .gif-img{opacity:1}
 
-  /* Card hover button states */
+  /* Card hover button states: white and outline remain as before */
   .block-card:hover .btn-saburo[data-hover="white"]{
     background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
   }
   .block-card:hover .btn-saburo[data-hover="outline"]{
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;
   }
-  /* card hover rainbow – same simple background shift, no rotation */
-  .block-card:hover .btn-saburo[data-hover="rainbow"]{
-    background:transparent;color:#111;
-    box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
-    text-shadow:0 1px 0 rgba(255,255,255,.35);
-  }
-  .block-card:hover .btn-saburo[data-hover="rainbow"]::before{
-    content:'';position:absolute;inset:0;border-radius:inherit;
-    background:linear-gradient(-82deg,
-      #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
-      #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
-      #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
-      #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
-      #ADA8FF 100%
-    );
-    background-size:200% 100%;
-    animation:simpleRainbowShift 8s ease-in-out infinite alternate;
-    z-index:-1;
-  }
-  .block-card:hover .btn-saburo[data-hover="rainbow"]::after{display:none;}
-
-  /* old rule for rainbow visual card hover – remove pseudo effects */
-  .block-card:hover .btn-saburo[data-visual="rainbow"][data-hover="outline"]::before,
-  .block-card:hover .btn-saburo[data-visual="rainbow"][data-hover="outline"]::after{opacity:0;}
 
   /* ── Navbar ── */
   .navbar{position:sticky;top:0;z-index:100;height:56px;background:var(--sur);display:flex;align-items:center;padding:0;}
@@ -205,7 +200,7 @@
   .social-row a:hover{opacity:1}
   .social-row a img{transform:scale(1.3);transform-origin:center;}
 
-  /* ── Hero (using old keyframes, untouched) ── */
+  /* ── Hero (unchanged) ── */
   .hero{text-align:center;padding:4.5rem 1rem 1.5rem;}
   .hero h1{font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:1rem;color:#fff}
   .hero h1 .design{
@@ -230,7 +225,7 @@
   }
   .hero p{font-size:0.9rem;color:var(--muted);letter-spacing:.06em;max-width:700px;margin:0 auto}
 
-  /* old gradientShift keyframes (hero, untouched) */
+  /* old hero gradientShift keyframes (untouched) */
   @keyframes gradientShift{
     0%  {background-position:  0% 50%}
     100%{background-position:100% 50%}
