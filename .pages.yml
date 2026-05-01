@@ -1,4 +1,4 @@
-# Configuration for Pages CMS - SABURO™ | Корисне
+# Configuration for Pages CMS
 
 media:
   - name: uploads
@@ -9,7 +9,7 @@ media:
 
 content:
   - name: blocks
-    label: SABURO™ | Корисне
+    label: Community Blocks
     type: collection
     path: _blocks
     format: yaml-frontmatter
@@ -57,6 +57,64 @@ content:
         type: markdown
         required: false
         description: |
-          Cheat sheet for -info pages:
-          Buttons: {% include btn-saburo.html label="Label" visual="outline|white|rainbow|pill" … %}
-          All Markdown features: headings, bold, italic, lists, code, blockquote, tables, etc.
+          Copy this template and replace the examples.
+
+<div class="content-container" markdown="1">
+
+## Hello World
+
+{::nomarkdown}
+{% include btn-saburo.html label="Hello World" visual="outline" %}
+{:/}
+
+---
+
+## 4 типи кнопок
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
+
+{::nomarkdown}
+{% include btn-saburo.html label="Outline" visual="outline" %}
+{% include btn-saburo.html label="White" visual="white" %}
+{% include btn-saburo.html label="Rainbow" visual="rainbow" %}
+{% include btn-saburo.html label="Pill" visual="pill" %}
+{:/}
+
+</div>
+
+### З іконками
+
+{::nomarkdown}
+{% include btn-saburo.html label="З іконкою" visual="outline" icon_visual="favorite" %}
+{% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="arrow_forward" icon_position="after" %}
+{:/}
+
+### Ширина за вмістом
+
+{::nomarkdown}
+{% include btn-saburo.html label="Автоширина" visual="pill" width="auto" %}
+{:/}
+
+---
+
+## Форматування тексту
+
+**Жирний**, *курсив*, ~~закреслений~~, `код`
+
+- список
+  - вкладений
+
+1. нумерований
+2. список
+
+> Цитата
+
+---
+
+### Таблиця
+
+| Стовпець 1 | Стовпець 2 |
+|------------|------------|
+| дані       | дані       |
+
+</div>
