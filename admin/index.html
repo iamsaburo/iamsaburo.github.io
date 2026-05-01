@@ -6,7 +6,6 @@
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
   <style>
-    /* Optional: Token prompt fallback (hidden by default) */
     #token-prompt {
       display: none;
       position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -18,26 +17,39 @@
   </style>
 </head>
 <body>
-  <!-- Token prompt (will appear only if you enable the fallback script) -->
   <div id="token-prompt">
     <h2>Enter GitHub Token</h2>
-    <p style="font-size:0.9em; color:#555;">If OAuth fails, paste a fine‑grained token with <strong>Contents read/write</strong> access to your repo.</p>
+    <p style="font-size:0.9em; color:#555;">
+      Generate a <strong>fine-grained personal access token</strong> with 
+      <strong>Contents: Read and write</strong> access for the repository 
+      <strong>iamsaburo/iamsaburo.github.io</strong>.
+    </p>
     <input type="password" id="token-input" placeholder="github_pat_...">
     <br>
     <button onclick="saveToken()">Save & Login</button>
   </div>
 
   <script>
-    // =====================================================
-    // Your CMS configuration (unchanged)
-    // =====================================================
+    const TOKEN_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
+
+    if (!localStorage.getItem(TOKEN_KEY)) {
+      document.getElementById('token-prompt').style.display = 'block';
+    }
+
+    function saveToken() {
+      const token = document.getElementById('token-input').value.trim();
+      if (!token) return alert('Please paste a token.');
+      localStorage.setItem(TOKEN_KEY, token);
+      window.location.reload();
+    }
+  </script>
+
+  <script>
     window.CMS_CONFIG = {
       backend: {
-        name:          'github',
-        repo:          'iamsaburo/iamsaburo.github.io',
-        branch:        'main',
-        base_url:      'https://decap-oauth.iamsaburo.workers.dev',
-        auth_endpoint: 'auth',
+        name:   'github',
+        repo:   'iamsaburo/iamsaburo.github.io',
+        branch: 'beta',               // ← changed from 'main' to 'beta'
       },
       media_folder: 'assets/uploads',
       site_url:     'https://iamsaburo.github.io',
@@ -60,26 +72,6 @@
       ],
     };
   </script>
-
-  <!-- Static CMS (latest 5.x release, no caret) -->
-  <script src="https://unpkg.com/@staticcms/core@5/dist/static-cms.js"></script>
-
-  <!-- =====================================================
-       OPTIONAL: Token prompt fallback
-       Uncomment the block below if OAuth still fails.
-  ======================================================
-  <script>
-    const TOKEN_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
-    if (!localStorage.getItem(TOKEN_KEY)) {
-      document.getElementById('token-prompt').style.display = 'block';
-    }
-    function saveToken() {
-      const token = document.getElementById('token-input').value.trim();
-      if (!token) return;
-      localStorage.setItem(TOKEN_KEY, token);
-      window.location.reload();
-    }
-  </script>
-  -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
