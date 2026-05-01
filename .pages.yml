@@ -2,14 +2,14 @@
 
 media:
   - name: uploads
-    label: SABURO™ | Корисне
+    label: Uploads
     input: assets/uploads
     output: /assets/uploads
     categories: [image]
 
 content:
   - name: blocks
-    label: Community Blocks
+    label: SABURO™ | Корисне
     type: collection
     path: _blocks
     format: yaml-frontmatter
