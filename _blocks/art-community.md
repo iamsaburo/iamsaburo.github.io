@@ -14,7 +14,9 @@ back_label: Головна
 
 ## Hello World
 
+{::nomarkdown}
 {% include btn-saburo.html label="Hello World" visual="outline" %}
+{:/}
 
 ---
 
@@ -22,21 +24,27 @@ back_label: Головна
 
 <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
 
+{::nomarkdown}
 {% include btn-saburo.html label="Outline" visual="outline" %}
 {% include btn-saburo.html label="White" visual="white" %}
 {% include btn-saburo.html label="Rainbow" visual="rainbow" %}
 {% include btn-saburo.html label="Pill" visual="pill" %}
+{:/}
 
 </div>
 
 ### З іконками
 
+{::nomarkdown}
 {% include btn-saburo.html label="З іконкою" visual="outline" icon_visual="favorite" %}
 {% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="arrow_forward" icon_position="after" %}
+{:/}
 
 ### Ширина за вмістом
 
+{::nomarkdown}
 {% include btn-saburo.html label="Автоширина" visual="pill" width="auto" %}
+{:/}
 
 ---
 
