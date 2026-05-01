@@ -74,38 +74,32 @@ title: "Корисне"
   let activeCategory = 'all';
   let filteredCards  = [...cards];
 
-  /* ── Pre-measure a button's width as if its label were fully expanded,
-         without waiting for the CSS transition to finish.             ── */
-  function getExpandedWidth(btn) {
+  /* ── Pre-measure a button's width as if its label were fully visible,
+         WITHOUT waiting for the CSS transition — done before class changes ── */
+  function expandedWidth(btn) {
     const label = btn.querySelector('.f-label');
     if (!label) return btn.offsetWidth;
-    // Snapshot current inline styles
-    const prev = { transition: label.style.transition,
-                   maxWidth:   label.style.maxWidth,
-                   opacity:    label.style.opacity };
-    // Force-expand with no transition so offsetWidth reflects final state
+    const saved = label.style.cssText;
     label.style.cssText += ';transition:none!important;max-width:300px!important;opacity:1!important;';
+    void btn.offsetWidth; // force reflow
     const w = btn.offsetWidth;
-    // Restore (transition re-enables after reflow via rAF)
-    label.style.transition = prev.transition;
-    label.style.maxWidth   = prev.maxWidth;
-    label.style.opacity    = prev.opacity;
-    requestAnimationFrame(() => { label.style.cssText = label.style.cssText; });
+    label.style.cssText = saved;
     return w;
   }
 
-  function moveHighlight(btn, knownWidth) {
-    if (!highlight || !btn) return;
-    highlight.style.width = (knownWidth ?? btn.offsetWidth) + 'px';
-    highlight.style.left  = btn.offsetLeft + 'px';
+  /* ── Place highlight — left snaps instantly, width CSS-transitions ── */
+  function placeHighlight(btn, w, l) {
+    if (!highlight) return;
+    highlight.style.width = (w ?? btn.offsetWidth) + 'px';
+    highlight.style.left  = (l ?? btn.offsetLeft)  + 'px';
   }
 
-  /* ── Render: hide all cards, show current page of filteredCards ── */
+  /* ── Render page ── */
   function render() {
     cards.forEach(c => c.style.display = 'none');
     const total = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
     if (currentPage > total) currentPage = total;
-    filteredCards.slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage)
+    filteredCards.slice((currentPage-1)*cardsPerPage, currentPage*cardsPerPage)
                  .forEach(c => c.style.display = '');
     if (noResultsDiv)
       noResultsDiv.style.display = filteredCards.length === 0 ? 'block' : 'none';
@@ -136,21 +130,26 @@ title: "Корисне"
   }
 
   /* ── Filter buttons ── */
-  const initialActive = document.querySelector('.filter-btn.active');
-  if (initialActive) moveHighlight(initialActive);
+  const initBtn = document.querySelector('.filter-btn.active');
+  if (initBtn) requestAnimationFrame(() => placeHighlight(initBtn));
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // 1. Measure the TARGET button's final width BEFORE changing any classes
-      const finalWidth = getExpandedWidth(btn);
+      // 1. Measure BEFORE any class changes (layout is stable)
+      const finalW = expandedWidth(btn);
+      const finalL = btn.offsetLeft;
 
       // 2. Swap active class
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeCategory = btn.dataset.category;
 
-      // 3. Move highlight directly to final dimensions — one smooth animation
-      moveHighlight(btn, finalWidth);
+      // 3. Snap left, CSS-transition width to pre-measured final value
+      placeHighlight(btn, finalW, finalL);
+
+      // 4. After flex-layout shift settles (label CSS transition = 300 ms),
+      //    re-measure and correct any drift caused by collapsing sibling
+      setTimeout(() => placeHighlight(btn), 340);
 
       applyFilter();
     });

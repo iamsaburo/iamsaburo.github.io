@@ -13,20 +13,19 @@
     :root{
       --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
       --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
-      --chroma:linear-gradient(-65deg,
-        #9C96FF 0%,#9FE5F6 3.5%,#E4FFA8 7%,#FCFF91 10%,#CCFFBF 14%,
-        #C2FAAB 18%,#E0E1C9 22%,#F3CDDA 26%,#FFBED0 30%,#F8C2FF 34%,
-        #CFFFFA 38%,#A5F3FF 42%,#A0BBFF 46%,
-        #9C96FF 50%,#9FE5F6 53.5%,#E4FFA8 57%,#FCFF91 60%,#CCFFBF 64%,
-        #C2FAAB 68%,#E0E1C9 72%,#F3CDDA 76%,#FFBED0 80%,#F8C2FF 84%,
-        #CFFFFA 88%,#A5F3FF 92%,#A0BBFF 96%,#9C96FF 100%);
-      --rainbow:linear-gradient(7deg,
-        #9C96FF 0%,#9FE5F6 3.5%,#E4FFA8 7%,#FCFF91 10%,#CCFFBF 14%,
-        #C2FAAB 18%,#E0E1C9 22%,#F3CDDA 26%,#FFBED0 30%,#F8C2FF 34%,
-        #CFFFFA 38%,#A5F3FF 42%,#A0BBFF 46%,
-        #9C96FF 50%,#9FE5F6 53.5%,#E4FFA8 57%,#FCFF91 60%,#CCFFBF 64%,
-        #C2FAAB 68%,#E0E1C9 72%,#F3CDDA 76%,#FFBED0 80%,#F8C2FF 84%,
-        #CFFFFA 88%,#A5F3FF 92%,#A0BBFF 96%,#9C96FF 100%);
+      /* 6 colours × 2 = seamless loop: pos 0% and 100% are identical */
+      --chroma: linear-gradient(-65deg,
+        #9C96FF  0%,  #9FE5F6  8.33%, #C2FAAB 16.67%,
+        #FCFF91 25%,  #FFBED0 33.33%, #F8C2FF 41.67%,
+        #9C96FF 50%,  #9FE5F6 58.33%, #C2FAAB 66.67%,
+        #FCFF91 75%,  #FFBED0 83.33%, #F8C2FF 91.67%,
+        #9C96FF 100%);
+      --rainbow: linear-gradient(90deg,
+        #9C96FF  0%,  #9FE5F6  8.33%, #C2FAAB 16.67%,
+        #FCFF91 25%,  #FFBED0 33.33%, #F8C2FF 41.67%,
+        #9C96FF 50%,  #9FE5F6 58.33%, #C2FAAB 66.67%,
+        #FCFF91 75%,  #FFBED0 83.33%, #F8C2FF 91.67%,
+        #9C96FF 100%);
     }
     body{
       background:var(--bg);color:var(--text);
@@ -86,10 +85,10 @@
       animation:rainbowShift 4s linear infinite;z-index:-1;
     }
     .btn-saburo[data-visual="rainbow"]::after{
-      content:'';position:absolute;inset:-5px;border-radius:inherit;
+      content:'';position:absolute;inset:-4px;border-radius:inherit;
       background:var(--rainbow);background-size:200% 100%;
       animation:rainbowShift 4s linear infinite;
-      filter:blur(10px);opacity:0.35;z-index:-2;
+      filter:blur(9px);opacity:0.45;z-index:-2;
     }
     .btn-saburo[data-visual="rainbow"]:hover{box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);}
     .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
@@ -104,7 +103,7 @@
     .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after{opacity:0;}
 
     @keyframes rainbowShift{
-      0%  {background-position:0%   50%}
+      0%  {background-position:  0% 50%}
       100%{background-position:100% 50%}
     }
 
@@ -124,10 +123,10 @@
       animation:rainbowShift 4s linear infinite;z-index:-1;
     }
     .btn-saburo[data-hover="rainbow"]:hover::after{
-      content:'';position:absolute;inset:-5px;border-radius:inherit;
+      content:'';position:absolute;inset:-4px;border-radius:inherit;
       background:var(--rainbow);background-size:200% 100%;
       animation:rainbowShift 4s linear infinite;
-      filter:blur(10px);opacity:0.35;z-index:-2;
+      filter:blur(9px);opacity:0.45;z-index:-2;
     }
     .btn-saburo[data-visual="white"][data-hover="outline"]:hover{
       background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;
@@ -163,10 +162,10 @@
       animation:rainbowShift 4s linear infinite;z-index:-1;
     }
     .block-card:hover .btn-saburo[data-hover="rainbow"]::after{
-      content:'';position:absolute;inset:-5px;border-radius:inherit;
+      content:'';position:absolute;inset:-4px;border-radius:inherit;
       background:var(--rainbow);background-size:200% 100%;
       animation:rainbowShift 4s linear infinite;
-      filter:blur(10px);opacity:0.35;z-index:-2;
+      filter:blur(9px);opacity:0.45;z-index:-2;
     }
     .block-card:hover .btn-saburo[data-hover="outline"]{
       background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;
@@ -193,7 +192,7 @@
     .hero h1 .design::after{
       content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
       color:transparent;background:var(--chroma);background-size:200% 100%;
-      -webkit-background-clip:text;background-clip:text;filter:blur(5px);
+      -webkit-background-clip:text;background-clip:text;filter:blur(4px);
       opacity:0;z-index:-1;transition:opacity .3s;
       animation:rainbowShift 4s linear infinite paused;
     }
@@ -202,16 +201,16 @@
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
       background-clip:text;animation:rainbowShift 4s linear infinite;
     }
-    .hero h1 .design:hover::after{opacity:.9;animation-play-state:running;}
+    .hero h1 .design:hover::after{opacity:.85;animation-play-state:running;}
     @media (hover:none){
       .hero h1 .design{background:var(--chroma);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:rainbowShift 4s linear infinite;}
-      .hero h1 .design::after{opacity:.9;animation-play-state:running;}
+      .hero h1 .design::after{opacity:.85;animation-play-state:running;}
     }
     .hero p{font-size:0.9rem;color:var(--muted);letter-spacing:.06em;max-width:700px;margin:0 auto}
 
     .filter-wrap{display:flex;justify-content:center;margin:1.5rem auto 2rem;padding:0 1rem;}
     .filter-bar{display:flex;align-items:center;gap:2px;background:var(--sur);border-radius:40px;padding:5px;overflow-x:auto;position:relative;}
-    .filter-highlight{position:absolute;top:5px;height:34px;background:var(--bg);border-radius:28px;transition:left .3s ease,width .3s ease;z-index:0;pointer-events:none;}
+    .filter-highlight{position:absolute;top:5px;height:34px;background:var(--bg);border-radius:28px;transition:width .3s ease;z-index:0;pointer-events:none;}
     .filter-btn{display:flex;align-items:center;gap:6px;padding:0 14px;height:34px;border-radius:28px;background:transparent;color:var(--text);font:400 .9rem/1 'Inter',system-ui;letter-spacing:.04em;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;position:relative;z-index:1;}
     .filter-btn.active{background:transparent;color:var(--text)}
     .filter-btn .f-label{display:inline-block;overflow:hidden;max-width:0;white-space:nowrap;opacity:0;font-weight:500;transition:max-width .3s ease,opacity .3s ease;}
@@ -265,15 +264,19 @@
     @media (max-width:768px){
       .navbar{padding:0}
       .nav-wordmark--info{display:none;}
+      .nav-tagline{display:none;}
       .nav-join{display:none}
-      .social-row{gap:12px}
+      .social-row{gap:22px;}
       .nav-left{gap:12px}
       .block-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;padding:0 1rem 2rem;}
       .block-card{min-width:0;}
       .hero h1{font-size:2.2rem}
       .hero{padding:2.5rem 1rem 1rem}
-      footer{height:auto;}
-      .footer-container{flex-wrap:nowrap;height:auto;padding:.75rem 1rem;gap:.75rem;align-items:center;}
+      footer{height:auto;padding:.75rem 1rem;}
+      .footer-container{
+        flex-wrap:nowrap;height:auto;padding:0;gap:0;
+        align-items:center;justify-content:space-between;
+      }
       .footer-center{position:static;transform:none;}
       .footer-copy{white-space:nowrap;font-size:.82rem;}
       .footer-right{display:none;}
@@ -296,8 +299,7 @@
         <div class="nav-wordmark{% if page.back_url %} nav-wordmark--info{% endif %}">
           <img src="{{ '/svg/logo_word-mark.svg' | relative_url }}" width="97" height="21" alt="SABURO" class="ph-img">
           {% unless page.back_url %}
-          <span class="sep">|</span>
-          <span>Корисне</span>
+          <span class="nav-tagline"><span class="sep">|</span><span>Корисне</span></span>
           {% endunless %}
         </div>
       </a>
@@ -337,10 +339,15 @@
       const cards=document.querySelectorAll('.block-card');
       const observer=new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
-          const imgWrapper=entry.target.querySelector('.image-wrapper');
+          const card=entry.target;
+          const imgWrapper=card.querySelector('.image-wrapper');
           if(!imgWrapper)return;
-          if(entry.isIntersecting){imgWrapper.classList.add('gif-visible');}
-          else{imgWrapper.classList.remove('gif-visible');}
+          if(entry.isIntersecting){
+            card._gifTimer=setTimeout(()=>imgWrapper.classList.add('gif-visible'),2000);
+          }else{
+            clearTimeout(card._gifTimer);
+            imgWrapper.classList.remove('gif-visible');
+          }
         });
       },{root:null,rootMargin:'0px',threshold:0.05});
       cards.forEach(card=>observer.observe(card));

@@ -8,6 +8,25 @@
 </head>
 <body>
   <script>
+    // Relay page sends the token via BroadcastChannel (same origin).
+    // We re-dispatch it as a window 'message' event so Decap picks it up.
+    (function () {
+      try {
+        var bc = new BroadcastChannel('decap-oauth');
+        bc.onmessage = function (e) {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              data:   e.data,
+              origin: window.location.origin,   // passes Decap's origin check
+            })
+          );
+          bc.close();
+        };
+      } catch (err) {
+        console.warn('BroadcastChannel not available:', err);
+      }
+    })();
+
     window.CMS_CONFIG = {
       backend: {
         name:          'github',
