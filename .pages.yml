@@ -1,4 +1,9 @@
-# Configuration for Pages CMS
+media:
+  - name: uploads
+    label: Uploads
+    input: assets/uploads
+    output: /assets/uploads
+    categories: [image]
 
 content:
   - name: blocks
@@ -33,9 +38,8 @@ content:
         required: false
       - name: categories
         label: Categories
-        type: select
+        type: multiselect
         required: true
-        multiple: true
         options:
           - StreamElements
           - Streamer.bot
@@ -49,4 +53,3 @@ content:
         label: Full Info Content
         type: markdown
         required: false
-        description: "Wrap button includes in {::nomarkdown} ... {:/} to prevent escaping. Start with <div class=\"content-container\" markdown=\"1\">"
