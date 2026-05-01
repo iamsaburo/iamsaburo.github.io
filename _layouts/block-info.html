@@ -63,7 +63,8 @@
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
   }
 
-  /* ── SHARED RAINBOW LAYER (visual="rainbow" + hover="rainbow") ── */
+  /* ── RAINBOW BUTTONS (exact test parameters) ── */
+  /* Both visual="rainbow" and hover="rainbow" get their own ::before layer */
   .btn-saburo[data-visual="rainbow"],
   .btn-saburo[data-hover="rainbow"]:hover,
   .block-card:hover .btn-saburo[data-hover="rainbow"] {
@@ -96,12 +97,11 @@
     z-index:-1;
     pointer-events:none;
   }
-  /* Prevent double ::before on rainbow buttons that are also hovered */
+  /* Avoid stacking when a rainbow button also has a rainbow hover */
   .btn-saburo[data-visual="rainbow"][data-hover="rainbow"]:hover::before {
     content:none;
   }
 
-  /* Keyframes */
   @keyframes rainbowShift {
     0%   { transform: rotate(-82deg) translateX(35%); }
     100% { transform: rotate(-82deg) translateX(-40%); }
@@ -154,7 +154,7 @@
   .block-card.gif-ready .image-wrapper .static-img{opacity:0}
   .block-card.gif-ready .image-wrapper .gif-img{opacity:1}
 
-  /* Card hover button states (white and outline only) */
+  /* Card hover button states (white and outline only, rainbow covered above) */
   .block-card:hover .btn-saburo[data-hover="white"]{
     background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
   }
@@ -202,7 +202,7 @@
   }
   .hero p{font-size:0.9rem;color:var(--muted);letter-spacing:.06em;max-width:700px;margin:0 auto}
 
-  /* hero keyframes (untouched) */
+  /* hero gradientShift (background-position, untouched) */
   @keyframes gradientShift{
     0%  {background-position:  0% 50%}
     100%{background-position:100% 50%}
@@ -436,6 +436,12 @@
 
     cards.forEach(card => observer.observe(card));
   }
+
+  /* ── OPTIONAL: stagger rainbow animation delays so buttons don't move in sync ── */
+  const rainbowBtns = document.querySelectorAll('.btn-saburo[data-visual="rainbow"]');
+  rainbowBtns.forEach((btn, index) => {
+    btn.style.animationDelay = (index * 0.7) + 's'; /* or set via attribute */
+  });
 })();
 </script>
 </body>
