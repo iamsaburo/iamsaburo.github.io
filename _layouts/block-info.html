@@ -13,13 +13,6 @@
   :root{
     --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
     --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
-    /* #6: Single unified gradient, skewed via 105deg angle (no rotation seam) */
-    --gradient: linear-gradient(105deg,
-      #9C96FF  0%,  #9FE5F6  8.33%, #C2FAAB 16.67%,
-      #FCFF91 25%,  #FFBED0 33.33%, #F8C2FF 41.67%,
-      #9C96FF 50%,  #9FE5F6 58.33%, #C2FAAB 66.67%,
-      #FCFF91 75%,  #FFBED0 83.33%, #F8C2FF 91.67%,
-      #9C96FF 100%);
   }
   body{
     background:var(--bg);color:var(--text);
@@ -67,76 +60,54 @@
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
     text-shadow:0 1px 0 rgba(255,255,255,0.35);
   }
-  .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover::before,
-  .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover::after{display:block;}
+  .btn-saburo[data-visual="pill"][data-hover="rainbow"]:hover::before{display:block;}
 
-  /* #6: Rainbow visual uses unified --gradient */
+  /* ── RAINBOW BUTTON (new method) ── */
   .btn-saburo[data-visual="rainbow"]{
     background:transparent;color:#111;
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
     text-shadow:0 1px 0 rgba(255,255,255,.35);
+    overflow:hidden;
   }
   .btn-saburo[data-visual="rainbow"]::before{
-    content:'';position:absolute;inset:0;border-radius:inherit;
-    background:var(--gradient);background-size:200% 100%;
-    animation:gradientShift 4s linear infinite;z-index:-1;
+    content:'';position:absolute;
+    top:50%;left:50%;
+    width:290%;height:800%;
+    background:linear-gradient(-82deg,
+      #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
+      #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
+      #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
+      #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
+      #ADA8FF 100%
+    );
+    background-size:100% 100%;
+    transform-origin:3% 61%;
+    transform:rotate(-82deg) translateX(35%);
+    animation:gradientShift 8s ease-in-out infinite alternate;
+    z-index:-1;
+    pointer-events:none;
   }
-  .btn-saburo[data-visual="rainbow"]::after{
-    content:'';position:absolute;inset:-4px;border-radius:inherit;
-    background:var(--gradient);background-size:200% 100%;
-    animation:gradientShift 4s linear infinite;
-    filter:blur(9px);opacity:0.45;z-index:-2;
-  }
-  .btn-saburo[data-visual="rainbow"]:hover{box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);}
-  .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
-    background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;
-  }
-  .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover::before,
-  .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover::after{opacity:0;}
-  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover{
-    background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
-  }
-  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::before,
-  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after{opacity:0;}
-
-  /* #6: Unified keyframe name */
   @keyframes gradientShift{
-    0%  {background-position:  0% 50%}
-    100%{background-position:100% 50%}
+    0%   {transform:rotate(-82deg) translateX(35%);}
+    100% {transform:rotate(-82deg) translateX(-40%);}
   }
 
-  .btn-saburo[data-hover]:hover,.block-card:hover .btn-saburo[data-hover]{transform:scale(1.02);}
+  /* Hover: just intensify border, keep gradient */
+  .btn-saburo[data-visual="rainbow"]:hover{
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,0.8);
+  }
+  /* Card hover: no extra pseudo‑toggle needed, gradient always visible */
+  .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
+    background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
+  }
+  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover{
+    background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);
+  }
+  .btn-saburo[data-visual="rainbow"][data-hover="rainbow"]:hover{
+    /* already rainbow – nothing extra */
+  }
 
-  .btn-saburo[data-hover="white"]:hover{
-    background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
-  }
-  .btn-saburo[data-hover="rainbow"]:hover{
-    background:transparent;color:#111;
-    box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
-    text-shadow:0 1px 0 rgba(255,255,255,.35);
-  }
-  .btn-saburo[data-hover="rainbow"]:hover::before{
-    content:'';position:absolute;inset:0;border-radius:inherit;
-    background:var(--gradient);background-size:200% 100%;
-    animation:gradientShift 4s linear infinite;z-index:-1;
-  }
-  .btn-saburo[data-hover="rainbow"]:hover::after{
-    content:'';position:absolute;inset:-4px;border-radius:inherit;
-    background:var(--gradient);background-size:200% 100%;
-    animation:gradientShift 4s linear infinite;
-    filter:blur(9px);opacity:0.45;z-index:-2;
-  }
-  .btn-saburo[data-visual="white"][data-hover="outline"]:hover{
-    background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;
-  }
-  .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover{
-    background:transparent;color:#111;
-    box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
-    text-shadow:0 1px 0 rgba(255,255,255,0.35);
-  }
-  .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover::before,
-  .btn-saburo[data-visual="white"][data-hover="rainbow"]:hover::after{display:block;}
-
+  /* Icon display (unchanged) */
   .btn-saburo .btn-icon-visual,.btn-saburo .btn-icon-hover{font-size:1.125rem;line-height:1;display:none;}
   .btn-saburo[data-icon-visual]:not([data-icon-visual="none"]) .btn-icon-visual{display:inline-flex;}
   .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-hover{display:none;}
@@ -145,7 +116,6 @@
   .btn-saburo[data-icon-position="after"] .btn-icon-visual,
   .btn-saburo[data-icon-position="after"] .btn-icon-hover{order:1;}
 
-  /* #9: Also show hover icon when card is hovered */
   .block-card:hover .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-visual{display:none;}
   .block-card:hover .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-hover{display:inline-flex;}
 
@@ -161,14 +131,14 @@
   }
   .block-card:hover{transform:scale(1.02) translateY(0);background:var(--sur2);}
 
-  /* #3: GIF swap via .gif-ready class (JS-driven), not CSS :hover */
+  /* GIF swap (unchanged) */
   .image-wrapper img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;transition:opacity .35s}
   .image-wrapper .static-img{opacity:1}
   .image-wrapper .gif-img{opacity:0}
   .block-card.gif-ready .image-wrapper .static-img{opacity:0}
   .block-card.gif-ready .image-wrapper .gif-img{opacity:1}
 
-  /* Card hover button states */
+  /* Card hover button states (only for pill, outline, white – rainbow already handled) */
   .block-card:hover .btn-saburo[data-hover="white"]{
     background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;
   }
@@ -179,15 +149,22 @@
   }
   .block-card:hover .btn-saburo[data-hover="rainbow"]::before{
     content:'';position:absolute;inset:0;border-radius:inherit;
-    background:var(--gradient);background-size:200% 100%;
-    animation:gradientShift 4s linear infinite;z-index:-1;
+    /* This is kept for pill-rainbow hover, but for rainbow visual we rely on the new layer */
+    background:linear-gradient(-82deg,
+      #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
+      #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
+      #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
+      #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
+      #ADA8FF 100%
+    );
+    background-size:100% 100%;
+    transform-origin:3% 61%;
+    transform:rotate(-82deg) translateX(35%);
+    animation:gradientShift 8s ease-in-out infinite alternate;
+    z-index:-1;
   }
-  .block-card:hover .btn-saburo[data-hover="rainbow"]::after{
-    content:'';position:absolute;inset:-4px;border-radius:inherit;
-    background:var(--gradient);background-size:200% 100%;
-    animation:gradientShift 4s linear infinite;
-    filter:blur(9px);opacity:0.45;z-index:-2;
-  }
+  .block-card:hover .btn-saburo[data-hover="rainbow"]::after{display:none;}
+
   .block-card:hover .btn-saburo[data-hover="outline"]{
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;
   }
@@ -199,11 +176,9 @@
   .nav-container{max-width:1060px;width:100%;margin:0 auto;display:flex;align-items:center;height:100%;padding:0 1rem;}
   .nav-left{display:flex;align-items:center;gap:25px}
   .nav-brand{display:flex;align-items:center;gap:8px}
-  /* #2: nav-wordmark uses flex + consistent gap; sep has no padding */
   .nav-wordmark{display:flex;align-items:center;gap:6px;font-size:1rem;font-weight:500;letter-spacing:.06em;white-space:nowrap;line-height:1}
   .nav-tagline{display:flex;align-items:center;gap:12px;}
   .nav-wordmark .sep{opacity:.35;line-height:1}
-  /* #8: Reduced gap between "Приєднуйся:" and icons */
   .nav-right{margin-left:auto;display:flex;align-items:center;gap:20px}
   .nav-join{font-size:0.8rem;letter-spacing:.06em;white-space:nowrap}
   .social-row{display:flex;align-items:center;gap:18px}
@@ -239,7 +214,6 @@
   /* ── Filter ── */
   .filter-wrap{display:flex;justify-content:center;margin:1.5rem auto 2rem;padding:0 1rem;}
   .filter-bar{display:flex;align-items:center;gap:2px;background:var(--sur);border-radius:40px;padding:5px;overflow-x:auto;}
-  /* #5: Icon-only buttons; label appears only when active */
   .filter-btn{
     display:flex;align-items:center;gap:6px;
     padding:0 10px;height:34px;border-radius:28px;
@@ -253,7 +227,6 @@
   .filter-btn.active .f-label{display:inline;}
 
   /* ── Block grid ── */
-  /* #4 & #5: Remove min-height so grid height is natural */
   .block-grid{
     display:grid;
     grid-template-columns:repeat(3,330px);
@@ -287,11 +260,9 @@
   .content-container pre code{background:none;padding:0;}
   .content-container blockquote{border-left:3px solid var(--muted);padding-left:1rem;color:var(--muted);margin-bottom:1rem;}
   .content-container hr{border:none;border-top:1px solid rgba(255,255,255,.1);margin:2rem 0;}
-  /* #11: Link colors */
   .content-container a{color:#bc7615;text-decoration:underline;}
   .content-container a:hover{color:#ffbc40;}
 
-  /* #10: Copy button on pre blocks */
   .copy-btn{
     position:absolute;top:8px;right:8px;
     display:flex;align-items:center;gap:4px;
@@ -399,7 +370,7 @@
 </footer>
 <script>
 (function(){
-  /* ── #10: Copy buttons on code blocks ── */
+  /* ── Copy buttons on code blocks ── */
   document.querySelectorAll('.content-container pre').forEach(pre => {
     const btn = document.createElement('button');
     btn.className = 'copy-btn';
@@ -418,12 +389,11 @@
     pre.appendChild(btn);
   });
 
-  /* ── #3: GIF lazy loading ── */
+  /* ── GIF lazy loading ── */
   const isMobile = window.matchMedia('(hover:none)').matches;
   const cards = document.querySelectorAll('.block-card');
 
   if (!isMobile) {
-    /* Desktop: load GIF on hover, show only after fully loaded */
     cards.forEach(card => {
       const gifImg = card.querySelector('.gif-img');
       if (!gifImg) return;
@@ -447,17 +417,15 @@
       });
     });
   } else {
-    /* Mobile: show GIF only on the one card most centered on screen */
     cards.forEach(card => {
       const gifImg = card.querySelector('.gif-img');
       if (!gifImg) return;
       const gifSrc = gifImg.dataset.src;
-      if (gifSrc) gifImg.src = gifSrc; /* preload all on mobile */
+      if (gifSrc) gifImg.src = gifSrc;
     });
 
     let activeCard = null;
     const observer = new IntersectionObserver(entries => {
-      /* Find the card with the highest intersection ratio */
       let best = null, bestRatio = 0;
       entries.forEach(e => {
         if (e.intersectionRatio > bestRatio) { bestRatio = e.intersectionRatio; best = e.target; }
