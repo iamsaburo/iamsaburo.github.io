@@ -2,70 +2,86 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authorizing… (Debug)</title>
+  <title>Authorizing…</title>
   <style>
-    body { font-family: monospace; padding: 2rem; background: #fff; }
-    button { padding: 0.5rem 1rem; margin-top: 1rem; }
+    body { font-family: sans-serif; padding: 2rem; text-align: center; }
   </style>
 </head>
 <body>
-  <p>Authorization complete. <strong>Keep this window open to see logs.</strong></p>
-  <button onclick="window.close()">Close manually</button>
-  <pre id="log"></pre>
+  <p>Sending login token to CMS…</p>
   <script>
-    const logEl = document.getElementById('log');
-    function log(msg) {
-      console.log('[relay] ' + msg);
-      logEl.textContent += msg + '\n';
-    }
-
     (function () {
       const hash  = new URLSearchParams(location.hash.slice(1));
       const token = hash.get('t');
-      log('Hash token: ' + (token ? token.substring(0, 6) + '…' : 'null'));
 
       if (!token) {
-        log('❌ No token found in hash. Aborting.');
-        document.querySelector('p').textContent = 'Missing token.';
+        document.body.innerHTML = '<p>Missing token — please try logging in again.</p>';
         return;
       }
 
+      // Clean the URL
       history.replaceState({}, '', location.pathname);
-      log('Cleared hash.');
 
-      // Store in both keys
-      try {
-        localStorage.setItem('decap-cms-github-iamsaburo/iamsaburo.github.io', token);
-        localStorage.setItem('decap_oauth_token', JSON.stringify({
-          token: token,
-          provider: 'github',
-          timestamp: Date.now()
-        }));
-        log('✅ Token saved to localStorage.');
-      } catch (e) {
-        log('❌ localStorage error: ' + e);
-      }
+      const msg = 'authorization:github:success:' +
+        JSON.stringify({ token: token, provider: 'github' });
+      const origin = window.location.origin;  // "https://iamsaburo.github.io"
 
-      // Redirect URL
-      const adminUrl = window.location.origin + '/admin/?token=' + encodeURIComponent(token);
-      log('🔄 Constructed admin URL: ' + adminUrl);
+      let sent = false;
 
-      if (window.opener && !window.opener.closed) {
-        log('🪟 Opener available. Attempting to redirect opener...');
-        try {
-          window.opener.location.replace(adminUrl);
-          log('✅ Opener redirected. Closing window...');
-          // Keep open for 5 seconds so you can read logs, then close
-          setTimeout(() => window.close(), 5000);
-        } catch (e) {
-          log('❌ Opener redirect blocked: ' + e.message);
-          log('➡️ Redirecting this window instead.');
-          window.location.replace(adminUrl);
+      // Attempt to send via opener.postMessage
+      function trySendViaOpener() {
+        if (sent) return;
+        if (window.opener && !window.opener.closed) {
+          try {
+            window.opener.postMessage(msg, origin);
+            sent = true;
+            console.log('[relay] ✅ Token sent to opener via postMessage.');
+            document.querySelector('p').textContent = 'Login successful — you can close this window.';
+            // Close after a short delay
+            setTimeout(() => window.close(), 600);
+          } catch (e) {
+            console.warn('[relay] postMessage failed:', e);
+          }
         }
-      } else {
-        log('⚠️ No opener. Redirecting this popup to admin URL.');
-        window.location.replace(adminUrl);
       }
+
+      // Backup: BroadcastChannel
+      function trySendViaBroadcast() {
+        if (sent) return;
+        try {
+          const bc = new BroadcastChannel('decap-oauth');
+          bc.postMessage(msg);
+          bc.close();
+          sent = true;
+          console.log('[relay] ✅ Token sent via BroadcastChannel.');
+          document.querySelector('p').textContent = 'Login successful — you can close this window.';
+          setTimeout(() => window.close(), 600);
+        } catch (e) {
+          console.warn('[relay] BroadcastChannel failed:', e);
+        }
+      }
+
+      // Send immediately, then retry every 300ms for 4 seconds
+      trySendViaOpener();
+      trySendViaBroadcast();
+
+      const interval = setInterval(() => {
+        trySendViaOpener();
+        trySendViaBroadcast();
+        // Stop after ~4 seconds and close
+        if (sent) {
+          clearInterval(interval);
+        }
+      }, 300);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        if (!sent) {
+          console.warn('[relay] Could not send token. Window will close.');
+          document.body.innerHTML += '<p style="color:red;">Could not send token. Please try again.</p>';
+        }
+        window.close();
+      }, 4000);
     })();
   </script>
 </body>

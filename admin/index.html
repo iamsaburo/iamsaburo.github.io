@@ -4,115 +4,40 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <title>Content Manager (Debug)</title>
-  <style>
-    #debug-panel {
-      position: fixed; bottom: 10px; right: 10px; background: #000; color: #0f0;
-      padding: 10px; font-family: monospace; font-size: 12px; z-index: 1000;
-      max-width: 400px; word-break: break-all; opacity: 0.9;
-    }
-    #debug-panel button { margin-top: 5px; }
-  </style>
+  <meta http-equiv="Cross-Origin-Opener-Policy" content="unsafe-none" />
+  <title>Content Manager</title>
 </head>
 <body>
-  <div id="debug-panel">
-    <div id="log-output"></div>
-    <button onclick="manualApplyToken()">🔄 Apply token from URL</button>
-    <button onclick="clearStorageAndReload()">🧹 Clear all tokens & Reload</button>
-  </div>
-
   <script>
-    // === LOGGING HELPER ===
-    const logLines = [];
-    function log(msg) {
-      console.log('[index] ' + msg);
-      logLines.push(msg);
-      const el = document.getElementById('log-output');
-      if (el) el.innerText = logLines.slice(-10).join('\n');
-    }
-
-    // === URL TOKEN DETECTION ===
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlToken = urlParams.get('token');
-    if (urlToken) {
-      log('🔑 Token found in URL: ' + urlToken.substring(0, 8) + '…');
-      // Do NOT remove from URL yet; Decap needs it.
-    } else {
-      log('ℹ️ No token in URL.');
-    }
-
-    // === MIGRATION (keep) ===
+    // Listen for the token from the popup (both postMessage and BroadcastChannel)
     (function () {
-      var OLD_KEY = 'decap_oauth_token';
-      var OFFICIAL_KEY = 'decap-cms-github-iamsaburo/iamsaburo.github.io';
-      try {
-        var oldData = localStorage.getItem(OLD_KEY);
-        if (oldData) {
-          var parsed = JSON.parse(oldData);
-          if (parsed.token && !localStorage.getItem(OFFICIAL_KEY)) {
-            localStorage.setItem(OFFICIAL_KEY, parsed.token);
-            log('📦 Migrated old token to official key.');
-          }
-          localStorage.removeItem(OLD_KEY);
-        } else {
-          log('📦 No old token to migrate.');
-        }
-      } catch (e) {
-        log('❌ Migration error: ' + e);
+      function handleTokenMessage(data) {
+        if (typeof data !== 'string') return;
+        if (!data.startsWith('authorization:github:success:')) return;
+        console.log('[index] Token message received.');
+        // Forward to Decap (it listens for 'message' events)
+        window.dispatchEvent(new MessageEvent('message', {
+          data: data,
+          origin: window.location.origin,
+          source: window   // include a source object to mimic a real popup
+        }));
       }
+
+      // 1. Listen for direct postMessage from the popup
+      window.addEventListener('message', function (e) {
+        if (e.origin !== window.location.origin) return;
+        handleTokenMessage(e.data);
+      });
+
+      // 2. BroadcastChannel fallback
+      try {
+        const bc = new BroadcastChannel('decap-oauth');
+        bc.onmessage = function (e) {
+          handleTokenMessage(e.data);
+          bc.close();
+        };
+      } catch (err) { /* ignore */ }
     })();
-
-    // === INTERCEPT DECAP AUTH EVENTS (if global CMS available) ===
-    window.addEventListener('load', function() {
-      if (window.CMS) {
-        log('✅ Decap CMS global object found.');
-        try {
-          // Listen for login events (may vary per version)
-          window.CMS.on('auth', function(data) {
-            log('🔐 Auth event: ' + JSON.stringify(data).substring(0, 100));
-          });
-          window.CMS.on('login', function(data) {
-            log('🔐 Login event: ' + JSON.stringify(data).substring(0, 100));
-          });
-          window.CMS.on('logout', function() {
-            log('🔐 Logout event.');
-          });
-        } catch (e) {
-          log('⚠️ Could not attach CMS listeners: ' + e.message);
-        }
-      } else {
-        log('⚠️ window.CMS not available yet.');
-      }
-    });
-
-    // === MANUAL TRIGGER: simulate what Decap should do on token URL ===
-    function manualApplyToken() {
-      log('🖐️ Manual apply token...');
-      const tok = new URLSearchParams(window.location.search).get('token');
-      if (!tok) {
-        log('❌ No token in URL to apply.');
-        return;
-      }
-      // Try to trigger Decap via localStorage (it might pick it up on reload)
-      try {
-        localStorage.setItem('decap-cms-github-iamsaburo/iamsaburo.github.io', tok);
-        log('📌 Token set in localStorage, reloading...');
-        // Also pass token as hash if needed: Decap sometimes uses #/...
-        window.location.reload();
-      } catch (e) {
-        log('❌ ' + e);
-      }
-    }
-
-    function clearStorageAndReload() {
-      try {
-        localStorage.clear();
-        log('🧹 localStorage cleared. Reloading...');
-        window.location.href = window.location.pathname; // remove query
-      } catch (e) {
-        log('❌ ' + e);
-      }
-    }
   </script>
 
   <script>
