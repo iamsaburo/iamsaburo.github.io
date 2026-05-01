@@ -3,9 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>Authorizing…</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; text-align: center; }
-  </style>
 </head>
 <body>
   <p>Sending login token to CMS…</p>
@@ -15,73 +12,51 @@
       const token = hash.get('t');
 
       if (!token) {
-        document.body.innerHTML = '<p>Missing token — please try logging in again.</p>';
+        document.body.innerHTML = '<p>Missing token.</p>';
         return;
       }
 
-      // Clean the URL
       history.replaceState({}, '', location.pathname);
-
       const msg = 'authorization:github:success:' +
         JSON.stringify({ token: token, provider: 'github' });
-      const origin = window.location.origin;  // "https://iamsaburo.github.io"
+      const origin = window.location.origin;
 
-      let sent = false;
+      let success = false;
 
-      // Attempt to send via opener.postMessage
-      function trySendViaOpener() {
-        if (sent) return;
+      function trySend() {
+        if (success) return;
         if (window.opener && !window.opener.closed) {
           try {
             window.opener.postMessage(msg, origin);
-            sent = true;
-            console.log('[relay] ✅ Token sent to opener via postMessage.');
-            document.querySelector('p').textContent = 'Login successful — you can close this window.';
-            // Close after a short delay
-            setTimeout(() => window.close(), 600);
+            console.log('[relay] ✅ Sent via opener.postMessage');
+            success = true;
+            document.body.innerHTML = '<p>Login successful — you can close this window.</p>';
+            setTimeout(() => window.close(), 500);
           } catch (e) {
-            console.warn('[relay] postMessage failed:', e);
+            console.warn('[relay] opener.postMessage error:', e);
           }
+        } else {
+          console.warn('[relay] No opener available.');
         }
       }
 
-      // Backup: BroadcastChannel
-      function trySendViaBroadcast() {
-        if (sent) return;
-        try {
-          const bc = new BroadcastChannel('decap-oauth');
-          bc.postMessage(msg);
-          bc.close();
-          sent = true;
-          console.log('[relay] ✅ Token sent via BroadcastChannel.');
-          document.querySelector('p').textContent = 'Login successful — you can close this window.';
-          setTimeout(() => window.close(), 600);
-        } catch (e) {
-          console.warn('[relay] BroadcastChannel failed:', e);
-        }
-      }
-
-      // Send immediately, then retry every 300ms for 4 seconds
-      trySendViaOpener();
-      trySendViaBroadcast();
-
-      const interval = setInterval(() => {
-        trySendViaOpener();
-        trySendViaBroadcast();
-        // Stop after ~4 seconds and close
-        if (sent) {
-          clearInterval(interval);
-        }
-      }, 300);
-
+      // Try immediately, then every 500ms for up to 10 seconds
+      trySend();
+      const interval = setInterval(trySend, 500);
       setTimeout(() => {
         clearInterval(interval);
-        if (!sent) {
-          console.warn('[relay] Could not send token. Window will close.');
-          document.body.innerHTML += '<p style="color:red;">Could not send token. Please try again.</p>';
+        if (!success) {
+          // Ultimate fallback: BroadcastChannel
+          try {
+            const bc = new BroadcastChannel('decap-oauth');
+            bc.postMessage(msg);
+            bc.close();
+            console.log('[relay] Fallback to BroadcastChannel');
+          } catch (e) {}
+          document.body.innerHTML += '<p>Could not send token automatically. Please close window and try again.</p>';
         }
-        window.close();
-      }, 4000);
+        if (!success) setTimeout(() => window.close(), 3000);
+      }, 10000);
     })();
   </script>
 </body>

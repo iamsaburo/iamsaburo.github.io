@@ -9,38 +9,6 @@
 </head>
 <body>
   <script>
-    // Listen for the token from the popup (both postMessage and BroadcastChannel)
-    (function () {
-      function handleTokenMessage(data) {
-        if (typeof data !== 'string') return;
-        if (!data.startsWith('authorization:github:success:')) return;
-        console.log('[index] Token message received.');
-        // Forward to Decap (it listens for 'message' events)
-        window.dispatchEvent(new MessageEvent('message', {
-          data: data,
-          origin: window.location.origin,
-          source: window   // include a source object to mimic a real popup
-        }));
-      }
-
-      // 1. Listen for direct postMessage from the popup
-      window.addEventListener('message', function (e) {
-        if (e.origin !== window.location.origin) return;
-        handleTokenMessage(e.data);
-      });
-
-      // 2. BroadcastChannel fallback
-      try {
-        const bc = new BroadcastChannel('decap-oauth');
-        bc.onmessage = function (e) {
-          handleTokenMessage(e.data);
-          bc.close();
-        };
-      } catch (err) { /* ignore */ }
-    })();
-  </script>
-
-  <script>
     window.CMS_CONFIG = {
       backend: {
         name:          'github',
@@ -70,6 +38,16 @@
       ],
     };
   </script>
+  <!-- Decap CMS loaded – its own OAuth handler will listen for messages -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Temporary DEBUG listener – logs but does NOT re-dispatch -->
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.origin !== window.location.origin) return;
+      console.log('[DEBUG] Message received:', e.data);
+      // DO NOT dispatch anything else – just observe
+    });
+  </script>
 </body>
 </html>
