@@ -3,6 +3,8 @@ layout: block-info
 title: "Корисне"
 ---
 
+{% assign sorted_blocks = site.blocks | sort: "order" %}
+
 <div class="hero">
   <h1>Врубай <span class="design" data-text="Дesign.">Дesign.</span></h1>
   <p>Ексклюзивний контент для учасників спільноти SABURO™</p>
@@ -21,12 +23,12 @@ title: "Корисне"
 </div>
 
 <div id="blockContainer" class="block-grid">
-  {% for block in site.blocks %}
+  {% for block in sorted_blocks %}
   <a href="{{ block.slug | append: '-info' | prepend: '/' | relative_url }}" class="block-card" data-categories="{{ block.categories | join: ',' }}">
     <div class="image-wrapper">
       {% if block.gif_image %}
       <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
-      <img class="gif-img" src="{{ block.gif_image }}" alt="{{ block.title }}">
+      <img class="gif-img" data-src="{{ block.gif_image }}" alt="{{ block.title }}">
       {% else %}
       <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
       {% endif %}
@@ -42,14 +44,14 @@ title: "Корисне"
         {% endif %}
       {% endfor %}
     </div>
-    {% include btn-saburo.html label='Дізнатись більше' visual='outline' hover='rainbow' icon_visual='arrow_forward' icon_hover='arrow_forward' width='auto' height=40 radius=4 class='btn-block' %}
+    {% include btn-saburo.html label='Дізнатись більше' visual='outline' hover='rainbow' icon_hover='arrow_forward' icon_position='after' width='auto' height=40 radius=4 class='btn-block' %}
   </a>
   {% endfor %}
 </div>
 <div id="noResultsMessage" class="no-results" style="display:none;">Категорія пуста.</div>
 
 {% assign blocks_per_page = 9 %}
-{% assign total_pages = site.blocks.size | divided_by: blocks_per_page | plus: 1 %}
+{% assign total_pages = sorted_blocks.size | divided_by: blocks_per_page | plus: 1 %}
 {% if total_pages > 1 %}
 <div class="pagination" id="pagination">
   <button class="page-btn" id="prevPage">‹</button>
@@ -62,16 +64,17 @@ title: "Корисне"
 
 <script>
 (function(){
-  const cards        = Array.from(document.querySelectorAll('.block-card'));
-  const filterBtns   = document.querySelectorAll('.filter-btn');
-  const paginationDiv= document.getElementById('pagination');
-  const noResultsDiv = document.getElementById('noResultsMessage');
-  const cardsPerPage = {{ blocks_per_page }};
+  const cards         = Array.from(document.querySelectorAll('.block-card'));
+  const filterBtns    = document.querySelectorAll('.filter-btn');
+  const paginationDiv = document.getElementById('pagination');
+  const noResultsDiv  = document.getElementById('noResultsMessage');
+  const cardsPerPage  = {{ blocks_per_page }};
 
   let currentPage    = 1;
   let activeCategory = 'all';
   let filteredCards  = [...cards];
 
+  /* #4: Two-rAF trick forces reflow so animation replays correctly */
   function showCardsWithFade(visibleCards) {
     cards.forEach(c => {
       c.style.display = 'none';
@@ -81,9 +84,17 @@ title: "Корисне"
 
     visibleCards.forEach((card, i) => {
       card.style.display = '';
-      card.style.transitionDelay = (i * 0.1) + 's';
+    });
+
+    /* Force reflow before adding visible to trigger transition */
+    void document.getElementById('blockContainer').offsetHeight;
+
+    visibleCards.forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.07) + 's';
       requestAnimationFrame(() => {
-        card.classList.add('visible');
+        requestAnimationFrame(() => {
+          card.classList.add('visible');
+        });
       });
     });
 
@@ -103,6 +114,7 @@ title: "Корисне"
 
   function updatePaginationUI(total) {
     if (!paginationDiv) return;
+    /* #5: Hide pagination when all blocks fit on one page */
     paginationDiv.style.display = filteredCards.length > cardsPerPage ? 'flex' : 'none';
     document.querySelectorAll('.page-num').forEach(btn => {
       const p = parseInt(btn.dataset.page);
@@ -124,7 +136,6 @@ title: "Корисне"
     render();
   }
 
-  // Simple filter buttons
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -134,20 +145,20 @@ title: "Корисне"
     });
   });
 
-  // Pagination
   if (paginationDiv) {
     document.querySelectorAll('.page-num').forEach(btn => {
       btn.addEventListener('click', () => {
         currentPage = parseInt(btn.dataset.page);
+        /* #4: Scroll before render so grid is empty during scroll */
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        render();
+        setTimeout(() => render(), 300);
       });
     });
     document.getElementById('prevPage')?.addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        render();
+        setTimeout(() => render(), 300);
       }
     });
     document.getElementById('nextPage')?.addEventListener('click', () => {
@@ -155,12 +166,11 @@ title: "Корисне"
       if (currentPage < total) {
         currentPage++;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        render();
+        setTimeout(() => render(), 300);
       }
     });
   }
 
-  // Initial reveal
   applyFilter();
 })();
 </script>

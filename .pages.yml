@@ -13,6 +13,10 @@ content:
         label: Slug
         type: string
         required: true
+      - name: order
+        label: Sort Order
+        type: number
+        required: false
       - name: image
         label: Static Image URL
         type: string
@@ -33,12 +37,17 @@ content:
         label: Categories
         type: select
         required: true
-        multiple: true
         options:
-          - StreamElements
-          - Streamer.bot
-          - Twitch
-          - OBS
+          multiple: true
+          values:
+            - label: StreamElements
+              value: StreamElements
+            - label: Streamer.bot
+              value: Streamer.bot
+            - label: Twitch
+              value: Twitch
+            - label: OBS
+              value: OBS
       - name: description
         label: Short Description
         type: text
