@@ -6,12 +6,19 @@ gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 categories:
   - StreamElements
   - Twitch
-description: Всі стилі кнопок та форматування
+description: Усі стилі кнопок та форматування
 layout: block-info
 back_url: /
+back_label: Головна
 ---
 
 <div class="content-container" markdown="1">
+
+## Hello World
+
+{% include btn-saburo.html label="Hello World" visual="outline" %}
+
+---
 
 ## 4 типи кнопок
 
