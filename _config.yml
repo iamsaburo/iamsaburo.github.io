@@ -1,4 +1,3 @@
----
 collections:
   blocks:
     output: true
@@ -9,4 +8,6 @@ defaults:
       type: "blocks"
     values:
       layout: "block-info"
----
+
+kramdown:
+  smart_quotes: ["apos", "apos", "quot", "quot"]
