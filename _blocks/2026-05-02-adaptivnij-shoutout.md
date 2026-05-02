@@ -10,10 +10,10 @@ categories:
   - Twitch
 tabs:
   - id: se
-    svg_icon: /svg/streamelements.svg/
+    svg_icon: /svg/streamelements.svg
     label: StreamElements
   - id: sb
-    svg_icon: /svg/streamer-bot.svg/
+    svg_icon: /svg/streamer-bot.svg
     label: Streamer.bot
 embed_max_width: "500"
 markdown_guide: >
@@ -111,9 +111,9 @@ markdown_guide: >
 {% include btn-saburo.html href="https://iamsaburo.github.io/" label="ВСТАНОВИТИ ВІДЖЕТ" visual="white" hover="rainbow" icon_position="before" icon_visual="favorite" %}
 {:/}
 </div>
-
-2. Авторизуйся через ( 🚀 StreamElements )
-Код: 1771178628138
+---
+2. Авторизуйся через 🚀 StreamElements
+Код: `1771178628138`
 
 3. Налаштуй під себе
 
