@@ -1,109 +1,50 @@
 ---
-title: Демо блок
-slug: art-community
-order: 3
+title: Адаптивний ShoutOut
+slug: adaptive-shoutout
+order: 5
 hidden: false
-image: https://www.nintenderos.com/wp-content/uploads/2023/08/zelda-tears-of-the-kingdom-logo-y.jpg
-gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
+image: https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png
+gif_image: https://files.catbox.moe/eb4l4z.gif
 back_url: /
 back_label: Головна
 categories:
   - StreamElements
+  - Streamer.bot
   - Twitch
-  - OBS
 tabs:
-  - id: buttons
-    icon: smart_button
-    label: Кнопки
-  - id: formatting
-    svg_icon: /svg/logo_symbol.svg
-    label: Форматування
+  - id: se
+    svg_icon: /svg/streamelements.svg
+    label: StreamElements
+  - id: sb
+    svg_icon: /svg/streamer-bot.svg
+    label: Streamer.bot
+embed_max_width: 450px
 ---
----
-title: Демо блок
-slug: art-community
-order: 3
-hidden: false
-image: https://www.nintenderos.com/wp-content/uploads/2023/08/zelda-tears-of-the-kingdom-logo-y.jpg
-gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
-back_url: /
-back_label: Головна
-categories:
-  - StreamElements
-  - Twitch
-  - OBS
-tabs:
-  - id: buttons
-    icon: smart_button
-    label: Кнопки
-  - id: formatting
-    svg_icon: /svg/logo_symbol.svg
-    label: Форматування
----
-## Hello World
+## Що це таке?
 
-{::nomarkdown}
-{% include btn-saburo.html label="Hello World" visual="outline" %}
-{:/}
+**Адаптивний ShoutOut** — оверлей, який автоматично підлаштовується під аватар та категорію стримера на якого ти робиш шаут.
 
----
+## Попередній перегляд
 
-## 4 типи кнопок
+![Адаптивний ShoutOut](https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png)
 
-<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
+## Встановлення
 
-{::nomarkdown}
-{% include btn-saburo.html label="Outline" visual="outline" %}
-{% include btn-saburo.html label="White" visual="white" %}
-{% include btn-saburo.html label="Rainbow" visual="rainbow" %}
-{% include btn-saburo.html label="Pill" visual="pill" %}
-{:/}
-
-</div>
-
-### З іконками
-
-{::nomarkdown}
-{% include btn-saburo.html label="З іконкою" visual="outline" icon_visual="favorite" %}
-{% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="arrow_forward" icon_position="after" %}
-{:/}
-
-### Ширина за вмістом
-
-{::nomarkdown}
-{% include btn-saburo.html label="Автоширина" visual="pill" width="auto" %}
-{:/}
+1. Додай новий **Custom Widget** у StreamElements.
+2. Встав код нижче у відповідні вкладки редактора.
+3. Налаштуй змінні під себе.
 
 <!-- tab -->
+## Що це таке?
 
-## Форматування тексту
+**Адаптивний ShoutOut** для Streamer.bot викликається командою або подією і автоматично тягне дані каналу через API Twitch.
 
-**Жирний**, *курсив*, ~~закреслений~~, `код`
+## Попередній перегляд
 
-- список
-  - вкладений
+![Адаптивний ShoutOut](https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png)
 
-1. нумерований
-2. список
+## Встановлення
 
-> Цитата
-
-Роздільник:
-
----
-
-### Заголовки
-
-# H1
-## H2
-### H3
-
-[Посилання](https://example.com)
-
-Картинка: ![лого]({{ '/svg/logo_symbol.svg' | relative_url }})
-
-Таблиця:
-
-| Стовпець 1 | Стовпець 2 |
-|------------|------------|
-| дані       | дані       |
+1. Імпортуй дію через вкладку **Import** у Streamer.bot.
+2. Призначте тригер (команда чату, рейд тощо).
+3. Перевір налаштування OBS-сцени.

@@ -25,7 +25,7 @@
     font-family:'Inter',system-ui,sans-serif;
     min-height:100vh;line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    display:flex;flex-direction:column
+    display:flex;flex-direction:column;overflow-x:hidden
   }
   a{color:inherit;text-decoration:none}
   .ph-img{display:inline-block;flex-shrink:0}
@@ -235,21 +235,18 @@
   .btn-block{width:100%;}
 
   /* ══════════════════════════════════════════════
-     TABS — folder-tab pattern (PATCHED)
+     TABS — folder-tab, no bottom stroke anywhere
   ══════════════════════════════════════════════ */
-  .tabs-container { position: relative; }
+  .tabs-container { position: relative; min-width: 0; }
 
-  /* Nav provides the single horizontal divider line */
   .tabs-nav {
     display: flex;
     gap: 4px;
-    padding: 0 0 0 2px;
+    padding: 0;                          /* без відступу — рамка панелі йде впритул */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    position: relative;
-    z-index: 1;
-    border-bottom: 1px solid rgba(255,255,255,0.1);   /* ← the shared line */
+    /* ЖОДНОГО border-bottom */
   }
   .tabs-nav::-webkit-scrollbar { display: none; }
 
@@ -257,9 +254,12 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.85rem 1.25rem;
-    border: 1px solid transparent;
-    border-bottom: 1px solid transparent;
+    padding: 0.9rem 1.25rem;             /* трохи вища */
+    /* Три сторони — без нижньої рамки */
+    border-top:   1px solid transparent;
+    border-left:  1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: none;
     border-radius: 8px 8px 0 0;
     background: transparent;
     color: var(--muted);
@@ -268,59 +268,53 @@
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
-    position: relative;
-    bottom: -1px;                  /* overlaps the nav line by 1 px */
-    z-index: 1;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active {
     color: var(--text);
-    border-color: rgba(255,255,255,0.1);
-    border-bottom-color: var(--sur);   /* paints over the nav line with panel bg */
-    background: var(--sur);
+    border-color: rgba(255,255,255,0.1); /* верх + боки */
+    background: var(--sur);             /* = фон панелі → безшовне злиття */
   }
 
+  /* Фіксована висота іконки, не ширина */
   .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
   .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
-  /* Panel: NO top border — the nav's border-bottom serves as the top edge */
+  /* Панель: без border-top — фон таба переходить прямо в неї */
   .tab-panel {
     display: none;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-top: none;                  /* ← prevents double line */
+    border-left:   1px solid rgba(255,255,255,0.1);
+    border-right:  1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-top: none;
     border-radius: 0 8px 8px 8px;
     padding: 1.5rem;
-    position: relative;
-    z-index: 0;
-    overflow-x: auto;
-    background: var(--sur);
+    overflow-x: hidden;
+    min-width: 0;
   }
   .tab-panel.active { display: block; }
   .tab-panel.tab-panel--mid { border-radius: 8px; }
 
-  /* ── Inline tabs (mid-page widget) ── */
+  /* ── Інлайн-таби (віджет всередині сторінки) ── */
   .inline-tabs {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
     margin: 1.5rem 0;
     overflow: hidden;
     background: var(--sur);
+    min-width: 0;
   }
   .inline-tabs > .tabs-nav {
     padding: 0.6rem 0.6rem 0;
     background: var(--sur);
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    position: relative;
-    z-index: 1;
   }
   .inline-tabs > .tabs-nav .tab-btn {
     border-radius: 6px 6px 0 0;
-    bottom: -1px;
   }
   .inline-tabs > .tabs-nav .tab-btn.active {
     background: var(--bg);
-    border-color: rgba(255,255,255,0.1);
   }
   .inline-tabs > .tab-panel {
     border: none;
@@ -328,6 +322,8 @@
     background: var(--bg);
     padding: 1.5rem;
     display: none;
+    min-width: 0;
+    overflow-x: hidden;
   }
   .inline-tabs > .tab-panel.active { display: block; }
 
@@ -335,10 +331,12 @@
      Content container (EMBED FIX included)
   ───────────────────────────────────────────── */
   .content-container{
-    max-width:1060px;margin:2rem auto;padding:2rem;
+    max-width: min(1060px, calc(100vw - 2rem)); /* ніколи ширше в'юпорту */
+    margin:2rem auto;padding:2rem;
     background:var(--sur);border-radius:var(--r);
     color:var(--text);
-    overflow-x:hidden;    /* clip at container boundary */
+    contain: layout style;          /* діти не можуть вплинути на зовнішню ширину */
+    overflow-x: hidden;
     min-width:0;
   }
   .content-container h2,.content-container h3{margin-top:2rem;margin-bottom:1rem;}
@@ -353,35 +351,32 @@
   .content-container a:hover{color:#ffbc40;}
   .content-container a.btn-saburo{text-decoration:none !important;color:inherit;}
 
-  /* ── Embeds: prevent container expansion ── */
-  /* Images — scale down, never stretch */
+  /* ── Embeds: responsive by default ── */
+  /* Зображення — зменшуються, ніколи не розтягуються */
   .content-container img {
     display: block;
     max-width: 100%;
-    width: auto;
     height: auto;
+    width: auto;                 /* запобігає розтягуванню атрибутами */
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* Video — same behaviour as images */
+  /* Відео — така ж поведінка */
   .content-container video {
     display: block;
     max-width: 100%;
-    width: auto;
     height: auto;
+    width: auto;
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* iFrames — force 100% width because HTML width attribute often overrides max-width */
+  /* iFrame — JS встановить аспект та 100% ширину, це підстраховка */
   .content-container iframe {
     display: block;
-    width: 100%;
     max-width: 100%;
-    height: auto;
-    min-height: 200px;
-    aspect-ratio: 16 / 9;       /* sensible default for video embeds */
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -570,6 +565,26 @@
 
 <script>
 (function(){
+
+  /* ── Відповідальні iframe: видаляємо фіксовані розміри, зберігаємо пропорції ── */
+  document.querySelectorAll('.content-container iframe').forEach(iframe => {
+    const w = parseInt(iframe.getAttribute('width')  || '0', 10);
+    const h = parseInt(iframe.getAttribute('height') || '0', 10);
+    if (w && h) {
+      iframe.style.aspectRatio = `${w} / ${h}`;
+    }
+    iframe.removeAttribute('width');
+    iframe.removeAttribute('height');
+    iframe.style.width    = '100%';
+    iframe.style.maxWidth = '100%';
+    iframe.style.display  = 'block';
+  });
+
+  /* ── Відповідальні зображення з явними атрибутами width/height ── */
+  document.querySelectorAll('.content-container img[width]').forEach(img => {
+    img.removeAttribute('width');
+    img.removeAttribute('height');
+  });
 
   /* ── [#10] Pre code-block copy buttons ── */
   document.querySelectorAll('.content-container pre').forEach(pre => {
