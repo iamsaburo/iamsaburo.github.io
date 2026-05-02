@@ -105,8 +105,12 @@ markdown_guide: >
 
 
 1. Натисни 👇
- [ 💎 ВСТАНОВИТИ ВІДЖЕТ ]
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
+{::nomarkdown}
 {% include btn-saburo.html label="ВСТАНОВИТИ ВІДЖЕТ" visual="white" hover="rainbow" icon_position="before" icon_visual="favorite" %}
+{:/}
+</div>
 
 2. Авторизуйся через ( 🚀 StreamElements )
 Код: 1771178628138
