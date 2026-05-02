@@ -19,6 +19,27 @@ tabs:
     svg_icon: /svg/logo_symbol.svg
     label: Форматування
 ---
+---
+title: Демо блок
+slug: art-community
+order: 3
+hidden: false
+image: https://www.nintenderos.com/wp-content/uploads/2023/08/zelda-tears-of-the-kingdom-logo-y.jpg
+gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
+back_url: /
+back_label: Головна
+categories:
+  - StreamElements
+  - Twitch
+  - OBS
+tabs:
+  - id: buttons
+    icon: smart_button
+    label: Кнопки
+  - id: formatting
+    svg_icon: /svg/logo_symbol.svg
+    label: Форматування
+---
 ## Hello World
 
 {::nomarkdown}
