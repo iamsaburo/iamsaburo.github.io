@@ -15,7 +15,7 @@ tabs:
   - id: sb
     svg_icon: /svg/streamer-bot.svg
     label: Streamer.bot
-embed_max_width: 200px
+embed_max_width: 450px
 markdown_guide: >
   # Markdown інструкція для SABURO™
 
@@ -143,7 +143,13 @@ markdown_guide: >
  • В розширених налаштуваннях аудіо вибери ( Прослуховування та вивід )
 
 
-8. Натисни 👉 [⚡ДОДАТИ КОМАНДУ ]
+8. Натисни 👇
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
+{::nomarkdown}
+{% include btn-saburo.html href="https://streamelements.com/dashboard/bot/commands/custom?data=JTdCJTIyY29vbGRvd24lMjIlM0ElN0IlMjJ1c2VyJTIyJTNBMTUlMkMlMjJnbG9iYWwlMjIlM0E1JTdEJTJDJTIyYWxpYXNlcyUyMiUzQSU1QiU1RCUyQyUyMmtleXdvcmRzJTIyJTNBJTVCJTVEJTJDJTIydGl0bGVLZXl3b3JkcyUyMiUzQSU1QiU1RCUyQyUyMmVuYWJsZWQlMjIlM0F0cnVlJTJDJTIyZW5hYmxlZE9ubGluZSUyMiUzQXRydWUlMkMlMjJlbmFibGVkT2ZmbGluZSUyMiUzQXRydWUlMkMlMjJoaWRkZW4lMjIlM0FmYWxzZSUyQyUyMmNvc3QlMjIlM0EwJTJDJTIydHlwZSUyMiUzQSUyMnNheSUyMiUyQyUyMmFjY2Vzc0xldmVsJTIyJTNBMTAwJTJDJTIyY29tbWFuZCUyMiUzQSUyMmZlZndlZnclMjIlMkMlMjJyZXBseSUyMiUzQSUyMndlZmZldyUyMiUyQyUyMnJlZ2V4JTIyJTNBJTIyJTIyJTdE" label="ДОДАТИ КОМАНДУ" visual="white" hover="rainbow" icon_position="before" icon_visual="favorite" %}
+{:/}
+</div>
 
 9. Активуй команду ( ACTIVATE COMMAND )
 
