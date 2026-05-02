@@ -2,8 +2,10 @@
 title: Адаптивний ShoutOut
 slug: adaptive-shoutout
 order: 5
+hidden: false
 image: https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png
 gif_image: https://files.catbox.moe/eb4l4z.gif
+back_url: /
 categories:
   - StreamElements
   - Streamer.bot
@@ -16,88 +18,6 @@ tabs:
     svg_icon: /svg/streamer-bot.svg
     label: Streamer.bot
 embed_max_width: 450px
-markdown_guide: >
-  # Markdown інструкція для SABURO™
-
-
-  ## Базове форматування
-
-  **Жирний текст**
-
-  *Курсив*
-
-  ~~Закреслений~~
-
-  `Код`
-
-
-  ## Заголовки
-
-  # H1
-
-  ## H2
-
-  ### H3
-
-
-  ## Списки
-
-  - Ненумерований список
-    - Вкладений елемент
-
-  1. Нумерований список
-
-  2. Другий пункт
-
-
-  ## Цитування
-
-  > Це цитата
-
-
-  ## Горизонтальна лінія
-
-  ---
-
-
-  ## Посилання
-
-  [Текст посилання](https://example.com)
-
-
-  ## Зображення
-
-  ![Альтернативний текст](url-зображення)
-
-
-  ## Таблиці
-
-  | Заголовок 1 | Заголовок 2 |
-
-  |-------------|-------------|
-
-  | Комірка 1   | Комірка 2   |
-
-
-  ## Відео
-
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/відеоID"
-  frameborder="0" allowfullscreen></iframe>
-
-
-  ## Вкладки
-
-  Для створення вкладок використовуйте роздільник `<!-- tab -->` між секціями.
-  Кількість секцій повинна відповідати кількості вкладок у полі "Вкладки" вище.
-
-
-  ## Кнопки SABURO™
-
-  Ви можете вставляти кнопки за допомогою:
-
-  `{% include btn-saburo.html label="Текст" visual="outline" %}`
-
-  Де `visual` може бути: outline, white, rainbow, pill.
 ---
 # ЯК ВСТАНОВИТИ
 
