@@ -17,6 +17,11 @@ content:
         label: Порядок сортування
         type: number
         required: false
+      - name: hidden
+        label: Прихована (не відображається у списку)
+        type: boolean
+        required: false
+        default: false
       - name: image
         label: URL статичного зображення
         type: string
@@ -80,57 +85,46 @@ content:
         required: false
         hint: "Наприклад, 600px або 80%. Застосовується до зображень, відео та iframe"
       - name: markdown_guide
-        label: 📘 Інструкція з Markdown (довідка, не редагувати)
-        type: text
-        required: false
-        default: |
-          # Markdown інструкція для SABURO™
+              label: 📘 Markdown інструкція
+              type: text
+              required: false
+              default: |
+                ## Кнопки (портативний HTML, не потребує {::nomarkdown})
+                <a class="btn-saburo" data-visual="outline"
+                  style="--btn-w:auto;--btn-h:48px;--radius:10px;" href="URL">
+                  Текст
+                </a>
+                Варіанти data-visual: outline | white | pill | rainbow
+                Додаткові: data-hover="rainbow" data-icon-visual="favorite" data-icon-position="after"
 
-          ## Базове форматування
-          **Жирний текст**
-          *Курсив*
-          ~~Закреслений~~
-          `Код`
+                ## Малий текст (#8)
+                <small>дрібний підпис</small>
+                або клас: <span class="sm">ще дрібніше</span>
 
-          ## Заголовки
-          # H1
-          ## H2
-          ### H3
+                ## Вкладки посередині сторінки (#7)
+                <div class="inline-tabs">
+                  <nav class="tabs-nav" role="tablist">
+                    <button class="tab-btn active" data-tab="t1" role="tab">Вкладка 1</button>
+                    <button class="tab-btn" data-tab="t2" role="tab">Вкладка 2</button>
+                  </nav>
+                  <div class="tab-panel active" data-tab="t1">
+                    Вміст 1 (HTML)
+                  </div>
+                  <div class="tab-panel" data-tab="t2">
+                    Вміст 2
+                  </div>
+                </div>
 
-          ## Списки
-          - Ненумерований список
-            - Вкладений елемент
+                ## Зображення — іконка завантаження (#9)
+                Додається автоматично при наведенні на всі зображення.
 
-          1. Нумерований список
-          2. Другий пункт
+                ## Код — копіювання (#10)
+                Кнопка Copy з'являється на всіх блоках ```code```.
+                Inline `код` копіюється кліком.
 
-          ## Цитування
-          > Це цитата
-
-          ## Горизонтальна лінія
-          ---
-
-          ## Посилання
-          [Текст посилання](https://example.com)
-
-          ## Зображення
-          ![Альтернативний текст](url-зображення)
-
-          ## Таблиці
-          | Заголовок 1 | Заголовок 2 |
-          |-------------|-------------|
-          | Комірка 1   | Комірка 2   |
-
-          ## Відео
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/відеоID" frameborder="0" allowfullscreen></iframe>
-
-          ## Вкладки
-          Для створення вкладок використовуйте роздільник `<!-- tab -->` між секціями. Кількість секцій повинна відповідати кількості вкладок у полі "Вкладки" вище.
-
-          ## Кнопки SABURO™
-          Ви можете вставляти кнопки за допомогою:
-          `{% include btn-saburo.html label="Текст" visual="outline" %}`
-          Де `visual` може бути: outline, white, rainbow, pill.
+                ## Приховати сторінку (#12)
+                Встановіть hidden: true у frontmatter.
+                Сторінка генерується, але не відображається у списку.
         hint: "Це поле лише для довідки. Не потребує редагування."
       - name: body
         label: Повний вміст

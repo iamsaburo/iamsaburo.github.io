@@ -3,7 +3,7 @@ layout: block-info
 title: "Корисне"
 ---
 
-{% assign sorted_blocks = site.blocks | sort: "order" %}
+{% assign sorted_blocks = site.blocks | sort: "order" | where_exp: "block", "block.hidden != true" %}
 
 <div class="hero">
   <h1>Врубай <span class="design" data-text="Дesign.">Дesign.</span></h1>
