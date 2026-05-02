@@ -6,35 +6,35 @@ content:
     format: yaml-frontmatter
     fields:
       - name: title
-        label: Title
+        label: Заголовок
         type: string
         required: true
       - name: slug
-        label: Slug
+        label: Ярлик
         type: string
         required: true
       - name: order
-        label: Sort Order
+        label: Порядок сортування
         type: number
         required: false
       - name: image
-        label: Static Image URL
+        label: URL статичного зображення
         type: string
         required: true
       - name: gif_image
-        label: GIF Image URL (optional)
+        label: URL GIF-зображення (необов'язково)
         type: string
         required: false
       - name: back_url
-        label: Back Button URL (optional)
+        label: URL кнопки "Назад" (необов'язково)
         type: string
         required: false
       - name: back_label
-        label: Back Button Label (optional)
+        label: Назва кнопки "Назад" (необов'язково)
         type: string
         required: false
       - name: categories
-        label: Categories
+        label: Категорії
         type: select
         required: true
         options:
@@ -48,32 +48,33 @@ content:
               value: Twitch
             - label: OBS
               value: OBS
-      - name: description
-        label: Short Description
-        type: text
-        required: false
       - name: tabs
-        label: Tabs (separate content in body with <!-- tab -->)
+        label: Вкладки (розділіть вміст у тілі за допомогою <!-- tab -->)
         type: object
         list: true
         required: false
         fields:
           - name: id
-            label: Tab ID (used internally)
+            label: ID вкладки (для внутрішнього використання)
             type: string
             required: true
-            hint: "e.g., buttons, formatting"
+            hint: "наприклад, buttons, formatting"
           - name: icon
-            label: Icon (Material Icons name)
+            label: Іконка Material Icons (назва, необов’язково)
             type: string
             required: false
-            hint: "e.g., smart_button, format_align_left"
+            hint: "наприклад, smart_button, format_align_left"
+          - name: svg_icon
+            label: Шлях до SVG-іконки (необов’язково)
+            type: string
+            required: false
+            hint: "наприклад, /svg/logo_symbol.svg"
           - name: label
-            label: Tab Label (visible on the tab)
+            label: Назва вкладки (відображається на вкладці)
             type: string
             required: true
-            hint: "e.g., Кнопки"
+            hint: "наприклад, Кнопки"
       - name: body
-        label: Full Info Content
+        label: Повний вміст
         type: markdown
         required: false
