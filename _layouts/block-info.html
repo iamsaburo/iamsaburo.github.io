@@ -355,6 +355,16 @@
     .block-grid{grid-template-columns:1fr;}
   }
 </style>
+  {% if page.embed_max_width %}
+<style>
+  .content-container img,
+  .content-container video,
+  .content-container iframe {
+    max-width: {{ page.embed_max_width }};
+    height: auto;
+  }
+</style>
+{% endif %}
   {% if page.extra_css %}{{ page.extra_css }}{% endif %}
 </head>
 <body>
