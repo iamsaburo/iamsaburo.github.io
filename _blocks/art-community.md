@@ -16,7 +16,7 @@ tabs:
     icon: smart_button
     label: Кнопки
   - id: formatting
-    icon: format_align_left
+    icon: '/svg/logo_symbol.svg'
     label: Форматування
 ---
 
