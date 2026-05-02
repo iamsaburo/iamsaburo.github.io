@@ -1,18 +1,14 @@
 {%- comment -%}
-  Usage in a page:
-  tabs:
-    - id: buttons
-      icon: smart_button
-      label: Кнопки
-      include: tab-content/buttons.html
-    - id: formatting
-      icon: format_align_left
-      label: Форматування
-      include: tab-content/formatting.html
-  then: {% include tabs.html tabs=page.tabs %}
+  Requires:
+    page.tabs  – list of { id, icon?, label }
+    page.content – the raw page body containing sections separated by <!-- tab -->
+  The first section (before any <!-- tab -->) goes with tab[0],
+  the second section goes with tab[1], and so on.
 {%- endcomment -%}
 
-{%- assign tabs = include.tabs -%}
+{%- assign tabs = page.tabs -%}
+{%- assign parts = page.content | split: '<!-- tab -->' -%}
+
 {%- if tabs and tabs != empty -%}
 <div class="content-container">
   <div class="tabs-container">
@@ -32,12 +28,13 @@
     </nav>
     {%- for tab in tabs -%}
       {%- assign tab_id = tab.id | default: "tab-" | append: forloop.index -%}
+      {%- assign part = parts[forloop.index0] | default: '' -%}
       <div class="tab-panel{% if forloop.first %} active{% endif %}"
            role="tabpanel"
            data-tab="{{ tab_id }}">
-        {%- if tab.include -%}
-          {% include {{ tab.include }} %}
-        {%- endif -%}
+        <div class="tab-inner" markdown="1">
+          {{ part }}
+        </div>
       </div>
     {%- endfor -%}
   </div>

@@ -15,10 +15,77 @@ tabs:
   - id: buttons
     icon: smart_button
     label: Кнопки
-    include: tab-content/buttons.html
   - id: formatting
     icon: format_align_left
     label: Форматування
-    include: tab-content/formatting.html
 ---
-{% include tabs.html tabs=page.tabs %}
+
+{% include tabs.html %}
+
+## Hello World
+
+{::nomarkdown}
+{% include btn-saburo.html label="Hello World" visual="outline" %}
+{:/}
+
+---
+
+## 4 типи кнопок
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
+
+{::nomarkdown}
+{% include btn-saburo.html label="Outline" visual="outline" %}
+{% include btn-saburo.html label="White" visual="white" %}
+{% include btn-saburo.html label="Rainbow" visual="rainbow" %}
+{% include btn-saburo.html label="Pill" visual="pill" %}
+{:/}
+
+</div>
+
+### З іконками
+
+{::nomarkdown}
+{% include btn-saburo.html label="З іконкою" visual="outline" icon_visual="favorite" %}
+{% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="arrow_forward" icon_position="after" %}
+{:/}
+
+### Ширина за вмістом
+
+{::nomarkdown}
+{% include btn-saburo.html label="Автоширина" visual="pill" width="auto" %}
+{:/}
+
+<!-- tab -->
+
+## Форматування тексту
+
+**Жирний**, *курсив*, ~~закреслений~~, `код`
+
+- список
+  - вкладений
+
+1. нумерований
+2. список
+
+> Цитата
+
+Роздільник:
+
+---
+
+### Заголовки
+
+# H1
+## H2
+### H3
+
+[Посилання](https://example.com)
+
+Картинка: ![лого]({{ '/svg/logo_symbol.svg' | relative_url }})
+
+Таблиця:
+
+| Стовпець 1 | Стовпець 2 |
+|------------|------------|
+| дані       | дані       |
