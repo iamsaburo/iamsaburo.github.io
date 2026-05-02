@@ -1,9 +1,7 @@
 {%- comment -%}
   Requires:
-    page.tabs  – list of { id, icon?, label }
+    page.tabs  – list of { id, icon?, svg_icon?, label }
     page.content – the raw page body containing sections separated by <!-- tab -->
-  The first section (before any <!-- tab -->) goes with tab[0],
-  the second section goes with tab[1], and so on.
 {%- endcomment -%}
 
 {%- assign tabs = page.tabs -%}
@@ -19,7 +17,9 @@
                 role="tab"
                 data-tab="{{ tab_id }}"
                 aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
-          {%- if tab.icon -%}
+          {%- if tab.svg_icon -%}
+            <img src="{{ tab.svg_icon | prepend: '/svg/' | relative_url }}" width="20" height="20" alt="" class="tab-icon-svg">
+          {%- elsif tab.icon -%}
             <span class="material-icons-round tab-icon">{{ tab.icon }}</span>
           {%- endif -%}
           <span>{{ tab.label }}</span>
