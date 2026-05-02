@@ -13,7 +13,7 @@
   :root{
     --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
     --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
-    /* [#5 #11 #13] Single source-of-truth for the gradient */
+    /* Single source-of-truth for the gradient */
     --rainbow-bg: linear-gradient(18deg,
       #ADA8FF 0%,#9FE5F6 8.33%,#C2FAAB 16.67%,#FCFF91 25%,
       #FFBED0 33.33%,#F8C2FF 41.67%,#ADA8FF 50%,#9FE5F6 58.33%,
@@ -36,7 +36,7 @@
   /* ── Buttons ── */
   .btn-saburo{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    position:relative;z-index:0;text-decoration:none !important; /* [#1] */
+    position:relative;z-index:0;text-decoration:none !important;
     cursor:pointer;border:none;outline:none;
     font-family:'Inter',system-ui,sans-serif;
     font-weight:500;font-size:0.95rem;letter-spacing:0.04em;line-height:1;
@@ -46,12 +46,11 @@
     white-space:nowrap;user-select:none;background:transparent;color:#fff;
     overflow:visible;
   }
-  /* [#1] Label + icons always above pseudo-element layers */
   .btn-saburo .btn-label,
   .btn-saburo .btn-icon-visual,
   .btn-saburo .btn-icon-hover {
     position: relative;
-    z-index: 2;   /* above ::before z-index:0 rainbow overlay */
+    z-index: 2;
   }
 
   .btn-saburo[data-visual="outline"]{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #303030;}
@@ -63,13 +62,12 @@
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
   }
 
-  /* ── [#5 #11 #13] Rainbow — always animating, no restart-blink ── */
+  /* ── Rainbow — always animating, no restart-blink ── */
   @keyframes rainbowShift{
     0%  {background-position:0% 50%}
     100%{background-position:100% 50%}
   }
 
-  /* data-visual="rainbow": gradient is always live */
   .btn-saburo[data-visual="rainbow"]{
     background-image:var(--rainbow-bg);
     background-size:300% 300%;
@@ -78,14 +76,13 @@
     text-shadow:0 1px 0 rgba(255,255,255,.35);
     animation:rainbowShift 4s ease-in-out infinite alternate;
   }
-  /* Glow: always rendered+animated, opacity transitions smoothly [#13] */
   .btn-saburo[data-visual="rainbow"]::after{
     content:'';position:absolute;inset:-6px;border-radius:inherit;
     background-image:var(--rainbow-bg);background-size:300% 300%;
     animation:rainbowShift 4s ease-in-out infinite alternate;
     filter:blur(12px);
     opacity:0;
-    transition:opacity 0.35s ease; /* [#13] gradual */
+    transition:opacity 0.35s ease;
     z-index:-1;pointer-events:none;
   }
   .btn-saburo[data-visual="rainbow"]:hover::after,
@@ -95,13 +92,12 @@
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.8);
   }
 
-  /* data-hover="rainbow": rainbow fades in via ::before (always animating, no blink) */
   .btn-saburo[data-hover="rainbow"]::before{
     content:'';position:absolute;inset:0;border-radius:inherit;z-index:0;
     background-image:var(--rainbow-bg);background-size:300% 300%;
     animation:rainbowShift 4s ease-in-out infinite alternate;
     opacity:0;
-    transition:opacity 0.35s ease; /* [#13] gradual */
+    transition:opacity 0.35s ease;
     pointer-events:none;
   }
   .btn-saburo[data-hover="rainbow"]:hover::before,
@@ -111,7 +107,6 @@
     color:#111;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.7);
     text-shadow:0 1px 0 rgba(255,255,255,.35);
   }
-  /* Glow for hover="rainbow" */
   .btn-saburo[data-hover="rainbow"]::after{
     content:'';position:absolute;inset:-6px;border-radius:inherit;
     background-image:var(--rainbow-bg);background-size:300% 300%;
@@ -123,7 +118,6 @@
   .btn-saburo[data-hover="rainbow"]:hover::after,
   .block-card:hover .btn-saburo[data-hover="rainbow"]::after{opacity:0.55;}
 
-  /* Overrides when rainbow button switches to another style on hover */
   .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
     background:transparent;color:#fff;
     box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;animation:none;
@@ -174,7 +168,7 @@
   .social-row a:hover{opacity:1}
   .social-row a img{transform:scale(1.2);transform-origin:center;}
 
-  /* ── [#5 #13] Hero Design — always-on, alternate, text-shaped glow ── */
+  /* ── Hero Design — always-on, alternate, text-shaped glow ── */
   .hero{text-align:center;padding:4.5rem 1rem 1.5rem;}
   .hero h1{font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:1rem;color:#fff}
   .hero h1 .design {
@@ -188,7 +182,6 @@
     -webkit-text-fill-color: transparent;
     animation: rainbowShift 4s ease-in-out infinite alternate;
   }
-  /* Glow: content:attr clones the text so blur follows letter shapes, not a rectangle */
   .hero h1 .design::after {
     content: attr(data-text);
     position: absolute;
@@ -242,10 +235,11 @@
   .btn-block{width:100%;}
 
   /* ══════════════════════════════════════════════
-     TABS — folder-tab pattern
+     TABS — folder-tab pattern (PATCHED)
   ══════════════════════════════════════════════ */
   .tabs-container { position: relative; }
 
+  /* Nav provides the single horizontal divider line */
   .tabs-nav {
     display: flex;
     gap: 4px;
@@ -254,7 +248,8 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     position: relative;
-    z-index: 1; /* sits above panel so active tab bg can mask its top border */
+    z-index: 1;
+    border-bottom: 1px solid rgba(255,255,255,0.1);   /* ← the shared line */
   }
   .tabs-nav::-webkit-scrollbar { display: none; }
 
@@ -262,19 +257,19 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.85rem 1.25rem;          /* taller */
+    padding: 0.85rem 1.25rem;
     border: 1px solid transparent;
-    border-bottom: none;
+    border-bottom: 1px solid transparent;
     border-radius: 8px 8px 0 0;
     background: transparent;
-    color: var(--muted);               /* gray, no opacity change */
+    color: var(--muted);
     font: 500 0.88rem/1 'Inter', system-ui;
     letter-spacing: 0.04em;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
     position: relative;
-    bottom: -1px;                      /* overlaps the panel's top border by 1 px */
+    bottom: -1px;                  /* overlaps the nav line by 1 px */
     z-index: 1;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
@@ -282,25 +277,27 @@
   .tab-btn.active {
     color: var(--text);
     border-color: rgba(255,255,255,0.1);
-    background: var(--sur);            /* same as panel → masks the divider under it */
+    border-bottom-color: var(--sur);   /* paints over the nav line with panel bg */
+    background: var(--sur);
   }
 
-  /* Fixed icon height, not width */
   .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
   .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
-  /* Panel: its top border IS the shared divider line; active tab bg masks its own segment */
+  /* Panel: NO top border — the nav's border-bottom serves as the top edge */
   .tab-panel {
     display: none;
     border: 1px solid rgba(255,255,255,0.1);
+    border-top: none;                  /* ← prevents double line */
     border-radius: 0 8px 8px 8px;
     padding: 1.5rem;
     position: relative;
     z-index: 0;
     overflow-x: auto;
+    background: var(--sur);
   }
   .tab-panel.active { display: block; }
-  .tab-panel.tab-panel--mid { border-radius: 8px; } /* JS adds when non-first tab active */
+  .tab-panel.tab-panel--mid { border-radius: 8px; }
 
   /* ── Inline tabs (mid-page widget) ── */
   .inline-tabs {
@@ -335,13 +332,13 @@
   .inline-tabs > .tab-panel.active { display: block; }
 
   /* ─────────────────────────────────────────────
-     Content container
+     Content container (EMBED FIX included)
   ───────────────────────────────────────────── */
   .content-container{
     max-width:1060px;margin:2rem auto;padding:2rem;
     background:var(--sur);border-radius:var(--r);
     color:var(--text);
-    overflow-x:hidden; /* [#14] prevent internal overflow escaping */
+    overflow-x:hidden;    /* clip at container boundary */
     min-width:0;
   }
   .content-container h2,.content-container h3{margin-top:2rem;margin-bottom:1rem;}
@@ -349,32 +346,71 @@
   .content-container ul,.content-container ol{margin-bottom:1rem;padding-left:1.5rem;}
   .content-container li{margin-bottom:.5rem;}
   .content-container code{background:var(--pill);padding:.2rem .4rem;border-radius:4px;font-size:.9rem;}
-  .content-container pre{
-    background:var(--pill);padding:1rem;border-radius:8px;
-    overflow-x:auto; /* [#14] scroll, not overflow */
-    margin-bottom:1rem;position:relative;
-    max-width:100%; /* [#6] */
-  }
-  .content-container pre code{background:none;padding:0;}
+
   .content-container blockquote{border-left:3px solid var(--muted);padding-left:1rem;color:var(--muted);margin-bottom:1rem;}
   .content-container hr{border:none;border-top:1px solid rgba(255,255,255,.1);margin:2rem 0;}
   .content-container a{color:#bc7615;text-decoration:underline;}
   .content-container a:hover{color:#ffbc40;}
-  /* [#1] btn-saburo as <a> inside content must not be underlined */
   .content-container a.btn-saburo{text-decoration:none !important;color:inherit;}
 
-  /* [#6] Default max-width for embeds */
-  .content-container img,
-  .content-container video,
-  .content-container iframe {
-    max-width: 100%;
-    height: auto;
+  /* ── Embeds: prevent container expansion ── */
+  /* Images — scale down, never stretch */
+  .content-container img {
     display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* [#8] Small text: use <small> or class="sm" */
+  /* Video — same behaviour as images */
+  .content-container video {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* iFrames — force 100% width because HTML width attribute often overrides max-width */
+  .content-container iframe {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 200px;
+    aspect-ratio: 16 / 9;       /* sensible default for video embeds */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Pre / code blocks — scroll instead of expanding */
+  .content-container pre {
+    background: var(--pill);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .content-container pre code {
+    background: none;
+    padding: 0;
+  }
+
+  /* Tables — also a common expansion culprit */
+  .content-container table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* [#8] Small text */
   .content-container small,
   .content-container .sm{font-size:0.78em;color:var(--muted);}
 
@@ -406,13 +442,11 @@
   .copy-btn .material-icons-round{font-size:0.9rem;}
   .copy-btn.copied{color:#C2FAAB;}
 
-  /* [#10] Inline code: click-to-copy cursor + hover hint */
   .content-container :not(pre) > code{cursor:pointer;transition:background 0.15s;}
   .content-container :not(pre) > code:hover{background:rgba(255,255,255,0.14);}
 
-  /* Toast for inline-code copy */
   .copy-toast {
-    position: absolute;             /* JS sets top/left per click */
+    position: absolute;
     background: var(--pill);
     color: #C2FAAB;
     padding: 0.32rem 0.7rem;
@@ -426,7 +460,6 @@
     pointer-events: none;
     z-index: 9999;
     white-space: nowrap;
-    /* centred horizontally on anchor; floated 8 px above it */
     transform: translateX(-50%) translateY(calc(-100% - 8px));
   }
   .copy-toast.show { opacity: 1; }
@@ -443,7 +476,7 @@
   .page-btn:hover{background:#404040}
   .page-btn:disabled{opacity:.35;cursor:default;pointer-events:none}
 
-  /* ── [#3] Footer — support button replaces right text ── */
+  /* ── Footer — support button replaces right text ── */
   footer{height:56px;background:var(--sur);display:flex;align-items:center;padding:0;margin-top:2rem;position:relative;flex-shrink:0;}
   .footer-container{
     max-width:1060px;width:100%;margin:0 auto;
@@ -465,7 +498,6 @@
     .block-card{min-width:0;}
     .hero h1{font-size:2.2rem}
     .hero{padding:2.5rem 1rem 1rem}
-    /* [#14] Reduce padding so content stays inside on mobile */
     .content-container{margin:1rem;padding:1.25rem;}
     footer{height:auto;padding:.75rem 1rem;}
     .footer-container{flex-wrap:nowrap;height:auto;padding:0;gap:0;align-items:center;justify-content:space-between;}
@@ -480,7 +512,7 @@
 </style>
   {% if page.embed_max_width %}
 <style>
-  /* [#6] Per-page override still works, height:auto added */
+  /* Per-page override for embed max-width */
   .content-container img,
   .content-container video,
   .content-container iframe{
@@ -529,7 +561,6 @@
   {% endif %}
 </div>
 
-<!-- [#3] Support button moved here, right-aligned via justify-content:space-between -->
 <footer>
   <div class="footer-container">
     <span class="footer-copy">© {{ site.time | date: "%Y" }} SABURO™</span>
@@ -571,7 +602,6 @@
     const rect    = anchorEl.getBoundingClientRect();
     const scrollY = window.scrollY || 0;
     const scrollX = window.scrollX || 0;
-    /* anchor = horizontal centre, top edge of the element */
     toast.style.left = (rect.left + scrollX + rect.width / 2) + 'px';
     toast.style.top  = (rect.top  + scrollY) + 'px';
     toast.classList.add('show');
@@ -587,7 +617,6 @@
 
   /* ── [#9] Image download button ── */
   document.querySelectorAll('.content-container img').forEach(img => {
-    // Skip navigation/icon images
     if (img.classList.contains('tab-icon-svg')) return;
     if (img.closest('.tabs-nav,.navbar,footer')) return;
     const w = parseInt(img.getAttribute('width') || '9999');
