@@ -104,7 +104,7 @@ markdown_guide: >
 > 📢 Адаптивний ShoutOut v2.0 (15.02.2026)
 
 
-1. Натисни 👇
+## 1. Натисни 👇
 
 <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
 {::nomarkdown}
@@ -112,40 +112,38 @@ markdown_guide: >
 {:/}
 </div>
 ---
-2. Авторизуйся через 🚀 StreamElements <br>
+{:start="2"} 2. Авторизуйся через 🚀 StreamElements <br>
 Код: `1771178628138` <br>
 
 
 ![картинка]({{ 'https://i.postimg.cc/tTSsjHXS/Login.png' | relative_url }})
-
-3. Налаштуй під себе
+---
+## 3. Налаштуй під себе
 ( 📂 ВІДЖЕТ ) 👉 ( 🔧 Settings )
 
 
 ![картинка]({{ 'https://i.postimg.cc/tTSsjHXS/Login.png' | relative_url }})
+---
+## 4. Збережи налаштування ( SAVE )
 
-4. Збережи налаштування ( SAVE )
-
-5. Скопіюй (🔗) посилання
+## 5. Скопіюй (🔗) посилання
 
 
 ![картинка]({{ 'https://i.postimg.cc/tTSsjHXS/Login.png' | relative_url }})
-
-6. В OBS додай джерело **` 🌍 Браузер `**
+---
+## 6. В OBS додай джерело **` 🌍 Браузер `**
 
 - **URL-aдpeca:** встав скопійоване раніше <br>
 - **Ширина:** `1000` \| Висота: `400` <br>
 - ✅ Керувати звуком через OBS <br>
-
-
-7. Щоб звуки було чути тобі і глядачам:
-
-- В розширених налаштуваннях аудіо вибери ( Прослуховування та вивід )
+---
+## 7. Щоб звуки було чути тобі і глядачам:
+- В **розширених налаштуваннях аудіо** вибери ` Прослуховування та вивід `
 
 
 ![картинка]({{ 'https://i.postimg.cc/tTSsjHXS/Login.png' | relative_url }})
-
-8. Натисни 👇
+---
+## 8. Натисни 👇
 
 <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
 {::nomarkdown}
