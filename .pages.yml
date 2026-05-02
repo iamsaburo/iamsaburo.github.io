@@ -6,36 +6,36 @@ content:
     format: yaml-frontmatter
     fields:
       - name: title
-        label: Заголовок
+        label: Назва
         type: string
         required: true
       - name: slug
-        label: Ярлик
+        label: Посилання
         type: string
         required: true
       - name: order
-        label: Порядок сортування
+        label: Порядок
         type: number
         required: false
       - name: hidden
-        label: Прихована (не відображається у списку)
+        label: Прихований
         type: boolean
         required: false
         default: false
       - name: image
-        label: URL статичного зображення
+        label: Зображення
         type: string
         required: true
       - name: gif_image
-        label: URL GIF-зображення (необов'язково)
+        label: GIF
         type: string
         required: false
       - name: back_url
-        label: URL кнопки "Назад" (необов'язково)
+        label: URL кнопки "Назад"
         type: string
         required: false
       - name: back_label
-        label: Назва кнопки "Назад" (необов'язково)
+        label: Назва кнопки "Назад"
         type: string
         required: false
       - name: categories
@@ -54,37 +54,37 @@ content:
             - label: OBS
               value: OBS
       - name: tabs
-        label: Вкладки (розділіть вміст у тілі за допомогою <!-- tab -->)
+        label: Вкладки
         type: object
         list: true
         required: false
         fields:
           - name: id
-            label: ID вкладки (для внутрішнього використання)
+            label: ID вкладки
             type: string
             required: true
-            hint: "наприклад, buttons, formatting"
+            hint: "наприклад, buttons"
           - name: icon
-            label: Іконка Material Icons (назва, необов'язково)
+            label: Іконка Material Ico
             type: string
             required: false
-            hint: "наприклад, smart_button, format_align_left"
+            hint: "наприклад, format_align_left"
           - name: svg_icon
-            label: Шлях до SVG-іконки (необов'язково)
+            label: SVG-іконка (URL)
             type: string
             required: false
-            hint: "наприклад, /svg/logo_symbol.svg"
+            hint: "наприклад, /svg/obs.svg"
           - name: label
-            label: Назва вкладки (відображається на вкладці)
+            label: Назва вкладки
             type: string
             required: true
             hint: "наприклад, Кнопки"
       - name: embed_max_width
-        label: Максимальна ширина вбудованих медіа (необов'язково)
+        label: Макс. ширина вбудованих медіа
         type: string
         required: false
-        hint: "Наприклад, 600px або 80%. Застосовується до зображень, відео та iframe"
+        hint: "Наприклад, 600px або 80%"
       - name: body
-        label: Повний вміст
+        label: Dvscn
         type: markdown
         required: false
