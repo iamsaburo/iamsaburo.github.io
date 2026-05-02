@@ -60,12 +60,12 @@ content:
             required: true
             hint: "наприклад, buttons, formatting"
           - name: icon
-            label: Іконка Material Icons (назва, необов’язково)
+            label: Іконка Material Icons (назва, необов'язково)
             type: string
             required: false
             hint: "наприклад, smart_button, format_align_left"
           - name: svg_icon
-            label: Шлях до SVG-іконки (необов’язково)
+            label: Шлях до SVG-іконки (необов'язково)
             type: string
             required: false
             hint: "наприклад, /svg/logo_symbol.svg"
@@ -74,6 +74,64 @@ content:
             type: string
             required: true
             hint: "наприклад, Кнопки"
+      - name: embed_max_width
+        label: Максимальна ширина вбудованих медіа (необов'язково)
+        type: string
+        required: false
+        hint: "Наприклад, 600px або 80%. Застосовується до зображень, відео та iframe"
+      - name: markdown_guide
+        label: 📘 Інструкція з Markdown (довідка, не редагувати)
+        type: text
+        required: false
+        default: |
+          # Markdown інструкція для SABURO™
+
+          ## Базове форматування
+          **Жирний текст**
+          *Курсив*
+          ~~Закреслений~~
+          `Код`
+
+          ## Заголовки
+          # H1
+          ## H2
+          ### H3
+
+          ## Списки
+          - Ненумерований список
+            - Вкладений елемент
+
+          1. Нумерований список
+          2. Другий пункт
+
+          ## Цитування
+          > Це цитата
+
+          ## Горизонтальна лінія
+          ---
+
+          ## Посилання
+          [Текст посилання](https://example.com)
+
+          ## Зображення
+          ![Альтернативний текст](url-зображення)
+
+          ## Таблиці
+          | Заголовок 1 | Заголовок 2 |
+          |-------------|-------------|
+          | Комірка 1   | Комірка 2   |
+
+          ## Відео
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/відеоID" frameborder="0" allowfullscreen></iframe>
+
+          ## Вкладки
+          Для створення вкладок використовуйте роздільник `<!-- tab -->` між секціями. Кількість секцій повинна відповідати кількості вкладок у полі "Вкладки" вище.
+
+          ## Кнопки SABURO™
+          Ви можете вставляти кнопки за допомогою:
+          `{% include btn-saburo.html label="Текст" visual="outline" %}`
+          Де `visual` може бути: outline, white, rainbow, pill.
+        hint: "Це поле лише для довідки. Не потребує редагування."
       - name: body
         label: Повний вміст
         type: markdown
