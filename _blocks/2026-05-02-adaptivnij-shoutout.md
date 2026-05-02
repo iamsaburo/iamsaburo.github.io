@@ -15,7 +15,7 @@ tabs:
   - id: sb
     svg_icon: /svg/streamer-bot.svg
     label: Streamer.bot
-embed_max_width: "500"
+embed_max_width: "200"
 markdown_guide: >
   # Markdown інструкція для SABURO™
 
@@ -113,7 +113,7 @@ markdown_guide: >
 </div>
 ---
 2. Авторизуйся через 🚀 StreamElements <br>
-Код: `1771178628138`
+Код: `1771178628138` <br>
 ![лого]({{ 'https://i.postimg.cc/tTSsjHXS/Login.png' | relative_url }})
 3. Налаштуй під себе
 
