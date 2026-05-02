@@ -1,73 +1,79 @@
-fields:
-  - name: title
-    label: Title
-    type: string
-    required: true
-  - name: slug
-    label: Slug
-    type: string
-    required: true
-  - name: order
-    label: Sort Order
-    type: number
-    required: false
-  - name: image
-    label: Static Image URL
-    type: string
-    required: true
-  - name: gif_image
-    label: GIF Image URL (optional)
-    type: string
-    required: false
-  - name: back_url
-    label: Back Button URL (optional)
-    type: string
-    required: false
-  - name: back_label
-    label: Back Button Label (optional)
-    type: string
-    required: false
-  - name: categories
-    label: Categories
-    type: select
-    required: true
-    options:
-      multiple: true
-      values:
-        - label: StreamElements
-          value: StreamElements
-        - label: Streamer.bot
-          value: Streamer.bot
-        - label: Twitch
-          value: Twitch
-        - label: OBS
-          value: OBS
-  - name: description
-    label: Short Description
-    type: text
-    required: false
-  - name: tabs
-    label: Tabs (separate content in body with <!-- tab -->)
-    type: object
-    list: true
-    required: false
+content:
+  - name: blocks
+    label: SABURO™ | Корисне
+    type: collection
+    path: _blocks
+    format: yaml-frontmatter
     fields:
-      - name: id
-        label: Tab ID (used internally)
+      - name: title
+        label: Title
         type: string
         required: true
-        hint: "e.g., buttons, formatting"
-      - name: icon
-        label: Icon (Material Icons name)
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+      - name: order
+        label: Sort Order
+        type: number
+        required: false
+      - name: image
+        label: Static Image URL
+        type: string
+        required: true
+      - name: gif_image
+        label: GIF Image URL (optional)
         type: string
         required: false
-        hint: "e.g., smart_button, format_align_left"
-      - name: label
-        label: Tab Label (visible on the tab)
+      - name: back_url
+        label: Back Button URL (optional)
         type: string
+        required: false
+      - name: back_label
+        label: Back Button Label (optional)
+        type: string
+        required: false
+      - name: categories
+        label: Categories
+        type: select
         required: true
-        hint: "e.g., Кнопки"
-  - name: body
-    label: Full Info Content
-    type: markdown
-    required: false
+        options:
+          multiple: true
+          values:
+            - label: StreamElements
+              value: StreamElements
+            - label: Streamer.bot
+              value: Streamer.bot
+            - label: Twitch
+              value: Twitch
+            - label: OBS
+              value: OBS
+      - name: description
+        label: Short Description
+        type: text
+        required: false
+      - name: tabs
+        label: Tabs (separate content in body with <!-- tab -->)
+        type: object
+        list: true
+        required: false
+        fields:
+          - name: id
+            label: Tab ID (used internally)
+            type: string
+            required: true
+            hint: "e.g., buttons, formatting"
+          - name: icon
+            label: Icon (Material Icons name)
+            type: string
+            required: false
+            hint: "e.g., smart_button, format_align_left"
+          - name: label
+            label: Tab Label (visible on the tab)
+            type: string
+            required: true
+            hint: "e.g., Кнопки"
+      - name: body
+        label: Full Info Content
+        type: markdown
+        required: false
