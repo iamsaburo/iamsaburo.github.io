@@ -17,40 +17,35 @@ tabs:
   - id: formatting
     svg_icon: /svg/logo_symbol.svg
     label: Форматування
+published: true
 ---
 ## Hello World
 
-{::nomarkdown}
-{% include btn-saburo.html label="Hello World" visual="outline" %}
-{:/}
+<button class="btn-saburo" data-visual="outline" style="--btn-w:auto;--btn-h:48px;--radius:10px;">Hello World</button>
 
 ---
 
 ## 4 типи кнопок
 
-<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
 
-{::nomarkdown}
-{% include btn-saburo.html label="Outline" visual="outline" %}
-{% include btn-saburo.html label="White" visual="white" %}
-{% include btn-saburo.html label="Rainbow" visual="rainbow" %}
-{% include btn-saburo.html label="Pill" visual="pill" %}
-{:/}
+<button class="btn-saburo" data-visual="outline" style="--btn-w:auto;--btn-h:48px;--radius:10px;">Outline</button>
+<button class="btn-saburo" data-visual="white" style="--btn-w:auto;--btn-h:48px;--radius:10px;">White</button>
+<button class="btn-saburo" data-visual="rainbow" style="--btn-w:auto;--btn-h:48px;--radius:10px;">Rainbow</button>
+<button class="btn-saburo" data-visual="pill" style="--btn-w:auto;--btn-h:48px;--radius:10px;">Pill</button>
 
 </div>
 
 ### З іконками
 
-{::nomarkdown}
-{% include btn-saburo.html label="З іконкою" visual="outline" icon_visual="favorite" %}
-{% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="arrow_forward" icon_position="after" %}
-{:/}
+<button class="btn-saburo" data-visual="outline" data-icon-visual="favorite" style="--btn-w:auto;--btn-h:48px;--radius:10px;">З іконкою</button>
+<button class="btn-saburo" data-visual="rainbow" data-icon-visual="arrow_forward" data-icon-position="after" style="--btn-w:auto;--btn-h:48px;--radius:10px;">Іконка після</button>
 
 ### Ширина за вмістом
 
-{::nomarkdown}
-{% include btn-saburo.html label="Автоширина" visual="pill" width="auto" %}
-{:/}
+<button class="btn-saburo" data-visual="pill" style="--btn-w:auto;--btn-h:48px;--radius:10px;">Автоширина</button>
+
+<!-- tabs:start -->
 
 <!-- tab -->
 
@@ -85,3 +80,7 @@ tabs:
 | Стовпець 1 | Стовпець 2 |
 |------------|------------|
 | дані       | дані       |
+
+<!-- tabs:end -->
+
+Звичайний текст після вкладок.

@@ -3,7 +3,13 @@ layout: block-info
 title: "Корисне"
 ---
 
-{% assign sorted_blocks = site.blocks | sort: "order" | where_exp: "block", "block.hidden != true" %}
+{% assign all_blocks = site.blocks | sort: "order" %}
+{% assign published_blocks = '' | split: '' %}
+{% for block in all_blocks %}
+  {% unless block.published == false %}
+    {% assign published_blocks = published_blocks | push: block %}
+  {% endunless %}
+{% endfor %}
 
 <div class="hero">
   <h1>Врубай <span class="design" data-text="Дesign.">Дesign.</span></h1>
@@ -23,7 +29,7 @@ title: "Корисне"
 </div>
 
 <div id="blockContainer" class="block-grid">
-  {% for block in sorted_blocks %}
+  {% for block in published_blocks %}
   <a href="{{ block.slug | append: '-info' | prepend: '/' | relative_url }}" class="block-card" data-categories="{{ block.categories | join: ',' }}">
     <div class="image-wrapper">
       {% if block.gif_image %}
@@ -51,7 +57,7 @@ title: "Корисне"
 <div id="noResultsMessage" class="no-results" style="display:none;">Категорія пуста.</div>
 
 {% assign blocks_per_page = 9 %}
-{% assign total_pages = sorted_blocks.size | divided_by: blocks_per_page | plus: 1 %}
+{% assign total_pages = published_blocks.size | plus: blocks_per_page | minus: 1 | divided_by: blocks_per_page %}
 {% if total_pages > 1 %}
 <div class="pagination" id="pagination">
   <button class="page-btn" id="prevPage">‹</button>
@@ -74,7 +80,6 @@ title: "Корисне"
   let activeCategory = 'all';
   let filteredCards  = [...cards];
 
-  /* #4: Two-rAF trick forces reflow so animation replays correctly */
   function showCardsWithFade(visibleCards) {
     cards.forEach(c => {
       c.style.display = 'none';
@@ -86,7 +91,6 @@ title: "Корисне"
       card.style.display = '';
     });
 
-    /* Force reflow before adding visible to trigger transition */
     void document.getElementById('blockContainer').offsetHeight;
 
     visibleCards.forEach((card, i) => {
@@ -104,7 +108,7 @@ title: "Корисне"
   }
 
   function render() {
-    const total = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
+    const total = Math.ceil(filteredCards.length / cardsPerPage) || 1;
     if (currentPage > total) currentPage = total;
     const start = (currentPage - 1) * cardsPerPage;
     const pageCards = filteredCards.slice(start, start + cardsPerPage);
@@ -114,7 +118,6 @@ title: "Корисне"
 
   function updatePaginationUI(total) {
     if (!paginationDiv) return;
-    /* #5: Hide pagination when all blocks fit on one page */
     paginationDiv.style.display = filteredCards.length > cardsPerPage ? 'flex' : 'none';
     document.querySelectorAll('.page-num').forEach(btn => {
       const p = parseInt(btn.dataset.page);
@@ -149,7 +152,6 @@ title: "Корисне"
     document.querySelectorAll('.page-num').forEach(btn => {
       btn.addEventListener('click', () => {
         currentPage = parseInt(btn.dataset.page);
-        /* #4: Scroll before render so grid is empty during scroll */
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => render(), 300);
       });
