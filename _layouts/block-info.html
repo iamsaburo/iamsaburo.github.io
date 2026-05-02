@@ -388,7 +388,11 @@
   </div>
 </nav>
 <div class="page-wrap">
-  {{ content }}
+  {% if page.tabs %}
+    {% include tabs.html %}
+  {% else %}
+    {{ content }}
+  {% endif %}
 </div>
 <footer>
   <div class="footer-container">

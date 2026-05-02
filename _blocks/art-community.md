@@ -20,8 +20,6 @@ tabs:
     label: Форматування
 ---
 
-{% include tabs.html %}
-
 ## Hello World
 
 {::nomarkdown}
