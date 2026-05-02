@@ -1,6 +1,6 @@
 ---
-title: Адаптивний ShoutOut
-slug: adaptive-shoutout
+title: Демо блок
+slug: demo
 order: 5
 hidden: false
 image: https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png
