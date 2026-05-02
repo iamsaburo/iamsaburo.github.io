@@ -10,16 +10,14 @@ categories:
   - StreamElements
   - Twitch
   - OBS
-description: Усі стилі кнопок та форматування
 tabs:
   - id: buttons
     icon: smart_button
     label: Кнопки
   - id: formatting
-    icon: '/svg/logo_symbol.svg'
+    svg_icon: /svg/logo_symbol.svg
     label: Форматування
 ---
-
 ## Hello World
 
 {::nomarkdown}
