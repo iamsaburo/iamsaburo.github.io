@@ -154,3 +154,40 @@ markdown_guide: >
 
 
 9. Активуй команду ( ACTIVATE COMMAND )
+
+
+
+{::nomarkdown}
+{% <div style="margin: 20px 0; font-family: sans-serif;">
+  <label for="twitch-username" style="display: block; margin-bottom: 5px; font-weight: bold;">
+    Your Twitch username:
+  </label>
+  <input
+    type="text"
+    id="twitch-username"
+    placeholder="e.g. ninja"
+    style="padding: 8px; width: 250px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"
+  />
+  <br />
+  <button
+    onclick="goToRewards()"
+    style="padding: 10px 20px; background-color: #9146FF; color: white; border: none; border-radius: 4px; cursor: pointer;"
+  >
+    Go to Channel Point Rewards
+  </button>
+</div>
+
+<script>
+  function goToRewards() {
+    const username = document.getElementById("twitch-username").value.trim();
+    if (!username) {
+      alert("Please enter a username.");
+      return;
+    }
+    const url = `https://dashboard.twitch.tv/u/${username}/viewer-rewards/channel-points/rewards`;
+    window.open(url, "_blank");
+  }
+</script> %}
+{:/}
+
+
