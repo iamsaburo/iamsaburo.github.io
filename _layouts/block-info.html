@@ -63,15 +63,14 @@
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
   }
 
-  /* ── RELIABLE RAINBOW (gradient as background, no pseudo‑elements) ── */
+  /* ── RELIABLE RAINBOW (angle 18°, 3 cycles – colors less crammed) ── */
   .btn-saburo[data-visual="rainbow"],
   .btn-saburo[data-hover="rainbow"]:hover,
   .block-card:hover .btn-saburo[data-hover="rainbow"] {
-    background: linear-gradient(8deg,                            /* ← changed from -82deg to 8deg */
-      #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
-      #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
-      #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
-      #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
+    background: linear-gradient(18deg,
+      #ADA8FF 0%, #9FE5F6 5.56%, #C2FAAB 11.11%, #FCFF91 16.67%, #FFBED0 22.22%, #F8C2FF 27.78%,
+      #ADA8FF 33.33%, #9FE5F6 38.89%, #C2FAAB 44.44%, #FCFF91 50%, #FFBED0 55.56%, #F8C2FF 61.11%,
+      #ADA8FF 66.67%, #9FE5F6 72.22%, #C2FAAB 77.78%, #FCFF91 83.33%, #FFBED0 88.89%, #F8C2FF 94.44%,
       #ADA8FF 100%
     ) 0 0 / 300% 300%;
     color:#111;
@@ -79,7 +78,6 @@
     text-shadow:0 1px 0 rgba(255,255,255,.35);
     animation:rainbowShift 8s ease-in-out infinite alternate;
   }
-  /* Don't double apply animation when a rainbow button also has a rainbow hover */
   .btn-saburo[data-visual="rainbow"][data-hover="rainbow"]:hover {
     /* already animating */
   }
