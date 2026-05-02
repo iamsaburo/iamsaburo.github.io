@@ -18,10 +18,11 @@ tabs:
     svg_icon: /svg/logo_symbol.svg
     label: Форматування
 ---
-
 ## Hello World
 
+{::nomarkdown}
 {% include btn-saburo.html label="Hello World" visual="outline" %}
+{:/}
 
 ---
 
@@ -29,21 +30,27 @@ tabs:
 
 <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;" markdown="1">
 
+{::nomarkdown}
 {% include btn-saburo.html label="Outline" visual="outline" %}
 {% include btn-saburo.html label="White" visual="white" %}
 {% include btn-saburo.html label="Rainbow" visual="rainbow" %}
 {% include btn-saburo.html label="Pill" visual="pill" %}
+{:/}
 
 </div>
 
 ### З іконками
 
+{::nomarkdown}
 {% include btn-saburo.html label="З іконкою" visual="outline" icon_visual="favorite" %}
 {% include btn-saburo.html label="Іконка після" visual="rainbow" icon_visual="arrow_forward" icon_position="after" %}
+{:/}
 
 ### Ширина за вмістом
 
+{::nomarkdown}
 {% include btn-saburo.html label="Автоширина" visual="pill" width="auto" %}
+{:/}
 
 <!-- tab -->
 
@@ -78,198 +85,3 @@ tabs:
 | Стовпець 1 | Стовпець 2 |
 |------------|------------|
 | дані       | дані       |
-
-<small>Це дуже маленький текст</small>
-
-```javascript
-console.log('hello world');
-
-{: .copy-code}
-
-
----
-
-## 5. `index.html` (HOME PAGE with unpublished filter)
-
-```html
----
-layout: block-info
-title: "Корисне"
----
-
-{% assign sorted_blocks = site.blocks | sort: "order" %}
-
-<div class="hero">
-  <h1>Врубай <span class="design" data-text="Дesign."><span class="design-rainbow"></span><span class="design-rainbow-glow"></span>Дesign.</span></h1>
-  <p>Ексклюзивний контент для учасників спільноти SABURO™</p>
-</div>
-
-<div class="filter-wrap">
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-category="all">Усі</button>
-    {% for cat in site.data.category_icons %}
-    <button class="filter-btn" data-category="{{ cat.category }}">
-      <img src="{{ cat.icon | relative_url }}" width="20" height="20" alt="{{ cat.label }}">
-      <span class="f-label">{{ cat.label }}</span>
-    </button>
-    {% endfor %}
-  </div>
-</div>
-
-<div id="blockContainer" class="block-grid">
-  {% for block in sorted_blocks %}
-    {% unless block.published == false %}
-    <a href="{{ block.slug | append: '-info' | prepend: '/' | relative_url }}" class="block-card" data-categories="{{ block.categories | join: ',' }}">
-      <div class="image-wrapper">
-        {% if block.gif_image %}
-        <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
-        <img class="gif-img" data-src="{{ block.gif_image }}" alt="{{ block.title }}">
-        {% else %}
-        <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
-        {% endif %}
-      </div>
-      <div class="card-title">{{ block.title }}</div>
-      <div class="tags-row">
-        {% for cat_slug in block.categories %}
-          {% assign cat_data = site.data.category_icons | where: "category", cat_slug | first %}
-          {% if cat_data %}
-          <span class="tag-circle" title="{{ cat_data.label }}">
-            <img src="{{ cat_data.icon | relative_url }}" width="20" height="20" alt="{{ cat_data.label }}">
-          </span>
-          {% endif %}
-        {% endfor %}
-      </div>
-      {% include btn-saburo.html label='Дізнатись більше' visual='outline' hover='rainbow' icon_hover='arrow_forward' icon_position='after' width='auto' height=40 radius=4 class='btn-block' %}
-    </a>
-    {% endunless %}
-  {% endfor %}
-</div>
-<div id="noResultsMessage" class="no-results" style="display:none;">Категорія пуста.</div>
-
-{% assign published_blocks = '' | split: '' %}
-{% for block in sorted_blocks %}
-  {% unless block.published == false %}
-    {% assign published_blocks = published_blocks | push: block %}
-  {% endunless %}
-{% endfor %}
-
-{% assign blocks_per_page = 9 %}
-{% assign total_pages = published_blocks.size | divided_by: blocks_per_page | plus: 1 %}
-{% if total_pages > 1 %}
-<div class="pagination" id="pagination">
-  <button class="page-btn" id="prevPage">‹</button>
-  {% for i in (1..total_pages) %}
-  <button class="page-btn page-num {% if i == 1 %}active{% endif %}" data-page="{{ i }}">{{ i }}</button>
-  {% endfor %}
-  <button class="page-btn" id="nextPage">›</button>
-</div>
-{% endif %}
-
-<script>
-(function(){
-  const cards         = Array.from(document.querySelectorAll('.block-card'));
-  const filterBtns    = document.querySelectorAll('.filter-btn');
-  const paginationDiv = document.getElementById('pagination');
-  const noResultsDiv  = document.getElementById('noResultsMessage');
-  const cardsPerPage  = {{ blocks_per_page }};
-
-  let currentPage    = 1;
-  let activeCategory = 'all';
-  let filteredCards  = [...cards];
-
-  function showCardsWithFade(visibleCards) {
-    cards.forEach(c => {
-      c.style.display = 'none';
-      c.classList.remove('visible');
-      c.style.transitionDelay = '0s';
-    });
-
-    visibleCards.forEach((card, i) => {
-      card.style.display = '';
-    });
-
-    void document.getElementById('blockContainer').offsetHeight;
-
-    visibleCards.forEach((card, i) => {
-      card.style.transitionDelay = (i * 0.07) + 's';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          card.classList.add('visible');
-        });
-      });
-    });
-
-    if (noResultsDiv) {
-      noResultsDiv.style.display = visibleCards.length === 0 ? 'block' : 'none';
-    }
-  }
-
-  function render() {
-    const total = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
-    if (currentPage > total) currentPage = total;
-    const start = (currentPage - 1) * cardsPerPage;
-    const pageCards = filteredCards.slice(start, start + cardsPerPage);
-    showCardsWithFade(pageCards);
-    updatePaginationUI(total);
-  }
-
-  function updatePaginationUI(total) {
-    if (!paginationDiv) return;
-    paginationDiv.style.display = filteredCards.length > cardsPerPage ? 'flex' : 'none';
-    document.querySelectorAll('.page-num').forEach(btn => {
-      const p = parseInt(btn.dataset.page);
-      btn.style.display = p <= total ? '' : 'none';
-      btn.classList.toggle('active', p === currentPage);
-    });
-    const prev = document.getElementById('prevPage');
-    const next = document.getElementById('nextPage');
-    if (prev) prev.disabled = currentPage === 1;
-    if (next) next.disabled = currentPage >= total;
-  }
-
-  function applyFilter() {
-    filteredCards = cards.filter(card => {
-      const cats = card.dataset.categories ? card.dataset.categories.split(',') : [];
-      return activeCategory === 'all' || cats.includes(activeCategory);
-    });
-    currentPage = 1;
-    render();
-  }
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCategory = btn.dataset.category;
-      applyFilter();
-    });
-  });
-
-  if (paginationDiv) {
-    document.querySelectorAll('.page-num').forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentPage = parseInt(btn.dataset.page);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => render(), 300);
-      });
-    });
-    document.getElementById('prevPage')?.addEventListener('click', () => {
-      if (currentPage > 1) {
-        currentPage--;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => render(), 300);
-      }
-    });
-    document.getElementById('nextPage')?.addEventListener('click', () => {
-      const total = Math.ceil(filteredCards.length / cardsPerPage);
-      if (currentPage < total) {
-        currentPage++;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => render(), 300);
-      }
-    });
-  }
-
-  applyFilter();
-})();
-</script>
