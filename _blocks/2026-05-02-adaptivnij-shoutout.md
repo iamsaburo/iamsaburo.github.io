@@ -157,8 +157,7 @@ markdown_guide: >
 
 
 
-{::nomarkdown}
-{% <div style="margin: 20px 0; font-family: sans-serif;">
+<div style="margin: 20px 0; font-family: sans-serif;">
   <label for="twitch-username" style="display: block; margin-bottom: 5px; font-weight: bold;">
     Your Twitch username:
   </label>
@@ -187,7 +186,6 @@ markdown_guide: >
     const url = `https://dashboard.twitch.tv/u/${username}/viewer-rewards/channel-points/rewards`;
     window.open(url, "_blank");
   }
-</script> %}
-{:/}
+</script>
 
 
