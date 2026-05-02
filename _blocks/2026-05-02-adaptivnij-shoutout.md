@@ -112,7 +112,8 @@ markdown_guide: >
 {:/}
 </div>
 ---
-{:start="2"} 2. Авторизуйся через 🚀 StreamElements <br>
+{:start="2"}
+2. Авторизуйся через 🚀 StreamElements <br>
 Код: `1771178628138` <br>
 
 
