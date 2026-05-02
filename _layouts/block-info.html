@@ -67,13 +67,13 @@
   .btn-saburo[data-visual="rainbow"],
   .btn-saburo[data-hover="rainbow"]:hover,
   .block-card:hover .btn-saburo[data-hover="rainbow"] {
-    background: linear-gradient(-82deg,
+    background: linear-gradient(8deg,                            /* ← changed from -82deg to 8deg */
       #ADA8FF 0%, #9FE5F6 4.17%, #C2FAAB 8.33%, #FCFF91 12.5%, #FFBED0 16.67%, #F8C2FF 20.83%,
       #ADA8FF 25%, #9FE5F6 29.17%, #C2FAAB 33.33%, #FCFF91 37.5%, #FFBED0 41.67%, #F8C2FF 45.83%,
       #ADA8FF 50%, #9FE5F6 54.17%, #C2FAAB 58.33%, #FCFF91 62.5%, #FFBED0 66.67%, #F8C2FF 70.83%,
       #ADA8FF 75%, #9FE5F6 79.17%, #C2FAAB 83.33%, #FCFF91 87.5%, #FFBED0 91.67%, #F8C2FF 95.83%,
       #ADA8FF 100%
-    ) 0 0 / 300% 300%;   /* large enough to keep the button always filled */
+    ) 0 0 / 300% 300%;
     color:#111;
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
     text-shadow:0 1px 0 rgba(255,255,255,.35);
@@ -100,7 +100,7 @@
   /* Override for other hover types on a rainbow button */
   .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
-    animation:none; /* stop rainbow animation for this state */
+    animation:none;
   }
   .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover{
     background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);
