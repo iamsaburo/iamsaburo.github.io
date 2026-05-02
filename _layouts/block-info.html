@@ -48,7 +48,11 @@
   }
   /* [#1] Label + icons always above pseudo-element layers */
   .btn-saburo .btn-label,
-  .btn-saburo .btn-icon{ position:relative; z-index:1; }
+  .btn-saburo .btn-icon-visual,
+  .btn-saburo .btn-icon-hover {
+    position: relative;
+    z-index: 2;   /* above ::before z-index:0 rainbow overlay */
+  }
 
   .btn-saburo[data-visual="outline"]{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #303030;}
   .btn-saburo[data-visual="white"]{background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
@@ -72,13 +76,13 @@
     color:#111;
     box-shadow:inset 0 0 0 2px rgba(255,255,255,0.6);
     text-shadow:0 1px 0 rgba(255,255,255,.35);
-    animation:rainbowShift 4s linear infinite; /* [#11] faster */
+    animation:rainbowShift 4s ease-in-out infinite alternate;
   }
   /* Glow: always rendered+animated, opacity transitions smoothly [#13] */
   .btn-saburo[data-visual="rainbow"]::after{
     content:'';position:absolute;inset:-6px;border-radius:inherit;
     background-image:var(--rainbow-bg);background-size:300% 300%;
-    animation:rainbowShift 4s linear infinite;
+    animation:rainbowShift 4s ease-in-out infinite alternate;
     filter:blur(12px);
     opacity:0;
     transition:opacity 0.35s ease; /* [#13] gradual */
@@ -95,7 +99,7 @@
   .btn-saburo[data-hover="rainbow"]::before{
     content:'';position:absolute;inset:0;border-radius:inherit;z-index:0;
     background-image:var(--rainbow-bg);background-size:300% 300%;
-    animation:rainbowShift 4s linear infinite;
+    animation:rainbowShift 4s ease-in-out infinite alternate;
     opacity:0;
     transition:opacity 0.35s ease; /* [#13] gradual */
     pointer-events:none;
@@ -111,7 +115,7 @@
   .btn-saburo[data-hover="rainbow"]::after{
     content:'';position:absolute;inset:-6px;border-radius:inherit;
     background-image:var(--rainbow-bg);background-size:300% 300%;
-    animation:rainbowShift 4s linear infinite;
+    animation:rainbowShift 4s ease-in-out infinite alternate;
     filter:blur(12px);
     opacity:0;transition:opacity 0.35s ease;
     z-index:-1;pointer-events:none;
@@ -170,35 +174,37 @@
   .social-row a:hover{opacity:1}
   .social-row a img{transform:scale(1.2);transform-origin:center;}
 
-  /* ── [#5 #13] Hero Design text — gradient fades in via ::before, no blink ── */
+  /* ── [#5 #13] Hero Design — always-on, alternate, text-shaped glow ── */
   .hero{text-align:center;padding:4.5rem 1rem 1.5rem;}
   .hero h1{font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:1rem;color:#fff}
-  .hero h1 .design{
-    cursor:pointer;position:relative;display:inline-block;color:#fff;
+  .hero h1 .design {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    background-image: var(--rainbow-bg);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 4s ease-in-out infinite alternate;
   }
-  /* Gradient overlay: always animating [#11], opacity-transitions on hover [#13], no blink [#5] */
-  .hero h1 .design::before{
-    content:attr(data-text);
-    position:absolute;top:0;left:0;
-    background-image:var(--rainbow-bg);background-size:300% 300%;
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:rainbowShift 4s linear infinite;
-    opacity:0;
-    transition:opacity 0.35s ease;
-    pointer-events:none;white-space:nowrap;
+  /* Glow: content:attr clones the text so blur follows letter shapes, not a rectangle */
+  .hero h1 .design::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    background-image: var(--rainbow-bg);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: blur(10px);
+    opacity: 0.7;
+    z-index: -1;
+    animation: rainbowShift 4s ease-in-out infinite alternate;
+    pointer-events: none;
+    white-space: nowrap;
   }
-  .hero h1 .design:hover::before{opacity:1;}
-  /* Glow */
-  .hero h1 .design::after{
-    content:'';position:absolute;inset:0;
-    background-image:var(--rainbow-bg);background-size:300% 300%;
-    animation:rainbowShift 4s linear infinite;
-    filter:blur(16px);
-    opacity:0;transition:opacity 0.35s ease;
-    z-index:-1;pointer-events:none;
-  }
-  .hero h1 .design:hover::after{opacity:0.6;}
   @media(hover:none){
     .hero h1 .design::before,.hero h1 .design::after{opacity:1;}
   }
@@ -235,84 +241,98 @@
   .tag-circle:last-child{margin-right:0}
   .btn-block{width:100%;}
 
-  /* ══════════════════════════════════════════════════
-     [#4 #7 #14] TABS — folder-tab visual + inline variant
-  ══════════════════════════════════════════════════ */
+  /* ══════════════════════════════════════════════
+     TABS — folder-tab pattern
+  ══════════════════════════════════════════════ */
+  .tabs-container { position: relative; }
 
-  /* Shared tab nav */
-  .tabs-nav{
-    display:flex;gap:4px;padding:0 2px;
-    overflow-x:auto;-webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
+  .tabs-nav {
+    display: flex;
+    gap: 4px;
+    padding: 0 0 0 2px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: relative;
+    z-index: 1; /* sits above panel so active tab bg can mask its top border */
   }
-  .tabs-nav::-webkit-scrollbar{display:none;}
+  .tabs-nav::-webkit-scrollbar { display: none; }
 
-  /* [#4] Folder-tab buttons */
-  .tab-btn{
-    display:inline-flex;align-items:center;gap:0.45rem;
-    padding:0.6rem 1.1rem;
-    border:1px solid transparent;border-bottom:none;
-    border-radius:8px 8px 0 0;
-    background:transparent;color:var(--muted);
-    font:500 0.88rem/1 'Inter',system-ui;letter-spacing:0.04em;
-    cursor:pointer;white-space:nowrap;flex-shrink:0;
-    opacity:0.45;
-    position:relative;bottom:-1px;z-index:1;
-    transition:opacity 0.2s,border-color 0.2s,color 0.2s;
+  .tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.85rem 1.25rem;          /* taller */
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    background: transparent;
+    color: var(--muted);               /* gray, no opacity change */
+    font: 500 0.88rem/1 'Inter', system-ui;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    bottom: -1px;                      /* overlaps the panel's top border by 1 px */
+    z-index: 1;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
-  .tab-btn:hover{opacity:0.75;color:var(--text);}
-  .tab-btn.active{
-    opacity:1;color:var(--text);
-    border-color:rgba(255,255,255,0.1);
-    background:var(--sur); /* matches panel bg to "erase" the shared border */
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.1);
+    background: var(--sur);            /* same as panel → masks the divider under it */
   }
-  /* [#4] Fixed icon height, not width */
-  .tab-btn .tab-icon{font-size:1.05rem;line-height:1;height:1.05rem;width:auto;}
-  .tab-btn .tab-icon-svg{height:18px;width:auto;}
 
-  /* Full-page tabs wrapper */
-  .tabs-container{margin:0;min-width:0;}
+  /* Fixed icon height, not width */
+  .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
+  .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
-  /* [#4] Panel — bordered, connects to active tab */
-  .tab-panel{
-    display:none;
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:0 8px 8px 8px; /* flat top-left when first tab is active */
-    padding:1.5rem;
-    position:relative;z-index:0;
-    overflow-x:auto; /* [#14] scroll wide content */
+  /* Panel: its top border IS the shared divider line; active tab bg masks its own segment */
+  .tab-panel {
+    display: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0 8px 8px 8px;
+    padding: 1.5rem;
+    position: relative;
+    z-index: 0;
+    overflow-x: auto;
   }
-  .tab-panel.active{display:block;}
-  /* JS adds this class when a non-first tab is active */
-  .tab-panel.tab-panel--mid{border-radius:8px;}
+  .tab-panel.active { display: block; }
+  .tab-panel.tab-panel--mid { border-radius: 8px; } /* JS adds when non-first tab active */
 
-  /* ── [#7] Inline tabs (mid-page) ── */
-  .inline-tabs{
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:12px;
-    margin:1.5rem 0;
-    overflow:hidden;
-    background:var(--sur);
+  /* ── Inline tabs (mid-page widget) ── */
+  .inline-tabs {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    background: var(--sur);
   }
-  .inline-tabs > .tabs-nav{
-    padding:0.75rem 0.75rem 0;
-    background:var(--sur);
-    /* The nav itself provides the bottom border */
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    flex-wrap:nowrap;overflow-x:auto;
+  .inline-tabs > .tabs-nav {
+    padding: 0.6rem 0.6rem 0;
+    background: var(--sur);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    z-index: 1;
   }
-  .inline-tabs > .tabs-nav .tab-btn{
-    bottom:0;border-radius:6px 6px 0 0;
-    border:none;padding:0.5rem 1rem;
+  .inline-tabs > .tabs-nav .tab-btn {
+    border-radius: 6px 6px 0 0;
+    bottom: -1px;
   }
-  .inline-tabs > .tabs-nav .tab-btn.active{
-    background:var(--bg);border:none;
+  .inline-tabs > .tabs-nav .tab-btn.active {
+    background: var(--bg);
+    border-color: rgba(255,255,255,0.1);
   }
-  .inline-tabs > .tab-panel{
-    border:none;border-radius:0;
-    overflow-x:auto;
+  .inline-tabs > .tab-panel {
+    border: none;
+    border-radius: 0;
+    background: var(--bg);
+    padding: 1.5rem;
+    display: none;
   }
-  .inline-tabs > .tab-panel.active{display:block;}
+  .inline-tabs > .tab-panel.active { display: block; }
 
   /* ─────────────────────────────────────────────
      Content container
@@ -346,7 +366,13 @@
   /* [#6] Default max-width for embeds */
   .content-container img,
   .content-container video,
-  .content-container iframe{max-width:100%;height:auto;}
+  .content-container iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   /* [#8] Small text: use <small> or class="sm" */
   .content-container small,
@@ -385,18 +411,26 @@
   .content-container :not(pre) > code:hover{background:rgba(255,255,255,0.14);}
 
   /* Toast for inline-code copy */
-  .copy-toast{
-    position:fixed;bottom:1.5rem;right:1.5rem;
-    background:var(--pill);color:#C2FAAB;
-    padding:0.45rem 0.85rem;border-radius:8px;
-    font:400 0.82rem/1 'Inter',system-ui;
-    display:flex;align-items:center;gap:6px;
-    opacity:0;transform:translateY(6px);
-    transition:opacity 0.2s,transform 0.2s;
-    pointer-events:none;z-index:9999;
+  .copy-toast {
+    position: absolute;             /* JS sets top/left per click */
+    background: var(--pill);
+    color: #C2FAAB;
+    padding: 0.32rem 0.7rem;
+    border-radius: 6px;
+    font: 400 0.75rem/1 'Inter', system-ui;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+    /* centred horizontally on anchor; floated 8 px above it */
+    transform: translateX(-50%) translateY(calc(-100% - 8px));
   }
-  .copy-toast.show{opacity:1;transform:translateY(0);}
-  .copy-toast .material-icons-round{font-size:0.95rem;}
+  .copy-toast.show { opacity: 1; }
+  .copy-toast .material-icons-round { font-size: 0.85rem; }
 
   .content-container table{border-collapse:collapse;width:100%;margin-bottom:1.5rem;}
   .content-container th,.content-container td{border:1px solid rgba(255,255,255,0.15);padding:0.6rem 1rem;text-align:left;vertical-align:top;}
@@ -525,21 +559,29 @@
     pre.appendChild(btn);
   });
 
-  /* ── [#10] Inline code: click copies with toast notification ── */
+  /* ── [#10] Inline code: click copies — toast above clicked element ── */
   const toast = document.createElement('div');
   toast.className = 'copy-toast';
   toast.innerHTML = '<span class="material-icons-round">check</span>Скопійовано';
   document.body.appendChild(toast);
   let toastTimer;
-  function showToast(){
+
+  function showToast(anchorEl) {
     clearTimeout(toastTimer);
+    const rect    = anchorEl.getBoundingClientRect();
+    const scrollY = window.scrollY || 0;
+    const scrollX = window.scrollX || 0;
+    /* anchor = horizontal centre, top edge of the element */
+    toast.style.left = (rect.left + scrollX + rect.width / 2) + 'px';
+    toast.style.top  = (rect.top  + scrollY) + 'px';
     toast.classList.add('show');
     toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
   }
+
   document.querySelectorAll('.content-container :not(pre) > code').forEach(code => {
     code.title = 'Клікни щоб скопіювати';
     code.addEventListener('click', () =>
-      navigator.clipboard.writeText(code.innerText).then(showToast)
+      navigator.clipboard.writeText(code.innerText).then(() => showToast(code))
     );
   });
 
