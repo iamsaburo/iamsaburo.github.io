@@ -179,48 +179,62 @@
   .social-row a:hover{opacity:1}
   .social-row a img{transform:scale(1.2);transform-origin:center;}   /* slightly smaller icons */
 
-  /* ── Hero (RAINBOW now) ── */
+  /* ── Hero (gradient only on hover or on mobile) ── */
   .hero{text-align:center;padding:4.5rem 1rem 1.5rem;}
   .hero h1{font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:1rem;color:#fff}
   .hero h1 .design{
-    cursor:pointer;position:relative;display:inline-block;
-    background:linear-gradient(18deg,
+    cursor:pointer; position:relative; display:inline-block;
+    /* default state – no gradient, just white text */
+    background:none;
+    -webkit-text-fill-color: #fff;
+    color: #fff;
+    transition: -webkit-text-fill-color .3s, color .3s;
+  }
+  .hero h1 .design::after{
+    content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%;
+    background:none;
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent;
+    filter:blur(8px);
+    opacity:0; z-index:-1;
+    transition:opacity .3s;
+  }
+
+  /* Desktop hover – show gradient + glow */
+  .hero h1 .design:hover{
+    background: linear-gradient(18deg,
       #ADA8FF 0%, #9FE5F6 8.33%, #C2FAAB 16.67%, #FCFF91 25%, #FFBED0 33.33%, #F8C2FF 41.67%,
       #ADA8FF 50%, #9FE5F6 58.33%, #C2FAAB 66.67%, #FCFF91 75%, #FFBED0 83.33%, #F8C2FF 91.67%,
       #ADA8FF 100%
     ) 0 0 / 300% 300%;
-    -webkit-background-clip:text;background-clip:text;
+    -webkit-background-clip:text; background-clip:text;
     -webkit-text-fill-color:transparent;
-    animation:rainbowShift 8s ease-in-out infinite alternate paused;
-    transition:-webkit-text-fill-color .3s;
-  }
-  .hero h1 .design::after{
-    content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
-    background:inherit;
-    background-size:inherit;
-    -webkit-background-clip:text;background-clip:text;
-    color:transparent;
-    filter:blur(8px);
-    opacity:0;z-index:-1;
-    animation:rainbowShift 8s ease-in-out infinite alternate paused;
-    transition:opacity .3s;
-  }
-  .hero h1 .design:hover{
-    -webkit-text-fill-color:transparent;
-    animation-play-state:running;
+    animation:rainbowShift 8s ease-in-out infinite alternate;
   }
   .hero h1 .design:hover::after{
+    background:inherit;
+    background-size:inherit;
     opacity:0.75;
-    animation-play-state:running;
+    animation:rainbowShift 8s ease-in-out infinite alternate;
   }
+
+  /* Mobile – gradient always visible */
   @media (hover:none){
     .hero h1 .design{
-      animation-play-state:running;
+      background: linear-gradient(18deg,
+        #ADA8FF 0%, #9FE5F6 8.33%, #C2FAAB 16.67%, #FCFF91 25%, #FFBED0 33.33%, #F8C2FF 41.67%,
+        #ADA8FF 50%, #9FE5F6 58.33%, #C2FAAB 66.67%, #FCFF91 75%, #FFBED0 83.33%, #F8C2FF 91.67%,
+        #ADA8FF 100%
+      ) 0 0 / 300% 300%;
+      -webkit-background-clip:text; background-clip:text;
       -webkit-text-fill-color:transparent;
+      animation:rainbowShift 8s ease-in-out infinite alternate;
     }
     .hero h1 .design::after{
+      background:inherit;
+      background-size:inherit;
       opacity:0.75;
-      animation-play-state:running;
+      animation:rainbowShift 8s ease-in-out infinite alternate;
     }
   }
   .hero p{font-size:0.9rem;color:var(--muted);letter-spacing:.06em;max-width:700px;margin:0 auto}
