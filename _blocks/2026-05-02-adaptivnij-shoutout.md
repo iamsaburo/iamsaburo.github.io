@@ -6,6 +6,7 @@ hidden: false
 image: https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png
 gif_image: https://files.catbox.moe/eb4l4z.gif
 back_url: /
+back_label: Головна
 categories:
   - StreamElements
   - Streamer.bot
