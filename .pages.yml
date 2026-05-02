@@ -85,6 +85,6 @@ content:
         required: false
         hint: "Наприклад, 600px або 80%"
       - name: body
-        label: Dvscn
+        label: Вміст
         type: markdown
         required: false
