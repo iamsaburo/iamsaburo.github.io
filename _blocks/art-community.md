@@ -1,8 +1,9 @@
 ---
-title: Демо кнопок
+title: Демо блок
 slug: art-community
-order: 2
-image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
+order: 3
+hidden: false
+image: https://www.nintenderos.com/wp-content/uploads/2023/08/zelda-tears-of-the-kingdom-logo-y.jpg
 gif_image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 back_url: /
 back_label: Головна
