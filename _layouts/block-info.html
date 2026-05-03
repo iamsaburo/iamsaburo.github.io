@@ -79,7 +79,7 @@
     background-image:var(--rainbow-bg);background-size:300% 300%;
     animation:rainbowShift 4s ease-in-out infinite alternate;
     filter:blur(12px);
-    opacity:0.55;               /* glow always visible */
+    opacity:0.3;
     transition:opacity 0.35s ease;
     z-index:-1;pointer-events:none;
   }
@@ -96,7 +96,7 @@
   .btn-saburo[data-hover="rainbow"]:hover::before,
   .block-card:hover .btn-saburo[data-hover="rainbow"]::before {opacity: 1;box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7);}
   .btn-saburo[data-hover="rainbow"]:hover,
-  .block-card:hover .btn-saburo[data-hover="rainbow"] {color: #111;text-shadow: 0 1px 0 rgba(255,255,255,.35);}
+  .block-card:hover .btn-saburo[data-hover="rainbow"] {color: #111 !important;text-shadow: 0 1px 0 rgba(255,255,255,.35);}
   .btn-saburo[data-hover="rainbow"]::after{
     content:'';position:absolute;inset:-6px;border-radius:inherit;
     background-image:var(--rainbow-bg);background-size:300% 300%;
@@ -181,6 +181,7 @@
   .block-card.gif-ready .image-wrapper .gif-img{opacity:1}
   .block-card:hover .btn-saburo[data-hover="white"]{background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;}
   .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
+  .block-card .btn-block {margin-top: auto;}
 
   /* ── Navbar ── */
   .navbar{position:sticky;top:0;z-index:100;height:56px;background:var(--sur);display:flex;align-items:center;padding:0;}
@@ -254,7 +255,7 @@
   @media(max-width:1425px){.block-grid{padding:0 1rem 2rem}}
   .block-card{
     background:var(--sur);border-radius:var(--r);padding:20px;
-    display:flex;flex-direction:column;text-decoration:none;color:inherit;gap:25px;
+    display:flex;flex-direction:column;text-decoration:none;color:inherit;gap:15px;
   }
   .image-wrapper{width:100%;aspect-ratio:290/187;border-radius:8px;overflow:hidden;position:relative;background:#0d0d0d;}
   .card-title{font-size:1.125rem;font-weight:700;color:#fff;letter-spacing:.03em;}
@@ -307,16 +308,15 @@
     background: var(--sur);
   }
 
-  /* Псевдоелемент, що перекриває border-bottom навігації та верх панелі */
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    top: 100%;            /* починається прямо під кнопкою */
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 5px;          /* 4px nav border + 1px panel border */
+    height: 5px;
     background: var(--sur);
-    z-index: 2;
+    z-index: 3;
   }
 
   .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
@@ -365,10 +365,8 @@
 
   /* Перекриваємо лише border-bottom навігації (4px) */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    top: 100%;
-    height: 4px;
+    height: 5px;
     background: var(--bg);
-    z-index: 2;
   }
 
   /* ─────────────────────────────────────────────
@@ -620,15 +618,15 @@
   document.querySelectorAll('.content-container pre').forEach(pre => {
     const btn = document.createElement('button');
     btn.className = 'copy-btn';
-    btn.innerHTML = '<span class="material-icons-round">content_copy</span>Copy';
+    btn.innerHTML = '<span class="material-icons-round">content_copy</span>Скопіювати';
     btn.addEventListener('click', () => {
       const code = pre.querySelector('code');
       navigator.clipboard.writeText(code ? code.innerText : pre.innerText).then(() => {
         btn.classList.add('copied');
-        btn.innerHTML = '<span class="material-icons-round">check</span>Copied';
+        btn.innerHTML = '<span class="material-icons-round">check</span>Скопійовано';
         setTimeout(() => {
           btn.classList.remove('copied');
-          btn.innerHTML = '<span class="material-icons-round">content_copy</span>Copy';
+          btn.innerHTML = '<span class="material-icons-round">content_copy</span>Скопіювати';
         }, 2000);
       });
     });
