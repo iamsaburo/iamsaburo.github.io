@@ -1,5 +1,5 @@
 ---
-title: Test - Inline Tabs
+title: "Test — Вкладки посередині"
 slug: test-inline-tabs
 order: 98
 hidden: false
@@ -10,35 +10,36 @@ categories:
   - StreamElements
   - OBS
 ---
-## Контент до вкладок
+## Контент перед вкладками
 
-Звичайний текст **з форматуванням**. Вкладки нижче змінюють секцію під собою і не торкаються цього тексту.
+Цей текст знаходиться **вище** вбудованих вкладок. Вкладки нижче є незалежним блоком — вони не впливають на цей текст.
 
-<small>Підпис перед блоком вкладок</small>
+-# Малий підпис перед вкладками через синтаксис -#
 
 ---
 
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
-    <button class="tab-btn active" data-tab="alpha" role="tab" aria-selected="true">Крок 1</button>
-    <button class="tab-btn" data-tab="beta" role="tab" aria-selected="false">Крок 2</button>
-    <button class="tab-btn" data-tab="gamma" role="tab" aria-selected="false">Крок 3</button>
+    <button class="tab-btn active" data-tab="step1" role="tab" aria-selected="true">Крок 1</button>
+    <button class="tab-btn" data-tab="step2" role="tab" aria-selected="false">Крок 2</button>
+    <button class="tab-btn" data-tab="step3" role="tab" aria-selected="false">Крок 3</button>
   </nav>
-  <div class="tab-panel active" data-tab="alpha">
-    <p><strong>Перший крок</strong> — встанови розширення.</p>
-    <p>Натисни <code>Ctrl+Shift+P</code> і введи назву.</p>
+  <div class="tab-panel active" data-tab="step1">
+    <p><strong>Перший крок</strong> — встановлення.</p>
+    <p>Відкрий термінал і виконай команду:</p>
+    <pre><code>npm install my-package</code></pre>
   </div>
-  <div class="tab-panel" data-tab="beta">
-    <p><strong>Другий крок</strong> — налаштуй змінні.</p>
-    <p>Відкрий файл <code>config.json</code> і зміни значення.</p>
+  <div class="tab-panel" data-tab="step2">
+    <p><strong>Другий крок</strong> — налаштування файлу <code>config.json</code>.</p>
+    <pre><code>{
+  "token": "ВАШ_ТОКЕН",
+  "channel": "назва_каналу"
+}</code></pre>
   </div>
-  <div class="tab-panel" data-tab="gamma">
-    <p><strong>Третій крок</strong> — запусти і перевір.</p>
-
-```bash
-npm start
-```
-
+  <div class="tab-panel" data-tab="step3">
+    <p><strong>Третій крок</strong> — запуск і перевірка роботи.</p>
+    <pre><code>npm start</code></pre>
+    <p>Якщо все гаразд — у консолі побачиш <code>Connected!</code></p>
   </div>
 </div>
 
@@ -46,12 +47,19 @@ npm start
 
 ## Контент після вкладок
 
-Цей текст знаходиться **після** блоку вкладок — вкладки не впливають на нього.
+Цей блок знаходиться **після** вбудованих вкладок і ніяк не пов'язаний з ними.
 
-| Функція       | Статус |
-|---------------|--------|
-| Inline tabs   | ✅     |
-| Download icon | ✅     |
-| Copy code     | ✅     |
+Перенос рядка через зворотній слеш: \ 
+Другий рядок починається тут.
 
-![Тест зображення](https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif)
+| Можливість       | Статус |
+|------------------|--------|
+| Inline tabs      | ✅     |
+| -# малий текст   | ✅     |
+| \\ перенос рядка | ✅     |
+| Завантаження фото | ✅    |
+| Copy code        | ✅     |
+
+![Тест](https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif)
+
+-# Зображення вище: наведи для кнопки завантаження
