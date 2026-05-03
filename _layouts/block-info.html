@@ -278,30 +278,30 @@
   .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
 
 /* =============================================================
-   TABS
+   TABS – Active tab hides panel’s top border
 ============================================================= */
   .tabs-container {
     position: relative;
     min-width: 0;
+    overflow-x: auto;               /* horizontal scroll lives here */
+    overflow-y: visible;            /* no vertical clipping */
   }
 
-  /* Tab navigation – elevated above the panel */
+  /* Tab navigation – no overflow, so ::after can extend below */
   .tabs-nav {
     display: flex;
     gap: 4px;
     padding: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    border-bottom: none;          /* panel provides the top border */
-    position: relative;           /* create stacking context */
-    z-index: 2;                   /* above the panel */
+    border-bottom: none;
+    position: relative;
+    z-index: 2;                     /* stays above the panel */
+    /* NO overflow properties → no clipping */
   }
   .tabs-nav::-webkit-scrollbar {
-    display: none;
+    display: none;                  /* we scroll on the container, not the nav */
   }
 
-  /* Individual tab button */
+  /* Tab button */
   .tab-btn {
     display: inline-flex;
     align-items: center;
@@ -320,32 +320,29 @@
     white-space: nowrap;
     flex-shrink: 0;
     position: relative;
-    z-index: 1;                   /* within nav’s context */
+    z-index: 1;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
-  .tab-btn:hover {
-    color: var(--text);
-  }
+  .tab-btn:hover { color: var(--text); }
   .tab-btn.active {
     color: var(--text);
     border-color: rgba(255, 255, 255, 0.1);
-    background: var(--sur);       /* #1A1A1A */
+    background: var(--sur);
   }
 
-  /* Cover shape – hides the panel’s top border under the active tab */
+  /* Cover shape – now visible because parent doesn’t clip */
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: -2px;                 /* extends past the 1px panel border */
-    left: -2px;                   /* covers border-radius gaps */
+    bottom: -2px;                   /* overlap the 1px panel border */
+    left: -2px;                     /* cover corner gaps */
     right: -2px;
-    height: 5px;                  /* more than enough to swallow the border */
-    background: var(--sur);       /* matches active tab background */
-    z-index: 2;                   /* not strictly necessary now, but safe */
+    height: 5px;
+    background: var(--sur);
+    z-index: 2;
     pointer-events: none;
   }
 
-  /* Icons inside tab buttons */
   .tab-btn .tab-icon {
     font-size: 1.05rem;
     line-height: 1;
@@ -357,27 +354,21 @@
     width: auto;
   }
 
-  /* Tab panel – full border, top edge hidden by the cover */
+  /* Tab panel – now below the navigation */
   .tab-panel {
     display: none;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0 8px 8px 8px;  /* top corners not rounded (covered) */
+    border-radius: 0 8px 8px 8px;
     padding: 1.5rem;
     overflow-x: hidden;
     min-width: 0;
-    position: relative;            /* optional, for internal positioning */
-    z-index: 0;                    /* below the navigation */
+    position: relative;
+    z-index: 0;
   }
-  .tab-panel.active {
-    display: block;
-  }
+  .tab-panel.active { display: block; }
+  .tab-panel.tab-panel--mid { border-radius: 8px; }
 
-  /* Panel variant with all corners rounded (used when standalone) */
-  .tab-panel.tab-panel--mid {
-    border-radius: 8px;
-  }
-
-  /* ── Inline tabs (embedded in a card) ── */
+  /* ── Inline tabs ── */
   .inline-tabs {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
@@ -387,25 +378,25 @@
     min-width: 0;
   }
 
-  /* Inline tab navigation – also elevated */
+  /* Inline container also carries the horizontal scroll */
+  .inline-tabs > .tabs-container {
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
   .inline-tabs > .tabs-nav {
     padding: 0.6rem 0.6rem 0;
     background: var(--sur);
-    border-bottom: none;
-    position: relative;
-    z-index: 2;
   }
 
-  /* Inline tab buttons – slight variation in rounding */
   .inline-tabs > .tabs-nav .tab-btn {
     border-radius: 6px 6px 0 0;
   }
   .inline-tabs > .tabs-nav .tab-btn.active {
-    background: var(--bg);         /* #111111 */
+    background: var(--bg);
     border-color: rgba(255, 255, 255, 0.1);
   }
 
-  /* Inline panel – no border of its own, frame comes from .inline-tabs */
   .inline-tabs > .tab-panel {
     border: none;
     border-radius: 0;
@@ -414,20 +405,16 @@
     display: none;
     min-width: 0;
     overflow-x: hidden;
-    position: relative;
-    z-index: 0;
   }
-  .inline-tabs > .tab-panel.active {
-    display: block;
-  }
+  .inline-tabs > .tab-panel.active { display: block; }
 
-  /* Cover shape for inline tabs – uses --bg background */
+  /* Inline cover uses --bg */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
     bottom: -2px;
     left: -2px;
     right: -2px;
     height: 5px;
-    background: var(--bg);        /* matches inline panel background */
+    background: var(--bg);
     z-index: 2;
   }
 
