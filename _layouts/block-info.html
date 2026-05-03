@@ -267,7 +267,12 @@
   /* ══════════════════════════════════════════════
      TABS – загальні стилі
   ══════════════════════════════════════════════ */
-  .tabs-container { position: relative; min-width: 0; }
+  .tabs-container {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: none;
+    border-radius: 8px;
+    overflow: hidden;
+  }
 
   .tabs-nav {
     display: flex;
@@ -314,7 +319,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 5px;
+    height: 4px;
     background: var(--sur);
     z-index: 3;
   }
@@ -323,15 +328,11 @@
   .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
   .tab-panel {
-    display: none;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 0 8px 8px 8px;
+    border: none;
     padding: 1.5rem;
-    overflow-x: hidden;
-    min-width: 0;
   }
   .tab-panel.active          { display: block; }
-  .tab-panel.tab-panel--mid  { border-radius: 8px; }
+  .tab-panel.tab-panel--mid  { border-radius: 0; }
 
   /* ── Inline tabs (mid-page) ── */
   .inline-tabs {
@@ -365,7 +366,7 @@
 
   /* Перекриваємо лише border-bottom навігації (4px) */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    height: 5px;
+    height: 4px;
     background: var(--bg);
   }
 
