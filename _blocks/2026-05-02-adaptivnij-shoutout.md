@@ -1,6 +1,6 @@
 ---
-title: "Test — Top Tabs"
-slug: test-top-tabs
+title: Test - Top Tabs
+slug: adaptive-shoutout
 order: 97
 hidden: true
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
