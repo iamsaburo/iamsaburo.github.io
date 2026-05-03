@@ -2,7 +2,7 @@
 title: Test - Top Tabs
 slug: adaptive-shoutout
 order: 97
-hidden: true
+hidden: false
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 back_url: /
 back_label: Головна
