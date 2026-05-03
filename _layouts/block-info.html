@@ -278,13 +278,14 @@
   .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
 
 /* =============================================================
-   TABS — Active tab covers panel top border
+   TABS – Active tab completely hides panel top border
 ============================================================= */
   .tabs-container {
     position: relative;
     min-width: 0;
   }
 
+  /* Remove any border under the navigation */
   .tabs-nav {
     display: flex;
     gap: 4px;
@@ -292,6 +293,7 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    border-bottom: none;          /* ← explicit removal */
   }
   .tabs-nav::-webkit-scrollbar { display: none; }
 
@@ -318,21 +320,34 @@
   .tab-btn.active {
     color: var(--text);
     border-color: rgba(255,255,255,0.1);
-    background: var(--sur);
+    background: var(--sur);           /* #1A1A1A */
   }
 
+  /* Cover shape – wider & taller for bulletproof overlap */
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: -1px;
-    right: -1px;
-    height: 3px;
-    background: var(--sur);
+    bottom: -2px;          /* sinks deeper past the panel border */
+    left: -2px;            /* extends further to cover corners */
+    right: -2px;
+    height: 5px;           /* taller to swallow the 1px border */
+    background: var(--sur); /* matches active tab background */
     z-index: 2;
     pointer-events: none;
   }
 
+  .tab-btn .tab-icon {
+    font-size: 1.05rem;
+    line-height: 1;
+    height: 1.05rem;
+    width: auto;
+  }
+  .tab-btn .tab-icon-svg {
+    height: 18px;
+    width: auto;
+  }
+
+  /* Panel with a full 1px border – the top border will be hidden */
   .tab-panel {
     display: none;
     border: 1px solid rgba(255,255,255,0.1);
@@ -343,10 +358,12 @@
   }
   .tab-panel.active { display: block; }
 
+  /* If all corners should be round (e.g. mid‑page without tabs) */
   .tab-panel.tab-panel--mid {
     border-radius: 8px;
   }
 
+  /* ── Inline tabs (card) ── */
   .inline-tabs {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
@@ -358,8 +375,11 @@
   .inline-tabs > .tabs-nav {
     padding: 0.6rem 0.6rem 0;
     background: var(--sur);
+    border-bottom: none;
   }
-  .inline-tabs > .tabs-nav .tab-btn { border-radius: 6px 6px 0 0; }
+  .inline-tabs > .tabs-nav .tab-btn {
+    border-radius: 6px 6px 0 0;
+  }
   .inline-tabs > .tabs-nav .tab-btn.active {
     background: var(--bg);
     border-color: rgba(255,255,255,0.1);
@@ -375,11 +395,12 @@
   }
   .inline-tabs > .tab-panel.active { display: block; }
 
+  /* Inline tabs cover shape uses --bg */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    bottom: -1px;
-    left: -1px;
-    right: -1px;
-    height: 3px;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    height: 5px;
     background: var(--bg);
     z-index: 2;
   }
