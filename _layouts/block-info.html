@@ -277,10 +277,13 @@
   .block-card:hover .btn-saburo[data-hover="white"]{background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;}
   .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
 
-  /* =============================================================
-     TABS
-  ============================================================= */
-  .tabs-container { position: relative; min-width: 0; }
+/* =============================================================
+   TABS – активна вкладка закриває межу панелі
+============================================================= */
+  .tabs-container {
+    position: relative;
+    min-width: 0;
+  }
 
   .tabs-nav {
     display: flex;
@@ -289,9 +292,10 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    border-bottom: 4px solid #1a1a1a;
   }
-  .tabs-nav::-webkit-scrollbar { display: none; }
+  .tabs-nav::-webkit-scrollbar {
+    display: none;
+  }
 
   .tab-btn {
     display: inline-flex;
@@ -314,44 +318,55 @@
     z-index: 1;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
-  .tab-btn:hover { color: var(--text); }
+  .tab-btn:hover {
+    color: var(--text);
+  }
   .tab-btn.active {
     color: var(--text);
-    border-color: rgba(255,255,255,0.1);
+    border-color: rgba(255, 255, 255, 0.1);
     background: var(--sur);
   }
 
-  /* Covers the bottom border of tabs-nav under the active tab */
   .tab-btn.active::after {
     content: '';
     position: absolute;
     bottom: -1px;
     left: -1px;
     right: -1px;
-    height: 4px;
+    height: 3px;
     background: var(--sur);
     z-index: 2;
   }
 
-  .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
-  .tab-btn .tab-icon-svg { height: 18px; width: auto; }
+  .tab-btn .tab-icon {
+    font-size: 1.05rem;
+    line-height: 1;
+    height: 1.05rem;
+    width: auto;
+  }
+  .tab-btn .tab-icon-svg {
+    height: 18px;
+    width: auto;
+  }
 
   .tab-panel {
-    position: relative;
     display: none;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-top: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0 8px 8px 8px;
     padding: 1.5rem;
     overflow-x: hidden;
     min-width: 0;
-    z-index: 0;
   }
-  .tab-panel.active          { display: block; }
-  .tab-panel.tab-panel--mid  { border-radius: 8px; }
+  .tab-panel.active {
+    display: block;
+  }
+  .tab-panel.tab-panel--mid {
+    border-radius: 8px;
+  }
 
-  /* Inline tabs (mid-page) */
   .inline-tabs {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     margin: 1.5rem 0;
     overflow: hidden;
     background: var(--sur);
@@ -360,14 +375,13 @@
   .inline-tabs > .tabs-nav {
     padding: 0.6rem 0.6rem 0;
     background: var(--sur);
-    border-bottom: 4px solid #1a1a1a;
   }
-  .inline-tabs > .tabs-nav .tab-btn { border-radius: 6px 6px 0 0; }
+  .inline-tabs > .tabs-nav .tab-btn {
+    border-radius: 6px 6px 0 0;
+  }
   .inline-tabs > .tabs-nav .tab-btn.active {
     background: var(--bg);
-    border-top: none;
-    border-left: none;
-    border-right: none;
+    border-color: rgba(255, 255, 255, 0.1);
   }
   .inline-tabs > .tab-panel {
     border: none;
@@ -378,12 +392,15 @@
     min-width: 0;
     overflow-x: hidden;
   }
-  .inline-tabs > .tab-panel.active { display: block; }
+  .inline-tabs > .tab-panel.active {
+    display: block;
+  }
 
-  /* Active inline tab covers the navigation line */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    bottom: 0;
-    height: 4px;
+    bottom: -1px;
+    left: -1px;
+    right: -1px;
+    height: 3px;
     background: var(--bg);
     z-index: 2;
   }
