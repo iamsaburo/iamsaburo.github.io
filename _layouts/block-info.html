@@ -265,7 +265,7 @@
   .btn-block{width:100%;}
 
 /* ══════════════════════════════════════════════
-   TABS – як у прикладі: активна вкладка закриває межу панелі
+   TABS – фінальна версія
 ══════════════════════════════════════════════ */
   .tabs-container { position: relative; min-width: 0; }
 
@@ -276,7 +276,7 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* ↓↓↓ ПРИБРАНО border-bottom – лінію тепер дає панель */
+    border-bottom: 4px solid #1a1a1a;   /* лінія під усіма вкладками */
   }
   .tabs-nav::-webkit-scrollbar { display: none; }
 
@@ -308,25 +308,26 @@
     background: var(--sur);
   }
 
-  /* Псевдоелемент закриває верхню межу панелі під активною вкладкою */
+  /* Псевдоелемент закриває лінію навігації під активною вкладкою */
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: -1px;          /* висуваємось на 1px униз (товщина межі панелі) */
-    left: -1px;            /* перекриваємо бічні краї, щоб закруглення не лишали зазорів */
-    right: -1px;
-    height: 3px;           /* трохи вище межі для надійності */
-    background: var(--sur); /* #1A1A1A – зливається з панеллю */
+    bottom: 0;               /* точно по нижньому краю кнопки */
+    left: 0;
+    right: 0;
+    height: 4px;             /* рівно товщина border-bottom навігації */
+    background: var(--sur);  /* #1A1A1A – зливається з панеллю */
     z-index: 2;
   }
 
   .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
   .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
-  /* Панель: повна рамка, включно з верхом */
+  /* Панель: без верхньої рамки, бо лінію задає навігація */
   .tab-panel {
     display: none;
-    border: 1px solid rgba(255,255,255,0.1);   /* верхня межа є */
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: none;                 /* верхню лінію формує border-bottom навігації */
     border-radius: 0 8px 8px 8px;
     padding: 1.5rem;
     overflow-x: hidden;
@@ -337,8 +338,7 @@
 
   /* ── Inline tabs (mid-page) ── */
   .inline-tabs {
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
+    /* зовнішню рамку прибрано */
     margin: 1.5rem 0;
     overflow: hidden;
     background: var(--sur);
@@ -347,7 +347,7 @@
   .inline-tabs > .tabs-nav {
     padding: 0.6rem 0.6rem 0;
     background: var(--sur);
-    /* ↓↓↓ також без border-bottom */
+    border-bottom: 4px solid #1a1a1a;
   }
   .inline-tabs > .tabs-nav .tab-btn { border-radius: 6px 6px 0 0; }
   .inline-tabs > .tabs-nav .tab-btn.active {
@@ -355,7 +355,7 @@
     border-color: rgba(255,255,255,0.1);
   }
   .inline-tabs > .tab-panel {
-    border: none;           /* рамка вже на .inline-tabs */
+    border: none;
     border-radius: 0;
     background: var(--bg);
     padding: 1.5rem;
@@ -365,14 +365,11 @@
   }
   .inline-tabs > .tab-panel.active { display: block; }
 
-  /* Для вбудованих вкладок псевдоелемент так само закриває межу,
-    але колір тла інший */
+  /* Активна вкладка inline закриває лінію навігації */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    bottom: -1px;
-    left: -1px;
-    right: -1px;
-    height: 3px;
-    background: var(--bg);  /* #111111 */
+    bottom: 0;
+    height: 4px;
+    background: var(--bg);   /* #111111 */
     z-index: 2;
   }
 
