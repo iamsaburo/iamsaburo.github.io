@@ -56,5 +56,3 @@ categories:
 | Copy code        | ✅     |
 
 ![Тест](https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif)
-
--# Зображення вище: наведи для кнопки завантаження

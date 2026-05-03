@@ -126,12 +126,8 @@ console.log(greet('Світ'));
 
 ![Тестове зображення](https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif)
 
--# Наведи на зображення — з'явиться кнопка завантаження
-
 ---
 
 ## Відео (YouTube embed)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-
--# Ширина обмежена, висота зберігається пропорційно

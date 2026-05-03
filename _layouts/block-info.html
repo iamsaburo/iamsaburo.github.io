@@ -286,12 +286,12 @@
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: 0; right: 0;
-    height: 2px;
-    background: #1a1a1a;
+    bottom: 0;          /* стартуємо з краю вкладки */
+    left: 0;
+    right: 0;
+    height: 5px;        /* 4px nav border + 1px panel border */
+    background: var(--sur);  /* фон активної вкладки */
     z-index: 2;
-    border-radius: 0;
   }
 
   /* Fixed icon height */
@@ -329,10 +329,6 @@
     background: var(--bg);
     border-color: rgba(255,255,255,0.1);
   }
-  /* Mask the inline-tabs nav border-bottom under its active tab */
-  .inline-tabs > .tabs-nav .tab-btn.active::after {
-    background: var(--bg);
-  }
   .inline-tabs > .tab-panel {
     border: none;
     border-radius: 0;
@@ -345,8 +341,10 @@
   .inline-tabs > .tab-panel.active { display: block; }
 
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    height: 5px;
-    bottom: -2px;
+    height: 4px;        /* тільки nav border-bottom */
+    bottom: 0;
+    background: var(--bg);  /* фон активної вкладки (у inline‑вкладках він #111) */
+    z-index: 2;
   }
 
   /* ─────────────────────────────────────────────
@@ -519,6 +517,15 @@
     .social-row{gap:24px}
     .block-grid{grid-template-columns:1fr;}
     .content-container{margin:.75rem;padding:1rem;}
+  }
+
+  .content-container a.btn-saburo,
+  .content-container a.btn-saburo:visited,
+  .content-container a.btn-saburo:hover,
+  .content-container a.btn-saburo:focus,
+  .content-container a.btn-saburo:active {
+    color: inherit !important;
+    text-decoration: none !important;
   }
 </style>
   {% if page.embed_max_width %}
