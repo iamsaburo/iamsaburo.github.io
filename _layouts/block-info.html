@@ -567,6 +567,8 @@
 <div class="page-wrap">
   {% if page.tabs %}
     {% include tabs.html %}
+  {% elsif page.url == "/" %}
+    {{ content }}
   {% else %}
     <div class="content-container">
       {{ content }}
