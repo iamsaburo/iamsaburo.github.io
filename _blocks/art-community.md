@@ -1,8 +1,8 @@
 ---
-title: "Test — Inline Tabs"
+title: Test - Inline Tabs
 slug: test-inline-tabs
 order: 98
-hidden: true
+hidden: false
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 back_url: /
 back_label: Головна
