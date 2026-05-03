@@ -312,11 +312,11 @@
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: 0;               /* точно по нижньому краю кнопки */
-    left: 0;
-    right: 0;
-    height: 4px;             /* рівно товщина border-bottom навігації */
-    background: var(--sur);  /* #1A1A1A – зливається з панеллю */
+    bottom: -1px;
+    left: -1px;
+    right: -1px;
+    height: 4px;                   /* трохи більше для надійного перекриття */
+    background: var(--sur);
     z-index: 2;
   }
 
@@ -325,6 +325,7 @@
 
   /* Панель: без верхньої рамки, бо лінію задає навігація */
   .tab-panel {
+    position: relative;
     display: none;
     border: 1px solid rgba(255,255,255,0.1);
     border-top: none;                 /* верхню лінію формує border-bottom навігації */
@@ -332,6 +333,7 @@
     padding: 1.5rem;
     overflow-x: hidden;
     min-width: 0;
+    z-index: 0;
   }
   .tab-panel.active          { display: block; }
   .tab-panel.tab-panel--mid  { border-radius: 8px; }
@@ -352,7 +354,9 @@
   .inline-tabs > .tabs-nav .tab-btn { border-radius: 6px 6px 0 0; }
   .inline-tabs > .tabs-nav .tab-btn.active {
     background: var(--bg);
-    border-color: rgba(255,255,255,0.1);
+    border-top: none;
+    border-left: none;
+    border-right: none;
   }
   .inline-tabs > .tab-panel {
     border: none;
