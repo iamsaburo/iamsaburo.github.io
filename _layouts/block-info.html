@@ -565,15 +565,21 @@
   </div>
 </nav>
 <div class="page-wrap">
-  {% raw %}
-  {% if page.tabs %}
-    {% include tabs.html %}
-  {% else %}
-    <div class="content-container">
-      {{ content }}
-    </div>
-  {% endif %}
-  {% endraw %}
+{% raw %}
+<body>
+  ...
+  <div class="page-wrap">
+    {% if page.tabs %}
+      {% include tabs.html %}
+    {% else %}
+      <div class="content-container">
+        {{ content }}
+      </div>
+    {% endif %}
+  </div>
+  ...
+</body>
+{% endraw %}
 </div>
 
 <footer>
