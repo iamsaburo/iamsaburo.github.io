@@ -9,6 +9,9 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link rel="icon" href="{{ '/svg/favicon.svg' | relative_url }}" type="image/svg+xml">
 <style>
+  /* =============================================================
+     RESET & BASE
+  ============================================================= */
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
     --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
@@ -32,7 +35,9 @@
   .navbar,.filter-bar,.block-card,.content-container{box-shadow:0 0 0 1px rgba(255,255,255,0.07);}
   footer{box-shadow:0 0 0 1px rgba(255,255,255,0.07);}
 
-  /* ── Buttons ── */
+  /* =============================================================
+     BUTTONS (.btn-saburo)
+  ============================================================= */
   .btn-saburo{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     position:relative;z-index:0;text-decoration:none !important;
@@ -47,25 +52,25 @@
   }
   .btn-saburo .btn-label,
   .btn-saburo .btn-icon-visual,
-  .btn-saburo .btn-icon-hover {
-    position: relative;
-    z-index: 2;
-  }
+  .btn-saburo .btn-icon-hover { position: relative; z-index: 2; }
 
+  /* Visual variants */
   .btn-saburo[data-visual="outline"]{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #303030;}
   .btn-saburo[data-visual="white"]{background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
   .btn-saburo[data-visual="pill"]{background:var(--pill);color:var(--text);box-shadow:none;}
   .btn-saburo[data-visual="pill"]:hover{background:#404040;}
+
+  /* Hover effects on pill */
   .btn-saburo[data-visual="pill"][data-hover="white"]:hover{background:#fff;color:#111;}
   .btn-saburo[data-visual="pill"][data-hover="outline"]:hover{
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
   }
 
+  /* Rainbow visual & hover */
   @keyframes rainbowShift{
     0%  {background-position:0% 50%}
     100%{background-position:100% 50%}
   }
-
   .btn-saburo[data-visual="rainbow"]{
     background-image:var(--rainbow-bg);
     background-size:300% 300%;
@@ -83,8 +88,8 @@
     transition:opacity 0.35s ease;
     z-index:-1;pointer-events:none;
   }
-  /* no hover change – glow stays constant */
-  
+
+  /* Rainbow on hover (triggered by button itself or parent card) */
   .btn-saburo[data-hover="rainbow"]::before{
     content:'';position:absolute;inset:0;border-radius:inherit;z-index:0;
     background-image:var(--rainbow-bg);background-size:300% 300%;
@@ -108,6 +113,7 @@
   .btn-saburo[data-hover="rainbow"]:hover::after,
   .block-card:hover .btn-saburo[data-hover="rainbow"]::after{opacity:0.55;}
 
+  /* Rainbow → other hover overrides */
   .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
     background:transparent;color:#fff;
     box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;animation:none;
@@ -116,8 +122,14 @@
     background:#fff;color:#111;
     box-shadow:0 2px 10px rgba(0,0,0,0.3);animation:none;
   }
+  /* Remove rainbow glow when switching to white instantly */
+  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after {
+    opacity: 0 !important;
+    animation: none;
+    transition: none;
+  }
 
-  /* ── ЯВНИЙ КОНТРОЛЬ КОЛЬОРУ, щоб перебити .content-container a */
+  /* Explicit color overrides for all states (to beat .content-container a specificity) */
   .btn-saburo[data-visual="outline"],
   .btn-saburo[data-visual="outline"]:visited,
   .btn-saburo[data-visual="outline"]:hover,
@@ -142,21 +154,13 @@
   .btn-saburo[data-visual="rainbow"]:focus,
   .btn-saburo[data-visual="rainbow"]:active { color: #111 !important; }
 
-  /* Комбінації з data-hover, які змінюють колір тексту */
   .btn-saburo[data-visual="pill"][data-hover="white"]:hover { color: #111 !important; }
   .btn-saburo[data-visual="pill"][data-hover="outline"]:hover { color: #fff !important; }
   .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover { color: #111 !important; }
   .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover { color: #fff !important; }
   .btn-saburo[data-hover="rainbow"]:hover { color: #111 !important; }
 
-  /* Прибираємо світіння для rainbow→white різко, без анімації */
-  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after {
-    opacity: 0 !important;
-    animation: none;
-    transition: none;
-  }
-
-  /* ── Icon display ── */
+  /* Icon display logic */
   .btn-saburo .btn-icon-visual,.btn-saburo .btn-icon-hover{font-size:1.125rem;line-height:1;display:none;}
   .btn-saburo[data-icon-visual]:not([data-icon-visual="none"]) .btn-icon-visual{display:inline-flex;}
   .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-hover{display:none;}
@@ -167,23 +171,9 @@
   .block-card:hover .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-visual{display:none;}
   .block-card:hover .btn-saburo[data-icon-hover]:not([data-icon-hover="none"]) .btn-icon-hover{display:inline-flex;}
 
-  /* ── Cards ── */
-  .block-card{
-    opacity:0;transform:translateY(20px);
-    transition:opacity 0.4s ease,transform 0.4s ease,background .25s;
-  }
-  .block-card.visible{opacity:1;transform:translateY(0);}
-  .block-card:hover{transform:scale(1.02) translateY(0);background:var(--sur2);}
-  .image-wrapper img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;transition:opacity .35s}
-  .image-wrapper .static-img{opacity:1}
-  .image-wrapper .gif-img{opacity:0}
-  .block-card.gif-ready .image-wrapper .static-img{opacity:0}
-  .block-card.gif-ready .image-wrapper .gif-img{opacity:1}
-  .block-card:hover .btn-saburo[data-hover="white"]{background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;}
-  .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
-  .block-card .btn-block {margin-top: auto;}
-
-  /* ── Navbar ── */
+  /* =============================================================
+     NAVBAR
+  ============================================================= */
   .navbar{position:sticky;top:0;z-index:100;height:56px;background:var(--sur);display:flex;align-items:center;padding:0;}
   .nav-container{max-width:1060px;width:100%;margin:0 auto;display:flex;align-items:center;height:100%;padding:0 1rem;}
   .nav-left{display:flex;align-items:center;gap:25px}
@@ -198,7 +188,9 @@
   .social-row a:hover{opacity:1}
   .social-row a img{transform:scale(1.2);transform-origin:center;}
 
-  /* ── Hero Design ── */
+  /* =============================================================
+     HERO
+  ============================================================= */
   .hero{text-align:center;padding:4.5rem 1rem 1.5rem;}
   .hero h1{font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:1rem;color:#fff}
   .hero h1 .design {
@@ -233,7 +225,9 @@
   }
   .hero p{font-size:0.9rem;color:var(--muted);letter-spacing:.06em;max-width:700px;margin:0 auto}
 
-  /* ── Filter ── */
+  /* =============================================================
+     FILTER BAR
+  ============================================================= */
   .filter-wrap{display:flex;justify-content:center;margin:1.5rem auto 2rem;padding:0 1rem;}
   .filter-bar{display:flex;align-items:center;gap:2px;background:var(--sur);border-radius:40px;padding:5px;overflow-x:auto;}
   .filter-btn{
@@ -247,26 +241,45 @@
   .filter-btn .f-label{font-weight:500;display:none;}
   .filter-btn.active .f-label{display:inline;}
 
-  /* ── Block grid ── */
+  /* =============================================================
+     BLOCK GRID & CARDS
+  ============================================================= */
   .block-grid{
     display:grid;grid-template-columns:repeat(3,330px);gap:35px;
     justify-content:center;max-width:1060px;margin:0 auto;padding:0 0 2rem;
   }
   @media(max-width:1425px){.block-grid{padding:0 1rem 2rem}}
+
   .block-card{
+    opacity:0;transform:translateY(20px);
+    transition:opacity 0.4s ease,transform 0.4s ease,background .25s;
     background:var(--sur);border-radius:var(--r);padding:20px;
     display:flex;flex-direction:column;text-decoration:none;color:inherit;gap:15px;
   }
+  .block-card.visible{opacity:1;transform:translateY(0);}
+  .block-card:hover{transform:scale(1.02) translateY(0);background:var(--sur2);}
+
   .image-wrapper{width:100%;aspect-ratio:290/187;border-radius:8px;overflow:hidden;position:relative;background:#0d0d0d;}
+  .image-wrapper img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;transition:opacity .35s}
+  .image-wrapper .static-img{opacity:1}
+  .image-wrapper .gif-img{opacity:0}
+  .block-card.gif-ready .image-wrapper .static-img{opacity:0}
+  .block-card.gif-ready .image-wrapper .gif-img{opacity:1}
+
   .card-title{font-size:1.125rem;font-weight:700;color:#fff;letter-spacing:.03em;}
   .tags-row{display:flex;gap:0;height:34px;align-items:center;}
   .tag-circle{width:34px;height:34px;border-radius:50%;background:#141414;display:flex;align-items:center;justify-content:center;margin-right:8px;position:relative;z-index:1}
   .tag-circle:last-child{margin-right:0}
   .btn-block{width:100%;}
+  .block-card .btn-block {margin-top: auto;}
 
-/* ══════════════════════════════════════════════
-   TABS – фінальна версія
-══════════════════════════════════════════════ */
+  /* Card-triggered button hover states */
+  .block-card:hover .btn-saburo[data-hover="white"]{background:#fff;color:#111;box-shadow:0 2px 10px rgba(0,0,0,0.3);text-shadow:none;}
+  .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
+
+  /* =============================================================
+     TABS
+  ============================================================= */
   .tabs-container { position: relative; min-width: 0; }
 
   .tabs-nav {
@@ -276,7 +289,7 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    border-bottom: 4px solid #1a1a1a;   /* лінія під усіма вкладками */
+    border-bottom: 4px solid #1a1a1a;
   }
   .tabs-nav::-webkit-scrollbar { display: none; }
 
@@ -308,14 +321,14 @@
     background: var(--sur);
   }
 
-  /* Псевдоелемент закриває лінію навігації під активною вкладкою */
+  /* Covers the bottom border of tabs-nav under the active tab */
   .tab-btn.active::after {
     content: '';
     position: absolute;
     bottom: -1px;
     left: -1px;
     right: -1px;
-    height: 4px;                   /* трохи більше для надійного перекриття */
+    height: 4px;
     background: var(--sur);
     z-index: 2;
   }
@@ -323,12 +336,11 @@
   .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
   .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
-  /* Панель: без верхньої рамки, бо лінію задає навігація */
   .tab-panel {
     position: relative;
     display: none;
     border: 1px solid rgba(255,255,255,0.1);
-    border-top: none;                 /* верхню лінію формує border-bottom навігації */
+    border-top: none;
     border-radius: 0 8px 8px 8px;
     padding: 1.5rem;
     overflow-x: hidden;
@@ -338,9 +350,8 @@
   .tab-panel.active          { display: block; }
   .tab-panel.tab-panel--mid  { border-radius: 8px; }
 
-  /* ── Inline tabs (mid-page) ── */
+  /* Inline tabs (mid-page) */
   .inline-tabs {
-    /* зовнішню рамку прибрано */
     margin: 1.5rem 0;
     overflow: hidden;
     background: var(--sur);
@@ -369,17 +380,17 @@
   }
   .inline-tabs > .tab-panel.active { display: block; }
 
-  /* Активна вкладка inline закриває лінію навігації */
+  /* Active inline tab covers the navigation line */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
     bottom: 0;
     height: 4px;
-    background: var(--bg);   /* #111111 */
+    background: var(--bg);
     z-index: 2;
   }
 
-  /* ─────────────────────────────────────────────
-     Content container
-  ───────────────────────────────────────────── */
+  /* =============================================================
+     CONTENT CONTAINER
+  ============================================================= */
   .content-container{
     max-width: min(1060px, calc(100vw - 2rem));
     margin:2rem auto;padding:2rem;
@@ -394,14 +405,12 @@
   .content-container ul,.content-container ol{margin-bottom:1rem;padding-left:1.5rem;}
   .content-container li{margin-bottom:.5rem;}
   .content-container code{background:var(--pill);padding:.2rem .4rem;border-radius:4px;font-size:.9rem;}
-
   .content-container blockquote{border-left:3px solid var(--muted);padding-left:1rem;color:var(--muted);margin-bottom:1rem;}
   .content-container hr{border:none;border-top:1px solid rgba(255,255,255,.1);margin:2rem 0;}
   .content-container a{color:#bc7615;text-decoration:underline;}
   .content-container a:hover{color:#ffbc40;}
   .content-container a.btn-saburo {text-decoration:none !important;}
 
-  /* Embeds */
   .content-container img,
   .content-container video,
   .content-container iframe {
@@ -431,7 +440,6 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-
   .content-container small,
   .content-container .sm{font-size:0.78em;color:var(--muted);}
 
@@ -455,7 +463,7 @@
   .img-dl-btn .material-icons-round{font-size:1rem;line-height:1;}
   .img-wrap:hover .img-dl-btn{opacity:1;}
 
-  /* Code-block copy button */
+  /* Code copy button (pre blocks) */
   .copy-btn{
     position:absolute;top:8px;right:8px;
     display:flex;align-items:center;gap:4px;
@@ -496,6 +504,9 @@
   .content-container th,.content-container td{border:1px solid rgba(255,255,255,0.15);padding:0.6rem 1rem;text-align:left;vertical-align:top;}
   .content-container th{background:var(--sur2);font-weight:600;color:#fff;}
 
+  /* =============================================================
+     PAGINATION
+  ============================================================= */
   .no-results{text-align:center;padding:3rem 1rem;color:var(--muted);grid-column:1/-1}
   .pagination{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:1.5rem 0 3rem;flex-wrap:wrap}
   .page-btn{width:40px;height:40px;border-radius:50%;background:var(--sur);color:var(--text);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-weight:600;font-size:.95rem;font-family:'Inter',system-ui;transition:background .2s}
@@ -503,7 +514,9 @@
   .page-btn:hover{background:#404040}
   .page-btn:disabled{opacity:.35;cursor:default;pointer-events:none}
 
-  /* Footer */
+  /* =============================================================
+     FOOTER
+  ============================================================= */
   footer{height:56px;background:var(--sur);display:flex;align-items:center;padding:0;margin-top:2rem;position:relative;flex-shrink:0;}
   .footer-container{
     max-width:1060px;width:100%;margin:0 auto;
@@ -512,6 +525,9 @@
   }
   .footer-copy{color:var(--muted);font-size:0.8rem;font-weight:400;letter-spacing:.06em}
 
+  /* =============================================================
+     RESPONSIVE
+  ============================================================= */
   @media(max-width:1400px){.navbar{padding:0}footer{padding:0}}
   @media(max-width:1024px){.hero h1{font-size:3rem}}
   @media(max-width:768px){
@@ -601,8 +617,9 @@
 
 <script>
 (function(){
-
-  /* ── Responsive iframes: strip fixed attrs, preserve ratio ── */
+  /* =============================================================
+     RESPONSIVE IFRAMES & IMAGES
+  ============================================================= */
   document.querySelectorAll('.content-container iframe').forEach(iframe => {
     const w = parseInt(iframe.getAttribute('width')  || '0', 10);
     const h = parseInt(iframe.getAttribute('height') || '0', 10);
@@ -616,13 +633,14 @@
     iframe.style.display  = 'block';
   });
 
-  /* ── Responsive images with hard-coded width attrs ── */
   document.querySelectorAll('.content-container img[width]').forEach(img => {
     img.removeAttribute('width');
     img.removeAttribute('height');
   });
 
-  /* ── Pre code-block copy buttons ── */
+  /* =============================================================
+     CODE COPY – PRE BLOCKS
+  ============================================================= */
   document.querySelectorAll('.content-container pre').forEach(pre => {
     const btn = document.createElement('button');
     btn.className = 'copy-btn';
@@ -641,7 +659,9 @@
     pre.appendChild(btn);
   });
 
-  /* ── Inline code: click copies — toast above clicked element ── */
+  /* =============================================================
+     CODE COPY – INLINE CODE + TOAST
+  ============================================================= */
   const toast = document.createElement('div');
   toast.className = 'copy-toast';
   toast.innerHTML = '<span class="material-icons-round">check</span>Скопійовано';
@@ -666,7 +686,9 @@
     );
   });
 
-  /* ── Image download button ── */
+  /* =============================================================
+     IMAGE DOWNLOAD BUTTON
+  ============================================================= */
   document.querySelectorAll('.content-container img').forEach(img => {
     if (img.classList.contains('tab-icon-svg')) return;
     if (img.closest('.tabs-nav,.navbar,footer')) return;
@@ -689,7 +711,9 @@
     wrap.appendChild(dlBtn);
   });
 
-  /* ── Inline tabs (.inline-tabs) ── */
+  /* =============================================================
+     INLINE TABS LOGIC
+  ============================================================= */
   document.querySelectorAll('.inline-tabs').forEach(widget => {
     const btns   = Array.from(widget.querySelectorAll(':scope > .tabs-nav .tab-btn'));
     const panels = Array.from(widget.querySelectorAll(':scope > .tab-panel'));
@@ -706,7 +730,9 @@
     });
   });
 
-  /* ── GIF lazy loading ── */
+  /* =============================================================
+     GIF LAZY LOADING
+  ============================================================= */
   const isMobile = window.matchMedia('(hover:none)').matches;
   const cards    = document.querySelectorAll('.block-card');
   if (!isMobile) {
