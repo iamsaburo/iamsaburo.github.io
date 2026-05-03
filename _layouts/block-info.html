@@ -13,7 +13,6 @@
   :root{
     --bg:#111111;--sur:#1A1A1A;--sur2:#222;--pill:#303030;
     --text:#fff;--muted:#ADADAD;--border:rgba(255,255,255,.06);--r:17px;
-    /* Single source-of-truth for the gradient */
     --rainbow-bg: linear-gradient(18deg,
       #ADA8FF 0%,#9FE5F6 8.33%,#C2FAAB 16.67%,#FCFF91 25%,
       #FFBED0 33.33%,#F8C2FF 41.67%,#ADA8FF 50%,#9FE5F6 58.33%,
@@ -34,11 +33,6 @@
   footer{box-shadow:0 0 0 1px rgba(255,255,255,0.07);}
 
   /* ── Buttons ── */
-  .content-container a.btn-saburo {
-    color: inherit;
-    text-decoration: none !important;
-  }
-  
   .btn-saburo{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     position:relative;z-index:0;text-decoration:none !important;
@@ -67,7 +61,6 @@
     background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;
   }
 
-  /* ── Rainbow — always animating, no restart-blink ── */
   @keyframes rainbowShift{
     0%  {background-position:0% 50%}
     100%{background-position:100% 50%}
@@ -129,6 +122,41 @@
     box-shadow:0 2px 10px rgba(0,0,0,0.3);animation:none;
   }
 
+  /* ── ЯВНИЙ КОНТРОЛЬ КОЛЬОРУ, щоб перебити .content-container a */
+  .btn-saburo[data-visual="outline"],
+  .btn-saburo[data-visual="outline"]:visited,
+  .btn-saburo[data-visual="outline"]:hover,
+  .btn-saburo[data-visual="outline"]:focus,
+  .btn-saburo[data-visual="outline"]:active { color: #fff !important; }
+
+  .btn-saburo[data-visual="white"],
+  .btn-saburo[data-visual="white"]:visited,
+  .btn-saburo[data-visual="white"]:hover,
+  .btn-saburo[data-visual="white"]:focus,
+  .btn-saburo[data-visual="white"]:active { color: #111 !important; }
+
+  .btn-saburo[data-visual="pill"],
+  .btn-saburo[data-visual="pill"]:visited,
+  .btn-saburo[data-visual="pill"]:hover,
+  .btn-saburo[data-visual="pill"]:focus,
+  .btn-saburo[data-visual="pill"]:active { color: var(--text) !important; }
+
+  .btn-saburo[data-visual="rainbow"],
+  .btn-saburo[data-visual="rainbow"]:visited,
+  .btn-saburo[data-visual="rainbow"]:hover,
+  .btn-saburo[data-visual="rainbow"]:focus,
+  .btn-saburo[data-visual="rainbow"]:active { color: #111 !important; }
+
+  /* Комбінації з data-hover, які змінюють колір тексту */
+  .btn-saburo[data-visual="pill"][data-hover="white"]:hover { color: #111 !important; }
+  .btn-saburo[data-visual="pill"][data-hover="outline"]:hover { color: #fff !important; }
+  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover { color: #111 !important; }
+  .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover { color: #fff !important; }
+  .btn-saburo[data-hover="rainbow"]:hover { color: #111 !important; }
+
+  /* Вимкнути райдужне світіння для rainbow→white */
+  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after { opacity: 0 !important; }
+
   /* ── Icon display ── */
   .btn-saburo .btn-icon-visual,.btn-saburo .btn-icon-hover{font-size:1.125rem;line-height:1;display:none;}
   .btn-saburo[data-icon-visual]:not([data-icon-visual="none"]) .btn-icon-visual{display:inline-flex;}
@@ -170,7 +198,7 @@
   .social-row a:hover{opacity:1}
   .social-row a img{transform:scale(1.2);transform-origin:center;}
 
-  /* ── Hero Design — always-on, alternate, text-shaped glow ── */
+  /* ── Hero Design ── */
   .hero{text-align:center;padding:4.5rem 1rem 1.5rem;}
   .hero h1{font-size:5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:1rem;color:#fff}
   .hero h1 .design {
@@ -235,11 +263,9 @@
   .tag-circle{width:34px;height:34px;border-radius:50%;background:#141414;display:flex;align-items:center;justify-content:center;margin-right:8px;position:relative;z-index:1}
   .tag-circle:last-child{margin-right:0}
   .btn-block{width:100%;}
-  
-  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after {opacity: 0;}
 
   /* ══════════════════════════════════════════════
-     TABS
+     TABS – загальні стилі
   ══════════════════════════════════════════════ */
   .tabs-container { position: relative; min-width: 0; }
 
@@ -251,7 +277,7 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     border-bottom: 4px solid #1a1a1a;
-}
+  }
   .tabs-nav::-webkit-scrollbar { display: none; }
 
   .tab-btn {
@@ -259,7 +285,6 @@
     align-items: center;
     gap: 0.45rem;
     padding: 0.9rem 1.25rem;
-    /* 3 sides only — no bottom */
     border-top:    1px solid transparent;
     border-left:   1px solid transparent;
     border-right:  1px solid transparent;
@@ -272,8 +297,8 @@
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
-    position: relative;   /* needed for ::after */
-    z-index: 1;           /* above panel so ::after can paint over its border */
+    position: relative;
+    z-index: 1;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
   .tab-btn:hover { color: var(--text); }
@@ -282,23 +307,22 @@
     border-color: rgba(255,255,255,0.1);
     background: var(--sur);
   }
-  /* Mask the panel's top border under the active tab */
+
+  /* Псевдоелемент, що перекриває border-bottom навігації та верх панелі */
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: 0;          /* стартуємо з краю вкладки */
+    top: 100%;            /* починається прямо під кнопкою */
     left: 0;
     right: 0;
-    height: 5px;        /* 4px nav border + 1px panel border */
-    background: var(--sur);  /* фон активної вкладки */
+    height: 5px;          /* 4px nav border + 1px panel border */
+    background: var(--sur);
     z-index: 2;
   }
 
-  /* Fixed icon height */
   .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
   .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
-  /* Panel: full border on all 4 sides; top-left corner drops when first tab active */
   .tab-panel {
     display: none;
     border: 1px solid rgba(255,255,255,0.1);
@@ -308,7 +332,7 @@
     min-width: 0;
   }
   .tab-panel.active          { display: block; }
-  .tab-panel.tab-panel--mid  { border-radius: 8px; } /* JS: non-first tab active */
+  .tab-panel.tab-panel--mid  { border-radius: 8px; }
 
   /* ── Inline tabs (mid-page) ── */
   .inline-tabs {
@@ -340,22 +364,23 @@
   }
   .inline-tabs > .tab-panel.active { display: block; }
 
+  /* Перекриваємо лише border-bottom навігації (4px) */
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    height: 4px;        /* тільки nav border-bottom */
-    bottom: 0;
-    background: var(--bg);  /* фон активної вкладки (у inline‑вкладках він #111) */
+    top: 100%;
+    height: 4px;
+    background: var(--bg);
     z-index: 2;
   }
 
   /* ─────────────────────────────────────────────
-     Content container (EMBED FIX included)
+     Content container
   ───────────────────────────────────────────── */
   .content-container{
-    max-width: min(1060px, calc(100vw - 2rem)); /* ніколи ширше в'юпорту */
+    max-width: min(1060px, calc(100vw - 2rem));
     margin:2rem auto;padding:2rem;
     background:var(--sur);border-radius:var(--r);
     color:var(--text);
-    contain: layout style;          /* діти не можуть вплинути на зовнішню ширину */
+    contain: layout style;
     overflow-x: hidden;
     min-width:0;
   }
@@ -371,7 +396,7 @@
   .content-container a:hover{color:#ffbc40;}
   .content-container a.btn-saburo {text-decoration:none !important;}
 
-  /* ── Embeds: responsive by default ── */
+  /* Embeds */
   .content-container img,
   .content-container video,
   .content-container iframe {
@@ -381,11 +406,8 @@
     display: block;
     box-sizing: border-box;
   }
-  .content-container iframe {
-    width: 100%;
-  }
+  .content-container iframe { width: 100%; }
 
-  /* Pre / code blocks — scroll instead of expanding */
   .content-container pre {
     background: var(--pill);
     padding: 1rem;
@@ -396,12 +418,8 @@
     margin-bottom: 1rem;
     position: relative;
   }
-  .content-container pre code {
-    background: none;
-    padding: 0;
-  }
+  .content-container pre code { background: none; padding: 0; }
 
-  /* Tables — also a common expansion culprit */
   .content-container table {
     display: block;
     max-width: 100%;
@@ -409,11 +427,10 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* [#8] Small text */
   .content-container small,
   .content-container .sm{font-size:0.78em;color:var(--muted);}
 
-  /* [#9] Image download overlay */
+  /* Image download overlay */
   .img-wrap {
     position: relative;
     display: table;
@@ -421,11 +438,7 @@
     line-height: 0;
     vertical-align: bottom;
   }
-  .img-wrap img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
+  .img-wrap img { display: block; max-width: 100%; height: auto; }
   .img-dl-btn{
     position:absolute;bottom:8px;right:8px;
     width:32px;height:32px;border-radius:6px;
@@ -437,7 +450,7 @@
   .img-dl-btn .material-icons-round{font-size:1rem;line-height:1;}
   .img-wrap:hover .img-dl-btn{opacity:1;}
 
-  /* [#10] Code-block copy button */
+  /* Code-block copy button */
   .copy-btn{
     position:absolute;top:8px;right:8px;
     display:flex;align-items:center;gap:4px;
@@ -485,7 +498,7 @@
   .page-btn:hover{background:#404040}
   .page-btn:disabled{opacity:.35;cursor:default;pointer-events:none}
 
-  /* ── Footer — support button replaces right text ── */
+  /* Footer */
   footer{height:56px;background:var(--sur);display:flex;align-items:center;padding:0;margin-top:2rem;position:relative;flex-shrink:0;}
   .footer-container{
     max-width:1060px;width:100%;margin:0 auto;
@@ -517,15 +530,6 @@
     .social-row{gap:24px}
     .block-grid{grid-template-columns:1fr;}
     .content-container{margin:.75rem;padding:1rem;}
-  }
-
-  .content-container a.btn-saburo,
-  .content-container a.btn-saburo:visited,
-  .content-container a.btn-saburo:hover,
-  .content-container a.btn-saburo:focus,
-  .content-container a.btn-saburo:active {
-    color: inherit !important;
-    text-decoration: none !important;
   }
 </style>
   {% if page.embed_max_width %}
@@ -613,7 +617,7 @@
     img.removeAttribute('height');
   });
 
-  /* ── [#10] Pre code-block copy buttons ── */
+  /* ── Pre code-block copy buttons ── */
   document.querySelectorAll('.content-container pre').forEach(pre => {
     const btn = document.createElement('button');
     btn.className = 'copy-btn';
@@ -632,7 +636,7 @@
     pre.appendChild(btn);
   });
 
-  /* ── [#10] Inline code: click copies — toast above clicked element ── */
+  /* ── Inline code: click copies — toast above clicked element ── */
   const toast = document.createElement('div');
   toast.className = 'copy-toast';
   toast.innerHTML = '<span class="material-icons-round">check</span>Скопійовано';
@@ -657,7 +661,7 @@
     );
   });
 
-  /* ── [#9] Image download button ── */
+  /* ── Image download button ── */
   document.querySelectorAll('.content-container img').forEach(img => {
     if (img.classList.contains('tab-icon-svg')) return;
     if (img.closest('.tabs-nav,.navbar,footer')) return;
@@ -680,7 +684,7 @@
     wrap.appendChild(dlBtn);
   });
 
-  /* ── [#7] Inline tabs (.inline-tabs) ── */
+  /* ── Inline tabs (.inline-tabs) ── */
   document.querySelectorAll('.inline-tabs').forEach(widget => {
     const btns   = Array.from(widget.querySelectorAll(':scope > .tabs-nav .tab-btn'));
     const panels = Array.from(widget.querySelectorAll(':scope > .tab-panel'));
@@ -697,7 +701,7 @@
     });
   });
 
-  /* ── GIF lazy loading (unchanged) ── */
+  /* ── GIF lazy loading ── */
   const isMobile = window.matchMedia('(hover:none)').matches;
   const cards    = document.querySelectorAll('.block-card');
   if (!isMobile) {
