@@ -278,140 +278,151 @@
   .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
 
 /* =============================================================
-   TABS
+   TABS – scroll only the tab buttons, panel unchanged
 ============================================================= */
-  .tabs-container {
-    position: relative;
-    min-width: 0;
-    overflow-x: auto;
-    overflow-y: visible;
-  }
+.tabs-container {
+  position: relative;
+  min-width: 0;
+  /* overflow-x removed from here */
+}
 
-  .tabs-nav {
-    display: flex;
-    gap: 4px;
-    padding: 0;
-    border-bottom: none;
-    position: relative;
-    z-index: 2;
-  }
-  .tabs-nav::-webkit-scrollbar {
-    display: none;
-  }
+/* Tab navigation – now scrollable, but cover stays visible */
+.tabs-nav {
+  display: flex;
+  gap: 4px;
+  padding: 0;
+  border-bottom: none;
+  position: relative;
+  z-index: 2;
 
-  /* Tab button */
-  .tab-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.9rem 1.25rem;
-    border-top:    1px solid transparent;
-    border-left:   1px solid transparent;
-    border-right:  1px solid transparent;
-    border-bottom: none;
-    border-radius: 8px 8px 0 0;
-    background: transparent;
-    color: var(--muted);
-    font: 500 0.88rem/1 'Inter', system-ui;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-    transition: color 0.2s, border-color 0.2s, background 0.2s;
-  }
-  .tab-btn:hover { color: var(--text); }
-  .tab-btn.active {
-    color: var(--text);
-    border-color: rgba(255, 255, 255, 0.1);
-    background: var(--sur);
-  }
+  /* horizontal scrolling on the buttons only */
+  overflow-x: auto;
+  scrollbar-width: none;           /* hide scrollbar */
 
-  .tab-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: var(--sur);
-    z-index: 2;
-    pointer-events: none;
-  }
+  /* Allow the ::after to extend without clipping */
+  padding-bottom: 5px;             /* = height of the cover shape */
+  margin-bottom: -5px;             /* keep panel snug below */
+}
+.tabs-nav::-webkit-scrollbar { display: none; }
 
-  .tab-btn .tab-icon {
-    font-size: 1.05rem;
-    line-height: 1;
-    height: 1.05rem;
-    width: auto;
-  }
-  .tab-btn .tab-icon-svg {
-    height: 18px;
-    width: auto;
-  }
+/* Tab button – exactly your original */
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.9rem 1.25rem;
+  border-top:    1px solid transparent;
+  border-left:   1px solid transparent;
+  border-right:  1px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  color: var(--muted);
+  font: 500 0.88rem/1 'Inter', system-ui;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--sur);
+}
 
-  /* Tab panel */
-  .tab-panel {
-    display: none;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0 8px 8px 8px;
-    padding: 1.5rem;
-    overflow-x: hidden;
-    min-width: 0;
-    position: relative;
-    z-index: 0;
-  }
-  .tab-panel.active { display: block; }
-  .tab-panel.tab-panel--mid { border-radius: 8px; }
+/* Cover shape – identical to your original, no extra side extension */
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--sur);
+  z-index: 2;
+  pointer-events: none;
+}
 
-  /* ── Inline tabs ── */
-  .inline-tabs {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    margin: 1.5rem 0;
-    overflow: hidden;
-    background: var(--sur);
-    min-width: 0;
-  }
+.tab-btn .tab-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+  height: 1.05rem;
+  width: auto;
+}
+.tab-btn .tab-icon-svg {
+  height: 18px;
+  width: auto;
+}
 
-  .inline-tabs > .tabs-container {
-    overflow-x: auto;
-    overflow-y: visible;
-  }
+/* Tab panel – untouched */
+.tab-panel {
+  display: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 8px 8px 8px;
+  padding: 1.5rem;
+  overflow-x: hidden;
+  min-width: 0;
+  position: relative;
+  z-index: 0;
+}
+.tab-panel.active { display: block; }
+.tab-panel.tab-panel--mid { border-radius: 8px; }
 
-  .inline-tabs > .tabs-nav {
-    padding: 0.6rem 0.6rem 0;
-    background: var(--sur);
-  }
+/* ── Inline tabs – same principle ── */
+.inline-tabs {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  background: var(--sur);
+  min-width: 0;
+}
 
-  .inline-tabs > .tabs-nav .tab-btn {
-    border-radius: 6px 6px 0 0;
-  }
-  .inline-tabs > .tabs-nav .tab-btn.active {
-    background: var(--bg);
-    border-color: var(--bg);
-  }
+.inline-tabs > .tabs-container {
+  overflow-x: visible;
+  overflow-y: visible;
+}
 
-  .inline-tabs > .tab-panel {
-    border: none;
-    border-radius: 0;
-    background: var(--bg);
-    padding: 1.5rem;
-    display: none;
-    min-width: 0;
-    overflow-x: hidden;
-  }
-  .inline-tabs > .tab-panel.active { display: block; }
+.inline-tabs > .tabs-nav {
+  padding: 0.6rem 0.6rem 0;
+  background: var(--sur);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 5px;
+  margin-bottom: -5px;
+}
 
-  .inline-tabs > .tabs-nav .tab-btn.active::after {
-    bottom: -2px;
-    left: -0px;
-    right: -0px;
-    height: 5px;
-    background: var(--bg);
-    z-index: 2;
-  }
+.inline-tabs > .tabs-nav .tab-btn {
+  border-radius: 6px 6px 0 0;
+}
+.inline-tabs > .tabs-nav .tab-btn.active {
+  background: var(--bg);
+  border-color: var(--bg);
+}
+
+.inline-tabs > .tab-panel {
+  border: none;
+  border-radius: 0;
+  background: var(--bg);
+  padding: 1.5rem;
+  display: none;
+  min-width: 0;
+  overflow-x: hidden;
+}
+.inline-tabs > .tab-panel.active { display: block; }
+
+.inline-tabs > .tabs-nav .tab-btn.active::after {
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--bg);
+  z-index: 2;
+}
 
   /* =============================================================
      CONTENT CONTAINER
