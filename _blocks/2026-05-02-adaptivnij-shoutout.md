@@ -16,6 +16,7 @@ tabs:
   - id: widgets
     icon: smart_button
     label: Кнопки і код
+embed_max_width: 400px
 ---
 # H1 Заголовок
 ## H2 Заголовок
