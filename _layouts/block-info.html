@@ -278,15 +278,14 @@
   .block-card:hover .btn-saburo[data-hover="outline"]{background:transparent;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,0.6) inset;text-shadow:none;}
 
 /* =============================================================
-   TABS – scroll only the tab buttons, panel unchanged
+   TABS
 ============================================================= */
 .tabs-container {
   position: relative;
   min-width: 0;
-  /* overflow-x removed from here */
 }
 
-/* Tab navigation – now scrollable, but cover stays visible */
+/* Tab navigation */
 .tabs-nav {
   display: flex;
   gap: 4px;
@@ -295,17 +294,15 @@
   position: relative;
   z-index: 2;
 
-  /* horizontal scrolling on the buttons only */
   overflow-x: auto;
-  scrollbar-width: none;           /* hide scrollbar */
+  scrollbar-width: none;
 
-  /* Allow the ::after to extend without clipping */
-  padding-bottom: 5px;             /* = height of the cover shape */
-  margin-bottom: -5px;             /* keep panel snug below */
+  padding-bottom: 0;
+  margin-bottom: -5px;
 }
 .tabs-nav::-webkit-scrollbar { display: none; }
 
-/* Tab button – exactly your original */
+/* Tab button */
 .tab-btn {
   display: inline-flex;
   align-items: center;
@@ -334,7 +331,6 @@
   background: var(--sur);
 }
 
-/* Cover shape – identical to your original, no extra side extension */
 .tab-btn.active::after {
   content: '';
   position: absolute;
@@ -358,7 +354,7 @@
   width: auto;
 }
 
-/* Tab panel – untouched */
+/* Tab panel */
 .tab-panel {
   display: none;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -372,7 +368,7 @@
 .tab-panel.active { display: block; }
 .tab-panel.tab-panel--mid { border-radius: 8px; }
 
-/* ── Inline tabs – same principle ── */
+/* ── Inline tabs ── */
 .inline-tabs {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
