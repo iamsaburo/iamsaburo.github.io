@@ -235,18 +235,17 @@
   .btn-block{width:100%;}
 
   /* ══════════════════════════════════════════════
-     TABS — folder-tab, no bottom stroke anywhere
+     TABS
   ══════════════════════════════════════════════ */
   .tabs-container { position: relative; min-width: 0; }
 
   .tabs-nav {
     display: flex;
     gap: 4px;
-    padding: 0;                          /* без відступу — рамка панелі йде впритул */
+    padding: 0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* ЖОДНОГО border-bottom */
   }
   .tabs-nav::-webkit-scrollbar { display: none; }
 
@@ -254,11 +253,11 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.9rem 1.25rem;             /* трохи вища */
-    /* Три сторони — без нижньої рамки */
-    border-top:   1px solid transparent;
-    border-left:  1px solid transparent;
-    border-right: 1px solid transparent;
+    padding: 0.9rem 1.25rem;
+    /* 3 sides only — no bottom */
+    border-top:    1px solid transparent;
+    border-left:   1px solid transparent;
+    border-right:  1px solid transparent;
     border-bottom: none;
     border-radius: 8px 8px 0 0;
     background: transparent;
@@ -268,35 +267,44 @@
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
+    position: relative;   /* needed for ::after */
+    z-index: 1;           /* above panel so ::after can paint over its border */
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active {
     color: var(--text);
-    border-color: rgba(255,255,255,0.1); /* верх + боки */
-    background: var(--sur);             /* = фон панелі → безшовне злиття */
+    border-color: rgba(255,255,255,0.1);
+    background: var(--sur);
+  }
+  /* Mask the panel's top border under the active tab */
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;          /* 1 px below button bottom = on top of panel border-top */
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--sur); /* same as panel bg → invisible seam */
+    z-index: 2;
   }
 
-  /* Фіксована висота іконки, не ширина */
+  /* Fixed icon height */
   .tab-btn .tab-icon     { font-size: 1.05rem; line-height: 1; height: 1.05rem; width: auto; }
   .tab-btn .tab-icon-svg { height: 18px; width: auto; }
 
-  /* Панель: без border-top — фон таба переходить прямо в неї */
+  /* Panel: full border on all 4 sides; top-left corner drops when first tab active */
   .tab-panel {
     display: none;
-    border-left:   1px solid rgba(255,255,255,0.1);
-    border-right:  1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    border-top: none;
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 0 8px 8px 8px;
     padding: 1.5rem;
     overflow-x: hidden;
     min-width: 0;
   }
-  .tab-panel.active { display: block; }
-  .tab-panel.tab-panel--mid { border-radius: 8px; }
+  .tab-panel.active          { display: block; }
+  .tab-panel.tab-panel--mid  { border-radius: 8px; } /* JS: non-first tab active */
 
-  /* ── Інлайн-таби (віджет всередині сторінки) ── */
+  /* ── Inline tabs (mid-page) ── */
   .inline-tabs {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
@@ -310,10 +318,13 @@
     background: var(--sur);
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
-  .inline-tabs > .tabs-nav .tab-btn {
-    border-radius: 6px 6px 0 0;
-  }
+  .inline-tabs > .tabs-nav .tab-btn { border-radius: 6px 6px 0 0; }
   .inline-tabs > .tabs-nav .tab-btn.active {
+    background: var(--bg);
+    border-color: rgba(255,255,255,0.1);
+  }
+  /* Mask the inline-tabs nav border-bottom under its active tab */
+  .inline-tabs > .tabs-nav .tab-btn.active::after {
     background: var(--bg);
   }
   .inline-tabs > .tab-panel {
@@ -352,33 +363,17 @@
   .content-container a.btn-saburo{text-decoration:none !important;color:inherit;}
 
   /* ── Embeds: responsive by default ── */
-  /* Зображення — зменшуються, ніколи не розтягуються */
-  .content-container img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    width: auto;                 /* запобігає розтягуванню атрибутами */
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* Відео — така ж поведінка */
-  .content-container video {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* iFrame — JS встановить аспект та 100% ширину, це підстраховка */
+  .content-container img,
+  .content-container video,
   .content-container iframe {
-    display: block;
     max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    box-sizing: border-box;
+  }
+  .content-container iframe {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   /* Pre / code blocks — scroll instead of expanding */
@@ -507,12 +502,12 @@
 </style>
   {% if page.embed_max_width %}
 <style>
-  /* Per-page override for embed max-width */
+  /* Per-page override for embed max-width — now uses min() for true responsiveness */
   .content-container img,
   .content-container video,
-  .content-container iframe{
-    max-width:{{ page.embed_max_width }};
-    height:auto;
+  .content-container iframe {
+    max-width: min({{ page.embed_max_width }}, 100%);
+    height: auto;
   }
 </style>
   {% endif %}
@@ -566,7 +561,7 @@
 <script>
 (function(){
 
-  /* ── Відповідальні iframe: видаляємо фіксовані розміри, зберігаємо пропорції ── */
+  /* ── Responsive iframes: strip fixed attrs, preserve ratio ── */
   document.querySelectorAll('.content-container iframe').forEach(iframe => {
     const w = parseInt(iframe.getAttribute('width')  || '0', 10);
     const h = parseInt(iframe.getAttribute('height') || '0', 10);
@@ -580,7 +575,7 @@
     iframe.style.display  = 'block';
   });
 
-  /* ── Відповідальні зображення з явними атрибутами width/height ── */
+  /* ── Responsive images with hard-coded width attrs ── */
   document.querySelectorAll('.content-container img[width]').forEach(img => {
     img.removeAttribute('width');
     img.removeAttribute('height');

@@ -1,50 +1,57 @@
 ---
-title: Адаптивний ShoutOut
-slug: adaptive-shoutout
-order: 5
-hidden: false
-image: https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png
-gif_image: https://files.catbox.moe/eb4l4z.gif
+title: "Test — Inline Tabs"
+slug: test-inline-tabs
+order: 98
+hidden: true
+image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 back_url: /
 back_label: Головна
 categories:
   - StreamElements
-  - Streamer.bot
-  - Twitch
-tabs:
-  - id: se
-    svg_icon: /svg/streamelements.svg
-    label: StreamElements
-  - id: sb
-    svg_icon: /svg/streamer-bot.svg
-    label: Streamer.bot
-embed_max_width: 450px
+  - OBS
 ---
-## Що це таке?
+## Контент до вкладок
 
-**Адаптивний ShoutOut** — оверлей, який автоматично підлаштовується під аватар та категорію стримера на якого ти робиш шаут.
+Звичайний текст **з форматуванням**. Вкладки нижче змінюють секцію під собою і не торкаються цього тексту.
 
-## Попередній перегляд
+<small>Підпис перед блоком вкладок</small>
 
-![Адаптивний ShoutOut](https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png)
+---
 
-## Встановлення
+<div class="inline-tabs">
+  <nav class="tabs-nav" role="tablist">
+    <button class="tab-btn active" data-tab="alpha" role="tab" aria-selected="true">Крок 1</button>
+    <button class="tab-btn" data-tab="beta" role="tab" aria-selected="false">Крок 2</button>
+    <button class="tab-btn" data-tab="gamma" role="tab" aria-selected="false">Крок 3</button>
+  </nav>
+  <div class="tab-panel active" data-tab="alpha">
+    <p><strong>Перший крок</strong> — встанови розширення.</p>
+    <p>Натисни <code>Ctrl+Shift+P</code> і введи назву.</p>
+  </div>
+  <div class="tab-panel" data-tab="beta">
+    <p><strong>Другий крок</strong> — налаштуй змінні.</p>
+    <p>Відкрий файл <code>config.json</code> і зміни значення.</p>
+  </div>
+  <div class="tab-panel" data-tab="gamma">
+    <p><strong>Третій крок</strong> — запусти і перевір.</p>
 
-1. Додай новий **Custom Widget** у StreamElements.
-2. Встав код нижче у відповідні вкладки редактора.
-3. Налаштуй змінні під себе.
+```bash
+npm start
+```
 
-<!-- tab -->
-## Що це таке?
+  </div>
+</div>
 
-**Адаптивний ShoutOut** для Streamer.bot викликається командою або подією і автоматично тягне дані каналу через API Twitch.
+---
 
-## Попередній перегляд
+## Контент після вкладок
 
-![Адаптивний ShoutOut](https://i.postimg.cc/DySMFyy9/Screenshot-2026-05-02-at-14-37-41-Adaptivnij-Shout-Out-Telegraph.png)
+Цей текст знаходиться **після** блоку вкладок — вкладки не впливають на нього.
 
-## Встановлення
+| Функція       | Статус |
+|---------------|--------|
+| Inline tabs   | ✅     |
+| Download icon | ✅     |
+| Copy code     | ✅     |
 
-1. Імпортуй дію через вкладку **Import** у Streamer.bot.
-2. Призначте тригер (команда чату, рейд тощо).
-3. Перевір налаштування OBS-сцени.
+![Тест зображення](https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif)
