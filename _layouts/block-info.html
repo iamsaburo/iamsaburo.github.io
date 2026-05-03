@@ -312,11 +312,11 @@
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    top: 100%;                     /* відразу під кнопкою */
+    bottom: -5px;
     left: 0;
     right: 0;
-    height: 5px;                   /* 4px nav border + 1px panel border */
-    background: var(--sur);        /* колір фону активної вкладки */
+    height: 5px;
+    background: var(--sur);
     z-index: 2;
   }
 
@@ -365,8 +365,8 @@
   .inline-tabs > .tab-panel.active { display: block; }
 
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    top: 100%;
-    height: 4px;                     /* тільки nav border, бо панель безрамкова */
+    bottom: -4px;
+    height: 4px;
     background: var(--bg);
     z-index: 2;
   }
