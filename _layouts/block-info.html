@@ -312,10 +312,10 @@
   .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 5px;
+    height: 4px;
     background: var(--sur);
     z-index: 2;
   }
@@ -327,12 +327,13 @@
     display: none;
     border: 1px solid rgba(255,255,255,0.1);   /* рамка панелі залишається */
     border-radius: 0 8px 8px 8px;
+    border-top: none;
     padding: 1.5rem;
     overflow-x: hidden;
     min-width: 0;
   }
   .tab-panel.active          { display: block; }
-  .tab-panel.tab-panel--mid  { border-radius: 8px; }
+  .tab-panel.tab-panel--mid  { border-top: none; border-radius: 8px; }
 
   /* ── Inline tabs (mid-page) ── */
   .inline-tabs {
@@ -365,10 +366,8 @@
   .inline-tabs > .tab-panel.active { display: block; }
 
   .inline-tabs > .tabs-nav .tab-btn.active::after {
-    bottom: -4px;
     height: 4px;
     background: var(--bg);
-    z-index: 2;
   }
 
   /* ─────────────────────────────────────────────
