@@ -34,6 +34,11 @@
   footer{box-shadow:0 0 0 1px rgba(255,255,255,0.07);}
 
   /* ── Buttons ── */
+  .content-container a.btn-saburo {
+    color: inherit;
+    text-decoration: none !important;
+  }
+  
   .btn-saburo{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     position:relative;z-index:0;text-decoration:none !important;
@@ -230,6 +235,8 @@
   .tag-circle{width:34px;height:34px;border-radius:50%;background:#141414;display:flex;align-items:center;justify-content:center;margin-right:8px;position:relative;z-index:1}
   .tag-circle:last-child{margin-right:0}
   .btn-block{width:100%;}
+  
+  .btn-saburo[data-visual="rainbow"][data-hover="white"]:hover::after {opacity: 0;}
 
   /* ══════════════════════════════════════════════
      TABS
@@ -284,6 +291,7 @@
     height: 2px;
     background: #1a1a1a;
     z-index: 2;
+    border-radius: 0;
   }
 
   /* Fixed icon height */
@@ -335,6 +343,11 @@
     overflow-x: hidden;
   }
   .inline-tabs > .tab-panel.active { display: block; }
+
+  .inline-tabs > .tabs-nav .tab-btn.active::after {
+    height: 5px;
+    bottom: -2px;
+  }
 
   /* ─────────────────────────────────────────────
      Content container (EMBED FIX included)
@@ -552,11 +565,15 @@
   </div>
 </nav>
 <div class="page-wrap">
+  {% raw %}
   {% if page.tabs %}
     {% include tabs.html %}
   {% else %}
-    {{ content }}
+    <div class="content-container">
+      {{ content }}
+    </div>
   {% endif %}
+  {% endraw %}
 </div>
 
 <footer>
