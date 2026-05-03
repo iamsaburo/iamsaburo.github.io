@@ -1,5 +1,5 @@
 ---
-title: "Test — Можливості (вкладки зверху)"
+title: Test — Можливості (вкладки зверху)
 slug: test-top-tabs
 order: 97
 hidden: false
@@ -25,6 +25,12 @@ tabs:
 ## H2 Підзаголовок
 ### H3 Малий заголовок
 
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
+  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="rocket_launch" data-icon-position="after" style="--btn-w:auto;--btn-h:48px;--radius:10px;" href="https://ua.iamsaburo.workers.dev/art-community">
+    <span class="btn-label">Rainbow + іконка</span>
+    <span class="material-icons-round btn-icon-visual">rocket_launch</span>
+  </a>
+</div>
 **Жирний**, *курсив*, ~~закреслений~~, `inline code` — клікни щоб скопіювати.
 
 > Блок цитати виглядає так
