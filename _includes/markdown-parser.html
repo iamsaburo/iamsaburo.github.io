@@ -1,0 +1,19 @@
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+    silent: false
+  });
+
+  const renderer = new marked.Renderer();
+  const originalParagraph = renderer.paragraph.bind(renderer);
+  renderer.paragraph = function(text) {
+    // Do not wrap known block‑level HTML elements in <p>
+    if (/^<(div|nav|table|ul|ol|blockquote|h[1-6]|pre|section|article|header|footer|aside|figure|figcaption|details|summary|main|canvas|video|audio|form|fieldset|script|noscript|style|iframe|object|embed|math|svg|head|body|html|meta|link|title|base|hr|br|img|input|button|select|textarea|option|label|fieldset|legend|datalist|output|progress|meter|template|slot|dialog|menu|menuitem|source|track|wbr|area|map|param|col|colgroup|caption|thead|tbody|tfoot|tr|td|th)[\s>\/]/i.test(text)) {
+      return text;
+    }
+    return originalParagraph(text);
+  };
+  marked.setOptions({ renderer });
+</script>

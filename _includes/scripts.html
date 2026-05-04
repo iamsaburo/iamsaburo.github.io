@@ -1,13 +1,5 @@
 <script>
 (function(){
-  /**
-   * Enhance a root element (or whole document) with:
-   * - responsive iframes/images
-   * - code copy buttons
-   * - image download overlays
-   * - inline tab switching
-   * - GIF lazy loading (for block cards)
-   */
   window.enhanceContent = function(root) {
     root = root || document;
 
@@ -30,7 +22,6 @@
 
     /* ----- Code copy (pre blocks) ----- */
     root.querySelectorAll('.content-container pre').forEach(pre => {
-      // avoid double buttons
       if (pre.querySelector('.copy-btn')) return;
       const btn = document.createElement('button');
       btn.className = 'copy-btn';
@@ -103,7 +94,6 @@
 
     /* ----- Inline tabs switching ----- */
     root.querySelectorAll('.inline-tabs').forEach(widget => {
-      // avoid re-wiring if already processed
       if (widget.dataset.enhanced === 'true') return;
       widget.dataset.enhanced = 'true';
 
@@ -123,7 +113,6 @@
     });
 
     /* ----- GIF lazy loading for block cards ----- */
-    // (this only runs on the index page; safe to call everywhere)
     const isMobile = window.matchMedia('(hover:none)').matches;
     const cards    = root.querySelectorAll('.block-card');
     if (!isMobile) {

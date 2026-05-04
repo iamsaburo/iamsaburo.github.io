@@ -4,7 +4,7 @@ title: "SABURO™"
 permalink: /404.html
 ---
 <div id="app">
-  <!-- ====== Verification gate (shown when access needed) ====== -->
+  <!-- Access gate UI (hidden by default) -->
   <div id="gate" style="display:none; text-align:center;">
     <h2>Цей контент доступний тільки учасникам спільноти</h2>
     <p>Будь ласка, підтвердь участь через Telegram або Discord.</p>
@@ -22,7 +22,7 @@ permalink: /404.html
     </p>
   </div>
 
-  <!-- ====== Loading for secret page ====== -->
+  <!-- Loading indicator -->
   <div id="loading" style="text-align:center; padding:2rem;">
     <p>Завантаження…</p>
   </div>
@@ -33,16 +33,15 @@ permalink: /404.html
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
 
-  // ========== 1. ACCESS GATE ==========
+  // ========== ACCESS GATE ==========
   if (accessMatch) {
     const slug = accessMatch[1];
     const secretUrl = '/' + slug;
 
-    // Show gate, hide loading
     document.getElementById('loading').style.display = 'none';
     document.getElementById('gate').style.display = 'block';
 
-    // 1a. If token already valid → skip gate
+    // If already authenticated, redirect straight to secret page
     fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
       .then(r => r.json())
       .then(data => {
@@ -51,30 +50,28 @@ permalink: /404.html
         }
       });
 
-    // 1b. Build Telegram button with fresh code
+    // Build Telegram button with fresh code
     fetch(`https://ua.iamsaburo.workers.dev/api/telegram-code?slug=${encodeURIComponent(slug)}`, { credentials:'include' })
       .then(r => r.json())
       .then(data => {
-        const code = data.code;
         document.getElementById('tg-btn').href =
-          `https://ua.iamsaburo.workers.dev/auth/telegram?code=${code}&redirect=${encodeURIComponent(secretUrl)}`;
+          `https://ua.iamsaburo.workers.dev/auth/telegram?code=${data.code}&redirect=${encodeURIComponent(secretUrl)}`;
       });
 
-    // 1c. Build Discord button (no special code needed)
+    // Discord button
     document.getElementById('dc-btn').href =
       `https://ua.iamsaburo.workers.dev/auth/discord?redirect=${encodeURIComponent(secretUrl)}`;
 
     return;
   }
 
-  // ========== 2. SECRET PAGE (any other URL) ==========
+  // ========== SECRET PAGE ==========
   const slug = path.replace(/^\/|\/$/g, '');
   if (!slug) {
     document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
     return;
   }
 
-  // 2a. Check token
   fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
     .then(r => r.json())
     .then(data => {
@@ -82,31 +79,31 @@ permalink: /404.html
         window.location.replace(`/${slug}-access`);
         return;
       }
-
-      // 2b. Fetch secret content
       return fetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
     })
     .then(res => {
-      if (!res) return;                            // redirected
+      if (!res) return;
       if (!res.ok) {
-        window.location.replace(`/${slug}-access`); // token expired / not found
+        window.location.replace(`/${slug}-access`);
         return;
       }
-      return res.text();
+      return res.text();   // raw Markdown from the Worker
     })
-    .then(html => {
-      if (!html) return;
+    .then(rawMarkdown => {
+      if (!rawMarkdown) return;
       document.getElementById('loading').style.display = 'none';
       const contentContainer = document.querySelector('.content-container');
+
+      // Render Markdown with the same engine used everywhere
+      const html = marked.parse(rawMarkdown);
       contentContainer.innerHTML = html;
 
-      // Re‑apply all interactive features to the new content
+      // Activate all interactive features (tabs, copy, etc.)
       if (typeof window.enhanceContent === 'function') {
         window.enhanceContent(contentContainer);
       }
     })
     .catch(() => {
-      // Network error etc. – show generic error
       document.getElementById('loading').innerHTML = '<p>Помилка завантаження. Спробуйте пізніше.</p>';
     });
 })();
