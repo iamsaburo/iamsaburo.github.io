@@ -1,0 +1,29 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="/" class="nav-brand">
+        <img src="{{ '/svg/logo_symbol.svg' | relative_url }}" width="24" height="24" alt="лого" class="ph-img">
+        <div class="nav-wordmark{% if page.back_url %} nav-wordmark--info{% endif %}">
+          <img src="{{ '/svg/logo_word-mark.svg' | relative_url }}" width="97" height="21" alt="SABURO" class="ph-img">
+          {% unless page.back_url %}
+          <span class="nav-tagline"><span class="sep">|</span>Корисне</span>
+          {% endunless %}
+        </div>
+      </a>
+      {% if page.back_url %}
+        {% assign back_label = page.back_label | default: 'Головна' %}
+        {% include btn-saburo.html label=back_label visual='pill' icon_visual='arrow_back' icon_hover='arrow_back' width='auto' height=32 radius=28 href=page.back_url %}
+      {% endif %}
+    </div>
+    <div class="nav-right">
+      <span class="nav-join">Приєднуйся:</span>
+      <div class="social-row">
+        <a href="https://www.twitch.tv/saburo_ua" target="_blank" rel="noopener" title="Twitch"><img src="{{ '/svg/sm_twitch.svg' | relative_url }}" width="14" height="16" alt=""></a>
+        <a href="https://t.me/saburo_ua" target="_blank" rel="noopener" title="Telegram"><img src="{{ '/svg/sm_telegram.svg' | relative_url }}" width="17" height="14" alt=""></a>
+        <a href="https://discord.gg/4BK4MBUMWh" target="_blank" rel="noopener" title="Discord"><img src="{{ '/svg/sm_discord.svg' | relative_url }}" width="17" height="13" alt=""></a>
+        <a href="https://youtube.com/@saburo_ua" target="_blank" rel="noopener" title="YouTube"><img src="{{ '/svg/sm_youtube.svg' | relative_url }}" width="17" height="12" alt=""></a>
+        <a href="https://tiktok.com/@saburo_ua" target="_blank" rel="noopener" title="TikTok"><img src="{{ '/svg/sm_tiktok.svg' | relative_url }}" width="12" height="14" alt=""></a>
+      </div>
+    </div>
+  </div>
+</nav>

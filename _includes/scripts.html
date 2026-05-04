@@ -1,0 +1,161 @@
+<script>
+(function(){
+  /* =============================================================
+     RESPONSIVE IFRAMES & IMAGES
+  ============================================================= */
+  document.querySelectorAll('.content-container iframe').forEach(iframe => {
+    const w = parseInt(iframe.getAttribute('width')  || '0', 10);
+    const h = parseInt(iframe.getAttribute('height') || '0', 10);
+    if (w && h) {
+      iframe.style.aspectRatio = `${w} / ${h}`;
+    }
+    iframe.removeAttribute('width');
+    iframe.removeAttribute('height');
+    iframe.style.width    = '100%';
+    iframe.style.maxWidth = '100%';
+    iframe.style.display  = 'block';
+  });
+
+  document.querySelectorAll('.content-container img[width]').forEach(img => {
+    img.removeAttribute('width');
+    img.removeAttribute('height');
+  });
+
+  /* =============================================================
+     CODE COPY – PRE BLOCKS
+  ============================================================= */
+  document.querySelectorAll('.content-container pre').forEach(pre => {
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.innerHTML = '<span class="material-icons-round">content_copy</span>Скопіювати';
+    btn.addEventListener('click', () => {
+      const code = pre.querySelector('code');
+      navigator.clipboard.writeText(code ? code.innerText : pre.innerText).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = '<span class="material-icons-round">check</span>Скопійовано';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<span class="material-icons-round">content_copy</span>Скопіювати';
+        }, 2000);
+      });
+    });
+    pre.appendChild(btn);
+  });
+
+  /* =============================================================
+     CODE COPY – INLINE CODE + TOAST
+  ============================================================= */
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.innerHTML = '<span class="material-icons-round">check</span>Скопійовано';
+  document.body.appendChild(toast);
+  let toastTimer;
+
+  function showToast(anchorEl) {
+    clearTimeout(toastTimer);
+    const rect    = anchorEl.getBoundingClientRect();
+    const scrollY = window.scrollY || 0;
+    const scrollX = window.scrollX || 0;
+    toast.style.left = (rect.left + scrollX + rect.width / 2) + 'px';
+    toast.style.top  = (rect.top  + scrollY) + 'px';
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  document.querySelectorAll('.content-container :not(pre) > code').forEach(code => {
+    code.title = 'Клікни щоб скопіювати';
+    code.addEventListener('click', () =>
+      navigator.clipboard.writeText(code.innerText).then(() => showToast(code))
+    );
+  });
+
+  /* =============================================================
+     IMAGE DOWNLOAD BUTTON
+  ============================================================= */
+  document.querySelectorAll('.content-container img').forEach(img => {
+    if (img.classList.contains('tab-icon-svg')) return;
+    if (img.closest('.tabs-nav,.navbar,footer')) return;
+    const w = parseInt(img.getAttribute('width') || '9999');
+    if (w < 64) return;
+
+    const wrap = document.createElement('span');
+    wrap.className = 'img-wrap';
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+
+    const dlBtn = document.createElement('a');
+    dlBtn.className = 'img-dl-btn';
+    dlBtn.href = img.src;
+    dlBtn.download = img.alt || 'image';
+    dlBtn.title = 'Завантажити';
+    dlBtn.setAttribute('target','_blank');
+    dlBtn.innerHTML = '<span class="material-icons-round">download</span>';
+    dlBtn.addEventListener('click', e => e.stopPropagation());
+    wrap.appendChild(dlBtn);
+  });
+
+  /* =============================================================
+     INLINE TABS LOGIC
+  ============================================================= */
+  document.querySelectorAll('.inline-tabs').forEach(widget => {
+    const btns   = Array.from(widget.querySelectorAll(':scope > .tabs-nav .tab-btn'));
+    const panels = Array.from(widget.querySelectorAll(':scope > .tab-panel'));
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.dataset.tab;
+        btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected','true');
+        const panel = widget.querySelector(':scope > .tab-panel[data-tab="'+t+'"]');
+        if (panel) panel.classList.add('active');
+      });
+    });
+  });
+
+  /* =============================================================
+     GIF LAZY LOADING
+  ============================================================= */
+  const isMobile = window.matchMedia('(hover:none)').matches;
+  const cards    = document.querySelectorAll('.block-card');
+  if (!isMobile) {
+    cards.forEach(card => {
+      const gifImg = card.querySelector('.gif-img');
+      if (!gifImg) return;
+      const gifSrc = gifImg.dataset.src;
+      if (!gifSrc) return;
+      let loaded = false;
+      card.addEventListener('mouseenter', () => {
+        if (loaded){ card.classList.add('gif-ready'); }
+        else {
+          gifImg.src = gifSrc;
+          gifImg.addEventListener('load', () => {
+            loaded = true;
+            if (card.matches(':hover')) card.classList.add('gif-ready');
+          }, { once:true });
+        }
+      });
+      card.addEventListener('mouseleave', () => card.classList.remove('gif-ready'));
+    });
+  } else {
+    cards.forEach(card => {
+      const gifImg = card.querySelector('.gif-img');
+      if (!gifImg) return;
+      const gifSrc = gifImg.dataset.src;
+      if (gifSrc) gifImg.src = gifSrc;
+    });
+    let activeCard = null;
+    const observer = new IntersectionObserver(entries => {
+      let best = null, bestRatio = 0;
+      entries.forEach(e => { if (e.intersectionRatio > bestRatio){ bestRatio = e.intersectionRatio; best = e.target; } });
+      if (best && bestRatio > 0.5){
+        if (activeCard && activeCard !== best) activeCard.classList.remove('gif-ready');
+        best.classList.add('gif-ready');
+        activeCard = best;
+      }
+    }, { threshold:[0,.25,.5,.75,1] });
+    cards.forEach(card => observer.observe(card));
+  }
+
+})();
+</script>

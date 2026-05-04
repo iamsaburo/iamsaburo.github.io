@@ -1,0 +1,115 @@
+---
+layout: block-info
+title: "SABURO™"
+permalink: /404.html
+---
+<div id="app">
+  <!-- ====== Verification gate (shown when access needed) ====== -->
+  <div id="gate" style="display:none; text-align:center;">
+    <h2>Цей контент доступний тільки учасникам спільноти</h2>
+    <p>Будь ласка, підтвердь участь через Telegram або Discord.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:1.5rem 0;">
+      <a id="tg-btn" class="btn-saburo" data-visual="pill" style="--btn-w:auto;--btn-h:48px;--radius:10px;">
+        <span class="btn-label">✅ Telegram</span>
+      </a>
+      <a id="dc-btn" class="btn-saburo" data-visual="pill" style="--btn-w:auto;--btn-h:48px;--radius:10px;">
+        <span class="btn-label">✅ Discord</span>
+      </a>
+    </div>
+    <p style="margin-top:2rem;">Ще не з нами?<br>
+      <a href="https://t.me/saburo_ua">Telegram</a> |
+      <a href="https://discord.gg/4BK4MBUMWh">Discord</a>
+    </p>
+  </div>
+
+  <!-- ====== Loading for secret page ====== -->
+  <div id="loading" style="text-align:center; padding:2rem;">
+    <p>Завантаження…</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  const path = window.location.pathname;
+  const accessMatch = path.match(/^\/(.+)-access\/?$/);
+
+  // ========== 1. ACCESS GATE ==========
+  if (accessMatch) {
+    const slug = accessMatch[1];
+    const secretUrl = '/' + slug;
+
+    // Show gate, hide loading
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('gate').style.display = 'block';
+
+    // 1a. If token already valid → skip gate
+    fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+      .then(r => r.json())
+      .then(data => {
+        if (data.valid) {
+          window.location.replace(secretUrl);
+        }
+      });
+
+    // 1b. Build Telegram button with fresh code
+    fetch(`https://ua.iamsaburo.workers.dev/api/telegram-code?slug=${encodeURIComponent(slug)}`, { credentials:'include' })
+      .then(r => r.json())
+      .then(data => {
+        const code = data.code;
+        document.getElementById('tg-btn').href =
+          `https://ua.iamsaburo.workers.dev/auth/telegram?code=${code}&redirect=${encodeURIComponent(secretUrl)}`;
+      });
+
+    // 1c. Build Discord button (no special code needed)
+    document.getElementById('dc-btn').href =
+      `https://ua.iamsaburo.workers.dev/auth/discord?redirect=${encodeURIComponent(secretUrl)}`;
+
+    return;
+  }
+
+  // ========== 2. SECRET PAGE (any other URL) ==========
+  const slug = path.replace(/^\/|\/$/g, '');
+  if (!slug) {
+    document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
+    return;
+  }
+
+  // 2a. Check token
+  fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+    .then(r => r.json())
+    .then(data => {
+      if (!data.valid) {
+        window.location.replace(`/${slug}-access`);
+        return;
+      }
+
+      // 2b. Fetch secret content
+      return fetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
+    })
+    .then(res => {
+      if (!res) return;                            // redirected
+      if (!res.ok) {
+        window.location.replace(`/${slug}-access`); // token expired / not found
+        return;
+      }
+      return res.text();
+    })
+    .then(html => {
+      if (!html) return;
+      // Insert content and hide loading
+      document.getElementById('loading').style.display = 'none';
+      const contentContainer = document.querySelector('.content-container');
+      contentContainer.innerHTML = html;
+
+      // Re-run any tab / copy button enhancements that are in scripts.html
+      // The global scripts.html already ran, but they may not apply to newly inserted HTML.
+      // We trigger the same logic manually for the content.
+      if (typeof window.initInlineTabs === 'function') window.initInlineTabs();
+      if (typeof window.enhanceContent === 'function') window.enhanceContent();
+    })
+    .catch(() => {
+      // Network error etc. – show generic error
+      document.getElementById('loading').innerHTML = '<p>Помилка завантаження. Спробуйте пізніше.</p>';
+    });
+})();
+</script>
