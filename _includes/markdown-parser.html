@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
   marked.setOptions({
-    breaks: false,
+    breaks: false,        // we will add <br> manually later
     gfm: true,
     silent: false
   });
@@ -17,14 +17,53 @@
   };
   marked.setOptions({ renderer });
 
-  // After parsing, convert single newlines to <br> only inside <p> tags
+  // ---------- Pre‑process raw HTML blocks ----------
+  const blockTagList = 'div|nav|table|ul|ol|blockquote|h[1-6]|pre|section|article|header|footer|aside|figure|figcaption|details|summary|main|canvas|video|audio|form|fieldset|script|noscript|style|iframe|object|embed|math|svg|head|body|html';
+  // Matches a whole block of HTML that starts at the beginning of a line with a known block tag
+  const blockHtmlRe = new RegExp(
+    '^(' +
+    '<(?:' + blockTagList + ')\\b[^>]*>' +          // opening tag
+    '[\\s\\S]*?' +                                   // content (non-greedy)
+    '</(?:' + blockTagList + ')>' +                  // closing tag
+    ')',
+    'gm'
+  );
+
+  function preprocessRawHtml(md) {
+    const blocks = [];
+    // Replace each raw block with a placeholder
+    const processed = md.replace(blockHtmlRe, function(match) {
+      blocks.push(match);
+      return '%%RAWHTMLBLOCK' + (blocks.length - 1) + '%%';
+    });
+    return { processed, blocks };
+  }
+
+  function restoreRawHtml(html, blocks) {
+    return html.replace(/%%RAWHTMLBLOCK(\d+)%%/g, function(_, idx) {
+      return blocks[idx];
+    });
+  }
+
   const originalParse = marked.parse.bind(marked);
   marked.parse = function(src, options) {
-    let html = originalParse(src, options);
-    // Replace newlines inside paragraph content with <br>
+    // 1. Extract raw HTML blocks
+    const { processed, blocks } = preprocessRawHtml(src);
+
+    // 2. Parse the rest with marked
+    let html = originalParse(processed, options);
+
+    // 3. Restore raw HTML blocks (they are untouched)
+    html = restoreRawHtml(html, blocks);
+
+    // 4. Convert single newlines to <br> ONLY inside <p> tags
     html = html.replace(/<p>(.*?)<\/p>/gs, function(match, inner) {
       return '<p>' + inner.replace(/\n/g, '<br>') + '</p>';
     });
+
+    // 5. Remove empty paragraphs (collapsed blank lines)
+    html = html.replace(/<p>\s*<\/p>/g, '');
+
     return html;
   };
 </script>
