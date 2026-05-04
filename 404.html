@@ -96,16 +96,14 @@ permalink: /404.html
     })
     .then(html => {
       if (!html) return;
-      // Insert content and hide loading
       document.getElementById('loading').style.display = 'none';
       const contentContainer = document.querySelector('.content-container');
       contentContainer.innerHTML = html;
 
-      // Re-run any tab / copy button enhancements that are in scripts.html
-      // The global scripts.html already ran, but they may not apply to newly inserted HTML.
-      // We trigger the same logic manually for the content.
-      if (typeof window.initInlineTabs === 'function') window.initInlineTabs();
-      if (typeof window.enhanceContent === 'function') window.enhanceContent();
+      // Activate all interactive elements inside the new content
+      if (typeof window.enhanceContent === 'function') {
+        window.enhanceContent(contentContainer);
+      }
     })
     .catch(() => {
       // Network error etc. – show generic error
