@@ -100,7 +100,7 @@ permalink: /404.html
       const contentContainer = document.querySelector('.content-container');
       contentContainer.innerHTML = html;
 
-      // Activate all interactive elements inside the new content
+      // Re‑apply all interactive features to the new content
       if (typeof window.enhanceContent === 'function') {
         window.enhanceContent(contentContainer);
       }
