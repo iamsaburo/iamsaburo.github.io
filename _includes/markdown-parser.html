@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
   marked.setOptions({
-    breaks: false,        // we will add <br> manually later
+    breaks: false,
     gfm: true,
     silent: false
   });
@@ -9,7 +9,6 @@
   const renderer = new marked.Renderer();
   const originalParagraph = renderer.paragraph.bind(renderer);
   renderer.paragraph = function(text) {
-    // Do not wrap known block‑level HTML elements in <p>
     if (/^<(div|nav|table|ul|ol|blockquote|h[1-6]|pre|section|article|header|footer|aside|figure|figcaption|details|summary|main|canvas|video|audio|form|fieldset|script|noscript|style|iframe|object|embed|math|svg|head|body|html|meta|link|title|base|hr|br|img|input|button|select|textarea|option|label|fieldset|legend|datalist|output|progress|meter|template|slot|dialog|menu|menuitem|source|track|wbr|area|map|param|col|colgroup|caption|thead|tbody|tfoot|tr|td|th)[\s>\/]/i.test(text)) {
       return text;
     }
@@ -17,21 +16,19 @@
   };
   marked.setOptions({ renderer });
 
-  // ---------- Pre‑process raw HTML blocks ----------
+  // ---------- 1. Extract raw HTML blocks ----------
   const blockTagList = 'div|nav|table|ul|ol|blockquote|h[1-6]|pre|section|article|header|footer|aside|figure|figcaption|details|summary|main|canvas|video|audio|form|fieldset|script|noscript|style|iframe|object|embed|math|svg|head|body|html';
-  // Matches a whole block of HTML that starts at the beginning of a line with a known block tag
   const blockHtmlRe = new RegExp(
     '^(' +
-    '<(?:' + blockTagList + ')\\b[^>]*>' +          // opening tag
-    '[\\s\\S]*?' +                                   // content (non-greedy)
-    '</(?:' + blockTagList + ')>' +                  // closing tag
+    '<(?:' + blockTagList + ')\\b[^>]*>' +
+    '[\\s\\S]*?' +
+    '</(?:' + blockTagList + ')>' +
     ')',
     'gm'
   );
 
   function preprocessRawHtml(md) {
     const blocks = [];
-    // Replace each raw block with a placeholder
     const processed = md.replace(blockHtmlRe, function(match) {
       blocks.push(match);
       return '%%RAWHTMLBLOCK' + (blocks.length - 1) + '%%';
@@ -45,24 +42,38 @@
     });
   }
 
+  // ---------- 2. Override marked.parse ----------
   const originalParse = marked.parse.bind(marked);
   marked.parse = function(src, options) {
-    // 1. Extract raw HTML blocks
+    // 2a. Extract raw HTML → placeholders
     const { processed, blocks } = preprocessRawHtml(src);
 
-    // 2. Parse the rest with marked
+    // 2b. Parse the rest with marked
     let html = originalParse(processed, options);
 
-    // 3. Restore raw HTML blocks (they are untouched)
+    // 2c. Restore raw HTML blocks in place
     html = restoreRawHtml(html, blocks);
 
-    // 4. Convert single newlines to <br> ONLY inside <p> tags
+    // 2d. Strip <p> wrappers that surround block-level HTML (they were added around the placeholder)
+    const blockTags = blockTagList;
+    const unwrapRe = new RegExp(
+      '<p>\\s*(<(' + blockTags + ')\\b[^>]*>[\\s\\S]*?<\\/\\2>)\\s*<\\/p>',
+      'gi'
+    );
+    // Run multiple times to catch nested cases (unlikely but safe)
+    let prev;
+    do {
+      prev = html;
+      html = html.replace(unwrapRe, '$1');
+    } while (html !== prev);
+
+    // 2e. Convert single newlines to <br> ONLY inside <p> tags
     html = html.replace(/<p>(.*?)<\/p>/gs, function(match, inner) {
       return '<p>' + inner.replace(/\n/g, '<br>') + '</p>';
     });
 
-    // 5. Remove empty paragraphs (collapsed blank lines)
-    html = html.replace(/<p>\s*<\/p>/g, '');
+    // 2f. Delete truly empty paragraphs (any whitespace only inside)
+    html = html.replace(/<p[^>]*>\s*<\/p>/g, '');
 
     return html;
   };
