@@ -26,7 +26,7 @@ embed_max_width: 500px
 - ⏱️ **Тривалість показу** кожного емоуту налаштовується окремо
 
 <div style="margin-top:2rem; margin-bottom:1rem;">
-  <a class="btn-saburo" data-visual="rainbow" data-icon-visual="add_circle" style="--btn-w:auto;--btn-h:48px;--radius:10px;" href="https://ua.iamsaburo.workers.dev/sound-emotes">
+  <a class="btn-saburo" data-visual="rainbow" data-icon-visual="add_circle" style="--btn-w:auto;--btn-h:48px;--radius:10px;" href="https://iamsaburo.github.io/sound-emotes">
     <span class="material-icons-round btn-icon-visual">add_circle</span>
     <span class="btn-label">ВСТАНОВИТИ</span>
   </a>
