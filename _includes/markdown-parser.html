@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
   marked.setOptions({
-    breaks: true,
+    breaks: false,
     gfm: true,
     silent: false
   });
@@ -16,4 +16,15 @@
     return originalParagraph(text);
   };
   marked.setOptions({ renderer });
+
+  // After parsing, convert single newlines to <br> only inside <p> tags
+  const originalParse = marked.parse.bind(marked);
+  marked.parse = function(src, options) {
+    let html = originalParse(src, options);
+    // Replace newlines inside paragraph content with <br>
+    html = html.replace(/<p>(.*?)<\/p>/gs, function(match, inner) {
+      return '<p>' + inner.replace(/\n/g, '<br>') + '</p>';
+    });
+    return html;
+  };
 </script>
