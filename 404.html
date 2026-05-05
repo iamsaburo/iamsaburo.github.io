@@ -67,7 +67,6 @@ permalink: /404.html
     return;
   }
 
-  // Load Markdown parser (used for fallback only; Worker now returns HTML)
   function loadParser() {
     return new Promise(resolve => {
       if (window.marked) return resolve();
@@ -78,8 +77,21 @@ permalink: /404.html
     });
   }
 
-  function isHtml(text) {
-    return /^\s*</.test(text);
+  // DOM cleanup: remove stray <br> inside block-level elements and empty <p>
+  function cleanContent(container) {
+    const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
+
+    // Remove <br> that are direct children of any block-level container
+    container.querySelectorAll(blockElements).forEach(el => {
+      el.querySelectorAll(':scope > br').forEach(br => br.remove());
+    });
+
+    // Remove truly empty paragraphs (only whitespace inside)
+    container.querySelectorAll('p').forEach(p => {
+      if (!p.textContent.trim()) {
+        p.remove();
+      }
+    });
   }
 
   loadParser()
@@ -102,20 +114,17 @@ permalink: /404.html
       }
       return res.text();
     })
-    .then(text => {
-      if (!text) return;
+    .then(rawMarkdown => {
+      if (!rawMarkdown) return;
       document.getElementById('loading').style.display = 'none';
       const contentContainer = document.querySelector('.content-container');
 
-      // Worker returns either stored HTML or raw Markdown
-      let html;
-      if (isHtml(text)) {
-        html = text; // already HTML (from content_html column)
-      } else {
-        html = window.marked.parse(text); // fallback Markdown -> HTML
-      }
-
+      // Parse Markdown → HTML
+      const html = window.marked.parse(rawMarkdown);
       contentContainer.innerHTML = html;
+
+      // Clean artifacts that differ from Kramdown
+      cleanContent(contentContainer);
 
       // Activate all interactive features (tabs, copy, images, etc.)
       if (typeof window.enhanceContent === 'function') {
