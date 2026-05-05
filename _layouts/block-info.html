@@ -24,7 +24,22 @@
   {% if page.extra_css %}{{ page.extra_css }}{% endif %}
 </head>
 <body>
-  {% include navbar.html %}
+  {%- comment -%} Визначаємо back_url для сторінок без явного параметра {%- endcomment -%}
+  {% assign back_url = page.back_url %}
+  {% assign back_label = page.back_label %}
+  {% unless back_url %}
+    {% if page.url contains '-access' %}
+      {% assign back_url = page.url | replace: '-access', '-info' %}
+      {% assign back_label = 'Назад' %}
+    {% elsif page.url != '/' and page.url contains '-info' == false %}
+      {% assign slug = page.url | remove_first: '/' | split: '/' | first %}
+      {% assign back_url = '/' | append: slug | append: '-info' %}
+      {% assign back_label = 'Назад' %}
+    {% endif %}
+  {% endunless %}
+
+  {% include navbar.html back_url=back_url back_label=back_label %}
+
   <div class="page-wrap">
     {%- if page.tabs -%}
       {% include tabs.html %}
@@ -36,6 +51,7 @@
       </div>
     {%- endif -%}
   </div>
+
   {% include footer.html %}
   {% include scripts-call.html %}
 </body>

@@ -10,11 +10,24 @@
           {% endunless %}
         </div>
       </a>
-      {% if page.back_url %}
-        {% assign back_label = page.back_label | default: 'Головна' %}
-        {% include btn-saburo.html label=back_label visual='pill' icon_visual='arrow_back' icon_hover='arrow_back' width='auto' height=32 radius=28 href=page.back_url %}
+
+      {%- assign btn_back_url = include.back_url | default: page.back_url -%}
+      {%- assign btn_back_label = include.back_label | default: page.back_label | default: 'Головна' -%}
+      {% if btn_back_url %}
+        {% include btn-saburo.html
+           label=btn_back_label
+           visual='pill'
+           icon_visual='arrow_back'
+           icon_hover='arrow_back'
+           width='auto'
+           height=32
+           radius=28
+           href=btn_back_url
+           class='nav-back-btn'
+        %}
       {% endif %}
     </div>
+
     <div class="nav-right">
       <span class="nav-join">Приєднуйся:</span>
       <div class="social-row">

@@ -1,10 +1,10 @@
 ---
 layout: block-info
-title: "SABURO™"
+title: "Доступ"
 permalink: /404.html
 ---
 <div id="app">
-  <div id="gate" style="display:none; max-width:420px; margin:2rem auto; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
+  <div id="gate" class="gate-box" style="display:none; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
     <img src="/svg/saburo-community.svg" width="85" height="auto" alt="SABURO" style="margin-bottom:1.5rem; display:block; margin-left:auto; margin-right:auto;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Доступ тільки для<br>учасників спільноти</h2>
     <p style="color:var(--muted); margin-bottom:2rem;">Щоб переглянути, авторизуйся<br>через Telegram або Discord</p>
@@ -27,6 +27,20 @@ permalink: /404.html
     <div id="loading-error" style="color:#ff6b6b; display:none;"></div>
   </div>
 </div>
+
+<style>
+  .gate-box {
+    width: 90%;
+    max-width: 420px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    .gate-box {
+      padding: 1.25rem;
+    }
+  }
+</style>
 
 <script>
 (function() {
@@ -121,14 +135,16 @@ permalink: /404.html
         window.location.replace(`/${slug}-access`);
         return Promise.reject('redirect');
       }
-      return res.text();
+      return res.json(); // Тепер API повертає JSON
     })
-    .then(rawMarkdown => {
-      if (!rawMarkdown) return;
+    .then(data => {
+      if (!data || !data.content) return;
+      // Встановлюємо title сторінки
+      document.title = `SABURO™ | ${data.title || 'Контент'}`;
       return parserPromise.then(() => {
         document.getElementById('loading').style.display = 'none';
         if (contentContainer) contentContainer.style.display = '';
-        const html = window.marked.parse(rawMarkdown);
+        const html = window.marked.parse(data.content);
         contentContainer.innerHTML = html;
         cleanContent(contentContainer);
         if (typeof window.enhanceContent === 'function') {
