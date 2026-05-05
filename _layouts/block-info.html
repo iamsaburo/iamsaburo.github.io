@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link rel="icon" href="{{ '/svg/favicon.svg' | relative_url }}" type="image/svg+xml">
   {% include styles.html %}
+  {% include enhance-content-def.html %}
   {% if page.embed_max_width %}
   <style>
     .content-container img,
@@ -24,7 +25,6 @@
 </head>
 <body>
   {% include navbar.html %}
-  {% include scripts.html %}
   <div class="page-wrap">
     {%- if page.tabs -%}
       {% include tabs.html %}
@@ -37,5 +37,6 @@
     {%- endif -%}
   </div>
   {% include footer.html %}
+  {% include scripts-call.html %}
 </body>
 </html>

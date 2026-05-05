@@ -4,7 +4,6 @@ title: "SABURO™"
 permalink: /404.html
 ---
 <div id="app">
-  <!-- ====== Verification gate (shown when access needed) ====== -->
   <div id="gate" style="display:none; text-align:center;">
     <h2>Цей контент доступний тільки учасникам спільноти</h2>
     <p>Будь ласка, підтвердь участь через Telegram або Discord.</p>
@@ -22,7 +21,6 @@ permalink: /404.html
     </p>
   </div>
 
-  <!-- ====== Loading for secret page ====== -->
   <div id="loading" style="text-align:center; padding:2rem;">
     <p>Завантаження…</p>
   </div>
@@ -33,7 +31,7 @@ permalink: /404.html
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
 
-  // ========== 1. ACCESS GATE ==========
+  // ========== ACCESS GATE ==========
   if (accessMatch) {
     const slug = accessMatch[1];
     const secretUrl = '/' + slug;
@@ -62,16 +60,17 @@ permalink: /404.html
     return;
   }
 
-  // ========== 2. SECRET PAGE (any other URL) ==========
+  // ========== SECRET PAGE ==========
   const slug = path.replace(/^\/|\/$/g, '');
   if (!slug) {
     document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
     return;
   }
 
-  // Load Markdown parser (marked) dynamically
+  // Load Markdown parser (used for fallback only; Worker now returns HTML)
   function loadParser() {
     return new Promise(resolve => {
+      if (window.marked) return resolve();
       const script = document.createElement('script');
       script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
       script.onload = resolve;
@@ -79,21 +78,8 @@ permalink: /404.html
     });
   }
 
-  // DOM cleanup: remove stray <br> inside block-level elements and empty <p>
-  function cleanContent(container) {
-    const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
-
-    // Remove <br> that are direct children of any block-level container
-    container.querySelectorAll(blockElements).forEach(el => {
-      el.querySelectorAll(':scope > br').forEach(br => br.remove());
-    });
-
-    // Remove truly empty paragraphs (only whitespace inside)
-    container.querySelectorAll('p').forEach(p => {
-      if (!p.textContent.trim()) {
-        p.remove();
-      }
-    });
+  function isHtml(text) {
+    return /^\s*</.test(text);
   }
 
   loadParser()
@@ -116,19 +102,22 @@ permalink: /404.html
       }
       return res.text();
     })
-    .then(rawMarkdown => {
-      if (!rawMarkdown) return;
+    .then(text => {
+      if (!text) return;
       document.getElementById('loading').style.display = 'none';
       const contentContainer = document.querySelector('.content-container');
 
-      // Convert Markdown to HTML using marked
-      const html = window.marked.parse(rawMarkdown);
+      // Worker returns either stored HTML or raw Markdown
+      let html;
+      if (isHtml(text)) {
+        html = text; // already HTML (from content_html column)
+      } else {
+        html = window.marked.parse(text); // fallback Markdown -> HTML
+      }
+
       contentContainer.innerHTML = html;
 
-      // Clean up artifacts that differ from Jekyll's Kramdown
-      cleanContent(contentContainer);
-
-      // Activate all interactive features (tabs, copy, etc.)
+      // Activate all interactive features (tabs, copy, images, etc.)
       if (typeof window.enhanceContent === 'function') {
         window.enhanceContent(contentContainer);
       }
