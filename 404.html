@@ -4,21 +4,23 @@ title: "SABURO™"
 permalink: /404.html
 ---
 <div id="app">
-  <!-- ====== Verification gate (shown when access needed) ====== -->
+  <!-- ====== Verification gate ====== -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
     <img src="/svg/logo_symbol.svg" width="60" height="60" alt="SABURO" style="margin-bottom:1.5rem;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки учасникам спільноти</h2>
     <p style="color:var(--muted); margin-bottom:2rem;">Будь ласка, підтвердь участь через Telegram або Discord.</p>
 
+    <!-- Telegram button – direct link to bot -->
     <a id="tg-btn" class="btn-saburo" data-visual="pill" style="--btn-w:100%;--btn-h:48px;--radius:10px; background:#2AABEE; color:#fff !important; margin-bottom:0.75rem; display:flex; align-items:center; justify-content:center; gap:8px;">
-      <img src="/svg/sm_telegram.svg" width="20" height="20" alt="" style="flex-shrink:0;">
+      <img src="/svg/telegram.svg" width="20" height="20" alt="" style="flex-shrink:0;">
       <span class="btn-label">Продовжити через Telegram</span>
     </a>
 
     <p style="color:var(--muted); margin:0.75rem 0;">- або -</p>
 
+    <!-- Discord button – OAuth via Worker -->
     <a id="dc-btn" class="btn-saburo" data-visual="pill" style="--btn-w:100%;--btn-h:48px;--radius:10px; background:#5865F2; color:#fff !important; margin-bottom:1.5rem; display:flex; align-items:center; justify-content:center; gap:8px;">
-      <img src="/svg/sm_discord.svg" width="20" height="20" alt="" style="flex-shrink:0;">
+      <img src="/svg/discord.svg" width="20" height="20" alt="" style="flex-shrink:0;">
       <span class="btn-label">Продовжити через Discord</span>
     </a>
 
@@ -28,7 +30,7 @@ permalink: /404.html
     </p>
   </div>
 
-  <!-- ====== Loading for secret page ====== -->
+  <!-- ====== Loading ====== -->
   <div id="loading" style="text-align:center; padding:2rem;">
     <p>Завантаження…</p>
   </div>
@@ -39,7 +41,7 @@ permalink: /404.html
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
 
-  // ========== 1. ACCESS GATE ==========
+  // ========== ACCESS GATE ==========
   if (accessMatch) {
     const slug = accessMatch[1];
     const secretUrl = '/' + slug;
@@ -47,7 +49,7 @@ permalink: /404.html
     document.getElementById('loading').style.display = 'none';
     document.getElementById('gate').style.display = 'block';
 
-    // Check if already authenticated → skip gate
+    // If already authenticated, redirect straight to secret page
     fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
       .then(r => r.json())
       .then(data => {
@@ -56,25 +58,17 @@ permalink: /404.html
         }
       });
 
-    // Build Telegram button with fresh code
-    fetch(`https://ua.iamsaburo.workers.dev/api/telegram-code?slug=${encodeURIComponent(slug)}`, { credentials:'include' })
-      .then(r => r.json())
-      .then(data => {
-        document.getElementById('tg-btn').href =
-          `https://ua.iamsaburo.workers.dev/auth/telegram?code=${data.code}&redirect=${encodeURIComponent(secretUrl)}`;
-      })
-      .catch(() => {
-        document.getElementById('tg-btn').href = '#';
-      });
+    // Telegram: direct link to bot (bot sends the verification link)
+    document.getElementById('tg-btn').href = `https://t.me/saburo_community_bot?start=${slug}`;
 
-    // Discord button (no special code needed)
+    // Discord: OAuth via Worker
     document.getElementById('dc-btn').href =
       `https://ua.iamsaburo.workers.dev/auth/discord?redirect=${encodeURIComponent(secretUrl)}`;
 
     return;
   }
 
-  // ========== 2. SECRET PAGE (any other URL) ==========
+  // ========== SECRET PAGE ==========
   const slug = path.replace(/^\/|\/$/g, '');
   if (!slug) {
     document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
@@ -91,7 +85,7 @@ permalink: /404.html
     });
   }
 
-  // DOM cleanup: remove stray <br> inside block-level elements and empty <p> (keep images)
+  // DOM cleanup: remove stray <br> inside block elements and empty <p> (keep images)
   function cleanContent(container) {
     const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
 
