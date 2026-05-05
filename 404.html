@@ -28,7 +28,6 @@ permalink: /404.html
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/kramed@0.5.6/lib/kramed.min.js"></script>
 <script>
 (function() {
   const path = window.location.pathname;
@@ -70,14 +69,44 @@ permalink: /404.html
     return;
   }
 
-  fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
-    .then(r => r.json())
-    .then(data => {
-      if (!data.valid) {
-        window.location.replace(`/${slug}-access`);
-        return;
+  // Load Markdown parser (marked) dynamically
+  function loadParser() {
+    return new Promise(resolve => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+      script.onload = resolve;
+      document.head.appendChild(script);
+    });
+  }
+
+  // DOM cleanup: remove stray <br> inside block-level elements and empty <p>
+  function cleanContent(container) {
+    const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
+
+    // Remove <br> that are direct children of any block-level container
+    container.querySelectorAll(blockElements).forEach(el => {
+      el.querySelectorAll(':scope > br').forEach(br => br.remove());
+    });
+
+    // Remove truly empty paragraphs (only whitespace inside)
+    container.querySelectorAll('p').forEach(p => {
+      if (!p.textContent.trim()) {
+        p.remove();
       }
-      return fetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
+    });
+  }
+
+  loadParser()
+    .then(() => {
+      return fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+        .then(r => r.json())
+        .then(data => {
+          if (!data.valid) {
+            window.location.replace(`/${slug}-access`);
+            return;
+          }
+          return fetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
+        });
     })
     .then(res => {
       if (!res) return;
@@ -92,10 +121,14 @@ permalink: /404.html
       document.getElementById('loading').style.display = 'none';
       const contentContainer = document.querySelector('.content-container');
 
-      // Use kramed — kramdown‑compatible Markdown parser
-      var html = kramed.parse(rawMarkdown);
+      // Convert Markdown to HTML using marked
+      const html = window.marked.parse(rawMarkdown);
       contentContainer.innerHTML = html;
 
+      // Clean up artifacts that differ from Jekyll's Kramdown
+      cleanContent(contentContainer);
+
+      // Activate all interactive features (tabs, copy, etc.)
       if (typeof window.enhanceContent === 'function') {
         window.enhanceContent(contentContainer);
       }
