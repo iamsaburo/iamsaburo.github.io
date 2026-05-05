@@ -4,7 +4,7 @@ title: "SABURO™"
 permalink: /404.html
 ---
 <div id="app">
-  <!-- ====== Verification gate (shown when access needed) ====== -->
+  <!-- ====== Verification gate ====== -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
     <img src="/svg/logo_symbol.svg" width="60" height="60" alt="SABURO" style="margin-bottom:1.5rem;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки учасникам спільноти</h2>
@@ -28,7 +28,7 @@ permalink: /404.html
     </p>
   </div>
 
-  <!-- ====== Loading for secret page ====== -->
+  <!-- ====== Loading ====== -->
   <div id="loading" style="text-align:center; padding:2rem;">
     <p>Завантаження…</p>
   </div>
@@ -36,45 +36,69 @@ permalink: /404.html
 
 <script>
 (function() {
+  // --- Token management (localStorage, 24h expiry handled server-side) ---
+  const urlParams = new URLSearchParams(window.location.search);
+  let authToken = urlParams.get('token');
+  if (authToken) {
+    localStorage.setItem('auth_token', authToken);
+    // Clean URL without reloading
+    const newUrl = window.location.pathname + window.location.hash;
+    window.history.replaceState({}, document.title, newUrl);
+  } else {
+    authToken = localStorage.getItem('auth_token');
+  }
+
+  function authFetch(url, options = {}) {
+    if (authToken) {
+      options.headers = Object.assign({}, options.headers, {
+        'Authorization': 'Bearer ' + authToken
+      });
+    }
+    // No credentials – we only rely on the Authorization header now
+    return fetch(url, options);
+  }
+
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
 
-  // ========== 1. ACCESS GATE ==========
+  // ========== ACCESS GATE ==========
   if (accessMatch) {
     const slug = accessMatch[1];
     const secretUrl = '/' + slug;
 
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('gate').style.display = 'block';
-
-    // Check if already authenticated → skip gate
-    fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
-      .then(r => r.json())
-      .then(data => {
-        if (data.valid) {
-          window.location.replace(secretUrl);
-        }
-      });
-
-    // Build Telegram button with fresh code
-    fetch(`https://ua.iamsaburo.workers.dev/api/telegram-code?slug=${encodeURIComponent(slug)}`, { credentials:'include' })
-      .then(r => r.json())
-      .then(data => {
-        document.getElementById('tg-btn').href =
-          `https://ua.iamsaburo.workers.dev/auth/telegram?code=${data.code}&redirect=${encodeURIComponent(secretUrl)}`;
-      })
-      .catch(() => {
-        document.getElementById('tg-btn').href = '#';
-      });
-
-    // Discord button (no special code needed)
-    document.getElementById('dc-btn').href =
-      `https://ua.iamsaburo.workers.dev/auth/discord?redirect=${encodeURIComponent(secretUrl)}`;
+    // If we already have a token, check it immediately and redirect if valid
+    if (authToken) {
+      authFetch('https://ua.iamsaburo.workers.dev/api/check-token')
+        .then(r => r.json())
+        .then(data => {
+          if (data.valid) {
+            window.location.replace(secretUrl);
+          } else {
+            // Token expired – show gate
+            showGate(slug, secretUrl);
+          }
+        })
+        .catch(() => showGate(slug, secretUrl));
+    } else {
+      showGate(slug, secretUrl);
+    }
 
     return;
   }
 
-  // ========== 2. SECRET PAGE (any other URL) ==========
+  function showGate(slug, secretUrl) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('gate').style.display = 'block';
+
+    // Telegram: direct link to bot
+    document.getElementById('tg-btn').href = 'https://t.me/saburo_community_bot?start=' + slug;
+
+    // Discord: OAuth via Worker
+    document.getElementById('dc-btn').href =
+      'https://ua.iamsaburo.workers.dev/auth/discord?redirect=' + encodeURIComponent(secretUrl);
+  }
+
+  // ========== SECRET PAGE ==========
   const slug = path.replace(/^\/|\/$/g, '');
   if (!slug) {
     document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
@@ -91,7 +115,6 @@ permalink: /404.html
     });
   }
 
-  // DOM cleanup: remove stray <br> inside block-level elements and empty <p> (keep images)
   function cleanContent(container) {
     const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
 
@@ -108,20 +131,20 @@ permalink: /404.html
 
   loadParser()
     .then(() => {
-      return fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+      return authFetch('https://ua.iamsaburo.workers.dev/api/check-token')
         .then(r => r.json())
         .then(data => {
           if (!data.valid) {
-            window.location.replace(`/${slug}-access`);
+            window.location.replace('/' + slug + '-access');
             return;
           }
-          return fetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
+          return authFetch('https://ua.iamsaburo.workers.dev/api/content/' + slug);
         });
     })
     .then(res => {
       if (!res) return;
       if (!res.ok) {
-        window.location.replace(`/${slug}-access`);
+        window.location.replace('/' + slug + '-access');
         return;
       }
       return res.text();
