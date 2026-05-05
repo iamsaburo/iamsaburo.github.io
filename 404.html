@@ -4,7 +4,7 @@ title: "SABURO™"
 permalink: /404.html
 ---
 <div id="app">
-  <!-- ====== Verification gate ====== -->
+  <!-- ====== Verification gate (shown when access needed) ====== -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
     <img src="/svg/logo_symbol.svg" width="60" height="60" alt="SABURO" style="margin-bottom:1.5rem;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки учасникам спільноти</h2>
@@ -28,7 +28,7 @@ permalink: /404.html
     </p>
   </div>
 
-  <!-- ====== Loading ====== -->
+  <!-- ====== Loading for secret page ====== -->
   <div id="loading" style="text-align:center; padding:2rem;">
     <p>Завантаження…</p>
   </div>
@@ -36,30 +36,10 @@ permalink: /404.html
 
 <script>
 (function() {
-  // Extract token from URL if present, then clean the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  let authToken = urlParams.get('token');
-  if (authToken) {
-    localStorage.setItem('auth_token', authToken);
-    // Remove token from URL visually without reloading
-    const newUrl = window.location.pathname + window.location.hash;
-    window.history.replaceState({}, document.title, newUrl);
-  } else {
-    authToken = localStorage.getItem('auth_token');
-  }
-
-  function authFetch(url, options = {}) {
-    if (authToken) {
-      options.headers = options.headers || {};
-      options.headers['Authorization'] = `Bearer ${authToken}`;
-    }
-    return fetch(url, options);
-  }
-
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
 
-  // ========== ACCESS GATE ==========
+  // ========== 1. ACCESS GATE ==========
   if (accessMatch) {
     const slug = accessMatch[1];
     const secretUrl = '/' + slug;
@@ -67,8 +47,8 @@ permalink: /404.html
     document.getElementById('loading').style.display = 'none';
     document.getElementById('gate').style.display = 'block';
 
-    // If already authenticated, redirect straight to secret page
-    authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+    // Check if already authenticated → skip gate
+    fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
       .then(r => r.json())
       .then(data => {
         if (data.valid) {
@@ -76,17 +56,25 @@ permalink: /404.html
         }
       });
 
-    // Telegram: direct link to bot
-    document.getElementById('tg-btn').href = `https://t.me/saburo_community_bot?start=${slug}`;
+    // Build Telegram button with fresh code
+    fetch(`https://ua.iamsaburo.workers.dev/api/telegram-code?slug=${encodeURIComponent(slug)}`, { credentials:'include' })
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('tg-btn').href =
+          `https://ua.iamsaburo.workers.dev/auth/telegram?code=${data.code}&redirect=${encodeURIComponent(secretUrl)}`;
+      })
+      .catch(() => {
+        document.getElementById('tg-btn').href = '#';
+      });
 
-    // Discord: OAuth via Worker
+    // Discord button (no special code needed)
     document.getElementById('dc-btn').href =
       `https://ua.iamsaburo.workers.dev/auth/discord?redirect=${encodeURIComponent(secretUrl)}`;
 
     return;
   }
 
-  // ========== SECRET PAGE ==========
+  // ========== 2. SECRET PAGE (any other URL) ==========
   const slug = path.replace(/^\/|\/$/g, '');
   if (!slug) {
     document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
@@ -103,6 +91,7 @@ permalink: /404.html
     });
   }
 
+  // DOM cleanup: remove stray <br> inside block-level elements and empty <p> (keep images)
   function cleanContent(container) {
     const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
 
@@ -119,14 +108,14 @@ permalink: /404.html
 
   loadParser()
     .then(() => {
-      return authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+      return fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
         .then(r => r.json())
         .then(data => {
           if (!data.valid) {
             window.location.replace(`/${slug}-access`);
             return;
           }
-          return authFetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
+          return fetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
         });
     })
     .then(res => {
