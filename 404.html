@@ -38,7 +38,7 @@ permalink: /404.html
 
 <script>
 (function() {
-  // Extract token from URL if present, then clean the URL
+  // ---------- Token handling ----------
   const urlParams = new URLSearchParams(window.location.search);
   let authToken = urlParams.get('token');
   console.log('Initial token check:', authToken ? 'found in URL' : 'not in URL');
@@ -61,6 +61,40 @@ permalink: /404.html
       console.log(`Fetching ${url} WITHOUT auth header`);
     }
     return fetch(url, options);
+  }
+
+  // ---------- Markdown parser loader ----------
+  let parserReady = null;  // Promise that resolves when marked is loaded
+  function loadParser() {
+    if (!parserReady) {
+      parserReady = new Promise(resolve => {
+        if (window.marked) return resolve();
+        console.log('Loading marked parser...');
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+        script.onload = () => { console.log('Marked loaded'); resolve(); };
+        script.onerror = () => {
+          console.error('Failed to load marked');
+          document.getElementById('loading-error').style.display = 'block';
+          document.getElementById('loading-error').textContent = 'Помилка завантаження. Спробуйте пізніше.';
+        };
+        document.head.appendChild(script);
+      });
+    }
+    return parserReady;
+  }
+
+  // ---------- DOM cleanup ----------
+  function cleanContent(container) {
+    const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
+    container.querySelectorAll(blockElements).forEach(el => {
+      el.querySelectorAll(':scope > br').forEach(br => br.remove());
+    });
+    container.querySelectorAll('p').forEach(p => {
+      if (!p.textContent.trim() && !p.querySelector('img, iframe, video, svg, canvas, pre, table, div, blockquote, ul, ol, hr')) {
+        p.remove();
+      }
+    });
   }
 
   const path = window.location.pathname;
@@ -115,29 +149,8 @@ permalink: /404.html
     return;
   }
 
-  function loadParser() {
-    return new Promise(resolve => {
-      if (window.marked) return resolve();
-      console.log('Loading marked parser...');
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
-      script.onload = () => { console.log('Marked loaded'); resolve(); };
-      document.head.appendChild(script);
-    });
-  }
-
-  function cleanContent(container) {
-    // ... (same as before, no logging needed)
-    const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
-    container.querySelectorAll(blockElements).forEach(el => {
-      el.querySelectorAll(':scope > br').forEach(br => br.remove());
-    });
-    container.querySelectorAll('p').forEach(p => {
-      if (!p.textContent.trim() && !p.querySelector('img, iframe, video, svg, canvas, pre, table, div, blockquote, ul, ol, hr')) {
-        p.remove();
-      }
-    });
-  }
+  // Start loading parser early
+  const parserPromise = loadParser();
 
   console.log('Verifying token for secret page...');
   authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
@@ -164,17 +177,20 @@ permalink: /404.html
     .then(rawMarkdown => {
       if (!rawMarkdown) return;
       console.log('Content fetched, length:', rawMarkdown.length);
-      document.getElementById('loading').style.display = 'none';
-      const contentContainer = document.querySelector('.content-container');
+      // Wait for parser to be ready, then render
+      return parserPromise.then(() => {
+        document.getElementById('loading').style.display = 'none';
+        const contentContainer = document.querySelector('.content-container');
 
-      const html = window.marked.parse(rawMarkdown);
-      contentContainer.innerHTML = html;
-      cleanContent(contentContainer);
+        const html = window.marked.parse(rawMarkdown);
+        contentContainer.innerHTML = html;
+        cleanContent(contentContainer);
 
-      if (typeof window.enhanceContent === 'function') {
-        console.log('Running enhanceContent');
-        window.enhanceContent(contentContainer);
-      }
+        if (typeof window.enhanceContent === 'function') {
+          console.log('Running enhanceContent');
+          window.enhanceContent(contentContainer);
+        }
+      });
     })
     .catch(e => {
       if (e === 'redirect') return;
