@@ -10,7 +10,6 @@ permalink: /404.html
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки учасникам спільноти</h2>
     <p style="color:var(--muted); margin-bottom:2rem;">Будь ласка, підтвердь участь через Telegram або Discord.</p>
 
-    <!-- Telegram button – direct link to bot -->
     <a id="tg-btn" class="btn-saburo" data-visual="pill" style="--btn-w:100%;--btn-h:48px;--radius:10px; background:#2AABEE; color:#fff !important; margin-bottom:0.75rem; display:flex; align-items:center; justify-content:center; gap:8px;">
       <img src="/svg/telegram.svg" width="20" height="20" alt="" style="flex-shrink:0;">
       <span class="btn-label">Продовжити через Telegram</span>
@@ -18,7 +17,6 @@ permalink: /404.html
 
     <p style="color:var(--muted); margin:0.75rem 0;">- або -</p>
 
-    <!-- Discord button – OAuth via Worker -->
     <a id="dc-btn" class="btn-saburo" data-visual="pill" style="--btn-w:100%;--btn-h:48px;--radius:10px; background:#5865F2; color:#fff !important; margin-bottom:1.5rem; display:flex; align-items:center; justify-content:center; gap:8px;">
       <img src="/svg/discord.svg" width="20" height="20" alt="" style="flex-shrink:0;">
       <span class="btn-label">Продовжити через Discord</span>
@@ -38,6 +36,26 @@ permalink: /404.html
 
 <script>
 (function() {
+  // Extract token from URL if present, then clean the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  let authToken = urlParams.get('token');
+  if (authToken) {
+    localStorage.setItem('auth_token', authToken);
+    // Remove token from URL visually without reloading
+    const newUrl = window.location.pathname + window.location.hash;
+    window.history.replaceState({}, document.title, newUrl);
+  } else {
+    authToken = localStorage.getItem('auth_token');
+  }
+
+  function authFetch(url, options = {}) {
+    if (authToken) {
+      options.headers = options.headers || {};
+      options.headers['Authorization'] = `Bearer ${authToken}`;
+    }
+    return fetch(url, options);
+  }
+
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
 
@@ -50,7 +68,7 @@ permalink: /404.html
     document.getElementById('gate').style.display = 'block';
 
     // If already authenticated, redirect straight to secret page
-    fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+    authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
       .then(r => r.json())
       .then(data => {
         if (data.valid) {
@@ -58,7 +76,7 @@ permalink: /404.html
         }
       });
 
-    // Telegram: direct link to bot (bot sends the verification link)
+    // Telegram: direct link to bot
     document.getElementById('tg-btn').href = `https://t.me/saburo_community_bot?start=${slug}`;
 
     // Discord: OAuth via Worker
@@ -85,7 +103,6 @@ permalink: /404.html
     });
   }
 
-  // DOM cleanup: remove stray <br> inside block elements and empty <p> (keep images)
   function cleanContent(container) {
     const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
 
@@ -102,14 +119,14 @@ permalink: /404.html
 
   loadParser()
     .then(() => {
-      return fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
+      return authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
         .then(r => r.json())
         .then(data => {
           if (!data.valid) {
             window.location.replace(`/${slug}-access`);
             return;
           }
-          return fetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
+          return authFetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
         });
     })
     .then(res => {
