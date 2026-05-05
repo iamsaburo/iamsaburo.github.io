@@ -4,7 +4,7 @@ title: "SABURO™"
 permalink: /404.html
 ---
 <div id="app">
-  <!-- Access gate UI (hidden by default) -->
+  <!-- ====== Verification gate (shown when access needed) ====== -->
   <div id="gate" style="display:none; text-align:center;">
     <h2>Цей контент доступний тільки учасникам спільноти</h2>
     <p>Будь ласка, підтвердь участь через Telegram або Discord.</p>
@@ -22,18 +22,19 @@ permalink: /404.html
     </p>
   </div>
 
-  <!-- Loading indicator -->
+  <!-- ====== Loading for secret page ====== -->
   <div id="loading" style="text-align:center; padding:2rem;">
     <p>Завантаження…</p>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/kramed@0.5.6/lib/kramed.min.js"></script>
 <script>
 (function() {
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
 
-  // ========== ACCESS GATE ==========
+  // ========== 1. ACCESS GATE ==========
   if (accessMatch) {
     const slug = accessMatch[1];
     const secretUrl = '/' + slug;
@@ -41,7 +42,6 @@ permalink: /404.html
     document.getElementById('loading').style.display = 'none';
     document.getElementById('gate').style.display = 'block';
 
-    // If already authenticated, redirect straight to secret page
     fetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
       .then(r => r.json())
       .then(data => {
@@ -50,7 +50,6 @@ permalink: /404.html
         }
       });
 
-    // Build Telegram button with fresh code
     fetch(`https://ua.iamsaburo.workers.dev/api/telegram-code?slug=${encodeURIComponent(slug)}`, { credentials:'include' })
       .then(r => r.json())
       .then(data => {
@@ -58,14 +57,13 @@ permalink: /404.html
           `https://ua.iamsaburo.workers.dev/auth/telegram?code=${data.code}&redirect=${encodeURIComponent(secretUrl)}`;
       });
 
-    // Discord button
     document.getElementById('dc-btn').href =
       `https://ua.iamsaburo.workers.dev/auth/discord?redirect=${encodeURIComponent(secretUrl)}`;
 
     return;
   }
 
-  // ========== SECRET PAGE ==========
+  // ========== 2. SECRET PAGE (any other URL) ==========
   const slug = path.replace(/^\/|\/$/g, '');
   if (!slug) {
     document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
@@ -87,18 +85,17 @@ permalink: /404.html
         window.location.replace(`/${slug}-access`);
         return;
       }
-      return res.text();   // raw Markdown from the Worker
+      return res.text();
     })
     .then(rawMarkdown => {
       if (!rawMarkdown) return;
       document.getElementById('loading').style.display = 'none';
       const contentContainer = document.querySelector('.content-container');
 
-      // Render Markdown with the same engine used everywhere
-      const html = marked.parse(rawMarkdown);
+      // Use kramed — kramdown‑compatible Markdown parser
+      var html = kramed.parse(rawMarkdown);
       contentContainer.innerHTML = html;
 
-      // Activate all interactive features (tabs, copy, etc.)
       if (typeof window.enhanceContent === 'function') {
         window.enhanceContent(contentContainer);
       }
