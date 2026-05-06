@@ -1,8 +1,26 @@
 ---
 layout: block-info
-title: "SABURO™"
+title: "Корисне"
 permalink: /404.html
 ---
+
+<style>
+  .btn-back .btn-label {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @media(max-width:768px){
+    .btn-back .btn-label { max-width: 120px; }
+    #gate { margin: 1rem !important; }
+  }
+  @media(max-width:480px){
+    .btn-back .btn-label { max-width: 90px; }
+    #gate { margin: 0.75rem !important; }
+  }
+</style>
+
 <div id="app">
   <!-- ====== Verification gate ====== -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto 1rem; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
@@ -74,12 +92,13 @@ permalink: /404.html
     });
   }
 
-  // ---------- Insert back button ----------
+  // ---------- Insert back button with the block title ----------
   function addBackButton(slug, title) {
     var navLeft = document.querySelector('.nav-left');
     if (!navLeft) return;
+
     var btn = document.createElement('a');
-    btn.className = 'btn-saburo';
+    btn.className = 'btn-saburo btn-back';
     btn.setAttribute('data-visual', 'pill');
     btn.setAttribute('data-icon-visual', 'arrow_back');
     btn.setAttribute('data-icon-hover', 'arrow_back');
@@ -91,13 +110,17 @@ permalink: /404.html
       <span class="material-icons-round btn-icon btn-icon-hover">arrow_back</span>
       <span class="btn-label">${title || slug}</span>
     `;
-    var brand = navLeft.querySelector('.nav-brand');
+
+    var brand = document.querySelector('.nav-brand');
     if (brand) {
       brand.after(btn);
     } else {
       navLeft.prepend(btn);
     }
-    // Make wordmark hide on small screens (like info pages)
+
+    var tagline = document.querySelector('.nav-tagline');
+    if (tagline) tagline.style.display = 'none';
+
     var wordmark = document.querySelector('.nav-wordmark');
     if (wordmark) wordmark.classList.add('nav-wordmark--info');
   }
@@ -106,7 +129,6 @@ permalink: /404.html
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
   const contentContainer = document.querySelector('.content-container');
 
-  // Determine slug and fetch info title for back button
   const slug = accessMatch ? accessMatch[1] : path.replace(/^\/|\/$/g, '');
   if (slug) {
     fetch(`https://ua.iamsaburo.workers.dev/api/info/${slug}`)
