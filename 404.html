@@ -1,23 +1,16 @@
 ---
 layout: block-info
-title: "Корисне"
+title: "SABURO™"
 permalink: /404.html
 ---
 
 <style>
-  .btn-back .btn-label {
-    max-width: 180px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  /* Gate responsiveness – always centred */
   @media(max-width:768px){
-    .btn-back .btn-label { max-width: 120px; }
-    #gate { margin: 1rem !important; }
+    #gate { margin: 1rem auto !important; }
   }
   @media(max-width:480px){
-    .btn-back .btn-label { max-width: 90px; }
-    #gate { margin: 0.75rem !important; }
+    #gate { margin: 0.75rem auto !important; }
   }
 </style>
 
@@ -92,13 +85,26 @@ permalink: /404.html
     });
   }
 
-  // ---------- Insert back button with the block title ----------
-  function addBackButton(slug, title) {
+  // ---------- Simple "Назад" button ----------
+  function addBackButton() {
     var navLeft = document.querySelector('.nav-left');
     if (!navLeft) return;
 
     var btn = document.createElement('a');
-    btn.className = 'btn-saburo btn-back';
+    btn.className = 'btn-saburo';
+    btn.setAttribute('data-visual', 'pill');
+    btn.setAttribute('data-icon-visual', 'arrow_back');
+    btn.setAttribute('data-icon-hover', 'arrow_back');
+    btn.setAttribute('data-icon-position', 'before');
+    btn.style.cssText = '--btn-w:auto;--btn-h:32px;--radius:28px;';
+    btn.href = '/';
+  }
+
+  function addBackButton(slug) {
+    var navLeft = document.querySelector('.nav-left');
+    if (!navLeft) return;
+    var btn = document.createElement('a');
+    btn.className = 'btn-saburo';
     btn.setAttribute('data-visual', 'pill');
     btn.setAttribute('data-icon-visual', 'arrow_back');
     btn.setAttribute('data-icon-hover', 'arrow_back');
@@ -108,35 +114,48 @@ permalink: /404.html
     btn.innerHTML = `
       <span class="material-icons-round btn-icon btn-icon-visual">arrow_back</span>
       <span class="material-icons-round btn-icon btn-icon-hover">arrow_back</span>
-      <span class="btn-label">${title || slug}</span>
+      <span class="btn-label">Назад</span>
     `;
-
     var brand = document.querySelector('.nav-brand');
     if (brand) {
       brand.after(btn);
     } else {
       navLeft.prepend(btn);
     }
-
+    // Hide "| Корисне" tagline
     var tagline = document.querySelector('.nav-tagline');
     if (tagline) tagline.style.display = 'none';
-
+    // Hide wordmark on small screens (like info pages)
     var wordmark = document.querySelector('.nav-wordmark');
     if (wordmark) wordmark.classList.add('nav-wordmark--info');
+  }
+
+  // Set browser tab title
+  function setTabTitle(title) {
+    document.title = title ? `SABURO™ | ${title}` : 'SABURO™';
   }
 
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
   const contentContainer = document.querySelector('.content-container');
-
   const slug = accessMatch ? accessMatch[1] : path.replace(/^\/|\/$/g, '');
+
   if (slug) {
-    fetch(`https://ua.iamsaburo.workers.dev/api/info/${slug}`)
-      .then(r => r.json())
-      .then(data => {
-        addBackButton(slug, data.title || '');
-      })
-      .catch(() => addBackButton(slug, ''));
+    if (accessMatch) {
+      setTabTitle('Доступ');
+      addBackButton(slug);
+    } else {
+      fetch(`https://ua.iamsaburo.workers.dev/api/info/${slug}`)
+        .then(r => r.json())
+        .then(data => {
+          setTabTitle(data.title || slug);
+          addBackButton(slug);
+        })
+        .catch(() => {
+          setTabTitle(slug);
+          addBackButton(slug);
+        });
+    }
   }
 
   if (accessMatch) {
