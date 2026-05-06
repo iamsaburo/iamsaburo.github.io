@@ -76,45 +76,45 @@ permalink: /404.html
 
   // ---------- Insert back button ----------
   function addBackButton(slug, title) {
-    const navLeft = document.querySelector('.nav-left');
+    var navLeft = document.querySelector('.nav-left');
     if (!navLeft) return;
-    const btn = document.createElement('a');
+    var btn = document.createElement('a');
     btn.className = 'btn-saburo';
     btn.setAttribute('data-visual', 'pill');
     btn.setAttribute('data-icon-visual', 'arrow_back');
     btn.setAttribute('data-icon-hover', 'arrow_back');
     btn.setAttribute('data-icon-position', 'before');
     btn.style.cssText = '--btn-w:auto;--btn-h:32px;--radius:28px;';
-    btn.href = `/${slug}-info`;
+    btn.href = '/' + slug + '-info';
     btn.innerHTML = `
       <span class="material-icons-round btn-icon btn-icon-visual">arrow_back</span>
       <span class="material-icons-round btn-icon btn-icon-hover">arrow_back</span>
       <span class="btn-label">${title || slug}</span>
     `;
-    // Insert after the brand link
-    const brand = navLeft.querySelector('.nav-brand');
+    var brand = navLeft.querySelector('.nav-brand');
     if (brand) {
       brand.after(btn);
     } else {
       navLeft.prepend(btn);
     }
+    // Make wordmark hide on small screens (like info pages)
+    var wordmark = document.querySelector('.nav-wordmark');
+    if (wordmark) wordmark.classList.add('nav-wordmark--info');
   }
 
   const path = window.location.pathname;
   const accessMatch = path.match(/^\/(.+)-access\/?$/);
   const contentContainer = document.querySelector('.content-container');
 
-  // Determine slug and info title
+  // Determine slug and fetch info title for back button
   const slug = accessMatch ? accessMatch[1] : path.replace(/^\/|\/$/g, '');
   if (slug) {
-    // Fetch the block title for the back button
     fetch(`https://ua.iamsaburo.workers.dev/api/info/${slug}`)
       .then(r => r.json())
       .then(data => {
-        if (data.title) addBackButton(slug, data.title);
-        else addBackButton(slug, 'Інформація');
+        addBackButton(slug, data.title || '');
       })
-      .catch(() => addBackButton(slug, 'Інформація'));
+      .catch(() => addBackButton(slug, ''));
   }
 
   if (accessMatch) {
