@@ -5,19 +5,25 @@ permalink: /404.html
 ---
 
 <style>
-  /* Gate – always centred */
+  /* Gate side gaps – match content-container */
   @media(max-width:768px){
     #gate { margin: 1rem auto !important; }
   }
   @media(max-width:480px){
     #gate { margin: 0.75rem auto !important; }
   }
+  /* All embeds get 4px radius */
+  .content-container img,
+  .content-container video,
+  .content-container iframe {
+    border-radius: 4px;
+  }
 </style>
 
 <div id="app">
-  <!-- ====== Verification gate ====== -->
+  <!-- Verification gate -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto 1rem; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
-    <img src="/svg/saburo-community.svg" width="85" height="auto" alt="SABURO" style="margin-bottom:1.5rem; display:block; margin-left:auto; margin-right:auto;">
+    <img src="/svg/saburo-community.svg" width="85" height="auto" alt="SABURO" style="margin-bottom:1.5rem; display:block; margin-left:auto; margin-right:auto; max-width:100%;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки для<br>учасників спільноти</h2>
     <p style="color:var(--muted); margin-bottom:2rem;">Будь ласка, авторизуйся<br>через Telegram або Discord.</p>
     <a id="tg-btn" class="btn-saburo" data-visual="pill" style="--btn-w:280px;--btn-h:48px;--radius:4px; background:#2AABEE; color:#fff !important; margin:0 auto 0.75rem; display:flex; align-items:center; justify-content:center; gap:8px;">
@@ -35,7 +41,6 @@ permalink: /404.html
     </p>
   </div>
 
-  <!-- ====== Loading ====== -->
   <div id="loading" style="text-align:center; padding:2rem;">
     <p>Завантаження…</p>
     <div id="loading-error" style="color:#ff6b6b; display:none;"></div>
@@ -44,6 +49,7 @@ permalink: /404.html
 
 <script>
 (function() {
+  // Token handling
   const urlParams = new URLSearchParams(window.location.search);
   let authToken = urlParams.get('token');
   if (authToken) {
