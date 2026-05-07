@@ -30,6 +30,11 @@ content:
         label: GIF
         type: string
         required: false
+      - name: webm_image
+        label: WebM (анімація)
+        type: string
+        required: false
+        hint: "Шлях до WebM‑файлу, наприклад /webm/animation.webm"
       - name: back_url
         label: URL кнопки "Назад"
         type: string
