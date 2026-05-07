@@ -26,11 +26,15 @@ title: "Корисне"
   {% for block in sorted_blocks %}
   <a href="{{ block.slug | append: '-info' | prepend: '/' | relative_url }}" class="block-card" data-categories="{{ block.categories | join: ',' }}">
     <div class="image-wrapper">
-      {% if block.gif_image %}
-      <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
-      <img class="gif-img" data-src="{{ block.gif_image }}" alt="{{ block.title }}">
+      {% if block.webm_image %}
+        <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
+        <video class="webm-img" data-src="{{ block.webm_image }}" muted loop playsinline
+               style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .35s;"></video>
+      {% elsif block.gif_image %}
+        <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
+        <img class="gif-img" data-src="{{ block.gif_image }}" alt="{{ block.title }}">
       {% else %}
-      <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
+        <img class="static-img" src="{{ block.image }}" alt="{{ block.title }}">
       {% endif %}
     </div>
     <div class="card-title">{{ block.title }}</div>
@@ -74,7 +78,6 @@ title: "Корисне"
   let activeCategory = 'all';
   let filteredCards  = [...cards];
 
-  /* #4: Two-rAF trick forces reflow so animation replays correctly */
   function showCardsWithFade(visibleCards) {
     cards.forEach(c => {
       c.style.display = 'none';
@@ -86,7 +89,6 @@ title: "Корисне"
       card.style.display = '';
     });
 
-    /* Force reflow before adding visible to trigger transition */
     void document.getElementById('blockContainer').offsetHeight;
 
     visibleCards.forEach((card, i) => {
@@ -114,7 +116,6 @@ title: "Корисне"
 
   function updatePaginationUI(total) {
     if (!paginationDiv) return;
-    /* #5: Hide pagination when all blocks fit on one page */
     paginationDiv.style.display = filteredCards.length > cardsPerPage ? 'flex' : 'none';
     document.querySelectorAll('.page-num').forEach(btn => {
       const p = parseInt(btn.dataset.page);
@@ -149,7 +150,6 @@ title: "Корисне"
     document.querySelectorAll('.page-num').forEach(btn => {
       btn.addEventListener('click', () => {
         currentPage = parseInt(btn.dataset.page);
-        /* #4: Scroll before render so grid is empty during scroll */
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => render(), 300);
       });
@@ -172,5 +172,85 @@ title: "Корисне"
   }
 
   applyFilter();
+
+  /* ---- GIF / WebM lazy loading ---- */
+  const isMobile = window.matchMedia('(hover:none)').matches;
+  const allCards = document.querySelectorAll('.block-card');
+
+  if (!isMobile) {
+    allCards.forEach(card => {
+      // -- GIF --
+      const gifImg = card.querySelector('.gif-img');
+      if (gifImg) {
+        const gifSrc = gifImg.dataset.src;
+        let loaded = false;
+        card.addEventListener('mouseenter', () => {
+          if (loaded) { card.classList.add('gif-ready'); }
+          else {
+            gifImg.src = gifSrc;
+            gifImg.addEventListener('load', () => {
+              loaded = true;
+              if (card.matches(':hover')) card.classList.add('gif-ready');
+            }, { once: true });
+          }
+        });
+        card.addEventListener('mouseleave', () => card.classList.remove('gif-ready'));
+      }
+
+      // -- WebM --
+      const webm = card.querySelector('.webm-img');
+      if (webm) {
+        const webmSrc = webm.dataset.src;
+        let loaded = false;
+        card.addEventListener('mouseenter', () => {
+          if (loaded) { card.classList.add('webm-ready'); webm.play(); }
+          else {
+            webm.src = webmSrc;
+            webm.addEventListener('loadeddata', () => {
+              loaded = true;
+              if (card.matches(':hover')) { card.classList.add('webm-ready'); webm.play(); }
+            }, { once: true });
+          }
+        });
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('webm-ready');
+          webm.pause();
+        });
+      }
+    });
+  } else {
+    // Mobile: preload sources
+    allCards.forEach(card => {
+      const gifImg = card.querySelector('.gif-img');
+      if (gifImg && gifImg.dataset.src) gifImg.src = gifImg.dataset.src;
+
+      const webm = card.querySelector('.webm-img');
+      if (webm && webm.dataset.src) webm.src = webm.dataset.src;
+    });
+
+    let activeCard = null;
+    const observer = new IntersectionObserver(entries => {
+      let best = null, bestRatio = 0;
+      entries.forEach(e => {
+        if (e.intersectionRatio > bestRatio) {
+          bestRatio = e.intersectionRatio;
+          best = e.target;
+        }
+      });
+      if (best && bestRatio > 0.5) {
+        if (activeCard && activeCard !== best) {
+          activeCard.classList.remove('gif-ready', 'webm-ready');
+          const prevWebm = activeCard.querySelector('.webm-img');
+          if (prevWebm) prevWebm.pause();
+        }
+        best.classList.add('gif-ready', 'webm-ready');
+        const bestWebm = best.querySelector('.webm-img');
+        if (bestWebm) bestWebm.play();
+        activeCard = best;
+      }
+    }, { threshold: [0, .25, .5, .75, 1] });
+
+    allCards.forEach(card => observer.observe(card));
+  }
 })();
 </script>
