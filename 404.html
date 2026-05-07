@@ -128,15 +128,6 @@ permalink: /404.html
     .then(data => { document.title = 'SABURO™ | ' + (data.title || slug); })
     .catch(() => { document.title = 'SABURO™ | ' + slug; });
 
-  // load parser (only if needed – currently Worker returns HTML, but we keep for fallback)
-  const parserPromise = new Promise(resolve => {
-    if (window.marked) return resolve();
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
-    s.onload = resolve;
-    document.head.appendChild(s);
-  });
-
   authFetch('https://ua.iamsaburo.workers.dev/api/check-token')
     .then(r => r.json())
     .then(data => {
@@ -151,7 +142,6 @@ permalink: /404.html
       document.getElementById('loading').style.display = 'none';
       if (contentContainer) contentContainer.style.display = '';
       contentContainer.innerHTML = html;
-      // run enhancements (tabs, copy buttons, image download)
       if (typeof window.enhanceContent === 'function') {
         window.enhanceContent(contentContainer);
       }
