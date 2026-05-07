@@ -1,6 +1,6 @@
 ---
 title: Звукові Twitch емоути
-slug: sound-emotes
+slug: twitch-sound-emotes
 order: 99
 hidden: false
 image: https://i.postimg.cc/DwgBYH8v/Sound-Emotes-Video-mp4-20260504-025247-519.jpg
@@ -11,23 +11,18 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-## 🥳 Звукові Twitch емоути v1.1
+![Демонстрація звукових емоутів](https://i.postimg.cc/your-gif-url.gif)
 
-**Тепер кожен твій емоут може мати власний звук!**  
-Надішли в чат `😄` — залунає сміх, надішли `💛` — почуєш, як б’ється серце.
+# ЗВУКОВІ TWITCH ЕМОУТИ 🥳
 
-### Можливості
+Тепер кожен з ваших Twitch емоутів може мати свій звук, який прозвучить як тільки хтось використає його в чаті. Одні спамлять 😄 - і лунає сміх, інші 💛 - і чутно як б'ється серце ✨
 
-- 🎵 До **15** емоутів із персональним звуком  
-- ✨ Емоути **з’являються на екрані** з красивою анімацією  
-- 🔊 **Гнучке регулювання гучності** (0–100%)  
-- 🎞️ Повна підтримка **анімованих** Twitch емоутів  
-- 🖥️ **Видимість анімації** можна вимкнути, залишивши тільки звуки  
-- ⏱️ **Тривалість показу** кожного емоуту налаштовується окремо
-
-<div style="margin-top:2rem; margin-bottom:1rem;">
-  <a class="btn-saburo" data-visual="rainbow" data-icon-visual="add_circle" style="--btn-w:auto;--btn-h:48px;--radius:10px;" href="https://iamsaburo.github.io/sound-emotes">
-    <span class="material-icons-round btn-icon-visual">add_circle</span>
-    <span class="btn-label">ВСТАНОВИТИ</span>
-  </a>
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
+{% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='download' icon_hover='arrow_forward' icon_position='after' width='auto' height=40 radius=10 href='/zvukovi-emoty-access' %}
 </div>
+
+## ОСНОВНІ ФУНКЦІЇ
+> 🎵  До 15 емоутів
+> ✨  Емоути з'являються на екрані
+> 🎛  Керування гучністю
+> 🚀  Підтримка анімованих емоутів
