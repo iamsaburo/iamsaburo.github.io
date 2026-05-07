@@ -71,7 +71,7 @@
     /* ----- Image download buttons ----- */
     root.querySelectorAll('.content-container img').forEach(img => {
       if (img.classList.contains('tab-icon-svg')) return;
-      if (img.closest('.tabs-nav, .navbar, footer, .img-wrap')) return;
+      if (img.closest('#gate, .tabs-nav, .navbar, footer, .img-wrap')) return;
       const w = parseInt(img.getAttribute('width') || '9999');
       if (w < 64) return;
       if (img.parentNode.classList.contains('img-wrap')) return;
