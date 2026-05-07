@@ -15,7 +15,7 @@ permalink: /404.html
 </style>
 
 <div id="app">
-  <!-- ====== Verification gate (hidden by default) ====== -->
+  <!-- ====== Verification gate ====== -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto 1rem; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
     <img src="/svg/saburo-community.svg" width="85" height="auto" alt="SABURO" style="margin-bottom:1.5rem; display:block; margin-left:auto; margin-right:auto;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки для<br>учасників спільноти</h2>
@@ -129,7 +129,7 @@ permalink: /404.html
       setTabTitle('Доступ');
       addBackButton(slug);
 
-      // Keep loading visible while checking token
+      // Show loading while checking token
       authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
         .then(r => r.json())
         .then(data => {
@@ -148,7 +148,6 @@ permalink: /404.html
           if (contentContainer) contentContainer.style.display = 'none';
         })
         .catch(() => {
-          // Error – show gate anyway
           document.getElementById('loading').style.display = 'none';
           var gateEl = document.getElementById('gate');
           var pageWrap = document.querySelector('.page-wrap');
@@ -159,12 +158,10 @@ permalink: /404.html
           if (contentContainer) contentContainer.style.display = 'none';
         });
 
-      // Fill in the OAuth links (they don't depend on the check)
       document.getElementById('tg-btn').href = `https://t.me/saburo_community_bot?start=${slug}`;
       document.getElementById('dc-btn').href = `https://ua.iamsaburo.workers.dev/auth/discord?redirect=${encodeURIComponent('/' + slug)}`;
       return;
     } else {
-      // Secret page – set tab title from API
       fetch(`https://ua.iamsaburo.workers.dev/api/info/${slug}`)
         .then(r => r.json())
         .then(data => setTabTitle(data.title || slug))
@@ -173,7 +170,6 @@ permalink: /404.html
     }
   }
 
-  // ========== Secret page logic ==========
   if (!slug) {
     document.getElementById('loading').innerHTML = '<p>Сторінку не знайдено.</p>';
     return;
