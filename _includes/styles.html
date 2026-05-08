@@ -98,9 +98,9 @@
     content:'';position:absolute;inset:-6px;border-radius:inherit;
     background-image:var(--rainbow-bg);background-size:300% 300%;
     animation:rainbowShift 4s ease-in-out infinite alternate;
-    filter:blur(12px);
-    opacity:0.3;
-    transition:opacity 0.35s ease;
+    filter:blur(13px);
+    opacity:0.2;
+    transition:opacity 0.25s ease;
     z-index:-1;pointer-events:none;
   }
 
@@ -110,7 +110,7 @@
     background-image:var(--rainbow-bg);background-size:300% 300%;
     animation:rainbowShift 4s ease-in-out infinite alternate;
     opacity:0;
-    transition:opacity 0.35s ease;
+    transition:opacity 0.25s ease;
     pointer-events:none;
   }
   .btn-saburo[data-hover="rainbow"]:hover::before,
@@ -126,7 +126,7 @@
     z-index:-1;pointer-events:none;
   }
   .btn-saburo[data-hover="rainbow"]:hover::after,
-  .block-card:hover .btn-saburo[data-hover="rainbow"]::after{opacity:0.55;}
+  .block-card:hover .btn-saburo[data-hover="rainbow"]::after{opacity:0.35;}
 
   /* Rainbow → other hover overrides */
   .btn-saburo[data-visual="rainbow"][data-hover="outline"]:hover{
