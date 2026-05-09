@@ -77,13 +77,13 @@ permalink: /404.html
     const msg = document.getElementById('errorMsg');
     if (msg) {
       if (errorParam === 'access_denied') {
-        msg.textContent = 'Авторизацію скасовано<br>Спробуйте ще раз';
+        msg.innerHTML = 'Авторизацію скасовано<br>Спробуйте ще раз';
       } else if (errorParam === 'not_in_guild' || errorParam === 'missing_role') {
-        msg.textContent = 'Ви не маєте доступу до цього контенту. Переконайтеся, що ви учасник спільноти.';
+        msg.innerHTML = 'Ви не маєте доступу до цього контенту. Переконайтеся, що ви учасник спільноти.';
       } else if (errorParam === 'invalid_token') {
-        msg.textContent = 'Посилання застаріло<br>Спробуйте ще раз';
+        msg.innerHTML = 'Посилання застаріло<br>Спробуйте ще раз';
       } else if (errorParam) {
-        msg.textContent = 'Помилка авторизації<br>Спробуйте ще раз';
+        msg.innerHTML = 'Помилка авторизації<br>Спробуйте ще раз';
       }
       msg.style.display = errorParam ? 'block' : 'none';
     }
