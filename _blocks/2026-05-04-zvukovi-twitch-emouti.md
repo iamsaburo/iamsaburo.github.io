@@ -18,7 +18,7 @@ embed_max_width: 500px
 ## 🥳 Звукові Twitch Емоути  `v1.1 (30.11.2025)`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
-{% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='add_circle' icon_hover='add_circle' width=200 height=47 radius=4 href='/twitch-sound-emotes-access' %}
+{% include btn-saburo.html label='Встановити' visual='rainbow' hover='rainbow' icon_visual='add_circle' icon_hover='add_circle' width=180 height=47 radius=30 href='/twitch-sound-emotes-access' %}
 </div>
 
 Тепер кожен з ваших **Twitch емоутів** може мати свій **звук**, який прозвучить як тільки хтось використає його в чаті. <br>
@@ -28,5 +28,5 @@ embed_max_width: 500px
 > 🎵 До 15 емоутів <br>
 > ✨ Емоути з'являються на екрані <br>
 > 🔊 Керування гучністю <br>
-> 🚀 Підтримка анімованих емоутів <br>
+> 🚀 Підтримка анімованих емоутів
 
