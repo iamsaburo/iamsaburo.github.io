@@ -41,7 +41,7 @@ permalink: /404.html
       <span class="btn-label">Продовжити через Discord</span>
     </a>
     <p style="color:var(--muted); font-size:0.85rem;">Ще не з нами?<br>
-      <a href="https://t.me/saburo_ua" style="color:var(--text); text-decoration:underline;">Telegram</a> ・
+      <a href="https://t.me/saburo_ua" style="color:var(--text); text-decoration:underline;">Telegram</a> |
       <a href="https://discord.gg/4BK4MBUMWh" style="color:var(--text); text-decoration:underline;">Discord</a>
     </p>
   </div>
@@ -55,8 +55,21 @@ permalink: /404.html
 
 <script>
 (function() {
+  // Token handling
+  const urlParams = new URLSearchParams(window.location.search);
+  let authToken = urlParams.get('token');
+  if (authToken) {
+    localStorage.setItem('auth_token', authToken);
+    window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+  } else {
+    authToken = localStorage.getItem('auth_token');
+  }
+
   function authFetch(url, options = {}) {
-    options.credentials = 'include';
+    if (authToken) {
+      options.headers = options.headers || {};
+      options.headers['Authorization'] = `Bearer ${authToken}`;
+    }
     return fetch(url, options);
   }
 
@@ -75,7 +88,7 @@ permalink: /404.html
   }
 
   function cleanContent(container) {
-    const blockElements = 'div, nav, table, ul, ol, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
+    const blockElements = 'div, nav, table, ul, ol, pre, blockquote, h1, h2, h3, h4, h5, h6, section, article, header, footer, aside, figure, figcaption, details, summary, main, canvas, video, audio, form, fieldset, iframe, object, embed, math, svg, script, noscript, style, head, body, html, meta, link, title, base, hr, br, img, input, button, select, textarea, option, label, legend, datalist, output, progress, meter, template, slot, dialog, menu, menuitem, source, track, wbr, area, map, param, col, colgroup, caption, thead, tbody, tfoot, tr, td, th';
     container.querySelectorAll(blockElements).forEach(el => {
       el.querySelectorAll(':scope > br').forEach(br => br.remove());
     });
@@ -135,17 +148,21 @@ permalink: /404.html
       setTabTitle('Доступ');
       addBackButton(slug);
 
-      authFetch('https://ua.iamsaburo.workers.dev/api/check-token')
+      // Show loading while checking token
+      authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
         .then(r => r.json())
         .then(data => {
           if (data.valid) {
             window.location.replace('/' + slug);
             return;
           }
+          // Not valid → show gate
           document.getElementById('loading').style.display = 'none';
           var gateEl = document.getElementById('gate');
           var pageWrap = document.querySelector('.page-wrap');
-          if (pageWrap && gateEl) pageWrap.insertBefore(gateEl, pageWrap.firstChild);
+          if (pageWrap && gateEl) {
+            pageWrap.insertBefore(gateEl, pageWrap.firstChild);
+          }
           gateEl.style.display = 'block';
           if (contentContainer) contentContainer.style.display = 'none';
         })
@@ -153,7 +170,9 @@ permalink: /404.html
           document.getElementById('loading').style.display = 'none';
           var gateEl = document.getElementById('gate');
           var pageWrap = document.querySelector('.page-wrap');
-          if (pageWrap && gateEl) pageWrap.insertBefore(gateEl, pageWrap.firstChild);
+          if (pageWrap && gateEl) {
+            pageWrap.insertBefore(gateEl, pageWrap.firstChild);
+          }
           gateEl.style.display = 'block';
           if (contentContainer) contentContainer.style.display = 'none';
         });
@@ -177,29 +196,29 @@ permalink: /404.html
 
   const parserPromise = loadParser();
 
-  authFetch('https://ua.iamsaburo.workers.dev/api/check-token')
+  authFetch('https://ua.iamsaburo.workers.dev/api/check-token', { credentials:'include' })
     .then(r => r.json())
     .then(data => {
       if (!data.valid) {
         window.location.replace(`/${slug}-access`);
         return Promise.reject('redirect');
       }
-      return authFetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`);
+      return authFetch(`https://ua.iamsaburo.workers.dev/api/content/${slug}`, { credentials:'include' });
     })
     .then(res => {
       if (!res.ok) {
         window.location.replace('/');
         return Promise.reject('redirect');
       }
-      const isHtml = (res.headers.get('Content-Type') || '').includes('text/html');
-      return res.text().then(body => ({ body, isHtml }));
+      return res.text();
     })
-    .then(({ body, isHtml }) => {
-      if (!body) return;
+    .then(rawMarkdown => {
+      if (!rawMarkdown) return;
       return parserPromise.then(() => {
         document.getElementById('loading').style.display = 'none';
         if (contentContainer) contentContainer.style.display = '';
-        contentContainer.innerHTML = isHtml ? body : window.marked.parse(body);
+        const html = window.marked.parse(rawMarkdown);
+        contentContainer.innerHTML = html;
         cleanContent(contentContainer);
         if (typeof window.enhanceContent === 'function') {
           window.enhanceContent(contentContainer);
