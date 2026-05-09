@@ -11,11 +11,11 @@ categories:
   - Twitch
 embed_max_width: 450px
 ---
-![Демонстрація звукових емоутів](/webm/Twitch_Sound_Emotes.webm)
+[webm src="/webm/Twitch_Sound_Emotes.webm"]
 
 ## 🥳 Звукові Twitch Емоути
 
-Тепер кожен з ваших Twitch емоутів може мати свій звук, який прозвучить як тільки хтось використає його в чаті.  <br>
+Тепер кожен з ваших Twitch емоутів може мати свій звук, який прозвучить як тільки хтось використає його в чаті. <br>
 Одні спамлять 😄 - і лунає сміх, інші 💛 - і чутно як б'ється серце ✨
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
