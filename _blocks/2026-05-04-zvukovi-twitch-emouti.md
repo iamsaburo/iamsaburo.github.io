@@ -21,10 +21,13 @@ embed_max_width: 500px
 {% include btn-saburo.html label='Встановити' visual='rainbow' hover='rainbow' icon_visual='add_circle' icon_hover='add_circle' width=180 height=47 radius=30 href='/twitch-sound-emotes-access' %}
 </div>
 
-<a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/twitch-sound-emotes">
-  <span class="btn-label">Встановити</span>
-  <span class="material-icons-round btn-icon-visual">add_circle</span>
-</a>
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
+  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/twitch-sound-emotes-access">
+    <span class="material-icons-round btn-icon-visual">add_circle</span>
+    <span class="material-icons-round btn-icon-hover">add_circle</span>
+    <span class="btn-label">Встановити</span>
+  </a>
+</div>
 
 Тепер кожен з ваших **Twitch емоутів** може мати свій **звук**, який прозвучить як тільки хтось використає його в чаті. <br>
 Одні спамлять 😄 - і лунає сміх, інші 💛 - і чутно як б'ється серце.
