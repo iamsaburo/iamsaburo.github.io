@@ -15,8 +15,8 @@ embed_max_width: 600px
 
 ## 👾 Піксель-арт малювалка
 
-Що буде, якщо дати чату полотно і можливість малювати все що вони захочуть?
-Мабуть дуууже багато пемсюнів 😏 😆
+Що буде, якщо дати чату полотно і можливість малювати все що вони захочуть? <br>
+###### Мабуть дуууже багато пемсюнів 😏 😆
 ‎ 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
 {% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='download' icon_hover='arrow_forward' icon_position='after' width='auto' height=40 radius=10 href='/twitch-sound-emotes-access' %}
