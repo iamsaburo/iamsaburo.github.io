@@ -23,12 +23,22 @@ permalink: /404.html
   .content-container iframe {
     border-radius: 4px;
   }
+
+  #errorMsg {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    display: none;
+    background: rgba(255, 60, 60, 0.15);
+    border: 2px solid rgba(255, 100, 100, 0.8);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
 </style>
 
 <div id="app">
   <!-- ====== Verification gate ====== -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto 1rem; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
-    <div id="errorMsg" style="color:#ff6b6b; margin-bottom:1rem; display:none;"></div>
+    <div id="errorMsg"></div>
     <img src="/svg/saburo-community.svg" width="85" height="auto" alt="SABURO" style="display:block; margin:0 auto 1.5rem; max-width:100%; width:85px;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки<br>для учасників спільноти</h2>
     <p style="color:var(--muted); margin-bottom:2rem;">Будь ласка, авторизуйся<br>через Telegram або Discord.</p>
@@ -42,7 +52,7 @@ permalink: /404.html
       <span class="btn-label">Продовжити через Discord</span>
     </a>
     <p style="color:var(--muted); font-size:0.85rem;">Ще не з нами?<br>
-      <a href="https://t.me/saburo_ua" style="color:var(--text); text-decoration:underline;">Telegram</a> ・
+      <a href="https://t.me/saburo_ua" style="color:var(--text); text-decoration:underline;">Telegram</a> |
       <a href="https://discord.gg/4BK4MBUMWh" style="color:var(--text); text-decoration:underline;">Discord</a>
     </p>
   </div>
@@ -56,6 +66,7 @@ permalink: /404.html
 
 <script>
 (function() {
+  // Helper to show gate with an error message if present in URL
   function showGateWithError() {
     const gateEl = document.getElementById('gate');
     if (!gateEl) return;
@@ -177,7 +188,7 @@ permalink: /404.html
             window.location.replace('/' + slug);
             return;
           }
-          // Token invalid → show gate
+          // Token invalid → show gate (move it out of hidden container first)
           document.getElementById('loading').style.display = 'none';
           var gateEl = document.getElementById('gate');
           var pageWrap = document.querySelector('.page-wrap');
