@@ -1,9 +1,79 @@
 <script>
 (function(){
+  /* ------- Shortcode to HTML converter ------- */
+  function processShortcodesHTML(html) {
+    // WebM shortcode: [webm src="/path/file.webm" width="800" height="450"]
+    html = html.replace(
+      /\[webm\s+src="([^"]+)"(?:\s+width="(\d+)")?(?:\s+height="(\d+)")?\s*\]/gi,
+      function(_, src, w, h) {
+        var wAttr = w ? 'width="' + w + '"' : '';
+        var hAttr = h ? 'height="' + h + '"' : '';
+        return '<video autoplay loop muted playsinline ' + wAttr + ' ' + hAttr +
+               ' style="border-radius:4px; max-width:100%; display:block;">' +
+               '<source src="' + src + '" type="video/webm"></video>';
+      }
+    );
+
+    // Button shortcode: [button text="Label" url="https://..." color="#ff0000"]
+    html = html.replace(
+      /\[button\s+text="([^"]+)"\s+url="([^"]+)"(?:\s+color="([^"]+)")?\s*\]/gi,
+      function(_, text, url, color) {
+        return '<a href="' + url + '" class="custom-button"' +
+               (color ? ' style="background:' + color + '"' : '') + '>' + text + '</a>';
+      }
+    );
+
+    // Video shortcode: [video src="URL" type="youtube"] or type="mp4"
+    html = html.replace(
+      /\[video\s+src="([^"]+)"\s+type="([^"]+)"\]/gi,
+      function(_, src, type) {
+        if (type === 'youtube') {
+          return '<div class="video-embed"><iframe src="' + src +
+                 '" frameborder="0" allowfullscreen></iframe></div>';
+        } else {
+          return '<video controls><source src="' + src +
+                 '" type="video/mp4"></video>';
+        }
+      }
+    );
+
+    // Tabs shortcode: [tabs] [tab name="Tab 1"] content [/tabs]
+    html = html.replace(
+      /\[tabs\]([\s\S]*?)\[\/tabs\]/gi,
+      function(_, inner) {
+        var parts = inner.split(/\[tab\s+name="([^"]+)"\]/).filter(Boolean);
+        var headers = '';
+        var contents = '';
+        for (var i = 0; i < parts.length; i += 2) {
+          var name = parts[i].trim();
+          var body = (parts[i + 1] || '').trim();
+          var id = 'tab-' + Math.floor(i / 2);
+          var isActive = (i === 0) ? ' active' : '';
+          var ariaSel = (i === 0) ? 'true' : 'false';
+          headers += '<button class="tab-btn' + isActive +
+                     '" data-tab="' + id + '" role="tab" aria-selected="' + ariaSel + '">' +
+                     name + '</button>';
+          contents += '<div class="tab-panel' + isActive +
+                      '" data-tab="' + id + '">' + body + '</div>';
+        }
+        return '<div class="inline-tabs"><nav class="tabs-nav" role="tablist">' +
+               headers + '</nav>' + contents + '</div>';
+      }
+    );
+
+    return html;
+  }
+
   window.enhanceContent = function(root) {
     root = root || document;
 
-    /* ----- Responsive iframes & images ----- */
+    /* ----- 1. Process shortcodes in the main content container ----- */
+    var contentContainer = root.querySelector('.content-container');
+    if (contentContainer) {
+      contentContainer.innerHTML = processShortcodesHTML(contentContainer.innerHTML);
+    }
+
+    /* ----- 2. Responsive iframes & images ----- */
     root.querySelectorAll('.content-container iframe').forEach(iframe => {
       const w = parseInt(iframe.getAttribute('width')  || '0', 10);
       const h = parseInt(iframe.getAttribute('height') || '0', 10);
@@ -20,27 +90,27 @@
       img.removeAttribute('height');
     });
 
-    /* ----- Code copy (pre blocks) ----- */
+    /* ----- 3. Code copy (pre blocks) ----- */
     root.querySelectorAll('.content-container pre').forEach(pre => {
       if (pre.querySelector('.copy-btn')) return;
       const btn = document.createElement('button');
       btn.className = 'copy-btn';
-      btn.innerHTML = '<span class="material-icons-round">content_copy</span>'; // лише іконка
+      btn.innerHTML = '<span class="material-icons-round">content_copy</span>Скопіювати';
       btn.addEventListener('click', () => {
         const code = pre.querySelector('code');
         navigator.clipboard.writeText(code ? code.innerText : pre.innerText).then(() => {
           btn.classList.add('copied');
-          btn.innerHTML = '<span class="material-icons-round">check</span>'; // лише іконка
+          btn.innerHTML = '<span class="material-icons-round">check</span>Скопійовано';
           setTimeout(() => {
             btn.classList.remove('copied');
-            btn.innerHTML = '<span class="material-icons-round">content_copy</span>';
+            btn.innerHTML = '<span class="material-icons-round">content_copy</span>Скопіювати';
           }, 2000);
         });
       });
       pre.appendChild(btn);
     });
 
-    /* ----- Inline code copy (+ toast) ----- */
+    /* ----- 4. Inline code copy (+ toast) ----- */
     const toast = root.querySelector('.copy-toast') || (function(){
       const t = document.createElement('div');
       t.className = 'copy-toast';
@@ -68,7 +138,7 @@
       );
     });
 
-    /* ----- Image download buttons ----- */
+    /* ----- 5. Image download buttons ----- */
     root.querySelectorAll('.content-container img').forEach(img => {
       if (img.classList.contains('tab-icon-svg')) return;
       if (img.closest('#gate, .tabs-nav, .navbar, footer, .img-wrap')) return;
@@ -92,7 +162,7 @@
       wrap.appendChild(dlBtn);
     });
 
-    /* ----- Inline tabs switching ----- */
+    /* ----- 6. Inline tabs switching ----- */
     root.querySelectorAll('.inline-tabs').forEach(widget => {
       if (widget.dataset.enhanced === 'true') return;
       widget.dataset.enhanced = 'true';
@@ -112,7 +182,7 @@
       });
     });
 
-    /* ----- GIF lazy loading for block cards ----- */
+    /* ----- 7. GIF lazy loading for block cards ----- */
     const isMobile = window.matchMedia('(hover:none)').matches;
     const cards    = root.querySelectorAll('.block-card');
     if (!isMobile) {
