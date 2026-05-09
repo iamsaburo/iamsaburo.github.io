@@ -55,7 +55,14 @@ title: "Корисне"
 <div id="noResultsMessage" class="no-results" style="display:none;">Категорія пуста.</div>
 
 {% assign blocks_per_page = 9 %}
-{% assign total_pages = sorted_blocks.size | divided_by: blocks_per_page | plus: 1 %}
+{% assign _total_exact    = sorted_blocks.size | divided_by: blocks_per_page %}
+{% assign _total_remainder = sorted_blocks.size | modulo: blocks_per_page %}
+{% if _total_remainder > 0 %}
+  {% assign total_pages = _total_exact | plus: 1 %}
+{% else %}
+  {% assign total_pages = _total_exact %}
+{% endif %}
+
 {% if total_pages > 1 %}
 <div class="pagination" id="pagination">
   <button class="page-btn" id="prevPage">‹</button>
@@ -219,7 +226,6 @@ title: "Корисне"
       }
     });
   } else {
-    // Mobile: preload sources
     allCards.forEach(card => {
       const gifImg = card.querySelector('.gif-img');
       if (gifImg && gifImg.dataset.src) gifImg.src = gifImg.dataset.src;
