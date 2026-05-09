@@ -42,7 +42,7 @@ permalink: /404.html
       <span class="btn-label">Продовжити через Discord</span>
     </a>
     <p style="color:var(--muted); font-size:0.85rem;">Ще не з нами?<br>
-      <a href="https://t.me/saburo_ua" style="color:var(--text); text-decoration:underline;">Telegram</a> |
+      <a href="https://t.me/saburo_ua" style="color:var(--text); text-decoration:underline;">Telegram</a> ・
       <a href="https://discord.gg/4BK4MBUMWh" style="color:var(--text); text-decoration:underline;">Discord</a>
     </p>
   </div>
@@ -56,7 +56,6 @@ permalink: /404.html
 
 <script>
 (function() {
-  // Helper to show gate with an error message if present in URL
   function showGateWithError() {
     const gateEl = document.getElementById('gate');
     if (!gateEl) return;
@@ -178,13 +177,24 @@ permalink: /404.html
             window.location.replace('/' + slug);
             return;
           }
-          // Not valid → show gate with error if present
+          // Token invalid → show gate
           document.getElementById('loading').style.display = 'none';
+          var gateEl = document.getElementById('gate');
+          var pageWrap = document.querySelector('.page-wrap');
+          if (pageWrap && gateEl) {
+            pageWrap.insertBefore(gateEl, pageWrap.firstChild);
+          }
           if (contentContainer) contentContainer.style.display = 'none';
           showGateWithError();
         })
         .catch(() => {
+          // Network error → still show the gate
           document.getElementById('loading').style.display = 'none';
+          var gateEl = document.getElementById('gate');
+          var pageWrap = document.querySelector('.page-wrap');
+          if (pageWrap && gateEl) {
+            pageWrap.insertBefore(gateEl, pageWrap.firstChild);
+          }
           if (contentContainer) contentContainer.style.display = 'none';
           showGateWithError();
         });
