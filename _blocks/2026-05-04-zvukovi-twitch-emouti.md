@@ -11,9 +11,7 @@ categories:
   - Twitch
 embed_max_width: 450px
 ---
-<video autoplay loop muted playsinline display:block;">
-  <source src="/webm/Twitch_Sound_Emotes.webm" type="video/webm">
-</video>
+[webm src="/webm/Twitch_Sound_Emotes.webm"]
 
 ## 🥳 Звукові Twitch Емоути
 
