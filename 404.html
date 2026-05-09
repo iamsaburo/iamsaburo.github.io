@@ -28,6 +28,7 @@ permalink: /404.html
 <div id="app">
   <!-- ====== Verification gate ====== -->
   <div id="gate" style="display:none; max-width:420px; margin:2rem auto 1rem; background:var(--sur); border-radius:var(--r); padding:2rem; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,0.07);">
+    <div id="errorMsg" style="color:#ff6b6b; margin-bottom:1rem; display:none;"></div>
     <img src="/svg/saburo-community.svg" width="85" height="auto" alt="SABURO" style="display:block; margin:0 auto 1.5rem; max-width:100%; width:85px;">
     <h2 style="margin-bottom:0.5rem; font-size:1.25rem;">Цей контент доступний тільки<br>для учасників спільноти</h2>
     <p style="color:var(--muted); margin-bottom:2rem;">Будь ласка, авторизуйся<br>через Telegram або Discord.</p>
@@ -55,6 +56,27 @@ permalink: /404.html
 
 <script>
 (function() {
+  // Helper to show gate with an error message if present in URL
+  function showGateWithError() {
+    const gateEl = document.getElementById('gate');
+    if (!gateEl) return;
+    gateEl.style.display = 'block';
+    const errorParam = new URLSearchParams(window.location.search).get('error');
+    const msg = document.getElementById('errorMsg');
+    if (msg) {
+      if (errorParam === 'access_denied') {
+        msg.textContent = 'Авторизацію скасовано. Спробуйте ще раз.';
+      } else if (errorParam === 'not_in_guild' || errorParam === 'missing_role') {
+        msg.textContent = 'Ви не маєте доступу до цього контенту. Переконайтеся, що ви учасник спільноти.';
+      } else if (errorParam === 'invalid_token') {
+        msg.textContent = 'Посилання застаріло. Спробуйте ще раз.';
+      } else if (errorParam) {
+        msg.textContent = 'Помилка авторизації. Спробуйте ще раз.';
+      }
+      msg.style.display = errorParam ? 'block' : 'none';
+    }
+  }
+
   // Token handling
   const urlParams = new URLSearchParams(window.location.search);
   let authToken = urlParams.get('token');
@@ -156,25 +178,15 @@ permalink: /404.html
             window.location.replace('/' + slug);
             return;
           }
-          // Not valid → show gate
+          // Not valid → show gate with error if present
           document.getElementById('loading').style.display = 'none';
-          var gateEl = document.getElementById('gate');
-          var pageWrap = document.querySelector('.page-wrap');
-          if (pageWrap && gateEl) {
-            pageWrap.insertBefore(gateEl, pageWrap.firstChild);
-          }
-          gateEl.style.display = 'block';
           if (contentContainer) contentContainer.style.display = 'none';
+          showGateWithError();
         })
         .catch(() => {
           document.getElementById('loading').style.display = 'none';
-          var gateEl = document.getElementById('gate');
-          var pageWrap = document.querySelector('.page-wrap');
-          if (pageWrap && gateEl) {
-            pageWrap.insertBefore(gateEl, pageWrap.firstChild);
-          }
-          gateEl.style.display = 'block';
           if (contentContainer) contentContainer.style.display = 'none';
+          showGateWithError();
         });
 
       document.getElementById('tg-btn').href = `https://t.me/saburo_community_bot?start=${slug}`;
