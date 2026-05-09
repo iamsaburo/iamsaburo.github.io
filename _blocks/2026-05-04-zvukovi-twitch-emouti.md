@@ -11,7 +11,9 @@ categories:
   - Twitch
 embed_max_width: 450px
 ---
-[webm src="/webm/Twitch_Sound_Emotes.webm"]
+<video autoplay loop muted playsinline display:block;">
+  <source src="/webm/Twitch_Sound_Emotes.webm" type="video/webm">
+</video>
 
 ## 🥳 Звукові Twitch Емоути
 
@@ -19,7 +21,7 @@ embed_max_width: 450px
 Одні спамлять 😄 - і лунає сміх, інші 💛 - і чутно як б'ється серце ✨
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
-{% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='add_circle' icon_hover='add_circle' width=200 height=47 radius=10 href='/twitch-sound-emotes-access' %}
+{% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='add_circle' icon_hover='add_circle' width=200 height=47 radius=4 href='/twitch-sound-emotes-access' %}
 </div>
 
 ## ОСНОВНІ ФУНКЦІЇ
