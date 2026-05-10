@@ -2,7 +2,7 @@
 title: Тамагочі
 slug: tamagotchi
 order: 40
-hidden: false
+hidden: true
 image: https://i.postimg.cc/vZLGmRhx/Tama-Video-mp4-20260509-030422-357.jpg
 webm_image: /webm/tamagotchi.webm
 back_url: /
