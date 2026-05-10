@@ -2,7 +2,7 @@
 title: Test — Можливості (вкладки зверху)
 slug: test-top-tabs
 order: 97
-hidden: false
+hidden: true
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 back_url: /
 back_label: Головна
