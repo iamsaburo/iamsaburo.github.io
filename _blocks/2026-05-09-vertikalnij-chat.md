@@ -2,7 +2,7 @@
 title: Вертикальний чат
 slug: vertical-chat
 order: 42
-hidden: false
+hidden: true
 image: https://i.postimg.cc/3wvCGByQ/10.png
 gif_image: https://i.postimg.cc/2S3xkmrn/VChat-GIF.gif
 back_url: /
