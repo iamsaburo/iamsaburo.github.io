@@ -3,8 +3,8 @@ title: Звукові Twitch емоути
 slug: twitch-sound-emotes
 order: 5
 hidden: false
-image: /webp/Звукові Twitch Емоути.webp
-webm_image: /webm/Twitch_Sound_Emotes.webm
+image: webp/Звукові Twitch Емоути.webp
+webm_image: webm/Звукові Twitch Емоути.webm
 back_url: /
 categories:
   - StreamElements
@@ -12,7 +12,7 @@ categories:
 embed_max_width: 500px
 ---
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:4px; display:block;">
-  <source src="/webm/Twitch_Sound_Emotes.webm" type="video/webm">
+  <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
 </video>
 
 ## 🥳 Звукові Twitch Емоути  `v1.1 (30.11.2025)`
