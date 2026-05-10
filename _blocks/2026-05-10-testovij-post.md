@@ -2,7 +2,7 @@
 title: Тестовий пост
 slug: test-page
 order: 5
-hidden: false
+hidden: true
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 back_url: /
 categories:
