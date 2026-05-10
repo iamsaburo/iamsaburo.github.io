@@ -2,7 +2,7 @@
 title: Піксель-арт малювалка
 slug: chat-pixel-art
 order: 50
-hidden: false
+hidden: true
 image: https://i.postimg.cc/VvSqWWvm/Pxl-Art-GIF.jpg
 webm_image: /webm/Chat_Pixel_Art.webm
 back_url: /
