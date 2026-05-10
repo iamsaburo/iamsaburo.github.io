@@ -2,7 +2,7 @@
 title: 💛 Підтримати Мене
 slug: support-me
 order: 77
-hidden: false
+hidden: true
 image: https://i.postimg.cc/x1BQ1fDx/SABURO-Thank-You.jpga
 back_url: /
 categories:
