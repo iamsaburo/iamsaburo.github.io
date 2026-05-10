@@ -2,7 +2,7 @@
 title: Адаптивний ShoutOut
 slug: adaptive-shoutout
 order: 41
-hidden: false
+hidden: true
 image: https://i.postimg.cc/wjJ7cbVM/Shou-GIF-mp4-20260509-025952-964.jpg
 webm_image: /webm/adaptive-shoutout.webm
 back_url: /
