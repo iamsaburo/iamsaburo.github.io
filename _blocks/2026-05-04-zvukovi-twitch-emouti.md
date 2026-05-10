@@ -1,9 +1,9 @@
 ---
 title: Звукові Twitch емоути
 slug: twitch-sound-emotes
-order: 1
+order: 5
 hidden: false
-image: https://i.postimg.cc/DwgBYH8v/Sound-Emotes-Video-mp4-20260504-025247-519.jpg
+image: webp/Звукові Twitch Емоути.webp
 webm_image: /webm/Twitch_Sound_Emotes.webm
 back_url: /
 categories:
