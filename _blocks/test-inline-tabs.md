@@ -1,8 +1,8 @@
 ---
-title: "Test — Вкладки посередині"
+title: Test — Вкладки посередині
 slug: test-inline-tabs
 order: 98
-hidden: false
+hidden: true
 image: https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif
 back_url: /
 back_label: Головна
