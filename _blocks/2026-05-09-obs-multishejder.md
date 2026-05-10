@@ -2,7 +2,7 @@
 title: OBS Мультишейдер
 slug: obs-multishader
 order: 38
-hidden: false
+hidden: true
 image: https://i.postimg.cc/2SKNyzvb/Screenshot-2026-05-09-031128.png
 gif_image: https://i.postimg.cc/RFwkgKYZ/Shader-TG.gif
 back_url: /
