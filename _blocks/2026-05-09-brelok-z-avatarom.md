@@ -2,7 +2,7 @@
 title: Брелок з аватаром
 slug: avatar-keychain
 order: 46
-hidden: false
+hidden: true
 image: https://i.postimg.cc/wxCzcxbt/KChain-GIF-mp4-20260509-024447-481.jpg
 webm_image: /webm/avatar-keychain.webm
 back_url: /
