@@ -29,8 +29,7 @@ embed_max_width: 500px
   </nav>
 
   <div class="tab-panel active" data-tab="step1">
-    <p>![Тестове зображення](webp/SABURO_TG_SMALL.png)</p>
-    <pre><code>npm install my-package</code></pre>
+    ![Тестове зображення](webp/SABURO_TG_SMALL.png)
   </div>
 
   <div class="tab-panel" data-tab="step2">
