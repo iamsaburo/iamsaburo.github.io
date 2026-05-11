@@ -102,11 +102,11 @@ embed_max_width: 500px
 </div>
 
 <!-- ═══════════════════════════════════════════
-     TWITCH AVATARS (reliable – no ORB)
+     TWITCH AVATARS (reliable, 60px, left-aligned)
      ═══════════════════════════════════════════ -->
 <h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
-<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;">
   <!-- filled by script -->
 </div>
 
@@ -123,7 +123,6 @@ embed_max_width: 500px
 
   const container = document.getElementById("twitch-avatars");
 
-  // Create a placeholder for each user, then fill in the avatar once loaded
   twitchUsers.forEach(user => {
     const a = document.createElement("a");
     a.href = `https://twitch.tv/${user}`;
@@ -132,26 +131,39 @@ embed_max_width: 500px
     a.style.display = "flex";
     a.style.flexDirection = "column";
     a.style.alignItems = "center";
-    a.style.gap = "0.5rem";
+    a.style.gap = "0.4rem";
     a.style.textDecoration = "none";
     a.style.color = "inherit";
 
     const img = document.createElement("img");
     img.className = "tab-icon-svg";
     img.alt = user;
-    img.style.width = "70px";
-    img.style.height = "70px";
+    img.style.width = "60px";
+    img.style.height = "60px";
     img.style.borderRadius = "50%";
     img.style.objectFit = "cover";
     img.style.border = "2px solid rgba(255,255,255,0.2)";
-    // temporary placeholder while loading
-    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%23111'/%3E%3C/svg%3E";
+
+    // Use CORS‑friendly service (direct image, no redirects)
+    img.src = `https://avatars.pavel.workers.dev/twitch/${user}`;
+
+    // Fallback: if avatar fails to load, show a dark circle with first letter
+    img.onerror = function() {
+      this.onerror = null; // prevent infinite loop
+      const firstLetter = user.charAt(0).toUpperCase();
+      this.src = `data:image/svg+xml,${encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="30" fill="#1a1a1a"/>
+          <text x="30" y="36" text-anchor="middle" fill="#fff" font-size="28" font-family="Arial">${firstLetter}</text>
+        </svg>`
+      )}`;
+    };
 
     const span = document.createElement("span");
     span.textContent = user;
-    span.style.fontSize = "0.85rem";
+    span.style.fontSize = "0.75rem";
     span.style.textAlign = "center";
-    span.style.maxWidth = "80px";
+    span.style.maxWidth = "70px";
     span.style.overflow = "hidden";
     span.style.textOverflow = "ellipsis";
     span.style.whiteSpace = "nowrap";
@@ -159,20 +171,6 @@ embed_max_width: 500px
     a.appendChild(img);
     a.appendChild(span);
     container.appendChild(a);
-
-    // Fetch the real avatar URL from ivr.fi (public, no API key)
-    fetch(`https://api.ivr.fi/v2/twitch/user/${user}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.logo) {
-          img.src = data.logo;
-        } else {
-          // fallback – keep dark circle
-        }
-      })
-      .catch(() => {
-        // keep placeholder if error
-      });
   });
 })();
 </script>
