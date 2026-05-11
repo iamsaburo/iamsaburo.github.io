@@ -102,7 +102,7 @@ embed_max_width: 500px
 </div>
 
 <!-- ═══════════════════════════════════════════
-     TWITCH AVATARS (clickable, ORB‑safe)
+     TWITCH AVATARS (reliable – no ORB)
      ═══════════════════════════════════════════ -->
 <h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
@@ -121,7 +121,9 @@ embed_max_width: 500px
     "Kavalets", "gamebulochka", "Otolich", "ArdenLich"
   ];
 
-  const c = document.getElementById("twitch-avatars");
+  const container = document.getElementById("twitch-avatars");
+
+  // Create a placeholder for each user, then fill in the avatar once loaded
   twitchUsers.forEach(user => {
     const a = document.createElement("a");
     a.href = `https://twitch.tv/${user}`;
@@ -135,15 +137,15 @@ embed_max_width: 500px
     a.style.color = "inherit";
 
     const img = document.createElement("img");
-    // ✅ CORS‑friendly, no redirect chains → no ORB errors
-    img.src = `https://nxtz.vercel.app/api/twitch-avatar/${user}`;
-    img.alt = user;
     img.className = "tab-icon-svg";
+    img.alt = user;
     img.style.width = "70px";
     img.style.height = "70px";
     img.style.borderRadius = "50%";
     img.style.objectFit = "cover";
     img.style.border = "2px solid rgba(255,255,255,0.2)";
+    // temporary placeholder while loading
+    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%23111'/%3E%3C/svg%3E";
 
     const span = document.createElement("span");
     span.textContent = user;
@@ -156,7 +158,21 @@ embed_max_width: 500px
 
     a.appendChild(img);
     a.appendChild(span);
-    c.appendChild(a);
+    container.appendChild(a);
+
+    // Fetch the real avatar URL from ivr.fi (public, no API key)
+    fetch(`https://api.ivr.fi/v2/twitch/user/${user}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.logo) {
+          img.src = data.logo;
+        } else {
+          // fallback – keep dark circle
+        }
+      })
+      .catch(() => {
+        // keep placeholder if error
+      });
   });
 })();
 </script>
