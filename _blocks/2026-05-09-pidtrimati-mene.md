@@ -15,40 +15,147 @@ embed_max_width: 500px
 
 <div style="margin-top: 0.5rem;"></div>
 
-**Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.**
+**Всі бажаючі тепер можуть встановити собі в описі Twitch, панель нашгоTelegram або Discord.**
 > Це абсолютно ⚠️ не обов’язково, але буду вдячний!
 
 <div style="margin-top: 0.5rem;"></div>
 
 ---
 
+<!-- ═══════════════════════════════════════════
+     INLINE TABS: Telegram / Discord
+     ═══════════════════════════════════════════ -->
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
-    <button class="tab-btn active" data-tab="step1" role="tab" aria-selected="true">Telegram</button>
-    <button class="tab-btn" data-tab="step2" role="tab" aria-selected="false">Discord</button>
+    <button class="tab-btn active" data-tab="tab-tg" role="tab" aria-selected="true">
+      <img src="/svg/sm_telegram.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
+      <span>Telegram</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-dc" role="tab" aria-selected="false">
+      <img src="/svg/sm_discord.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
+      <span>Discord</span>
+    </button>
   </nav>
 
-  <div class="tab-panel active" data-tab="step1">
-    ![Тестове зображення](webp/SABURO_TG_SMALL.png)
+  <!-- TAB 1: Telegram -->
+  <div class="tab-panel active" data-tab="tab-tg">
+    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+      <!-- Image 1 -->
+      <div style="flex:0 0 auto; max-width:300px;">
+        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+             class="tab-icon-svg"
+             alt="Telegram image 1"
+             style="width:100%; border-radius:4px; display:block;">
+        <a class="btn-saburo" data-visual="pill"
+           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+           download="telegram-image-1.gif"
+           target="_blank">
+          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="btn-label">Завантажити</span>
+        </a>
+      </div>
+
+      <!-- Image 2 -->
+      <div style="flex:0 0 auto; max-width:300px;">
+        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+             class="tab-icon-svg"
+             alt="Telegram image 2"
+             style="width:100%; border-radius:4px; display:block;">
+        <a class="btn-saburo" data-visual="pill"
+           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+           download="telegram-image-2.gif"
+           target="_blank">
+          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="btn-label">Завантажити</span>
+        </a>
+      </div>
+    </div>
   </div>
 
-  <div class="tab-panel" data-tab="step2">
-    <p><strong>Другий крок</strong> — налаштування файлу <code>config.json</code>.</p>
-    <pre><code>{
-  "token": "ВАШ_ТОКЕН",
-  "channel": "назва_каналу"
-}</code></pre>
-  </div>
-  <div class="tab-panel" data-tab="step3">
-    <p><strong>Третій крок</strong> — запуск і перевірка роботи.</p>
-    <pre><code>npm start</code></pre>
-    <p>Якщо все гаразд — у консолі побачиш <code>Connected!</code></p>
+  <!-- TAB 2: Discord -->
+  <div class="tab-panel" data-tab="tab-dc">
+    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+      <!-- Image 1 -->
+      <div style="flex:0 0 auto; max-width:300px;">
+        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+             class="tab-icon-svg"
+             alt="Discord image 1"
+             style="width:100%; border-radius:4px; display:block;">
+        <a class="btn-saburo" data-visual="pill"
+           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+           download="discord-image-1.gif"
+           target="_blank">
+          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="btn-label">Завантажити</span>
+        </a>
+      </div>
+
+      <!-- Image 2 -->
+      <div style="flex:0 0 auto; max-width:300px;">
+        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+             class="tab-icon-svg"
+             alt="Discord image 2"
+             style="width:100%; border-radius:4px; display:block;">
+        <a class="btn-saburo" data-visual="pill"
+           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+           download="discord-image-2.gif"
+           target="_blank">
+          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="btn-label">Завантажити</span>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
 ---
 
+<h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
+<!-- Editable list of Twitch usernames (just change the names in the array) -->
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
+  <!-- Dynamically filled by script below -->
+</div>
+
+<script>
+(function(){
+  // ⚡ Put your Twitch usernames here (add / remove as many as you like)
+  const twitchUsers = [
+    "saburo_ua",
+    "xqcow",
+    "shroud",
+    "pokimane",
+    "ninja",
+    "summit1g"
+  ];
+
+  const container = document.getElementById("twitch-avatars");
+  if (!container) return;
+
+  twitchUsers.forEach(user => {
+    const wrapper = document.createElement("div");
+    wrapper.style.cssText = "display:flex; flex-direction:column; align-items:center; gap:0.5rem;";
+
+    const img = document.createElement("img");
+    img.src = `https://decapi.me/twitch/avatar/${user}`;
+    img.alt = user;
+    img.className = "tab-icon-svg";          // avoid download overlay on avatars
+    img.style.cssText = "width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2);";
+
+    const name = document.createElement("span");
+    name.textContent = user;
+    name.style.cssText = "font-size:0.85rem; color:var(--text); text-align:center; max-width:80px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;";
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(name);
+    container.appendChild(wrapper);
+  });
+})();
+</script>
 
 
 
