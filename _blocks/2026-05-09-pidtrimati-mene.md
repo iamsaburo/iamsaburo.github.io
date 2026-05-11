@@ -102,7 +102,7 @@ embed_max_width: 500px
 </div>
 
 <!-- ═══════════════════════════════════════════
-     TWITCH AVATARS (clickable, minimal)
+     TWITCH AVATARS (clickable, ORB‑safe)
      ═══════════════════════════════════════════ -->
 <h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
@@ -135,7 +135,8 @@ embed_max_width: 500px
     a.style.color = "inherit";
 
     const img = document.createElement("img");
-    img.src = `https://unavatar.io/twitch/${user}`;
+    // ✅ CORS‑friendly, no redirect chains → no ORB errors
+    img.src = `https://nxtz.vercel.app/api/twitch-avatar/${user}`;
     img.alt = user;
     img.className = "tab-icon-svg";
     img.style.width = "70px";
