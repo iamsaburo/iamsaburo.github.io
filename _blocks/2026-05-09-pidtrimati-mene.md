@@ -21,6 +21,18 @@ embed_max_width: 500px
 <div style="margin-top: 0.5rem;"></div>
 
 ---
+
+Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.
+##### Це абсолютно ⚠️ не обов’язково, але буду вдячний!
+‎
+‎# ПОСИЛАННЯ:
+В налаштуваннях панелі 👇 додайте посилання на запрошення
+`https://t.me/saburo_ua`
+
+**Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське** 💙💛
+
+---
+
 <!-- ═══════════════════════════════════════════
      INLINE TABS: Telegram / Discord
      ═══════════════════════════════════════════ -->
@@ -46,7 +58,6 @@ embed_max_width: 500px
              alt="Telegram image 1"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
-           data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
            href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
            download="telegram-image-1.gif"
@@ -63,7 +74,6 @@ embed_max_width: 500px
              alt="Telegram image 2"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
-           data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
            href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
            download="telegram-image-2.gif"
@@ -85,7 +95,6 @@ embed_max_width: 500px
              alt="Discord image 1"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
-           data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
            href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
            download="discord-image-1.gif"
@@ -102,7 +111,6 @@ embed_max_width: 500px
              alt="Discord image 2"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
-           data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
            href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
            download="discord-image-2.gif"
@@ -115,60 +123,46 @@ embed_max_width: 500px
   </div>
 </div>
 
----
-
-Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.
-##### Це абсолютно ⚠️ не обов’язково, але буду вдячний!
-‎
-‎# ПОСИЛАННЯ:
-В налаштуваннях панелі 👇 додайте посилання на запрошення
-`https://t.me/saburo_ua`
-
-**Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське** 💙💛
-
----
-
 <!-- ═══════════════════════════════════════════
-     TWITCH AVATARS (70×70 circles, clickable)
+     TWITCH AVATARS (clickable, 70×70)
      ═══════════════════════════════════════════ -->
 <h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
-  <!-- Dynamically filled by script below -->
+  <!-- Dynamically filled -->
 </div>
 
 <script>
 (function(){
-  // ⚡ Put your Twitch usernames here
   const twitchUsers = [
     "Lamark_sk8",
     "DMTRNKOO",
     "Sonna_Sonia",
     "Hassk14",
     "freshnia4ok",
-    "thesanches_"
+    "thesanches_",
     "Evgeniusd",
     "JesVikk",
     "Xenatik0",
-    "ZubikStyle"
+    "ZubikStyle",
     "blueberrycblack",
     "vtomleni",
     "snellkin",
     "Trickster_Lis",
     "bloody_specter",
-    "the0ara"
+    "the0ara",
     "Goolkim",
     "DannyelGray",
     "Alex969Hell",
     "Nisenitnytsya",
     "Vladykus",
-    "bander_oli4ka"
+    "bander_oli4ka",
     "izumkaua",
     "bastetvibe",
     "Stop_me_2",
     "pis_tashka",
     "jeleshka____",
-    "Finka_o"
+    "Finka_o",
     "Fotograf_UA",
     "DzrtFoxUA",
     "Kavalets",
@@ -181,7 +175,6 @@ embed_max_width: 500px
   if (!container) return;
 
   twitchUsers.forEach(user => {
-    // Use Unavatar – free, reliable Twitch avatar service
     const avatarUrl = `https://unavatar.io/twitch/${user}`;
     const twitchLink = `https://twitch.tv/${user}`;
 
@@ -194,7 +187,7 @@ embed_max_width: 500px
     const img = document.createElement("img");
     img.src = avatarUrl;
     img.alt = user;
-    img.className = "tab-icon-svg";          // disables download overlay
+    img.className = "tab-icon-svg";
     img.style.cssText = "width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2);";
 
     const name = document.createElement("span");
