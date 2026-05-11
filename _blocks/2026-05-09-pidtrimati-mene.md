@@ -112,18 +112,18 @@ embed_max_width: 500px
   </div>
 </div>
 
----
-
+<!-- ═══════════════════════════════════════════
+     TWITCH AVATARS (70×70 circles, clickable)
+     ═══════════════════════════════════════════ -->
 <h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
-<!-- Editable list of Twitch usernames (just change the names in the array) -->
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
   <!-- Dynamically filled by script below -->
 </div>
 
 <script>
 (function(){
-  // ⚡ Put your Twitch usernames here (add / remove as many as you like)
+  // ⚡ Put your Twitch usernames here
   const twitchUsers = [
     "saburo_ua",
     "xqcow",
@@ -137,13 +137,20 @@ embed_max_width: 500px
   if (!container) return;
 
   twitchUsers.forEach(user => {
-    const wrapper = document.createElement("div");
-    wrapper.style.cssText = "display:flex; flex-direction:column; align-items:center; gap:0.5rem;";
+    // Use Unavatar – free, reliable Twitch avatar service
+    const avatarUrl = `https://unavatar.io/twitch/${user}`;
+    const twitchLink = `https://twitch.tv/${user}`;
+
+    const wrapper = document.createElement("a");
+    wrapper.href = twitchLink;
+    wrapper.target = "_blank";
+    wrapper.rel = "noopener noreferrer";
+    wrapper.style.cssText = "display:flex; flex-direction:column; align-items:center; gap:0.5rem; text-decoration:none; color:inherit;";
 
     const img = document.createElement("img");
-    img.src = `https://decapi.me/twitch/avatar/${user}`;
+    img.src = avatarUrl;
     img.alt = user;
-    img.className = "tab-icon-svg";          // avoid download overlay on avatars
+    img.className = "tab-icon-svg";          // disables download overlay
     img.style.cssText = "width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2);";
 
     const name = document.createElement("span");
@@ -158,7 +165,7 @@ embed_max_width: 500px
 </script>
 
 
-
+---
 
 Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.
 ##### Це абсолютно ⚠️ не обов’язково, але буду вдячний!
