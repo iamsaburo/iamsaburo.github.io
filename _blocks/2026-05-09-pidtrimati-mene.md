@@ -13,10 +13,12 @@ embed_max_width: 500px
   <source src="webm/SABURO_ThankYou.webm" type="video/webm">
 </video>
 
-**Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.**
-##### Це абсолютно ⚠️ не обов’язково, але буду вдячний!
+<div style="margin-top: 0.5rem;"></div>
 
-Цей текст знаходиться **вище** вбудованих вкладок. Вкладки нижче є незалежним блоком — вони не впливають на цей текст.
+**Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.**
+> Це абсолютно ⚠️ не обов’язково, але буду вдячний!
+
+<div style="margin-top: 0.5rem;"></div>
 
 ---
 
@@ -27,8 +29,7 @@ embed_max_width: 500px
   </nav>
 
   <div class="tab-panel active" data-tab="step1">
-    <p><strong>Перший крок</strong> — встановлення.</p>
-    <p>Відкрий термінал і виконай команду:</p>
+    <p>![Тестове зображення](webp/SABURO_TG_SMALL.png)</p>
     <pre><code>npm install my-package</code></pre>
   </div>
 
