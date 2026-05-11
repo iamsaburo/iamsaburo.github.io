@@ -15,16 +15,13 @@ embed_max_width: 500px
 
 <div style="margin-top: 0.5rem;"></div>
 
-**Всі бажаючі тепер можуть встановити собі в описі Twitch, панель нашгоTelegram або Discord.**
-> Це абсолютно ⚠️ не обов’язково, але буду вдячний!
+### Всі бажаючі тепер можуть встановити собі в описі Twitch, панель нашого Telegram або Discord.
+Це абсолютно ⚠️ не обов’язково, але буду вдячний!
 
 <div style="margin-top: 0.5rem;"></div>
 
 ---
 
-<!-- ═══════════════════════════════════════════
-     INLINE TABS: Telegram / Discord
-     ═══════════════════════════════════════════ -->
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
     <button class="tab-btn active" data-tab="tab-tg" role="tab" aria-selected="true">
@@ -46,14 +43,12 @@ embed_max_width: 500px
              class="tab-icon-svg"
              alt="Telegram image 1"
              style="width:100%; border-radius:4px; display:block;">
-        <a class="btn-saburo" data-visual="pill"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="telegram-image-1.gif"
-           target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
-          <span class="btn-label">Завантажити</span>
-        </a>
+             <a class="btn-saburo" data-visual="pill"
+                style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+                href="..." download="..." target="_blank">
+               <span class="material-icons-round btn-icon-visual">download</span>
+               <span class="btn-label">Завантажити</span>
+             </a>
       </div>
 
       <!-- Image 2 -->
@@ -62,14 +57,12 @@ embed_max_width: 500px
              class="tab-icon-svg"
              alt="Telegram image 2"
              style="width:100%; border-radius:4px; display:block;">
-        <a class="btn-saburo" data-visual="pill"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="telegram-image-2.gif"
-           target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
-          <span class="btn-label">Завантажити</span>
-        </a>
+             <a class="btn-saburo" data-visual="pill"
+                style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+                href="..." download="..." target="_blank">
+               <span class="material-icons-round btn-icon-visual">download</span>
+               <span class="btn-label">Завантажити</span>
+             </a>
       </div>
     </div>
   </div>
@@ -83,14 +76,12 @@ embed_max_width: 500px
              class="tab-icon-svg"
              alt="Discord image 1"
              style="width:100%; border-radius:4px; display:block;">
-        <a class="btn-saburo" data-visual="pill"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="discord-image-1.gif"
-           target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
-          <span class="btn-label">Завантажити</span>
-        </a>
+             <a class="btn-saburo" data-visual="pill"
+                style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+                href="..." download="..." target="_blank">
+               <span class="material-icons-round btn-icon-visual">download</span>
+               <span class="btn-label">Завантажити</span>
+             </a>
       </div>
 
       <!-- Image 2 -->
@@ -99,14 +90,12 @@ embed_max_width: 500px
              class="tab-icon-svg"
              alt="Discord image 2"
              style="width:100%; border-radius:4px; display:block;">
-        <a class="btn-saburo" data-visual="pill"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="discord-image-2.gif"
-           target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
-          <span class="btn-label">Завантажити</span>
-        </a>
+             <a class="btn-saburo" data-visual="pill"
+                style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+                href="..." download="..." target="_blank">
+               <span class="material-icons-round btn-icon-visual">download</span>
+               <span class="btn-label">Завантажити</span>
+             </a>
       </div>
     </div>
   </div>
