@@ -102,7 +102,7 @@ embed_max_width: 500px
 </div>
 
 <!-- ═══════════════════════════════════════════
-     TWITCH AVATARS (reliable, 60px, left-aligned)
+     TWITCH AVATARS (unavatar + fallback, left‑aligned)
      ═══════════════════════════════════════════ -->
 <h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
@@ -144,17 +144,17 @@ embed_max_width: 500px
     img.style.objectFit = "cover";
     img.style.border = "2px solid rgba(255,255,255,0.2)";
 
-    // Use CORS‑friendly service (direct image, no redirects)
-    img.src = `https://avatars.pavel.workers.dev/twitch/${user}`;
+    // Try unavatar (works for most)
+    img.src = `https://unavatar.io/twitch/${user}`;
 
-    // Fallback: if avatar fails to load, show a dark circle with first letter
+    // If it fails, show a dark circle with the first letter
     img.onerror = function() {
-      this.onerror = null; // prevent infinite loop
-      const firstLetter = user.charAt(0).toUpperCase();
+      this.onerror = null;
+      const letter = user.charAt(0).toUpperCase();
       this.src = `data:image/svg+xml,${encodeURIComponent(
         `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
           <circle cx="30" cy="30" r="30" fill="#1a1a1a"/>
-          <text x="30" y="36" text-anchor="middle" fill="#fff" font-size="28" font-family="Arial">${firstLetter}</text>
+          <text x="30" y="36" text-anchor="middle" fill="#fff" font-size="28" font-family="Arial">${letter}</text>
         </svg>`
       )}`;
     };
