@@ -24,18 +24,17 @@ embed_max_width: 500px
 
 Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.
 ##### Це абсолютно ⚠️ не обов’язково, але буду вдячний!
-‎
-‎# ПОСИЛАННЯ:
-В налаштуваннях панелі 👇 додайте посилання на запрошення
-`https://t.me/saburo_ua`
+
+---
+
+# ПОСИЛАННЯ:
+В налаштуваннях панелі 👇 додайте посилання на запрошення<br>
+#`https://t.me/saburo_ua`
 
 **Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське** 💙💛
 
 ---
 
-<!-- ═══════════════════════════════════════════
-     INLINE TABS: Telegram / Discord
-     ═══════════════════════════════════════════ -->
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
     <button class="tab-btn active" data-tab="tab-tg" role="tab" aria-selected="true">
@@ -104,7 +103,7 @@ embed_max_width: 500px
 <!-- ═══════════════════════════════════════════
      TWITCH AVATARS (unavatar + fallback, left‑aligned)
      ═══════════════════════════════════════════ -->
-<h2 style="margin-top:3rem;">Наша Twitch команда</h2>
+<h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
 
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;">
   <!-- filled by script -->
