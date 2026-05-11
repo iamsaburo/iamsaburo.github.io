@@ -48,74 +48,78 @@ embed_max_width: 500px
     </button>
   </nav>
 
-  <!-- TAB 1: Telegram -->
+  <!-- 📁 TAB 1: Telegram -->
   <div class="tab-panel active" data-tab="tab-tg">
     <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <!-- Image 1 -->
+      <!-- Telegram MEDIUM -->
       <div style="flex:0 0 auto; max-width:300px;">
-        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+        <img src="/webp/SABURO_TG_MEDIUM.png"
              class="tab-icon-svg"
-             alt="Telegram image 1"
+             alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="telegram-image-1.gif"
+           href="/webp/SABURO_TG_MEDIUM.png"
+           download="SABURO_TG_MEDIUM.png"
            target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="material-icons-round btn-icon-visual"
+                style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">download</span>
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
 
-      <!-- Image 2 -->
+      <!-- Telegram SMALL -->
       <div style="flex:0 0 auto; max-width:300px;">
-        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+        <img src="/webp/SABURO_TG_SMALL.png"
              class="tab-icon-svg"
-             alt="Telegram image 2"
+             alt="Telegram Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="telegram-image-2.gif"
+           href="/webp/SABURO_TG_SMALL.png"
+           download="SABURO_TG_SMALL.png"
            target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="material-icons-round btn-icon-visual"
+                style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">download</span>
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- TAB 2: Discord -->
+  <!-- 📁 TAB 2: Discord -->
   <div class="tab-panel" data-tab="tab-dc">
     <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <!-- Image 1 -->
+      <!-- Discord MEDIUM -->
       <div style="flex:0 0 auto; max-width:300px;">
-        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+        <img src="/webp/SABURO_DS_MEDIUM.png"
              class="tab-icon-svg"
-             alt="Discord image 1"
+             alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="discord-image-1.gif"
+           href="/webp/SABURO_DS_MEDIUM.png"
+           download="SABURO_DS_MEDIUM.png"
            target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="material-icons-round btn-icon-visual"
+                style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">download</span>
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
 
-      <!-- Image 2 -->
+      <!-- Discord SMALL -->
       <div style="flex:0 0 auto; max-width:300px;">
-        <img src="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
+        <img src="/webp/SABURO_DS_SMALL.png"
              class="tab-icon-svg"
-             alt="Discord image 2"
+             alt="Discord Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill"
            style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
-           href="https://i.postimg.cc/JzZmjqMr/Pxl-Art-GIF-TG.gif"
-           download="discord-image-2.gif"
+           href="/webp/SABURO_DS_SMALL.png"
+           download="SABURO_DS_SMALL.png"
            target="_blank">
-          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="material-icons-round btn-icon-visual"
+                style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">download</span>
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
@@ -124,16 +128,17 @@ embed_max_width: 500px
 </div>
 
 <!-- ═══════════════════════════════════════════
-     TWITCH AVATARS (clickable, 70×70)
+     TWITCH AVATARS (clickable, fallback image)
      ═══════════════════════════════════════════ -->
 <h2 style="margin-top:3rem;">Наша Twitch команда</h2>
 
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
-  <!-- Dynamically filled -->
+  <!-- filled by script -->
 </div>
 
 <script>
 (function(){
+  // ⚡ Your full Twitch team (commas correctly placed)
   const twitchUsers = [
     "Lamark_sk8",
     "DMTRNKOO",
@@ -189,6 +194,12 @@ embed_max_width: 500px
     img.alt = user;
     img.className = "tab-icon-svg";
     img.style.cssText = "width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2);";
+
+    // Fallback if avatar can't be loaded
+    img.onerror = function() {
+      this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%23333'/%3E%3Ctext x='35' y='42' text-anchor='middle' fill='%23fff' font-size='28' font-family='Arial'%3E" +
+                  user.charAt(0).toUpperCase() + "%3C/text%3E%3C/svg%3E";
+    };
 
     const name = document.createElement("span");
     name.textContent = user;
