@@ -125,3 +125,85 @@ embed_max_width: 500px
 `https://t.me/saburo_ua`
 
 **Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське** 💙💛
+
+---
+
+<!-- ═══════════════════════════════════════════
+     TWITCH AVATARS (70×70 circles, clickable)
+     ═══════════════════════════════════════════ -->
+<h2 style="margin-top:3rem;">Наша Twitch команда</h2>
+
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
+  <!-- Dynamically filled by script below -->
+</div>
+
+<script>
+(function(){
+  // ⚡ Put your Twitch usernames here
+  const twitchUsers = [
+    "Lamark_sk8",
+    "DMTRNKOO",
+    "Sonna_Sonia",
+    "Hassk14",
+    "freshnia4ok",
+    "thesanches_"
+    "Evgeniusd",
+    "JesVikk",
+    "Xenatik0",
+    "ZubikStyle"
+    "blueberrycblack",
+    "vtomleni",
+    "snellkin",
+    "Trickster_Lis",
+    "bloody_specter",
+    "the0ara"
+    "Goolkim",
+    "DannyelGray",
+    "Alex969Hell",
+    "Nisenitnytsya",
+    "Vladykus",
+    "bander_oli4ka"
+    "izumkaua",
+    "bastetvibe",
+    "Stop_me_2",
+    "pis_tashka",
+    "jeleshka____",
+    "Finka_o"
+    "Fotograf_UA",
+    "DzrtFoxUA",
+    "Kavalets",
+    "gamebulochka",
+    "Otolich",
+    "ArdenLich"
+  ];
+
+  const container = document.getElementById("twitch-avatars");
+  if (!container) return;
+
+  twitchUsers.forEach(user => {
+    // Use Unavatar – free, reliable Twitch avatar service
+    const avatarUrl = `https://unavatar.io/twitch/${user}`;
+    const twitchLink = `https://twitch.tv/${user}`;
+
+    const wrapper = document.createElement("a");
+    wrapper.href = twitchLink;
+    wrapper.target = "_blank";
+    wrapper.rel = "noopener noreferrer";
+    wrapper.style.cssText = "display:flex; flex-direction:column; align-items:center; gap:0.5rem; text-decoration:none; color:inherit;";
+
+    const img = document.createElement("img");
+    img.src = avatarUrl;
+    img.alt = user;
+    img.className = "tab-icon-svg";          // disables download overlay
+    img.style.cssText = "width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2);";
+
+    const name = document.createElement("span");
+    name.textContent = user;
+    name.style.cssText = "font-size:0.85rem; color:var(--text); text-align:center; max-width:80px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;";
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(name);
+    container.appendChild(wrapper);
+  });
+})();
+</script>
