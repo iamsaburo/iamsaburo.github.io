@@ -15,25 +15,9 @@ embed_max_width: 500px
 
 <div style="margin-top: 0.5rem;"></div>
 
-### Всі бажаючі тепер можуть встановити собі в описі Twitch, панель нашого Telegram або Discord.
-Це абсолютно ⚠️ не обов’язково, але буду вдячний!
+## Підтримай проект - встанови собі в описі каналу банер нашої спільноти.
 
 <div style="margin-top: 0.5rem;"></div>
-
----
-
-Всі бажаючі тепер можуть встановити собі в описі Twitch каналу панель нашої Telegram групи.
-##### Це абсолютно ⚠️ не обов’язково, але буду вдячний!
-
----
-
-# ПОСИЛАННЯ:
-В налаштуваннях панелі 👇 додайте посилання на запрошення<br>
-#`https://t.me/saburo_ua`
-
-**Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське** 💙💛
-
----
 
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
@@ -47,14 +31,14 @@ embed_max_width: 500px
     </button>
   </nav>
 
-  <!-- 📁 TAB 1: Telegram -->
+  <!-- Telegram -->
   <div class="tab-panel active" data-tab="tab-tg">
     <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:8px; margin-top:0.5rem;"
            href="/webp/SABURO_TG_MEDIUM.png" download="SABURO_TG_MEDIUM.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -64,7 +48,7 @@ embed_max_width: 500px
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:8px; margin-top:0.5rem;"
            href="/webp/SABURO_TG_SMALL.png" download="SABURO_TG_SMALL.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -73,14 +57,14 @@ embed_max_width: 500px
     </div>
   </div>
 
-  <!-- 📁 TAB 2: Discord -->
+  <!-- Discord -->
   <div class="tab-panel" data-tab="tab-dc">
     <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.5rem;"
            href="/webp/SABURO_DS_MEDIUM.png" download="SABURO_DS_MEDIUM.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -90,7 +74,7 @@ embed_max_width: 500px
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:10px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.5rem;"
            href="/webp/SABURO_DS_SMALL.png" download="SABURO_DS_SMALL.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -100,20 +84,21 @@ embed_max_width: 500px
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     TWITCH AVATARS (unavatar + fallback, left‑aligned)
-     ═══════════════════════════════════════════ -->
-<h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
+---
 
+**Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське** 💙💛
+
+---
+
+<h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;">
-  <!-- filled by script -->
 </div>
 
 <script>
 (function(){
   const twitchUsers = [
-    "Lamark_sk8", "DMTRNKOO", "Sonna_Sonia", "Hassk14", "freshnia4ok", "thesanches_",
-    "Evgeniusd", "JesVikk", "Xenatik0", "ZubikStyle", "blueberrycblack", "vtomleni",
+    "Lamark_sk8", "DMTRNKOO", "Sonna_Sonia", "hasskich_", "freshnia4ok", "thesanches_",
+    "Evgeniusd", "JesVikk", "Xenatik0", "ZubikStyle", "blueberrycblack", "vtomleniy",
     "snellkin", "Trickster_Lis", "bloody_specter", "the0ara", "Goolkim", "DannyelGray",
     "Alex969Hell", "Nisenitnytsya", "Vladykus", "bander_oli4ka", "izumkaua", "bastetvibe",
     "Stop_me_2", "pis_tashka", "jeleshka____", "Finka_o", "Fotograf_UA", "DzrtFoxUA",
@@ -143,20 +128,7 @@ embed_max_width: 500px
     img.style.objectFit = "cover";
     img.style.border = "2px solid rgba(255,255,255,0.2)";
 
-    // Try unavatar (works for most)
     img.src = `https://unavatar.io/twitch/${user}`;
-
-    // If it fails, show a dark circle with the first letter
-    img.onerror = function() {
-      this.onerror = null;
-      const letter = user.charAt(0).toUpperCase();
-      this.src = `data:image/svg+xml,${encodeURIComponent(
-        `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
-          <circle cx="30" cy="30" r="30" fill="#1a1a1a"/>
-          <text x="30" y="36" text-anchor="middle" fill="#fff" font-size="28" font-family="Arial">${letter}</text>
-        </svg>`
-      )}`;
-    };
 
     const span = document.createElement("span");
     span.textContent = user;
@@ -174,5 +146,5 @@ embed_max_width: 500px
 })();
 </script>
 
----
-
+### Посилання для банера:
+# `https://t.me/saburo_ua`
