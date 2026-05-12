@@ -15,7 +15,8 @@ embed_max_width: 500px
 
 <div style="margin-top: 0.5rem;"></div>
 
-## Підтримай проект - встанови собі в описі каналу банер нашої спільноти.
+## Підтримай проект
+Встанови собі в описі каналу банер нашої спільноти.
 
 <div style="margin-top: 0.5rem;"></div>
 
@@ -31,9 +32,13 @@ embed_max_width: 500px
     </button>
   </nav>
 
-  <!-- Telegram -->
+  <!-- ── Telegram ───────────────────────────────── -->
   <div class="tab-panel active" data-tab="tab-tg">
-    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+          title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
+
+    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
@@ -57,9 +62,13 @@ embed_max_width: 500px
     </div>
   </div>
 
-  <!-- Discord -->
+  <!-- ── Discord ───────────────────────────────── -->
   <div class="tab-panel" data-tab="tab-dc">
-    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+          title="Клікни щоб скопіювати">https://discord.gg/your‑server‑link</code>
+
+    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
@@ -118,6 +127,7 @@ embed_max_width: 500px
     a.style.gap = "0.4rem";
     a.style.textDecoration = "none";
     a.style.color = "inherit";
+    a.style.width = "80px";          // fixed width for grid consistency
 
     const img = document.createElement("img");
     img.className = "tab-icon-svg";
@@ -134,7 +144,7 @@ embed_max_width: 500px
     span.textContent = user;
     span.style.fontSize = "0.75rem";
     span.style.textAlign = "center";
-    span.style.maxWidth = "70px";
+    span.style.maxWidth = "80px";    // same as wrapper width
     span.style.overflow = "hidden";
     span.style.textOverflow = "ellipsis";
     span.style.whiteSpace = "nowrap";
@@ -145,6 +155,3 @@ embed_max_width: 500px
   });
 })();
 </script>
-
-### Посилання для банера:
-# `https://t.me/saburo_ua`
