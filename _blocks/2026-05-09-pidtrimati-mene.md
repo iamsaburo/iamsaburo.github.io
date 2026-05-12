@@ -72,7 +72,7 @@ embed_max_width: 500px
 
           <div style="margin-top: 0.5rem;"></div>
 
-    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <div style="margin-bottom:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
@@ -97,7 +97,7 @@ embed_max_width: 500px
   </div>
 </div>
 
----
+<div style="margin-top: 4rem;"></div>
 
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;">
