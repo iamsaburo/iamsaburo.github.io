@@ -92,7 +92,7 @@ permalink: /404.html
       } else if (errorParam === 'not_in_guild' || errorParam === 'missing_role') {
         msg.innerHTML = 'Ви не маєте доступу до цього контенту. Переконайтеся, що ви учасник спільноти.';
       } else if (errorParam === 'invalid_token') {
-        msg.innerHTML = 'Посилання застаріло<br>Спробуйте ще раз';
+        msg.innerHTML = 'Застаріле посилання<br>Авторизуйтесь ще раз';
       } else if (errorParam) {
         msg.innerHTML = 'Помилка авторизації<br>Спробуйте ще раз';
       }
