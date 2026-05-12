@@ -9,7 +9,7 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-## ПІДТРИМАЙ ПРОЕКТ
+<h1 style="margin-bottom:0.1rem;">ПІДТРИМАЙ ПРОЕКТ</h1>
 Встанови собі в описі каналу банер нашої спільноти.
 
 <div style="margin-top: 0.5rem;"></div>
