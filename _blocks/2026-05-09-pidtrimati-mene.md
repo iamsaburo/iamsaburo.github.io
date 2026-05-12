@@ -34,11 +34,9 @@ embed_max_width: 500px
 
   <!-- ── Telegram ── -->
   <div class="tab-panel active" data-tab="tab-tg">
-    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <h3 style="margin-bottom:1.5rem;">Посилання для банера:</h3>
     <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
-
-          <div style="margin-top: 0.5rem;"></div>
 
     <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
@@ -66,13 +64,11 @@ embed_max_width: 500px
 
   <!-- ── Discord ── -->
   <div class="tab-panel" data-tab="tab-dc">
-    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <h3 style="margin-bottom:1.5rem;">Посилання для банера:</h3>
     <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
 
-          <div style="margin-top: 0.5rem;"></div>
-
-    <div style="margin-bottom:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
