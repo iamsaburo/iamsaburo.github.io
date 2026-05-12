@@ -23,11 +23,11 @@ embed_max_width: 500px
   <nav class="tabs-nav" role="tablist">
     <button class="tab-btn active" data-tab="tab-tg" role="tab" aria-selected="true">
       <img src="/svg/sm_telegram.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
-      <span>Telegram</span>
+      <span>Telegram група</span>
     </button>
     <button class="tab-btn" data-tab="tab-dc" role="tab" aria-selected="false">
       <img src="/svg/sm_discord.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
-      <span>Discord</span>
+      <span>Discord сервер</span>
     </button>
   </nav>
 
@@ -38,7 +38,7 @@ embed_max_width: 500px
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:8px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_TG_MEDIUM.png" download="SABURO_TG_MEDIUM.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -48,7 +48,7 @@ embed_max_width: 500px
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:8px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_TG_SMALL.png" download="SABURO_TG_SMALL.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -64,7 +64,7 @@ embed_max_width: 500px
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_DS_MEDIUM.png" download="SABURO_DS_MEDIUM.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -74,7 +74,7 @@ embed_max_width: 500px
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.5rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_DS_SMALL.png" download="SABURO_DS_SMALL.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
