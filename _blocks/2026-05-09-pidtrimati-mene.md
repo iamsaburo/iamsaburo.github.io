@@ -32,16 +32,18 @@ embed_max_width: 500px
     </button>
   </nav>
 
+<div style="margin-top: 0.5rem;"></div>
+
   <!-- ── Telegram ── -->
   <div class="tab-panel active" data-tab="tab-tg">
     <h3 style="margin-bottom:1rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+    <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
     <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
-             style="width:100%; border-radius:4px; display:block;">
+             style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_TG_MEDIUM.png" download="SABURO_TG_MEDIUM.png" target="_blank">
@@ -51,7 +53,7 @@ embed_max_width: 500px
       </div>
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
-             style="width:100%; border-radius:4px; display:block;">
+             style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_TG_SMALL.png" download="SABURO_TG_SMALL.png" target="_blank">
@@ -65,7 +67,7 @@ embed_max_width: 500px
   <!-- ── Discord ── -->
   <div class="tab-panel" data-tab="tab-dc">
     <h3 style="margin-bottom:1rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+    <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
 
     <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
@@ -81,7 +83,7 @@ embed_max_width: 500px
       </div>
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
-             style="width:100%; border-radius:4px; display:block;">
+             style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_DS_SMALL.png" download="SABURO_DS_SMALL.png" target="_blank">
