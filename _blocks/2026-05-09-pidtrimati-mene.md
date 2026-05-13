@@ -62,9 +62,9 @@ embed_max_width: 500px
             title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
     </div>
 
-    <!-- Responsive image + button containers -->
+    <!-- Responsive image + button containers (shrink‑wrap to image width) -->
     <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 250px; max-width:100%;">
+      <div style="flex:0 0 auto; width:fit-content; max-width:100%;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -74,7 +74,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 250px; max-width:100%;">
+      <div style="flex:0 0 auto; width:fit-content; max-width:100%;">
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -97,7 +97,7 @@ embed_max_width: 500px
     </div>
 
     <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 250px; max-width:100%;">
+      <div style="flex:0 0 auto; width:fit-content; max-width:100%;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -107,7 +107,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 250px; max-width:100%;">
+      <div style="flex:0 0 auto; width:fit-content; max-width:100%;">
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
