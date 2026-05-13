@@ -9,6 +9,23 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
+<style>
+  /* 10% smaller avatars on mobile */
+  @media(max-width:768px) {
+    #twitch-avatars a {
+      width: 72px !important;
+    }
+    #twitch-avatars img {
+      width: 54px !important;
+      height: 54px !important;
+    }
+    #twitch-avatars span {
+      font-size: 0.675rem !important;
+      max-width: 72px !important;
+    }
+  }
+</style>
+
 # Підтримай проект!
 Встанови собі в описі каналу банер нашої спільноти.
 
@@ -38,9 +55,16 @@ embed_max_width: 500px
 
   <!-- ── Telegram ───────────────────────────────── -->
   <div class="tab-panel active" data-tab="tab-tg">
-    <!-- Images & download buttons come FIRST -->
-    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start; margin-bottom:1.5rem;">
-      <div style="flex:0 0 auto; max-width:300px;">
+    <!-- Link ABOVE the images, reduced space -->
+    <div style="margin-bottom:1.5rem;">
+      <h3 style="margin-top:0; margin-bottom:0.2rem;">Посилання для банера:</h3>
+      <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+            title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
+    </div>
+
+    <!-- Responsive image + button containers -->
+    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+      <div style="flex:1 1 250px; max-width:100%;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -50,7 +74,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:0 0 auto; max-width:300px;">
+      <div style="flex:1 1 250px; max-width:100%;">
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -61,18 +85,19 @@ embed_max_width: 500px
         </a>
       </div>
     </div>
-
-    <!-- Link section now AFTER the images -->
-    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
-          title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
   </div>
 
   <!-- ── Discord ───────────────────────────────── -->
   <div class="tab-panel" data-tab="tab-dc">
-    <!-- Images & download buttons first -->
-    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start; margin-bottom:1.5rem;">
-      <div style="flex:0 0 auto; max-width:300px;">
+    <!-- Link above images -->
+    <div style="margin-bottom:1.5rem;">
+      <h3 style="margin-top:0; margin-bottom:0.2rem;">Посилання для банера:</h3>
+      <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+            title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
+    </div>
+
+    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+      <div style="flex:1 1 250px; max-width:100%;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -82,7 +107,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:0 0 auto; max-width:300px;">
+      <div style="flex:1 1 250px; max-width:100%;">
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -93,14 +118,8 @@ embed_max_width: 500px
         </a>
       </div>
     </div>
-
-    <!-- Link section after the images -->
-    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
-          title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
   </div>
 </div>
-
 
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:7rem;">
