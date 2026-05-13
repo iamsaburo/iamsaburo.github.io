@@ -11,7 +11,7 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-<video autoplay loop muted playsinline style="max-width:100%; border-radius:4px; display:block;">
+<video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
   <source src="webm/chat_pixel_art.webm" type="video/webm">
 </video>
 
