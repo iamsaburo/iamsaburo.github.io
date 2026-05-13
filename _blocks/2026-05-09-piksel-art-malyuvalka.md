@@ -1,35 +1,42 @@
 ---
 title: Піксель-арт малювалка
 slug: chat-pixel-art
-order: 50
-hidden: true
-image: https://i.postimg.cc/VvSqWWvm/Pxl-Art-GIF.jpg
-webm_image: /webm/Chat_Pixel_Art.webm
+order: 7
+hidden: false
+image: webp/chat_pixel_art.webp
+webm_image: webm/chat_pixel_art.webm
 back_url: /
 categories:
   - StreamElements
   - Twitch
-embed_max_width: 600px
+embed_max_width: 500px
 ---
-![Демонстрація звукових емоутів](https://i.postimg.cc/VvSqWWvm/Pxl-Art-GIF.jpg)
+<video autoplay loop muted playsinline style="max-width:100%; border-radius:4px; display:block;">
+  <source src="webm/webm/chat_pixel_art.webm" type="video/webm">
+</video>
 
-## 👾 Піксель-арт малювалка
+## 👾 Піксель-арт малювалка  `v1.0 (19.03.2026)`
+
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
+  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/chat-pixel-art-access">
+    <span class="material-icons-round btn-icon-visual">add_circle</span>
+    <span class="material-icons-round btn-icon-hover">add_circle</span>
+    <span class="btn-label">Встановити</span>
+  </a>
+</div>
 
 Що буде, якщо дати чату полотно і можливість малювати все що вони захочуть? <br>
 ###### Мабуть дуууже багато пемсюнів 😏 😆
-‎ 
-<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
-{% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='download' icon_hover='arrow_forward' icon_position='after' width='auto' height=40 radius=10 href='/twitch-sound-emotes-access' %}
-</div>
+‎
 ‎ 
 ## ОСНОВНІ ФУНКЦІЇ <br>
-◻️  9×9 полотно для спільних артів <br>
-🔢  До 9 пікселів в одній команді <br>
-📝  Пам'ять артів між стрімами <br>
-🧹  Ефект очищення хвилею <br>
-🔊  Звукові ефекти подій <br>
-🎨  14 кольорів пікселів <br>
-🌈  9 колірних тем <br>
+> ◻️  9×9 полотно для спільних артів <br>
+> 🔢  До 9 пікселів в одній команді <br>
+> 📝  Пам'ять артів між стрімами <br>
+> 🧹  Ефект очищення хвилею <br>
+> 🔊  Звукові ефекти подій <br>
+> 🎨  14 кольорів пікселів <br>
+> 🌈  9 колірних тем <br>
 
 ‎ 
 ## КОМАНДИ
