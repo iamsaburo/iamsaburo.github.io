@@ -9,7 +9,8 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-## Підтримай проект - встанови собі в описі каналу банер нашої спільноти.
+# Підтримай проект
+Встанови собі в описі каналу банер нашої спільноти.
 
 <div style="margin-top: 0.5rem;"></div>
 
@@ -33,11 +34,8 @@ embed_max_width: 500px
 
   <!-- ── Telegram ───────────────────────────────── -->
   <div class="tab-panel active" data-tab="tab-tg">
-    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
-          title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
-
-    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <!-- Images & download buttons come FIRST -->
+    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start; margin-bottom:1.5rem;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
@@ -59,15 +57,17 @@ embed_max_width: 500px
         </a>
       </div>
     </div>
+
+    <!-- Link section now AFTER the images -->
+    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+          title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
   </div>
 
   <!-- ── Discord ───────────────────────────────── -->
   <div class="tab-panel" data-tab="tab-dc">
-    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
-          title="Клікни щоб скопіювати">https://discord.gg/your‑server‑link</code>
-
-    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <!-- Images & download buttons first -->
+    <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start; margin-bottom:1.5rem;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
@@ -89,6 +89,11 @@ embed_max_width: 500px
         </a>
       </div>
     </div>
+
+    <!-- Link section after the images -->
+    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+          title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
   </div>
 </div>
 
@@ -122,7 +127,7 @@ embed_max_width: 500px
     a.style.gap = "0.4rem";
     a.style.textDecoration = "none";
     a.style.color = "inherit";
-    a.style.width = "80px";          // fixed width for grid consistency
+    a.style.width = "80px";
 
     const img = document.createElement("img");
     img.className = "tab-icon-svg";
@@ -139,7 +144,7 @@ embed_max_width: 500px
     span.textContent = user;
     span.style.fontSize = "0.75rem";
     span.style.textAlign = "center";
-    span.style.maxWidth = "80px";    // same as wrapper width
+    span.style.maxWidth = "80px";
     span.style.overflow = "hidden";
     span.style.textOverflow = "ellipsis";
     span.style.whiteSpace = "nowrap";
