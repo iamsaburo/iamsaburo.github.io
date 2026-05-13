@@ -9,10 +9,10 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-# Підтримай проект
+# Підтримай проект!
 Встанови собі в описі каналу банер нашої спільноти.
 
-<div style="margin-top: 0.5rem;"></div>
+<div style="margin-top: 1.5rem;"></div>
 
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:4px; display:block;">
   <source src="webm/SABURO_ThankYou.webm" type="video/webm">
