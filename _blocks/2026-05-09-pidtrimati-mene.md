@@ -12,17 +12,17 @@ embed_max_width: 500px
 # Підтримай проект!
 Встанови собі в описі каналу банер нашої спільноти.
 
-<div style="margin-top: 2.5rem;"></div>
+<div style="margin-top: 2rem;"></div>
 
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:4px; display:block;">
   <source src="webm/SABURO_ThankYou.webm" type="video/webm">
 </video>
 
-<div style="margin-top: 2.5rem;"></div>
+<div style="margin-top: 4rem;"></div>
 
 # БАНЕРИ НА ВИБІР:
 
-<div style="margin-top: 2.5rem;"></div>
+<div style="margin-top: 1.5rem;"></div>
 
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
@@ -101,10 +101,13 @@ embed_max_width: 500px
   </div>
 </div>
 
----
+
+
+
+
 
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
-<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;">
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:3rem;">
 </div>
 
 <script>
@@ -162,4 +165,4 @@ embed_max_width: 500px
 
 ---
 
-**Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське** 💙💛
+Ваша підтримка мотивує мене робити ще більше цікавих штучок для стрімерів і розвивати українське 💙💛
