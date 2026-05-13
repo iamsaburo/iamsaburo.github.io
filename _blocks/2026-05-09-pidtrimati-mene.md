@@ -9,8 +9,7 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-# ПІДТРИМАЙ ПРОЕКТ
-Встанови собі в описі каналу банер нашої спільноти.
+## Підтримай проект - встанови собі в описі каналу банер нашої спільноти.
 
 <div style="margin-top: 0.5rem;"></div>
 
@@ -32,18 +31,16 @@ embed_max_width: 500px
     </button>
   </nav>
 
-<div style="margin-top: 0.5rem;"></div>
-
-  <!-- ── Telegram ── -->
+  <!-- ── Telegram ───────────────────────────────── -->
   <div class="tab-panel active" data-tab="tab-tg">
-    <h3 style="margin-bottom:1rem;">Посилання для банера:</h3>
-    <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
     <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
-             style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
+             style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_TG_MEDIUM.png" download="SABURO_TG_MEDIUM.png" target="_blank">
@@ -53,7 +50,7 @@ embed_max_width: 500px
       </div>
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
-             style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
+             style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_TG_SMALL.png" download="SABURO_TG_SMALL.png" target="_blank">
@@ -64,16 +61,16 @@ embed_max_width: 500px
     </div>
   </div>
 
-  <!-- ── Discord ── -->
+  <!-- ── Discord ───────────────────────────────── -->
   <div class="tab-panel" data-tab="tab-dc">
-    <h3 style="margin-bottom:1rem;">Посилання для банера:</h3>
-    <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
-          title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
+    <h3 style="margin-bottom:0.4rem;">Посилання для банера:</h3>
+    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+          title="Клікни щоб скопіювати">https://discord.gg/your‑server‑link</code>
 
     <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
-             style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
+             style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_DS_MEDIUM.png" download="SABURO_DS_MEDIUM.png" target="_blank">
@@ -83,7 +80,7 @@ embed_max_width: 500px
       </div>
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
-             style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
+             style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_DS_SMALL.png" download="SABURO_DS_SMALL.png" target="_blank">
@@ -95,7 +92,7 @@ embed_max_width: 500px
   </div>
 </div>
 
-<div style="margin-top: 4rem;"></div>
+---
 
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;">
