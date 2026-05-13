@@ -12,7 +12,7 @@ categories:
 embed_max_width: 500px
 ---
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:4px; display:block;">
-  <source src="webm/webm/chat_pixel_art.webm" type="video/webm">
+  <source src="webm/chat_pixel_art.webm" type="video/webm">
 </video>
 
 ## 👾 Піксель-арт малювалка  `v1.0 (19.03.2026)`
