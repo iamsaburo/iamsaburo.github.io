@@ -40,7 +40,7 @@ embed_max_width: 500px
     <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
-    <div style="margin-top:0.1rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
@@ -70,7 +70,7 @@ embed_max_width: 500px
     <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
 
-    <div style="margin-top:0.1rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:0 0 auto; max-width:300px;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block; margin-top:1.5rem;">
