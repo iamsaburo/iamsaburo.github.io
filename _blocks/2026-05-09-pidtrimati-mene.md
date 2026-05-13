@@ -12,13 +12,17 @@ embed_max_width: 500px
 # Підтримай проект!
 Встанови собі в описі каналу банер нашої спільноти.
 
-<div style="margin-top: 4.5rem;"></div>
+<div style="margin-top: 2.5rem;"></div>
 
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:4px; display:block;">
   <source src="webm/SABURO_ThankYou.webm" type="video/webm">
 </video>
 
-<div style="margin-top: 0.5rem;"></div>
+<div style="margin-top: 2.5rem;"></div>
+
+# БАНЕРИ НА ВИБІР:
+
+<div style="margin-top: 2.5rem;"></div>
 
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
