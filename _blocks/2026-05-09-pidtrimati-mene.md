@@ -20,7 +20,7 @@ embed_max_width: 500px
 
 <div style="margin-top: 4rem;"></div>
 
-# БАНЕРИ НА ВИБІР:
+## БАНЕРИ НА ВИБІР:
 
 <div style="margin-top: 1.5rem;"></div>
 
@@ -102,12 +102,8 @@ embed_max_width: 500px
 </div>
 
 
-
-
-
-
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
-<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:3rem;">
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:7rem;">
 </div>
 
 <script>
