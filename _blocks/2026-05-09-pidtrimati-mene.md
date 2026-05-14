@@ -42,7 +42,7 @@ embed_max_width: 500px
 
   <!-- Tab: Сайт -->
   <div class="tab-panel active" data-tab="tab-site" style="padding-top:1rem;">
-    <h3 style="margin-top:2.5; margin-bottom:0.3rem;">Посилання для банера:</h3>
+    <h3 style="margin-top:2; margin-bottom:0.3rem;">Посилання для банера:</h3>
     <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://saburo.s.gy/</code>
 
