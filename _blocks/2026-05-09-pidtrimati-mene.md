@@ -188,7 +188,6 @@ embed_max_width: 500px
 </script>
 
 <style>
-  /* Desktop: make banner images 70% smaller and reduce gap */
   @media (min-width: 769px) {
     .banner-img-wrap {
       max-width: 200px !important;
@@ -198,7 +197,6 @@ embed_max_width: 500px
     }
   }
 
-  /* Mobile: keep avatars slightly smaller */
   @media (max-width: 768px) {
     #twitch-avatars a img {
       width: 54px !important;
