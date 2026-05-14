@@ -137,6 +137,12 @@ embed_max_width: 500px
      alt="Інструкція як додати банер"
      style="max-width:100%; border-radius:4px; display:block; margin-top:1rem;">
 
+<div style="margin-top: 2rem;"></div>
+
+---
+
+<div style="margin-top: 1rem;"></div>
+
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.3rem; justify-content:flex-start; margin-top:1.5rem;"></div>
 
@@ -195,7 +201,7 @@ embed_max_width: 500px
 <style>
   @media (min-width: 769px) {
     .banner-card {
-      max-width: 180px !important;
+      max-width: 300px !important;
     }
   }
 
