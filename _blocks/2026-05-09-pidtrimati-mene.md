@@ -43,7 +43,7 @@ embed_max_width: 500px
   <!-- Tab: Сайт -->
   <div class="tab-panel active" data-tab="tab-site" style="padding-top:1rem;">
     <h3 style="margin-top:1.5; margin-bottom:0.3rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+    <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://saburo.s.gy/</code>
 
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
@@ -72,8 +72,8 @@ embed_max_width: 500px
 
   <!-- Tab: Telegram -->
   <div class="tab-panel" data-tab="tab-tg" style="padding-top:1rem;">
-    <h3 style="margin-top:0; margin-bottom:0.3rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+    <h3 style="margin-top:1.5; margin-bottom:0.3rem;">Посилання для банера:</h3>
+    <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
@@ -102,8 +102,8 @@ embed_max_width: 500px
 
   <!-- Tab: Discord -->
   <div class="tab-panel" data-tab="tab-dc" style="padding-top:1rem;">
-    <h3 style="margin-top:0; margin-bottom:0.3rem;">Посилання для банера:</h3>
-    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+    <h3 style="margin-top:1.5; margin-bottom:0.3rem;">Посилання для банера:</h3>
+    <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
 
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
