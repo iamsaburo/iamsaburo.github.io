@@ -26,62 +26,56 @@ embed_max_width: 500px
 
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
-    <!-- 🟢 New tab: Website -->
     <button class="tab-btn active" data-tab="tab-site" role="tab" aria-selected="true">
       <img src="/svg/token.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
       <span>Сайт</span>
     </button>
     <button class="tab-btn" data-tab="tab-tg" role="tab" aria-selected="false">
       <img src="/svg/sm_telegram.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
-      <span>Telegram група</span>
+      <span>Telegram</span>
     </button>
     <button class="tab-btn" data-tab="tab-dc" role="tab" aria-selected="false">
       <img src="/svg/sm_discord.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
-      <span>Discord сервер</span>
+      <span>Discord</span>
     </button>
   </nav>
 
-  <!-- ── Сайт (placeholder – використовує зображення Telegram) ── -->
+  <!-- Tab: Сайт -->
   <div class="tab-panel active" data-tab="tab-site" style="padding-top:1rem;">
-    <!-- 🔗 Link on TOP with reduced space -->
     <h3 style="margin-top:0; margin-bottom:0.3rem;">Посилання для банера:</h3>
     <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
-    <!-- 🖼️ Responsive images + buttons (placeholder – замініть потім) -->
     <div style="margin-top:0.8rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:1 1 280px; max-width:100%;">
-        <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Сайт Medium"
+        <img src="/webp/SABURO_WEB_MEDIUM.png" class="tab-icon-svg" alt="Сайт Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
-           href="/webp/SABURO_TG_MEDIUM.png" download="SABURO_TG_MEDIUM.png" target="_blank">
+           href="/webp/SABURO_WEB_MEDIUM.png" download="SABURO_WEB_MEDIUM.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
       <div style="flex:1 1 280px; max-width:100%;">
-        <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Сайт Small"
+        <img src="/webp/SABURO_WEB_SMALL.png" class="tab-icon-svg" alt="Сайт Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
            style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
-           href="/webp/SABURO_TG_SMALL.png" download="SABURO_TG_SMALL.png" target="_blank">
+           href="/webp/SABURO_WEB_SMALL.png" download="SABURO_WEB_SMALL.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
     </div>
-    <p style="color:var(--muted); font-size:0.85rem; margin-top:0.5rem;">Плашкодер — замініть зображення пізніше</p>
   </div>
 
-  <!-- ── Telegram ───────────────────────────────── -->
+  <!-- Tab: Telegram -->
   <div class="tab-panel" data-tab="tab-tg" style="padding-top:1rem;">
-    <!-- 🔗 Link on TOP with reduced space -->
     <h3 style="margin-top:0; margin-bottom:0.3rem;">Посилання для банера:</h3>
     <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
-    <!-- 🖼️ Responsive images + buttons -->
     <div style="margin-top:0.8rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:1 1 280px; max-width:100%;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
@@ -106,14 +100,12 @@ embed_max_width: 500px
     </div>
   </div>
 
-  <!-- ── Discord ───────────────────────────────── -->
+  <!-- Tab: Discord -->
   <div class="tab-panel" data-tab="tab-dc" style="padding-top:1rem;">
-    <!-- 🔗 Link on TOP -->
     <h3 style="margin-top:0; margin-bottom:0.3rem;">Посилання для банера:</h3>
     <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
 
-    <!-- 🖼️ Responsive images + buttons -->
     <div style="margin-top:0.8rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:1 1 280px; max-width:100%;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
@@ -141,8 +133,7 @@ embed_max_width: 500px
 
 
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
-<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;">
-</div>
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;"></div>
 
 <script>
 (function(){
@@ -178,7 +169,6 @@ embed_max_width: 500px
     img.style.borderRadius = "50%";
     img.style.objectFit = "cover";
     img.style.border = "2px solid rgba(255,255,255,0.2)";
-
     img.src = `https://unavatar.io/twitch/${user}`;
 
     const span = document.createElement("span");
@@ -197,7 +187,6 @@ embed_max_width: 500px
 })();
 </script>
 
-<!-- 📱 10% smaller avatars & text on mobile screens only -->
 <style>
 @media (max-width: 768px) {
   #twitch-avatars a img {
