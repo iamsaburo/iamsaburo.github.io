@@ -44,7 +44,7 @@ embed_max_width: 500px
   <div class="tab-panel active" data-tab="tab-site" style="padding-top:1rem;">
     <h3 style="margin-top:1.5; margin-bottom:0.3rem;">Посилання для банера:</h3>
     <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
-          title="Клікни щоб скопіювати">https://saburo.s.gy/</code>
+          title="Клікни щоб скопіювати">https://saburo.s.gy</code>
 
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:1 1 280px; max-width:100%;">
@@ -133,7 +133,7 @@ embed_max_width: 500px
 
 
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
-<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:flex-start; margin-top:1.5rem;"></div>
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.3rem; justify-content:flex-start; margin-top:1.5rem;"></div>
 
 <script>
 (function(){
