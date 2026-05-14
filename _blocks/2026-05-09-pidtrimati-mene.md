@@ -9,6 +9,15 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
+<style>
+  .content-container img,
+  .content-container video,
+  .content-container iframe,
+  .content-container .img-wrap {
+		border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+</style>
+
 # Підтримай проект!
 Встанови собі в описі каналу банер нашої спільноти.
 
