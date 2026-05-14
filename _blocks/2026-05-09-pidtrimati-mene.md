@@ -26,7 +26,12 @@ embed_max_width: 500px
 
 <div class="inline-tabs">
   <nav class="tabs-nav" role="tablist">
-    <button class="tab-btn active" data-tab="tab-tg" role="tab" aria-selected="true">
+    <!-- 🟢 New tab: Website -->
+    <button class="tab-btn active" data-tab="tab-site" role="tab" aria-selected="true">
+      <img src="/svg/token.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
+      <span>Сайт</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-tg" role="tab" aria-selected="false">
       <img src="/svg/sm_telegram.svg" class="tab-icon-svg" style="width:18px; height:18px;" alt="">
       <span>Telegram група</span>
     </button>
@@ -36,8 +41,41 @@ embed_max_width: 500px
     </button>
   </nav>
 
+  <!-- ── Сайт (placeholder – використовує зображення Telegram) ── -->
+  <div class="tab-panel active" data-tab="tab-site" style="padding-top:1rem;">
+    <!-- 🔗 Link on TOP with reduced space -->
+    <h3 style="margin-top:0; margin-bottom:0.3rem;">Посилання для банера:</h3>
+    <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
+          title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
+
+    <!-- 🖼️ Responsive images + buttons (placeholder – замініть потім) -->
+    <div style="margin-top:0.8rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+      <div style="flex:1 1 280px; max-width:100%;">
+        <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Сайт Medium"
+             style="width:100%; border-radius:4px; display:block;">
+        <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
+           href="/webp/SABURO_TG_MEDIUM.png" download="SABURO_TG_MEDIUM.png" target="_blank">
+          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="btn-label">Завантажити</span>
+        </a>
+      </div>
+      <div style="flex:1 1 280px; max-width:100%;">
+        <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Сайт Small"
+             style="width:100%; border-radius:4px; display:block;">
+        <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
+           href="/webp/SABURO_TG_SMALL.png" download="SABURO_TG_SMALL.png" target="_blank">
+          <span class="material-icons-round btn-icon-visual">download</span>
+          <span class="btn-label">Завантажити</span>
+        </a>
+      </div>
+    </div>
+    <p style="color:var(--muted); font-size:0.85rem; margin-top:0.5rem;">Плашкодер — замініть зображення пізніше</p>
+  </div>
+
   <!-- ── Telegram ───────────────────────────────── -->
-  <div class="tab-panel active" data-tab="tab-tg" style="padding-top:1rem;">
+  <div class="tab-panel" data-tab="tab-tg" style="padding-top:1rem;">
     <!-- 🔗 Link on TOP with reduced space -->
     <h3 style="margin-top:0; margin-bottom:0.3rem;">Посилання для банера:</h3>
     <code style="font-size:1.5rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
