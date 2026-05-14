@@ -46,8 +46,8 @@ embed_max_width: 500px
     <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://saburo.s.gy</code>
 
-    <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 250px; max-width:100%;">
+    <div class="tab-images-row" style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start;">
+      <div class="banner-card" style="flex:1 1 180px; max-width:100%;">
         <img src="/webp/SABURO_WEB_MEDIUM.png" class="tab-icon-svg" alt="Сайт Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -57,7 +57,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 250px; max-width:100%;">
+      <div class="banner-card" style="flex:1 1 180px; max-width:100%;">
         <img src="/webp/SABURO_WEB_SMALL.png" class="tab-icon-svg" alt="Сайт Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -76,8 +76,8 @@ embed_max_width: 500px
     <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
-    <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 250px; max-width:100%;">
+    <div class="tab-images-row" style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start;">
+      <div class="banner-card" style="flex:1 1 180px; max-width:100%;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -87,7 +87,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 250px; max-width:100%;">
+      <div class="banner-card" style="flex:1 1 180px; max-width:100%;">
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -106,8 +106,8 @@ embed_max_width: 500px
     <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
           title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
 
-    <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 250px; max-width:100%;">
+    <div class="tab-images-row" style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start;">
+      <div class="banner-card" style="flex:1 1 180px; max-width:100%;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -117,7 +117,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 250px; max-width:100%;">
+      <div class="banner-card" style="flex:1 1 180px; max-width:100%;">
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -193,6 +193,12 @@ embed_max_width: 500px
 </script>
 
 <style>
+  @media (min-width: 769px) {
+    .banner-card {
+      max-width: 180px !important;
+    }
+  }
+
   @media (max-width: 768px) {
     #twitch-avatars a img {
       width: 54px !important;
