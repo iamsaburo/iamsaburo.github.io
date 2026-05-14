@@ -49,9 +49,9 @@ embed_max_width: 500px
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
       <div style="flex:1 1 280px; max-width:100%;">
         <img src="/webp/SABURO_WEB_MEDIUM.png" class="tab-icon-svg" alt="Сайт Medium"
-             style="width:100%; border-radius:4px; display:block;">
+             style="width:80%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
+           style="--btn-w:80%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_WEB_MEDIUM.png" download="SABURO_WEB_MEDIUM.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -59,9 +59,9 @@ embed_max_width: 500px
       </div>
       <div style="flex:1 1 280px; max-width:100%;">
         <img src="/webp/SABURO_WEB_SMALL.png" class="tab-icon-svg" alt="Сайт Small"
-             style="width:100%; border-radius:4px; display:block;">
+             style="width:80%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
+           style="--btn-w:80%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_WEB_SMALL.png" download="SABURO_WEB_SMALL.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
