@@ -47,21 +47,21 @@ embed_max_width: 500px
           title="Клікни щоб скопіювати">https://saburo.s.gy</code>
 
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 280px; max-width:100%;">
+      <div class="banner-img-wrap" style="flex:1 1 200px; max-width:100%;">
         <img src="/webp/SABURO_WEB_MEDIUM.png" class="tab-icon-svg" alt="Сайт Medium"
-             style="width:80%; border-radius:4px; display:block;">
+             style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:80%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_WEB_MEDIUM.png" download="SABURO_WEB_MEDIUM.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 280px; max-width:100%;">
+      <div class="banner-img-wrap" style="flex:1 1 200px; max-width:100%;">
         <img src="/webp/SABURO_WEB_SMALL.png" class="tab-icon-svg" alt="Сайт Small"
-             style="width:80%; border-radius:4px; display:block;">
+             style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
-           style="--btn-w:80%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
+           style="--btn-w:100%; --btn-h:40px; --radius:4px; margin-top:0.8rem;"
            href="/webp/SABURO_WEB_SMALL.png" download="SABURO_WEB_SMALL.png" target="_blank">
           <span class="material-icons-round btn-icon-visual">download</span>
           <span class="btn-label">Завантажити</span>
@@ -77,7 +77,7 @@ embed_max_width: 500px
           title="Клікни щоб скопіювати">https://t.me/saburo_ua</code>
 
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 280px; max-width:100%;">
+      <div class="banner-img-wrap" style="flex:1 1 200px; max-width:100%;">
         <img src="/webp/SABURO_TG_MEDIUM.png" class="tab-icon-svg" alt="Telegram Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -87,7 +87,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 280px; max-width:100%;">
+      <div class="banner-img-wrap" style="flex:1 1 200px; max-width:100%;">
         <img src="/webp/SABURO_TG_SMALL.png" class="tab-icon-svg" alt="Telegram Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -107,7 +107,7 @@ embed_max_width: 500px
           title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
 
     <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
-      <div style="flex:1 1 280px; max-width:100%;">
+      <div class="banner-img-wrap" style="flex:1 1 200px; max-width:100%;">
         <img src="/webp/SABURO_DS_MEDIUM.png" class="tab-icon-svg" alt="Discord Medium"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -117,7 +117,7 @@ embed_max_width: 500px
           <span class="btn-label">Завантажити</span>
         </a>
       </div>
-      <div style="flex:1 1 280px; max-width:100%;">
+      <div class="banner-img-wrap" style="flex:1 1 200px; max-width:100%;">
         <img src="/webp/SABURO_DS_SMALL.png" class="tab-icon-svg" alt="Discord Small"
              style="width:100%; border-radius:4px; display:block;">
         <a class="btn-saburo" data-visual="pill" data-icon-visual="download"
@@ -133,7 +133,7 @@ embed_max_width: 500px
 
 
 <h2 style="margin-top:3rem;">💛 Дякую за підтримку:</h2>
-<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.3rem; justify-content:flex-start; margin-top:1.5rem;"></div>
+<div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.3rem; justify-content:space-between; margin-top:1.5rem;"></div>
 
 <script>
 (function(){
@@ -188,15 +188,26 @@ embed_max_width: 500px
 </script>
 
 <style>
-@media (max-width: 768px) {
-  #twitch-avatars a img {
-    width: 54px !important;
-    height: 54px !important;
+  /* Desktop: make banner images 70% smaller and reduce gap */
+  @media (min-width: 769px) {
+    .banner-img-wrap {
+      max-width: 200px !important;
+    }
+    .tab-panel > div[style*="flex-wrap:wrap"] {
+      gap: 1rem !important;
+    }
   }
-  #twitch-avatars a span {
-    font-size: 0.675rem !important;
+
+  /* Mobile: keep avatars slightly smaller */
+  @media (max-width: 768px) {
+    #twitch-avatars a img {
+      width: 54px !important;
+      height: 54px !important;
+    }
+    #twitch-avatars a span {
+      font-size: 0.675rem !important;
+    }
   }
-}
 </style>
 
 ---
