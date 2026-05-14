@@ -133,7 +133,7 @@ embed_max_width: 500px
 
 ## ЯК ДОДАТИ БАНЕР:
 
-<img src="https://raw.githubusercontent.com/iamsaburo/iamsaburo.github.io/refs/heads/main/webp/twitch-banner.svg"
+<img src="https://raw.githubusercontent.com/iamsaburo/iamsaburo.github.io/refs/heads/main/webp/twitch-banner.webp"
      alt="Інструкція як додати банер"
      style="max-width:100%; border-radius:4px; display:block; margin-top:1rem;">
 
