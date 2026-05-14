@@ -9,15 +9,6 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-<style>
-  .content-container img,
-  .content-container video,
-  .content-container iframe,
-  .content-container .img-wrap {
-		border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-</style>
-
 # Підтримай проект!
 Встанови собі в описі каналу банер нашої спільноти.
 
@@ -144,7 +135,7 @@ embed_max_width: 500px
 
 <img src="https://raw.githubusercontent.com/iamsaburo/iamsaburo.github.io/refs/heads/main/webp/twitch-banner.webp"
      alt="Інструкція як додати банер"
-     style="max-width:100%; border-radius:4px; display:block; margin-top:1rem;">
+     style="max-width:100%; border-radius:4px; display:block; margin-top:1rem;border: 1px solid rgba(255, 255, 255, 0.05);">
 
 <div style="margin-top: 4rem;"></div>
 
