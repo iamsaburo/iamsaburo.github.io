@@ -131,7 +131,7 @@ embed_max_width: 500px
   </div>
 </div>
 
-<div style="margin-top: 2rem;"></div>
+<div style="margin-top: 6rem;"></div>
 
 ## ЯК ДОДАТИ БАНЕР:
 
