@@ -15,12 +15,8 @@ embed_max_width: 500px
   <source src="webm/adaptive-shoutout.webm" type="video/webm">
 </video>
 
-# 📢 Адаптивний ShoutOut `v2.0 (15.02.2026)`
+## 📢 Адаптивний ShoutOut `v2.0 (15.02.2026)`
 
-Представляю вашій увазі свій **ShoutOut віджет** для **StreamElements** з **адаптивними функціями** та **стильним дизайном** 😎
-
-## В цій версії v2.0 Ви знайдете всі функції від оригінального віджету + щось новеньке і вдосконалене!
-‎ 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/adaptive-shoutout-access">
     <span class="material-icons-round btn-icon-visual">add_circle</span>
@@ -28,7 +24,11 @@ embed_max_width: 500px
     <span class="btn-label">Встановити</span>
   </a>
 </div>
-‎
+
+Представляю вашій увазі свій **ShoutOut віджет** для **StreamElements** з **адаптивними функціями** та **стильним дизайном** 😎
+
+## В цій версії v2.0 Ви знайдете всі функції від оригінального віджету + щось новеньке і вдосконалене!
+
 ## НОВІ ФУНКЦІЇ 🆕
 > 🤖 Кращий **аналіз кольору** аватарів
 > 🗡️ **Команди** від **Головного** модера
