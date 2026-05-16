@@ -2,7 +2,7 @@
 title: Адаптивний ShoutOut
 slug: adaptive-shoutout
 order: 41
-hidden: false
+hidden: true
 image: webp/adaptive-shoutout.webp
 webm_image: webm/adaptive-shoutout.webm
 back_url: /
