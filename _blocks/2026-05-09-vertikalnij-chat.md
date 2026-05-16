@@ -17,8 +17,6 @@ embed_max_width: 500px
 
 # 👆 Вертикальний чат `2.0 (09.03.2026)`
 
-**Зручний**, стильний і багатофункціональний **вертикальний чат** для **Twitch**. У **версії 2.0** я повністю **переписав код**, **покращив** усі аспекти чату, а також **додав** до нього **БАГАТО нових** і **корисних функцій**.
-‎ 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/vertical-chat-access">
     <span class="material-icons-round btn-icon-visual">add_circle</span>
@@ -27,6 +25,7 @@ embed_max_width: 500px
   </a>
 </div>
 ‎ 
+**Зручний**, стильний і багатофункціональний **вертикальний чат** для **Twitch**. У **версії 2.0** я повністю **переписав код**, **покращив** усі аспекти чату, а також **додав** до нього **БАГАТО нових** і **корисних функцій**.
 
 ## **ФУНКЦІЇ ЧАТУ:**
 ### Зовнішній вигляд
