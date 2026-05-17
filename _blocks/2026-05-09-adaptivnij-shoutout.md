@@ -1,7 +1,7 @@
 ---
 title: Адаптивний ShoutOut
 slug: adaptive-shoutout
-order: 41
+order: 2
 hidden: false
 image: webp/adaptive-shoutout.webp
 webm_image: webm/adaptive-shoutout.webm
