@@ -2,7 +2,7 @@
 title: Emoji історії
 slug: emoji-stories
 order: 21
-hidden: true
+hidden: false
 image: webp/emoji-stories.webp
 webm_image: webm/emoji-stories.webm
 back_url: /
