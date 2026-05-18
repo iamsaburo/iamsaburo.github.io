@@ -2,7 +2,7 @@
 title: Брелок з аватаром
 slug: avatar-keychain
 order: 13
-hidden: true
+hidden: false
 image: webp/avatar-keychain.webp
 webm_image: webm/avatar-keychain.webm
 back_url: /
