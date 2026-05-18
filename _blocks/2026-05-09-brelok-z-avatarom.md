@@ -1,29 +1,36 @@
 ---
 title: Брелок з аватаром
 slug: avatar-keychain
-order: 46
+order: 13
 hidden: true
-image: https://i.postimg.cc/wxCzcxbt/KChain-GIF-mp4-20260509-024447-481.jpg
-webm_image: /webm/avatar-keychain.webm
+image: webp/avatar-keychain.webp
+webm_image: webm/avatar-keychain.webm
 back_url: /
 categories:
   - StreamElements
   - Twitch
-embed_max_width: 600px
+embed_max_width: 500px
 ---
-![Демонстрація звукових емоутів](https://i.postimg.cc/wxCzcxbt/KChain-GIF-mp4-20260509-024447-481.jpg)
+<video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
+  <source src="webm/avatar-keychain.webm" type="video/webm">
+</video>
 
-## 🏷️ Брелок з аватаром
-‎ 
-Глядачі можуть прикріпити до вашої вебки свій аватар як стильний брелок, що гойдається на ланцюжку.
-‎ 
+## 🏷️ Брелок з аватаром `v1.0 (14.03.2026)`
+
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
-{% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='download' icon_hover='arrow_forward' icon_position='after' width='auto' height=40 radius=10 href='/twitch-sound-emotes-access' %}
+  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/avatar-keychain-access">
+    <span class="material-icons-round btn-icon-visual">add_circle</span>
+    <span class="material-icons-round btn-icon-hover">add_circle</span>
+    <span class="btn-label">Встановити</span>
+  </a>
 </div>
-‎ 
+
+Глядачі можуть **прикріпити до вашої вебки свій аватар** як стильний **брелок**, що гойдається на ланцюжку.
+
 ## ОСНОВНІ ФУНКЦІЇ
-🪙  Працює через бали каналу <br>
-🌟  Стильний і компактний дизайн <br>
-🏷️  Аватар впливає на колір брелка <br>
-💎  Плавні анімації з ефектом 3D <br>
-🔔  Звукові ефекти при появі <br>
+> 🪙 Працює через **бали каналу** <br>
+> 🌟 **Стильний** і **компактний** дизайн <br>
+> 🏷️ **Аватар** впливає на **колір** брелка <br>
+> 💎 Плавні **анімації** з ефектом **3D** <br>
+> 🔔 **Звукові ефекти** при появі <br>
+‎‎
