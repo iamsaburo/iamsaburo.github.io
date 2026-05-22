@@ -3,8 +3,8 @@ title: OBS Мультишейдер
 slug: obs-multishader
 order: 5
 hidden: false
-image: webp/adaptive-shoutout.webp
-webm_image: webm/adaptive-shoutout.webm
+image: webp/obs-multishader.webp
+webm_image: webm/obs-multishader.webm
 back_url: /
 categories:
   - OBS
