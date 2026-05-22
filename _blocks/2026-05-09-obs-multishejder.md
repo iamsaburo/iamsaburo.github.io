@@ -1,31 +1,37 @@
 ---
 title: OBS Мультишейдер
 slug: obs-multishader
-order: 38
+order: 5
 hidden: true
-image: https://i.postimg.cc/2SKNyzvb/Screenshot-2026-05-09-031128.png
-gif_image: https://i.postimg.cc/RFwkgKYZ/Shader-TG.gif
+image: webp/adaptive-shoutout.webp
+webm_image: webm/adaptive-shoutout.webm
 back_url: /
 categories:
   - OBS
-embed_max_width: 600px
+embed_max_width: 500px
 ---
-![Демонстрація звукових емоутів](https://i.postimg.cc/2SKNyzvb/Screenshot-2026-05-09-031128.png)
+<video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
+  <source src="webm/obs-multishader.webm" type="video/webm">
+</video>
 
-## ❇️ OBS Мультишейдер
-‎ 
-Один багатофункціональний фільтр для OBS, який додає професійні ефекти до ваших джерел. Більше не потрібно встановлювати безліч плагінів щоб просто закруглити кути чи додати тінь.
-‎ 
+## ❇️ OBS Мультишейдер `v1.0 (08.12.2025)`
+
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
-{% include btn-saburo.html label='ВСТАНОВИТИ' visual='rainbow' hover='rainbow' icon_visual='download' icon_hover='arrow_forward' icon_position='after' width='auto' height=40 radius=10 href='/twitch-sound-emotes-access' %}
+  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/obs-multishader-access">
+    <span class="material-icons-round btn-icon-visual">add_circle</span>
+    <span class="material-icons-round btn-icon-hover">add_circle</span>
+    <span class="btn-label">Встановити</span>
+  </a>
 </div>
 ‎ 
+Один **багатофункціональний фільтр для OBS**, який додає професійні **ефекти** до ваших джерел. **Більше не потрібно встановлювати безліч плагінів щоб просто закруглити кути чи додати тінь**.
+‎ 
 ## ОСНОВНІ ФУНКЦІЇ
-💡  Ambilight-підсвітка за джерелом <br>
-⏺️  Закруглення кутів джерела <br>
-🖼️  Рамка навколо джерела <br>
-🌒  Тінь з налаштуваннями <br>
-🪄  Кінематографічний шум <br>
-🔦  Підсвічування темних джерел <br>
-↔️  Додаткові відступи навколо джерела <br>
-🚀  Просте встановлення (в 5 кліків) <br>
+> 💡 **Ambilight-підсвітка** за джерелом <br>
+> ⏺️ **Закруглення кутів** джерела <br>
+> 🖼️ **Рамка** навколо джерела <br>
+> 🌒 **Тінь** з налаштуваннями <br>
+> 🪄 **Кінематографічний** шум <br>
+> 🔦 **Підсвічування** темних джерел <br>
+> ↔️ **Додаткові відступи** навколо джерела <br>
+> 🚀 **Просте** встановлення (в 5 кліків) <br>
