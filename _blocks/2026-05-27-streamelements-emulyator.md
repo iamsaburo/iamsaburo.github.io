@@ -15,7 +15,7 @@ embed_max_width: 500px
   <source src="webm/se-emulator.webm" type="video/webm">
 </video>
 
-## 🚀 Емулятор StreamElements `v0.8 (beta)`
+## 🚀 StreamElements емулятор`v0.8 (beta)`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/avatar-keychain-access">
@@ -25,19 +25,12 @@ embed_max_width: 500px
   </a>
 </div>
 
-**SABURO™ | Віджети** - це емулятор для **Streamer.bot**, який дозволяє **локально** використовувати будь-які віджети для StreamElements через HTTP Server всередині Streamer.bot.
+**SE Bridge** - це емулятор віджетів **StreamElements**, який дозволяє користуватися ними локально, через HTTP Server **Streamer.bot**.
 
 ## ОСНОВНІ ФУНКЦІЇ
-> 🪙 Працює через **бали каналу** <br>
-✅ Повна підтримка SE_API (store, counters, setField, onWidgetLoad, onEventReceived).
-
-✅ Емуляція подій Twitch: фоловери, підписки (включно з гіфтами та ресабами), бітси, рейди, чат, повідомлення, кік/бан, hype train, redemptions.
-
-✅ Живе редагування полів (FIELDS.json → поля в панелі керування).
-
-✅ Збереження даних у DATA.json та STORAGE.json через Action «SE Bridge».
-✅ Медіа-браузер для картинок, звуків, відео (з автоматичним скануванням папки media).
-✅ Тестові події (фейкові фолови, підписки тощо) прямо з інтерфейсу.
-✅ Прев’ю в реальному часі з можливістю зміни розміру полотна.
-✅ Готові посилання для OBS (Browser Source).
-‎‎
+> 🎛️ Підтримка API StreamElements <br>
+> 🧪 Емуляція подій Twitch <br>
+> ⚙️ Панель налаштувань <br>
+> 💾 Система збереження даних <br>
+> 🔗 Посилання для джерела в OBS <br>
+> ⚡ Все працює локально <br>
