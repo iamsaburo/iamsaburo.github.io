@@ -18,7 +18,7 @@ embed_max_width: 500px
 ## 🚀 Емулятор StreamElements `v0.8 (beta)`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
-  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/avatar-keychain-access">
+  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/se-emulator-access">
     <span class="material-icons-round btn-icon-visual">add_circle</span>
     <span class="material-icons-round btn-icon-hover">add_circle</span>
     <span class="btn-label">Встановити</span>
