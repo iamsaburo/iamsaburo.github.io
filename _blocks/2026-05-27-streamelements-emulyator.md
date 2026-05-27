@@ -1,5 +1,5 @@
 ---
-title: StreamElements емулятор
+title: Емулятор StreamElements
 slug: se-emulator
 order: 1
 hidden: true
