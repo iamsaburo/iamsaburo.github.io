@@ -583,49 +583,10 @@
     max-width:1060px;width:100%;margin:0 auto;
     display:flex;align-items:center;justify-content:space-between;
     height:100%;padding:0 1rem;box-sizing:border-box;
-    gap: 1rem;
   }
-  .footer-copyright,
-  .footer-recommend {
-    flex: 0 0 auto;
-    white-space: nowrap;
-  }
-  .footer-support {
-    flex: 1;
-    text-align: center;
-  }
-  .footer-link {
-    color: var(--muted);
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    text-decoration: none;
-  }
-  .footer-link:hover {
-    text-decoration: underline;
-  }
-
-  /* Mobile stacking */
-  @media (max-width: 768px) {
-    .footer-container {
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.5rem;
-      height: auto;
-      padding: 0.75rem 1rem;
-    }
-    .footer-copyright,
-    .footer-support,
-    .footer-recommend {
-      flex: none;
-      width: 100%;
-      text-align: center;
-      white-space: normal;
-    }
-    .footer-support .btn-saburo {
-      margin: 0 auto;
-    }
-  }
+  .footer-copy{color:var(--muted);font-size:0.8rem;font-weight:400;letter-spacing:.06em}
+  .footer-link{color:var(--muted);font-size:0.8rem;font-weight:400;letter-spacing:.06em;text-decoration:none}
+  .footer-link:hover{text-decoration:underline}
 
   /* =============================================================
      RESPONSIVE
@@ -643,6 +604,10 @@
     .hero h1{font-size:2.2rem}
     .hero{padding:2.5rem 1rem 1rem}
     .content-container{margin:1rem;padding:1.25rem;}
+    footer{height:auto;}
+    .footer-container{flex-direction:column;justify-content:center;gap:0.5rem;padding:0.75rem 1rem;height:auto;}
+    .footer-left,.footer-center,.footer-right{flex:none;width:100%;text-align:center;white-space:normal;}
+    .footer-center .btn-saburo{margin:0 auto;}
   }
   @media(max-width:480px){
     .hero h1{font-size:2rem}
