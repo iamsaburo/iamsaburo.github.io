@@ -16,7 +16,18 @@ embed_max_width: 500px
 <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin: 2rem 0;">
 
 
-
+  <!--  Botolich -->
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; background: var(--sur2); border-radius: 12px; padding: 1.25rem; width: 100%;">
+    <img src="https://raw.githubusercontent.com/iamsaburo/iamsaburo.github.io/refs/heads/main/webp/rec_botolich.webp" alt="Botolich" style="width: 150px; height: 150px; object-fit: cover; border-radius: 3px;">
+    <div style="flex: 1; min-width: 200px;">
+      <h3 style="margin: 0 0 0.5rem 0; font-weight: 700;">Botolich</h3>
+      <p style="margin: 0 0 1rem 0;">Cучасний Twitch бот, створений для українських стрімерів, які хочуть автоматизувати чат, покращити взаємодію з аудиторією та спростити керування ефіром.</p>
+      <a class="btn-saburo" data-visual="pill" data-icon-position="after" data-icon-visual="arrow_outward" href="https://b.otolich.com/" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px;">
+        <span class="btn-label">Перейти на сайт</span>
+        <span class="material-icons-round btn-icon-visual">arrow_outward</span>
+      </a>
+    </div>
+  </div>
 
   <!--  UA Twitch Streamers -->
   <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; background: var(--sur2); border-radius: 12px; padding: 1.25rem; width: 100%;">
