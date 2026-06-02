@@ -1,6 +1,11 @@
 <footer>
   <div class="footer-container">
-    <span class="footer-copy">© {{ site.time | date: "%Y" }} SABURO™</span>
-    {% include btn-saburo.html label='💛 Підтримати Мене' visual='pill' width='auto' height=32 radius=28 href='https://iamsaburo.github.io/support-info' %}
+    <div class="footer-copyright">© {{ site.time | date: "%Y" }} SABURO™</div>
+    <div class="footer-support">
+      {% include btn-saburo.html label='💛 Підтримати Мене' visual='pill' width='auto' height=32 radius=28 href='https://iamsaburo.github.io/support-info' %}
+    </div>
+    <div class="footer-recommend">
+      <a href="https://iamsaburo.github.io/i-recommend-info" class="footer-link">Рекомендую</a>
+    </div>
   </div>
 </footer>
