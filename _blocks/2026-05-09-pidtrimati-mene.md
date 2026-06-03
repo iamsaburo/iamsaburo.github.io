@@ -104,7 +104,7 @@ embed_max_width: 500px
   <div class="tab-panel" data-tab="tab-dc" style="padding-top:1rem;">
     <h3 style="margin-top:1.5; margin-bottom:0.3rem;">Посилання для банера:</h3>
     <code style="font-size:1rem; font-weight:700; line-height:1.3; word-break:break-all; cursor:pointer;"
-          title="Клікни щоб скопіювати">https://discord.gg/4BK4MBUMWh</code>
+          title="Клікни щоб скопіювати">https://discord.gg/kcqHYQ9dSf</code>
 
     <div class="tab-images-row" style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start;">
       <div class="banner-card" style="flex:1 1 180px; max-width:100%;">
