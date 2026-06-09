@@ -16,6 +16,19 @@ embed_max_width: 500px
 <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin: 2rem 0;">
 
 
+  <!-- Artemiano.top -->
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; background: var(--sur2); border-radius: 12px; padding: 1.25rem; width: 100%;">
+    <img src="https://raw.githubusercontent.com/iamsaburo/iamsaburo.github.io/refs/heads/main/webp/rec_artemiano_top.webp" alt="Artemiano.top" style="width: 150px; height: 150px; object-fit: cover; border-radius: 3px;">
+    <div style="flex: 1; min-width: 200px;">
+      <h3 style="margin: 0 0 0.5rem 0; font-weight: 700;">Artemiano.top</h3>
+      <p style="margin: 0 0 1rem 0;">Сервіс для перевірки контенту, стрімерів, ігор та фільмів. Допомагає виявляти проросійські наративи, аналізувати підписки та знаходити якісний український контент.</p>
+      <a class="btn-saburo" data-visual="pill" data-icon-position="after" data-icon-visual="arrow_outward" href="https://artemiano.top/" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px;">
+        <span class="btn-label">Перейти на сайт</span>
+        <span class="material-icons-round btn-icon-visual">arrow_outward</span>
+      </a>
+    </div>
+  </div>
+
   <!--  Botolich -->
   <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; background: var(--sur2); border-radius: 12px; padding: 1.25rem; width: 100%;">
     <img src="https://raw.githubusercontent.com/iamsaburo/iamsaburo.github.io/refs/heads/main/webp/rec_botolich.webp" alt="Botolich" style="width: 150px; height: 150px; object-fit: cover; border-radius: 3px;">
