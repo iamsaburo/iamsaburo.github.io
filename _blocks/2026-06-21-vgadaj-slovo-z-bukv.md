@@ -11,9 +11,7 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-<video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
-  <source src="webp/word-guesser.webp"
-</video>
+![BETA](https://raw.githubusercontent.com/iamsaburo/iamsaburo.github.io/refs/heads/main/webp/word_guesser.webp)
 
 ## 🆎 Вгадай слово з букв `v26.6 (beta)`
 
