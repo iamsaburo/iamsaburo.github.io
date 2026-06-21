@@ -4,7 +4,7 @@ slug: word-guesser
 order: 25
 hidden: true
 image: webp/word_guesser.webp
-webm_image: webp/word_guesser.webp
+webm_image: webm/word_guesser.webm
 back_url: /
 categories:
   - StreamElements
@@ -12,7 +12,7 @@ categories:
 embed_max_width: 500px
 ---
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
-  <source src="webm/emoji_movie_guesser.webm" type="video/webm">
+  <source src="webp/word-guesser.webp"
 </video>
 
 ## 🆎 Вгадай слово з букв `v26.6 (beta)`
