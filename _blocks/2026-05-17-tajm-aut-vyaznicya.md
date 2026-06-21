@@ -15,7 +15,7 @@ embed_max_width: 500px
   <source src="webm/timeout-jail.webm" type="video/webm">
 </video>
 
-## 🔒 Тайм-аут в'язниця `v1.1 (09.06.2026)`
+## 🔒 Тайм-аут в'язниця `v1.2 (21.06.2026)`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/timeout-jail-access">
