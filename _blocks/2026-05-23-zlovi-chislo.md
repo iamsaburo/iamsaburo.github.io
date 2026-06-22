@@ -3,8 +3,8 @@ title: Злови число
 slug: catch-the-number
 order: 10
 hidden: true
-image: webp/friend-stream-alert.webp
-webm_image: webm/friend-stream-alert.webm
+image: webp/catch-the-number.webp
+webm_image: webm/catch-the-number.webm
 back_url: /
 categories:
   - StreamElements
@@ -15,7 +15,7 @@ embed_max_width: 500px
   <source src="webm/catch-the-number.webm" type="video/webm">
 </video>
 
-## ✨ Злови число `v1.0 (00.00.000)`
+## ✨ Злови число `v26.6`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/catch-the-number-access">
@@ -25,12 +25,14 @@ embed_max_width: 500px
   </a>
 </div>
 
-Це щось на кшталт сповіщення **"друг зараз онлайн"** в Steam, але для **Twitch**, коли вони **LIVE** 😎
+**Перевірте уважність ваших глядачів!** 
+В рандомний момент і місці на екрані **з'являється число**, яке **потрібно написати в чат**.
+Хто швидший - той забирає бал в таблицю лідерів.
 
 ## ОСНОВНІ ФУНКЦІЇ <br>
-> 🎨 **Кольори адаптуються** під аватар <br>
-> ✨ **Стильний** і мінімалістичний **дизайн** <br>
-> 🎮 Індикатор **категорії** <br>
-> 🔉 **Мінімальний** звук сповіщення <br>
-> 🚀 Налаштування **напрямку появи** <br>
-> 🎨 Кнопка **тестового** сповіщення <br>
+> ⚡ Число на екрані 30с <br>
+> 🎥 Приємна анімація появи <br>
+> 🔢 Звукові ефекти що число з'явилося <br>
+> 🏆 Таблиця лідерів <br>
+> 🧪 Кнопка тестового числа <br>
+> 🔧 Налаштування частоти появи <br>
