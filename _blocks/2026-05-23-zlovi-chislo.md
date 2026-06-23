@@ -2,7 +2,7 @@
 title: Злови число
 slug: catch-the-number
 order: 10
-hidden: true
+hidden: false
 image: webp/catch-the-number.webp
 webm_image: webm/catch-the-number.webm
 back_url: /
