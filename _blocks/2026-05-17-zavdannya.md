@@ -15,7 +15,7 @@ embed_max_width: 500px
   <source src="webm/to-do.webm" type="video/webm">
 </video>
 
-## ✅ Завдання `v1.0 (16.11.2025)`
+## ✅ Завдання `v26.6`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/to-do-access">
