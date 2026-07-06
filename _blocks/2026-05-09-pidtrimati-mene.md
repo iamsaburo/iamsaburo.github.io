@@ -156,7 +156,7 @@ embed_max_width: 500px
     "snellkin", "Trickster_Lis", "bloody_specter", "the0ara", "Goolkim", "DannyelGray",
     "Alex969Hell", "Nisenitnytsya", "Vladykus", "bander_oli4ka", "VladProchan", "bastetvibe",
     "Stop_me_2", "pis_tashka", "jeleshka____", "Finka_o", "Fotograf_UA", "DzrtFoxUA",
-    "Kavalets", "gamebulochka", "Otolich", "ArdenLich", "vasilovich_tsv", "SivoLur", "holibimba", "Nazar_Khantil", "pro100rick", "chervnevyy", "makar__2", "Tsookesha", "tetiana_andriivna", "lebudka"
+    "Kavalets", "gamebulochka", "Otolich", "ArdenLich", "vasilovich_tsv", "SivoLur", "holibimba", "Nazar_Khantil", "pro100rick", "chervnevyy", "makar__2", "Tsookesha", "tetiana_andriivna", "lebudka", "Skylynn_MURR"
   ];
 
   const container = document.getElementById("twitch-avatars");
