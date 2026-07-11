@@ -2,13 +2,14 @@
 title: Звукові Twitch емоути
 slug: twitch-sound-emotes
 order: 6
-hidden: false
+hidden: true
 image: webp/Звукові Twitch Емоути.webp
 webm_image: webm/Звукові Twitch Емоути.webm
 back_url: /
 categories:
   - StreamElements
   - Twitch
+  - Streamer.bot
 embed_max_width: 500px
 ---
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
