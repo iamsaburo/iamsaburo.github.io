@@ -16,7 +16,7 @@ embed_max_width: 500px
   <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
 </video>
 
-## 🥳 Звукові Twitch Емоути  `v1.1 (30.11.2025)`
+## 🥳 Звукові Twitch Емоути  `v26.7`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/twitch-sound-emotes-access">
