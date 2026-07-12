@@ -8,7 +8,7 @@ webm_image: webm/se-emulator.webm
 back_url: /
 categories:
   - Streamer.bot
-  - OBS
+  - Twitch
 embed_max_width: 500px
 ---
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
