@@ -2,7 +2,7 @@
 title: OBS панель "Нотатки"
 slug: notes
 order: 3
-hidden: true
+hidden: false
 image: webp/notes.webp
 webm_image: webm/notes.webm
 back_url: /
