@@ -2,13 +2,14 @@
 title: Вгадай фільм з емодзі
 slug: emoji-movie-guesser
 order: 11
-hidden: true
+hidden: false
 image: webp/emoji_movie_guesser.webp
 webm_image: webm/emoji_movie_guesser.webm
 back_url: /
 categories:
   - StreamElements
   - Twitch
+  - Streamer.bot
 embed_max_width: 500px
 ---
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
