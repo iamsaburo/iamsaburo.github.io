@@ -15,7 +15,7 @@ embed_max_width: 500px
   <source src="webm/avatar-keychain.webm" type="video/webm">
 </video>
 
-## 🏷️ Брелок з аватаром `v1.0 (14.03.2026)`
+## 🏷️ Брелок з аватаром `v26.7`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/avatar-keychain-access">
