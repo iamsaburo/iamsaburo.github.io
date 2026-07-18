@@ -7,6 +7,9 @@
 - category: Twitch
   icon: /svg/twitch.svg
   label: Twitch
+- category: YouTube
+  icon: /svg/youtube.svg
+  label: YouTube
 - category: OBS
   icon: /svg/obs.svg
   label: OBS
