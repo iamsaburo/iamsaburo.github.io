@@ -15,7 +15,7 @@ embed_max_width: 500px
 </video>
 
 ## ❇️ OBS Мультишейдер `v1.0 (08.12.2025)`
-###### ( тільки для Windows )
+###### ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ( тільки для Windows )
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/obs-multishader-access">
