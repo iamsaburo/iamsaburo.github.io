@@ -15,6 +15,26 @@ embed_max_width: 500px
   <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
 </video>
 
+## 🥳 Звукові Twitch Емоути  `v26.7`
+
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
+  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/twitch-sound-emotes-access">
+    <span class="material-icons-round btn-icon-visual">add_circle</span>
+    <span class="material-icons-round btn-icon-hover">add_circle</span>
+    <span class="btn-label">Встановити</span>
+  </a>
+</div>
+
+Тепер кожен з ваших **Twitch емоутів** може мати свій **звук**, який прозвучить як тільки хтось використає його в чаті. <br>
+Одні спамлять 😄 - і лунає сміх, інші 💛 - і чутно як б'ється серце.
+
+## ОСНОВНІ ФУНКЦІЇ
+> 🎵 До 15 емоутів <br>
+> ✨ Емоути з'являються на екрані <br>
+> 🔊 Керування гучністю <br>
+> 🚀 Підтримка анімованих емоутів
+
+
 <!-- ===== AUTHOR BLOCK ===== -->
 <div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:12px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:3px solid #ffc600; box-sizing:border-box;">
   <!-- Row 1: Avatar + text -->
@@ -50,22 +70,3 @@ embed_max_width: 500px
     }
   })();
 </script>
-
-## 🥳 Звукові Twitch Емоути  `v26.7`
-
-<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
-  <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/twitch-sound-emotes-access">
-    <span class="material-icons-round btn-icon-visual">add_circle</span>
-    <span class="material-icons-round btn-icon-hover">add_circle</span>
-    <span class="btn-label">Встановити</span>
-  </a>
-</div>
-
-Тепер кожен з ваших **Twitch емоутів** може мати свій **звук**, який прозвучить як тільки хтось використає його в чаті. <br>
-Одні спамлять 😄 - і лунає сміх, інші 💛 - і чутно як б'ється серце.
-
-## ОСНОВНІ ФУНКЦІЇ
-> 🎵 До 15 емоутів <br>
-> ✨ Емоути з'являються на екрані <br>
-> 🔊 Керування гучністю <br>
-> 🚀 Підтримка анімованих емоутів
