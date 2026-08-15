@@ -15,8 +15,8 @@ embed_max_width: 500px
   <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
 </video>
 
-<!-- ===== AUTHOR BLOCK ===== -->
-<div style="display:flex; flex-wrap:wrap; align-items:center; gap:1.5rem; background:var(--sur2); border-radius:12px; padding:1.25rem; width:100%; margin:1.5rem 0; border:3px solid #5865F2; box-sizing:border-box;">
+<!-- ===== AUTHOR BLOCK (now respects 500px max-width) ===== -->
+<div style="display:flex; flex-wrap:wrap; align-items:center; gap:1.5rem; background:var(--sur2); border-radius:12px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:3px solid #5865F2; box-sizing:border-box;">
   <img id="author-avatar" src="" alt="Saburo" class="tab-icon-svg" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2); flex-shrink:0;">
   <div style="flex:1; min-width:200px;">
     <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Saburo</h3>
