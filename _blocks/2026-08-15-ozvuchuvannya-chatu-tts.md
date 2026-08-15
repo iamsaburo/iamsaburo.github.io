@@ -15,26 +15,31 @@ embed_max_width: 500px
   <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
 </video>
 
-<!-- ===== AUTHOR BLOCK (now respects 500px max-width) ===== -->
-<div style="display:flex; flex-wrap:wrap; align-items:center; gap:1.5rem; background:var(--sur2); border-radius:12px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:3px solid #5865F2; box-sizing:border-box;">
-  <img id="author-avatar" src="" alt="Saburo" class="tab-icon-svg" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2); flex-shrink:0;">
-  <div style="flex:1; min-width:200px;">
-    <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Saburo</h3>
-    <p style="margin:0 0 0.8rem 0; color:var(--muted); font-size:0.9rem;">Автор контенту та стрімер</p>
-    <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-      <a class="btn-saburo" data-visual="pill" href="https://twitch.tv/saburo_ua" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
-        <img src="/svg/sm_twitch.svg" class="tab-icon-svg" style="width:18px; height:14px;" alt="">
-        <span class="btn-label">Twitch</span>
-      </a>
-      <a class="btn-saburo" data-visual="pill" href="https://youtube.com/@saburo_ua" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
-        <img src="/svg/sm_youtube.svg" class="tab-icon-svg" style="width:18px; height:14px;" alt="">
-        <span class="btn-label">YouTube</span>
-      </a>
-      <a class="btn-saburo" data-visual="pill" href="https://discord.gg/4BK4MBUMWh" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
-        <img src="/svg/sm_discord.svg" class="tab-icon-svg" style="width:18px; height:14px;" alt="">
-        <span class="btn-label">Discord</span>
-      </a>
+<!-- ===== AUTHOR BLOCK ===== -->
+<div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:12px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:3px solid #5865F2; box-sizing:border-box;">
+  <!-- Row 1: Avatar + text -->
+  <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+    <img id="author-avatar" src="" alt="Saburo" class="tab-icon-svg" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2); flex-shrink:0;">
+    <div style="flex:1; min-width:160px;">
+      <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Saburo</h3>
+      <p style="margin:0; color:var(--muted); font-size:0.9rem;">Автор контенту та стрімер</p>
     </div>
+  </div>
+
+  <!-- Row 2: Buttons (full width) -->
+  <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center; width:100%;">
+    <a class="btn-saburo" data-visual="pill" href="https://twitch.tv/saburo_ua" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
+      <img src="/svg/sm_twitch.svg" class="tab-icon-svg" style="width:24px; height:19px;" alt="">
+      <span class="btn-label">Twitch</span>
+    </a>
+    <a class="btn-saburo" data-visual="pill" href="https://youtube.com/@saburo_ua" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
+      <img src="/svg/sm_youtube.svg" class="tab-icon-svg" style="width:18px; height:14px;" alt="">
+      <span class="btn-label">YouTube</span>
+    </a>
+    <a class="btn-saburo" data-visual="pill" href="https://discord.gg/4BK4MBUMWh" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
+      <img src="/svg/sm_discord.svg" class="tab-icon-svg" style="width:18px; height:14px;" alt="">
+      <span class="btn-label">Discord</span>
+    </a>
   </div>
 </div>
 <script>
