@@ -26,8 +26,8 @@ embed_max_width: 500px
     </div>
   </div>
 
-  <!-- Row 2: Buttons (full width) -->
-  <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center; width:100%;">
+  <!-- Row 2: Buttons (full width, left-aligned) -->
+  <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:flex-start; width:100%;">
     <a class="btn-saburo" data-visual="pill" href="https://twitch.tv/saburo_ua" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
       <img src="/svg/sm_twitch.svg" class="tab-icon-svg" style="width:24px; height:19px;" alt="">
       <span class="btn-label">Twitch</span>
