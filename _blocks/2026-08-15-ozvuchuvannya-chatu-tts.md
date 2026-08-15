@@ -22,7 +22,7 @@ embed_max_width: 500px
     <img id="author-avatar" src="" alt="Twitch profile picture" class="tab-icon-svg" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2); flex-shrink:0;">
     <div style="flex:1; min-width:160px;">
       <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Автор віджету</h3>
-      <p style="margin:0; color:var(--muted); font-size:0.9rem;">ZubikStyle - творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
+      <p style="margin:0; color:var(--muted); font-size:0.9rem;"><strong>ZubikStyle</strong> - творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
     </div>
   </div>
 
