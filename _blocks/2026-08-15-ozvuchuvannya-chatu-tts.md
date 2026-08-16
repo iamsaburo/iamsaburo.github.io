@@ -38,6 +38,8 @@ embed_max_width: 500px
 > 🏃‍♂️‍➡️ Зміна швидкості читання <br>
 > 🔢 Система черги <br>
 
+<div style="margin-top: 3rem;"></div>
+
 <!-- ===== AUTHOR BLOCK ===== -->
 <div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:8px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:2px solid rgba(255,255,255,0.2); box-sizing:border-box;">
   <!-- Row 1: Avatar + text -->
@@ -49,7 +51,7 @@ embed_max_width: 500px
     </div>
   </div>
 
-  <!-- Row 2: Buttons (full width, left-aligned) -->
+  <!-- Row 2: Buttons -->
   <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:flex-start; width:100%;">
     <a class="btn-saburo" data-visual="pill" href="https://www.twitch.tv/zubikstyle" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
       <img src="/svg/sm_twitch.svg" class="tab-icon-svg" style="width:24px; height:19px;" alt="">
