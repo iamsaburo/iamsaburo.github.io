@@ -38,7 +38,7 @@ embed_max_width: 500px
 > 🏃‍♂️‍➡️ Зміна швидкості читання <br>
 > 🔢 Система черги <br>
 
-<div style="margin-top: 2rem;"></div>
+<div style="margin-top: 2.5rem;"></div>
 
 <!-- ===== AUTHOR BLOCK ===== -->
 <div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:8px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:2px solid rgba(255,255,255,0.2); box-sizing:border-box;">
