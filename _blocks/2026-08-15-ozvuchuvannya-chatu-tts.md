@@ -11,9 +11,9 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-<video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
-  <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
-</video>
+<style>.full-author{display:flex;flex-direction:column;gap:1rem;background:var(--sur2);border-radius:8px;padding:1.25rem;max-width:min(500px,100%);width:100%;margin:1.5rem auto 1.5rem 0;border:1px solid rgba(255,255,255,.1);box-sizing:border-box}.full-author .author-row{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}.full-author .author-row .avatar-wrap{flex-shrink:0}.full-author .author-row .text-wrap{flex:1;min-width:160px}.full-author .author-buttons{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:flex-start;width:100%}@media(max-width:768px){.full-author .author-row{flex-direction:column;align-items:flex-start}.full-author .author-row .avatar-wrap{width:100%}.full-author .author-row .text-wrap{width:100%}.full-author .author-row .text-wrap h3,.full-author .author-row .text-wrap p{text-align:left}}</style>
+
+<video autoplay loop muted playsinline style="max-width:100%;border-radius:8px;display:block;"><source src="webm/Звукові Twitch Емоути.webm" type="video/webm"></video>
 
 ## 🔊 Озвучування чату (TTS) `v1.0`
 
@@ -38,43 +38,30 @@ embed_max_width: 500px
 > 🏃‍♂️‍➡️ Зміна **швидкості читання** <br>
 > 🔢 Система **черги**
 
-<div style="margin-top: 2.5rem;"></div>
+<div style="margin-top:2.5rem;"></div>
 
-<!-- ===== AUTHOR BLOCK (Responsive) ===== -->
-<div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:8px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:1px solid rgba(255,255,255,0.1); box-sizing:border-box;">
-
-  <!-- Row: Avatar + text -->
-  <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; width:100%;">
-
-    <!-- Avatar – on small screens it will be centered and own line -->
-    <div style="display:flex; justify-content:center; width:100%; margin-bottom:0.5rem;">
-      <img id="author-avatar"
-           src="https://unavatar.io/twitch/zubikstyle"
-           alt="Twitch profile picture"
-           class="tab-icon-svg"
-           referrerpolicy="no-referrer"
-           style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:1px solid rgba(255,255,255,0.1); flex-shrink:0;">
+<!-- ===== AUTHOR PANEL (full card, self-contained) ===== -->
+<div class="full-author">
+  <div class="author-row">
+    <div class="avatar-wrap">
+      <img src="https://unavatar.io/twitch/zubikstyle" alt="Twitch profile picture" class="tab-icon-svg" referrerpolicy="no-referrer" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.1);flex-shrink:0;">
     </div>
-
-    <!-- Text block -->
-    <div style="flex:1; min-width:0; width:100%;">
-      <h3 style="margin:0 0 0.3rem 0; font-weight:700; text-align:center;">Автор: ZubikStyle</h3>
-      <p style="margin:0; color:var(--muted); font-size:0.9rem; text-align:center;">Творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
+    <div class="text-wrap">
+      <h3 style="margin:0 0 .3rem 0;font-weight:700;">Автор: ZubikStyle</h3>
+      <p style="margin:0;color:var(--muted);font-size:.9rem;">Творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
     </div>
   </div>
-
-  <!-- Row: Buttons (left aligned) -->
-  <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:flex-start; width:100%; margin-top:0.5rem;">
-    <a class="btn-saburo" data-visual="pill" href="https://www.twitch.tv/zubikstyle" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
-      <img src="/svg/sm_twitch.svg" class="tab-icon-svg" style="width:24px; height:19px;" alt="">
+  <div class="author-buttons">
+    <a class="btn-saburo" data-visual="pill" href="https://www.twitch.tv/zubikstyle" target="_blank" rel="noopener noreferrer" style="--btn-w:auto;--btn-h:40px;--radius:6px;gap:8px;">
+      <img src="/svg/sm_twitch.svg" class="tab-icon-svg" style="width:24px;height:19px;" alt="">
       <span class="btn-label">Twitch</span>
     </a>
-    <a class="btn-saburo" data-visual="pill" href="https://www.youtube.com/@ZubikStyle" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
-      <img src="/svg/sm_youtube.svg" class="tab-icon-svg" style="width:18px; height:14px;" alt="">
+    <a class="btn-saburo" data-visual="pill" href="https://www.youtube.com/@ZubikStyle" target="_blank" rel="noopener noreferrer" style="--btn-w:auto;--btn-h:40px;--radius:6px;gap:8px;">
+      <img src="/svg/sm_youtube.svg" class="tab-icon-svg" style="width:18px;height:14px;" alt="">
       <span class="btn-label">YouTube</span>
     </a>
-    <a class="btn-saburo" data-visual="pill" href="https://discord.gg/Rks2StY4QC" target="_blank" rel="noopener noreferrer" style="--btn-w:auto; --btn-h:40px; --radius:6px; gap:8px;">
-      <img src="/svg/sm_discord.svg" class="tab-icon-svg" style="width:18px; height:14px;" alt="">
+    <a class="btn-saburo" data-visual="pill" href="https://discord.gg/Rks2StY4QC" target="_blank" rel="noopener noreferrer" style="--btn-w:auto;--btn-h:40px;--radius:6px;gap:8px;">
+      <img src="/svg/sm_discord.svg" class="tab-icon-svg" style="width:18px;height:14px;" alt="">
       <span class="btn-label">Discord</span>
     </a>
   </div>
