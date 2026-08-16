@@ -38,7 +38,7 @@ embed_max_width: 500px
 > 🏃‍♂️‍➡️ Зміна швидкості читання <br>
 > 🔢 Система черги <br>
 
-<div style="margin-top: 3rem;"></div>
+<div style="margin-top: 2rem;"></div>
 
 <!-- ===== AUTHOR BLOCK ===== -->
 <div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:8px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:2px solid rgba(255,255,255,0.2); box-sizing:border-box;">
@@ -46,8 +46,8 @@ embed_max_width: 500px
   <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
     <img id="author-avatar" src="" alt="Twitch profile picture" class="tab-icon-svg" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2); flex-shrink:0;">
     <div style="flex:1; min-width:160px;">
-      <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Автор віджета</h3>
-      <p style="margin:0; color:var(--muted); font-size:0.9rem;"><strong>ZubikStyle</strong> - творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
+      <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Автор: ZubikStyle</h3>
+      <p style="margin:0; color:var(--muted); font-size:0.9rem;">Творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
     </div>
   </div>
 
