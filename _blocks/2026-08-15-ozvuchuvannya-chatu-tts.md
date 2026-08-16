@@ -11,23 +11,6 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
-<style>
-  /* ----- Override global image styles for this page ----- */
-  .content-container .btn-saburo img,
-  .content-container .tab-icon-svg {
-    display: inline-block !important;
-    border-radius: 0 !important;
-    max-width: none !important;
-    flex-shrink: 0;
-  }
-
-  /* Keep the author avatar perfectly round */
-  .content-container #author-avatar {
-    border-radius: 50% !important;
-    display: block !important;
-  }
-</style>
-
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
   <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
 </video>
@@ -47,7 +30,7 @@ embed_max_width: 500px
 
 ## ОСНОВНІ ФУНКЦІЇ
 > 🎟️ TTS за бали каналу <br>
-> 💬 TTS через редімку <br>
+> 💬 TTS через команду (напр. %) <br>
 > 📏 Читає довгі повідомлення <br>
 > 🛡️ Фільтр поганих слів <br>
 > 👥 Доступ до TTS (VIP, mod, sub) <br>
@@ -56,12 +39,12 @@ embed_max_width: 500px
 > 🔢 Система черги <br>
 
 <!-- ===== AUTHOR BLOCK ===== -->
-<div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:12px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:3px solid #ffc600; box-sizing:border-box;">
+<div style="display:flex; flex-direction:column; gap:1rem; background:var(--sur2); border-radius:8px; padding:1.25rem; max-width:min(500px, 100%); width:100%; margin:1.5rem auto 1.5rem 0; border:2px solid rgba(255,255,255,0.2); box-sizing:border-box;">
   <!-- Row 1: Avatar + text -->
   <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
     <img id="author-avatar" src="" alt="Twitch profile picture" class="tab-icon-svg" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.2); flex-shrink:0;">
     <div style="flex:1; min-width:160px;">
-      <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Автор віджету</h3>
+      <h3 style="margin:0 0 0.3rem 0; font-weight:700;">Автор віджета</h3>
       <p style="margin:0; color:var(--muted); font-size:0.9rem;"><strong>ZubikStyle</strong> - творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
     </div>
   </div>
