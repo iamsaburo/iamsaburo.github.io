@@ -3,8 +3,8 @@ title: Озвучування чату (TTS)
 slug: text-to-speech
 order: 6
 hidden: true
-image: webp/Звукові Twitch Емоути.webp
-webm_image: webm/Звукові Twitch Емоути.webm
+image: webp/text-to-speech.webp
+webm_image: webm/text-to-speech.webm
 back_url: /
 categories:
   - StreamElements
@@ -40,14 +40,14 @@ embed_max_width: 500px
 
 <div style="margin-top:2.5rem;"></div>
 
-<!-- ===== AUTHOR PANEL (full card, self-contained) ===== -->
+<!-- ===== AUTHOR PANEL ===== -->
 <div class="full-author">
   <div class="author-row">
     <div class="avatar-wrap">
       <img src="https://unavatar.io/twitch/zubikstyle" alt="Twitch profile picture" class="tab-icon-svg" referrerpolicy="no-referrer" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.1);flex-shrink:0;">
     </div>
     <div class="text-wrap">
-      <h3 style="margin:0 0 .3rem 0;font-weight:700;">Автор: ZubikStyle</h3>
+      <h3 style="margin:0 0 .3rem 0;font-weight:700;">Автор віджета: ZubikStyle</h3>
       <p style="margin:0;color:var(--muted);font-size:.9rem;">Творець технічного контенту, який на своєму YouTube створює україномовні гайди з налаштування Streamer.bot, OBS та інших інструментів для стрімінгу.</p>
     </div>
   </div>
