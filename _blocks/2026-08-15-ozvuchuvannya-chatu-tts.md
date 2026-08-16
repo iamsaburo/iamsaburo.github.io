@@ -44,7 +44,7 @@ embed_max_width: 500px
 <div class="full-author">
   <div class="author-row">
     <div class="avatar-wrap">
-      <img src="https://unavatar.io/twitch/zubikstyle" alt="Twitch profile picture" class="tab-icon-svg" referrerpolicy="no-referrer" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.1);flex-shrink:0;">
+      <img src="https://unavatar.io/twitch/zubikstyle" alt="Twitch profile picture" class="tab-icon-svg" referrerpolicy="no-referrer" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.1);flex-shrink:0;">
     </div>
     <div class="text-wrap">
       <h3 style="margin:0 0 .3rem 0;font-weight:700;">Автор: ZubikStyle</h3>
