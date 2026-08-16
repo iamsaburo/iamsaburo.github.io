@@ -11,6 +11,23 @@ categories:
   - Twitch
 embed_max_width: 500px
 ---
+<style>
+  /* ----- Override global image styles for this page ----- */
+  .content-container .btn-saburo img,
+  .content-container .tab-icon-svg {
+    display: inline-block !important;
+    border-radius: 0 !important;
+    max-width: none !important;
+    flex-shrink: 0;
+  }
+
+  /* Keep the author avatar perfectly round */
+  .content-container #author-avatar {
+    border-radius: 50% !important;
+    display: block !important;
+  }
+</style>
+
 <video autoplay loop muted playsinline style="max-width:100%; border-radius:8px; display:block;">
   <source src="webm/Звукові Twitch Емоути.webm" type="video/webm">
 </video>
