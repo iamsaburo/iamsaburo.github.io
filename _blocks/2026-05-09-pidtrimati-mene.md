@@ -153,7 +153,7 @@ embed_max_width: 500px
   const twitchUsers = [
     "Lamark_sk8", "DMTRNKOO", "Sonna_Sonia", "hasskich_", "freshnia4ok", "thesanches_",
     "Evgeniusd", "JesVikk", "Xenatik0", "ZubikStyle", "blueberrycblack", "vtomleniy",
-    "snellkin", "Trickster_Lis", "bloody_specter", "the0ara", "Goolkim", "DannyelGray",
+    "snellkin", "Trickster_Lis", "bloody_specter", "Goolkim", "DannyelGray",
     "Alex969Hell", "Nisenitnytsya", "Vladykus", "bander_oli4ka", "VladProchan", "bastetvibe",
     "Stop_me_2", "pis_tashka", "jeleshka____", "Finka_o", "Fotograf_UA", "DzrtFoxUA",
     "Kavalets", "gamebulochka", "Otolich", "ArdenLich", "vasilovich_tsv", "SivoLur", "holibimba", "Nazar_Khantil", "pro100rick", "chervnevyy", "makar__2", "Tsookesha", "tetiana_andriivna", "lebudka", "blue_lynx_98", "panTarann", "Enot_poloskun7", "KRMx_x", "pumpkinn_8", "tymofij34226"
