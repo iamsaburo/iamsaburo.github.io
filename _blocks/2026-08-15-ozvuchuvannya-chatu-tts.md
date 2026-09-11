@@ -15,7 +15,7 @@ embed_max_width: 500px
 
 <video autoplay loop muted playsinline style="max-width:100%;border-radius:8px;display:block;"><source src="webm/text-to-speech.webm" type="video/webm"></video>
 
-## 🔊 Озвучування чату (TTS) `v1.0`
+## 🔊 Озвучування чату (TTS) `v3._`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/text-to-speech-access">
@@ -30,14 +30,14 @@ embed_max_width: 500px
 Озвучує за **бали каналу** або через **команду** `%` / `!tts` <br>
 
 ## ОСНОВНІ ФУНКЦІЇ
-> 🎟️ TTS за **бали каналу** <br>
+> 🎟️ TTS за **бали каналу** (Twitch)<br>
 > 💬 TTS через **команду** (напр. **%**) <br>
 > 📏 Читає **довгі повідомлення** <br>
 > 🛡️ **Фільтр** поганих слів <br>
 > 👱‍♂️ **Озвучення ніку** автора <br>
-> 👥 **Доступ до** TTS (VIP, mod, sub) <br>
+> 👥 **Доступ до** TTS (mod, sub, тощо) <br>
 > 🔊 Налаштування **гучності** <br>
-> 🏃‍♂️‍➡️ Зміна **швидкості** читання <br>
+> 🏃‍♂️ Зміна **швидкості** читання <br>
 > 🔢 Система **черги** <br>
 > 🖥️ **Без** додаткових **програм**
 
