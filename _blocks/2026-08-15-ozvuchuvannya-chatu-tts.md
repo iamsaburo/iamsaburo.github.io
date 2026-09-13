@@ -9,6 +9,7 @@ back_url: /
 categories:
   - StreamElements
   - Twitch
+  - YouTube
 embed_max_width: 500px
 ---
 <style>.full-author{display:flex;flex-direction:column;gap:1rem;background:var(--sur2);border-radius:8px;padding:1.25rem;max-width:min(500px,100%);width:100%;margin:1.5rem auto 1.5rem 0;border:1px solid rgba(255,255,255,.1);box-sizing:border-box}.full-author .author-row{display:flex;align-items:center;gap:0.7rem 1.3rem;flex-wrap:wrap}.full-author .author-row .avatar-wrap{flex-shrink:0}.full-author .author-row .text-wrap{flex:1;min-width:160px}.full-author .author-buttons{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:flex-start;width:100%}@media(max-width:768px){.full-author .author-row{flex-direction:column;align-items:flex-start}.full-author .author-row .avatar-wrap{width:100%}.full-author .author-row .text-wrap{width:100%}.full-author .author-row .text-wrap h3,.full-author .author-row .text-wrap p{text-align:left}}</style>
