@@ -2,7 +2,7 @@
 title: Озвучування чату (TTS)
 slug: text-to-speech
 order: 6
-hidden: true
+hidden: false
 image: webp/text-to-speech.webp
 webm_image: webm/text-to-speech.webm
 back_url: /
