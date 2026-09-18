@@ -16,7 +16,7 @@ embed_max_width: 500px
 
 <video autoplay loop muted playsinline style="max-width:100%;border-radius:8px;display:block;"><source src="webm/text-to-speech.webm" type="video/webm"></video>
 
-## 🔊 Озвучування чату (TTS) `v26.9`
+## 🔊 Озвучування чату (TTS) `v26.9.1`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/text-to-speech-access">
