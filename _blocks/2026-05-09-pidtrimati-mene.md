@@ -158,7 +158,7 @@ embed_max_width: 500px
     "Stop_me_2", "pis_tashka", "jeleshka____", "Finka_o", "Fotograf_UA", "Kavalets", "gamebulochka", 
     "Otolich", "ArdenLich", "vasilovich_tsv", "SivoLur", "holibimba", "Nazar_Khantil", "pro100rick",
     "chervnevyy", "makar__2", "Tsookesha", "tetiana_andriivna", "lebudka", "blue_lynx_98",
-    "panTarann", "Enot_poloskun7", "KRMx_x", "pumpkinn_8", "tymofij34226"
+    "panTarann", "Enot_poloskun7", "KRMx_x", "pumpkinn_8", "tymofij34226", "alonadomik"
   ];
 
   const container = document.getElementById("twitch-avatars");
