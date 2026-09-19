@@ -161,13 +161,6 @@ embed_max_width: 500px
     "panTarann", "Enot_poloskun7", "KRMx_x", "pumpkinn_8", "tymofij34226", "alonadomik"
   ];
 
-  const AVATAR_SOURCES = [
-    u => `https://decapi.me/twitch/avatar/${encodeURIComponent(u)}`,
-    u => `https://unavatar.io/twitch/${encodeURIComponent(u)}?fallback=false`,
-    u => `https://unavatar.vercel.app/twitch/${encodeURIComponent(u)}?fallback=false`,
-    u => `https://unavatar.io/twitch/${encodeURIComponent(u)}`
-  ];
-
   const container = document.getElementById("twitch-avatars");
   if (!container) return;
 
@@ -184,49 +177,126 @@ embed_max_width: 500px
     return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
   }
 
-  function fetchLastResort(img, user) {
-    let settled = false;
-    const giveUp = () => {
-      if (settled) return;
-      settled = true;
+  const CACHE_KEY = "saburo_twitch_avatars_v1";
+  const CACHE_TTL = 1000 * 60 * 60 * 24;
+
+  function readCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return {};
+      const data = JSON.parse(raw);
+      if (!data || typeof data !== "object") return {};
+      if (!data._ts || Date.now() - data._ts > CACHE_TTL) return {};
+      return data.map || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function writeCache(map) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ _ts: Date.now(), map: map }));
+    } catch (e) {}
+  }
+
+  const cache = readCache();
+
+  const AVATAR_SOURCES = [
+    u => "https://unavatar.io/twitch/" + encodeURIComponent(u) + "?fallback=false",
+    u => "https://unavatar.vercel.app/twitch/" + encodeURIComponent(u) + "?fallback=false",
+    u => "https://unavatar.io/twitch/" + encodeURIComponent(u)
+  ];
+
+  function fetchIvr(user) {
+    return new Promise((resolve, reject) => {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 5000);
+      fetch("https://api.ivr.fi/v2/twitch/user?login=" + encodeURIComponent(user), {
+        signal: ctrl.signal,
+        credentials: "omit",
+        mode: "cors"
+      })
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
+        .then(data => {
+          clearTimeout(timer);
+          const entry = Array.isArray(data) ? data[0] : null;
+          const url = entry && (entry.logo || entry.logoUrl);
+          if (url) resolve(url);
+          else reject(new Error("no logo"));
+        })
+        .catch(err => {
+          clearTimeout(timer);
+          reject(err);
+        });
+    });
+  }
+
+  function applyWithFallback(img, user, url) {
+    let done = false;
+    img.onerror = () => {
+      if (done) return;
+      done = true;
       img.onerror = null;
       img.src = placeholder(user);
     };
-
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 4000);
-
-    fetch("https://api.ivr.fi/v2/twitch/user?login=" + encodeURIComponent(user), {
-      signal: ctrl.signal
-    })
-      .then(r => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
-      .then(data => {
-        clearTimeout(timer);
-        const url = Array.isArray(data) && data[0] && (data[0].logo || data[0].logoUrl);
-        if (url && !settled) {
-          settled = true;
-          img.onerror = () => { img.onerror = null; img.src = placeholder(user); };
-          img.src = url;
-        } else {
-          giveUp();
-        }
-      })
-      .catch(() => { clearTimeout(timer); giveUp(); });
+    img.onload = () => {
+      done = true;
+      img.onerror = null;
+      img.onload = null;
+    };
+    img.src = url;
   }
 
-  function loadAvatar(img, user, index) {
+  function tryUnavatarChain(img, user, index) {
     if (index >= AVATAR_SOURCES.length) {
-      fetchLastResort(img, user);
+      img.onerror = null;
+      img.src = placeholder(user);
       return;
     }
-    img.onerror = () => loadAvatar(img, user, index + 1);
-    img.onload = () => { img.onerror = null; img.onload = null; };
+    let advanced = false;
+    img.onerror = () => {
+      if (advanced) return;
+      advanced = true;
+      tryUnavatarChain(img, user, index + 1);
+    };
+    img.onload = () => {
+      advanced = true;
+      img.onerror = null;
+      img.onload = null;
+    };
     img.src = AVATAR_SOURCES[index](user);
+  }
+
+  function loadAvatar(img, user) {
+    const cached = cache[user];
+    if (cached) {
+      applyWithFallback(img, user, cached);
+      return;
+    }
+
+    let settled = false;
+    const fallbackToChain = () => {
+      if (settled) return;
+      settled = true;
+      tryUnavatarChain(img, user, 0);
+    };
+
+    fetchIvr(user)
+      .then(url => {
+        if (settled) return;
+        settled = true;
+        cache[user] = url;
+        writeCache(cache);
+        applyWithFallback(img, user, url);
+      })
+      .catch(() => {
+        fallbackToChain();
+      });
   }
 
   twitchUsers.forEach(user => {
     const a = document.createElement("a");
-    a.href = `https://twitch.tv/${user}`;
+    a.href = "https://twitch.tv/" + user;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     a.style.display = "flex";
@@ -248,6 +318,7 @@ embed_max_width: 500px
     img.style.borderRadius = "50%";
     img.style.objectFit = "cover";
     img.style.border = "2px solid rgba(255,255,255,0.2)";
+    img.src = placeholder(user);
 
     const span = document.createElement("span");
     span.textContent = user;
@@ -262,7 +333,7 @@ embed_max_width: 500px
     a.appendChild(span);
     container.appendChild(a);
 
-    loadAvatar(img, user, 0);
+    loadAvatar(img, user);
   });
 })();
 </script>
