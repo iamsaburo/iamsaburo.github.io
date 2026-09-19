@@ -149,7 +149,7 @@ embed_max_width: 500px
 <div id="twitch-avatars" style="display:flex; flex-wrap:wrap; gap:1.3rem; justify-content:flex-start; margin-top:1.5rem;"></div>
 
 <script>
-(function(){
+(function () {
   const twitchUsers = [
     "Lamark_sk8", "DMTRNKOO", "Sonna_Sonia", "hasskich_", "freshnia4ok", "thesanches_",
     "Evgeniusd", "JesVikk", "Xenatik0", "ZubikStyle", "blueberrycblack", "vtomleniy",
@@ -161,7 +161,68 @@ embed_max_width: 500px
     "panTarann", "Enot_poloskun7", "KRMx_x", "pumpkinn_8", "tymofij34226", "alonadomik"
   ];
 
+  const AVATAR_SOURCES = [
+    u => `https://decapi.me/twitch/avatar/${encodeURIComponent(u)}`,
+    u => `https://unavatar.io/twitch/${encodeURIComponent(u)}?fallback=false`,
+    u => `https://unavatar.vercel.app/twitch/${encodeURIComponent(u)}?fallback=false`,
+    u => `https://unavatar.io/twitch/${encodeURIComponent(u)}`
+  ];
+
   const container = document.getElementById("twitch-avatars");
+  if (!container) return;
+
+  function placeholder(user) {
+    const letter = (user[0] || "?").toUpperCase();
+    let hue = 0;
+    for (const ch of user) hue = (hue + ch.charCodeAt(0)) % 360;
+    const svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">' +
+        '<circle cx="30" cy="30" r="30" fill="hsl(' + hue + ',45%,35%)"/>' +
+        '<text x="30" y="30" dy=".35em" text-anchor="middle" fill="#fff" ' +
+          'font-family="sans-serif" font-size="26" font-weight="700">' + letter + '</text>' +
+      '</svg>';
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  }
+
+  function fetchLastResort(img, user) {
+    let settled = false;
+    const giveUp = () => {
+      if (settled) return;
+      settled = true;
+      img.onerror = null;
+      img.src = placeholder(user);
+    };
+
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 4000);
+
+    fetch("https://api.ivr.fi/v2/twitch/user?login=" + encodeURIComponent(user), {
+      signal: ctrl.signal
+    })
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
+      .then(data => {
+        clearTimeout(timer);
+        const url = Array.isArray(data) && data[0] && (data[0].logo || data[0].logoUrl);
+        if (url && !settled) {
+          settled = true;
+          img.onerror = () => { img.onerror = null; img.src = placeholder(user); };
+          img.src = url;
+        } else {
+          giveUp();
+        }
+      })
+      .catch(() => { clearTimeout(timer); giveUp(); });
+  }
+
+  function loadAvatar(img, user, index) {
+    if (index >= AVATAR_SOURCES.length) {
+      fetchLastResort(img, user);
+      return;
+    }
+    img.onerror = () => loadAvatar(img, user, index + 1);
+    img.onload = () => { img.onerror = null; img.onload = null; };
+    img.src = AVATAR_SOURCES[index](user);
+  }
 
   twitchUsers.forEach(user => {
     const a = document.createElement("a");
@@ -179,12 +240,14 @@ embed_max_width: 500px
     const img = document.createElement("img");
     img.className = "tab-icon-svg";
     img.alt = user;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.referrerPolicy = "no-referrer";
     img.style.width = "60px";
     img.style.height = "60px";
     img.style.borderRadius = "50%";
     img.style.objectFit = "cover";
     img.style.border = "2px solid rgba(255,255,255,0.2)";
-    img.src = `https://unavatar.io/twitch/${user}`;
 
     const span = document.createElement("span");
     span.textContent = user;
@@ -198,6 +261,8 @@ embed_max_width: 500px
     a.appendChild(img);
     a.appendChild(span);
     container.appendChild(a);
+
+    loadAvatar(img, user, 0);
   });
 })();
 </script>
