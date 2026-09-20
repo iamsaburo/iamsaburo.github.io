@@ -15,7 +15,7 @@ embed_max_width: 500px
   <source src="webm/se-emulator.webm" type="video/webm">
 </video>
 
-## 🚀 Емулятор StreamElements `v26.7 (beta)`
+## 🚀 Емулятор StreamElements `v26.9 (beta)`
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:1.5rem;">
   <a class="btn-saburo" data-visual="rainbow" data-hover="rainbow" data-icon-visual="add_circle" data-icon-hover="add_circle" style="--btn-w:180px;--btn-h:47px;--radius:30px;" href="/se-emulator-access">
@@ -25,7 +25,7 @@ embed_max_width: 500px
   </a>
 </div>
 
-**Універсальний емулятор** віджетів **StreamElements**, який дозволяє користуватися ними локально через HTTP Server всередині **Streamer.bot** без змін у коді самого віджета.
+**Універсальний емулятор** віджетів **StreamElements** для Twitch і YouTube, який дозволяє користуватися ними локально через HTTP Server всередині **Streamer.bot** без змін у коді самого віджета.
 
 
 ℹ️ Віджети не входять до комплекту та встановлюються окремо ℹ️
@@ -33,7 +33,7 @@ embed_max_width: 500px
 
 ## ОСНОВНІ ФУНКЦІЇ
 > 🎛️ Підтримка API StreamElements <br>
-> 🧪 Емуляція подій Twitch <br>
+> 🧪 Емуляція подій Twitch і YouTube<br>
 > ⚙️ Панель налаштувань <br>
 > 💾 Система збереження даних <br>
 > 🔗 Посилання для джерел OBS <br>
