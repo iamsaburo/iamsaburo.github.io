@@ -1,7 +1,7 @@
 ---
 title: Рекомендую
 slug: i-recommend
-order: 88
+order: 100
 hidden: true
 image: webp/SABURO_ThankYou.webp
 back_url: /
