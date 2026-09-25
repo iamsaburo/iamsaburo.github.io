@@ -1,7 +1,7 @@
 ---
 title: Завдання
 slug: to-do
-order: 19
+order: 90
 hidden: false
 image: webp/to-do.webp
 webm_image: webm/to-do.webm
