@@ -1,7 +1,7 @@
 ---
 title: Сповіщення про стрім друзів
 slug: friend-stream-alert
-order: 17
+order: 73
 hidden: false
 image: webp/friend-stream-alert.webp
 webm_image: webm/friend-stream-alert.webm

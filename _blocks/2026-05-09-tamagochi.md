@@ -1,7 +1,7 @@
 ---
 title: Тамагочі
 slug: tamagotchi
-order: 9
+order: 51
 hidden: false
 image: webp/tamagotchi.webp
 webm_image: webm/tamagotchi.webm

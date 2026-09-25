@@ -1,7 +1,7 @@
 ---
 title: Вгадай фільм з емодзі
 slug: emoji-movie-guesser
-order: 11
+order: 60
 hidden: false
 image: webp/emoji_movie_guesser.webp
 webm_image: webm/emoji_movie_guesser.webm

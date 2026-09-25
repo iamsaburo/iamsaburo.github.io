@@ -1,7 +1,7 @@
 ---
 title: Адаптивний ShoutOut
 slug: adaptive-shoutout
-order: 2
+order: 29
 hidden: false
 image: webp/adaptive-shoutout.webp
 webm_image: webm/adaptive-shoutout.webm
@@ -35,7 +35,7 @@ embed_max_width: 500px
 > 🌟 Стильні **анімації** <br>
 
 
-## ОСНОВНІ ФУНКЦІЇ  <br>
+## ОСНОВНІ ФУНКЦІЇ: <br>
 > 🌈 Віджет **набуває кольору аватарів** <br>
 > 🔗 **Посилання** на сторінку Twitch <br>
 > ↔️ **Ширина** підлаштовується під нік <br>

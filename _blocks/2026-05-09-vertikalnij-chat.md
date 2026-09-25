@@ -1,7 +1,7 @@
 ---
 title: Вертикальний чат
 slug: vertical-chat
-order: 3
+order: 36
 hidden: true
 image: webp/vertical-chat.webp
 webm_image: webm/vertical-chat.webm

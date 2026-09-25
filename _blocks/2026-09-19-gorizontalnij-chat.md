@@ -1,7 +1,7 @@
 ---
 title: Горизонтальний чат
 slug: horizontal-chat
-order: 3
+order: 33
 hidden: true
 image: webp/horizontal-chat.webp
 webm_image: webm/horizontal-chat.webm

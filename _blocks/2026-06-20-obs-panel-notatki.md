@@ -1,7 +1,7 @@
 ---
 title: OBS панель "Нотатки"
 slug: notes
-order: 6
+order: 43
 hidden: false
 image: webp/notes.webp
 webm_image: webm/notes.webm
@@ -31,7 +31,7 @@ embed_max_width: 500px
 
 **З цією панелькою таких ситуацій можна буде уникнути** 😌
 
-## ОСНОВНІ ФУНКЦІЇ  <br>
+## ОСНОВНІ ФУНКЦІЇ: <br>
 > 🟢 З'являються, коли глядач в чаті  <br>
 > 💾 Бекап, імпорт та експорт даних  <br>
 > 🔗 Аватар з Twitch посиланням  <br>

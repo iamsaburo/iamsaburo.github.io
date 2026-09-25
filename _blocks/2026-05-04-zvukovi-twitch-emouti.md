@@ -1,7 +1,7 @@
 ---
 title: Звукові Twitch емоути
 slug: twitch-sound-emotes
-order: 7
+order: 46
 hidden: false
 image: webp/Звукові Twitch Емоути.webp
 webm_image: webm/Звукові Twitch Емоути.webm
