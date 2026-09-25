@@ -1,7 +1,7 @@
 ---
 title: Вгадай слово з букв
 slug: word-guesser
-order: 25
+order: 85
 hidden: false
 image: webp/word_guesser.webp
 webm_image: webm/word_guesser.webm
