@@ -1,7 +1,7 @@
 ---
 title: 💛 Підтримати Мене
 slug: support
-order: 77
+order: 99
 hidden: true
 image: webp/SABURO_ThankYou.webp
 back_url: /
