@@ -2,7 +2,7 @@
 title: OBS Мультишейдер
 slug: obs-multishader
 order: 40
-hidden: false
+hidden: true
 image: webp/obs-multishader.webp
 webm_image: webm/obs-multishader.webm
 back_url: /
@@ -14,7 +14,7 @@ embed_max_width: 500px
   <source src="webm/obs-multishader.webm" type="video/webm">
 </video>
 
-## ❇️ OBS Мультишейдер `v1.0 (08.12.2025)`
+## ❇️ OBS Мультишейдер `v26.10`
 
 ###### ( тільки Windows )
 
