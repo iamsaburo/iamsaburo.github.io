@@ -2,7 +2,7 @@
 title: OBS Мультишейдер
 slug: obs-multishader
 order: 40
-hidden: true
+hidden: false
 image: webp/obs-multishader.webp
 webm_image: webm/obs-multishader.webm
 back_url: /
