@@ -159,7 +159,7 @@ embed_max_width: 500px
     "Otolich", "ArdenLich", "vasilovich_tsv", "SivoLur", "holibimba", "Nazar_Khantil", "pro100rick",
     "chervnevyy", "makar__2", "Tsookesha", "tetiana_andriivna", "lebudka", "Skylynn_the_Lynx",
     "panTarann", "Enot_poloskun7", "KRMx_x", "pumpkinn_8", "tymofij34226", "alonadomik",
-    "AuroraKrylova", "cavysqueak"
+    "AuroraKrylova", "cavysqueak", "u_capkate_u"
   ];
 
   const container = document.getElementById("twitch-avatars");
