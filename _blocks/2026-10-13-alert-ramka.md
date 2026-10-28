@@ -2,7 +2,7 @@
 title: Алерт-рамка
 slug: alert-frame
 order: 21
-hidden: true
+hidden: false
 image: webp/alert-frame.webp
 webm_image: webm/alert-frame.webm
 back_url: /
