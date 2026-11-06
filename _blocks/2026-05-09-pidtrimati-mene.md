@@ -150,6 +150,16 @@ embed_max_width: 500px
 
 <script>
 (function () {
+  // ─────────────────────────────────────────────────────────────
+  // PRE-RESOLVED AVATARS (from fetch-avatars.mjs)
+  // Paste the contents of saburo-avatars.js here.
+  // Keys are lowercase Twitch logins.
+  // Leave as {} to use the runtime fallback chain only.
+  // ─────────────────────────────────────────────────────────────
+  // ── PASTE HERE ──
+  const AVATARS = {};
+  // ─────────────────────────────────────────────────────────────
+
   const twitchUsers = [
     "Lamark_sk8", "DMTRNKOO", "Sonna_Sonia", "hasskich_", "freshnia4ok", "thesanches_",
     "Evgeniusd", "JesVikk", "Xenatik0", "ZubikStyle", "blueberrycblack", "vtomleniy",
@@ -165,6 +175,7 @@ embed_max_width: 500px
   const container = document.getElementById("twitch-avatars");
   if (!container) return;
 
+  // ── Placeholder: coloured circle with the user's first letter ──
   function placeholder(user) {
     const letter = (user[0] || "?").toUpperCase();
     let hue = 0;
@@ -178,8 +189,9 @@ embed_max_width: 500px
     return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
   }
 
-  const CACHE_KEY = "saburo_twitch_avatars_v1";
-  const CACHE_TTL = 1000 * 60 * 60 * 24;
+  // ── Cache: 7 days, stores the final CDN URL ──
+  const CACHE_KEY = "saburo_twitch_avatars_v2";
+  const CACHE_TTL = 1000 * 60 * 60 * 24 * 7;
 
   function readCache() {
     try {
@@ -189,9 +201,7 @@ embed_max_width: 500px
       if (!data || typeof data !== "object") return {};
       if (!data._ts || Date.now() - data._ts > CACHE_TTL) return {};
       return data.map || {};
-    } catch (e) {
-      return {};
-    }
+    } catch (e) { return {}; }
   }
 
   function writeCache(map) {
@@ -202,20 +212,37 @@ embed_max_width: 500px
 
   const cache = readCache();
 
-  const AVATAR_SOURCES = [
-    u => "https://unavatar.io/twitch/" + encodeURIComponent(u) + "?fallback=false",
-    u => "https://unavatar.vercel.app/twitch/" + encodeURIComponent(u) + "?fallback=false",
-    u => "https://unavatar.io/twitch/" + encodeURIComponent(u)
-  ];
+  // ── Concurrency limiter (max N in-flight requests) ──
+  function makeLimiter(n) {
+    let active = 0;
+    const queue = [];
+    function next() {
+      if (active >= n || queue.length === 0) return;
+      active++;
+      const { fn, resolve, reject } = queue.shift();
+      fn().then(
+        v => { active--; resolve(v); next(); },
+        e => { active--; reject(e); next(); }
+      );
+    }
+    return fn => new Promise((resolve, reject) => {
+      queue.push({ fn, resolve, reject });
+      next();
+    });
+  }
+  const limitIvr = makeLimiter(4);
 
+  // ── Fetch via api.ivr.fi (with proper CORS + referrer policy) ──
   function fetchIvr(user) {
-    return new Promise((resolve, reject) => {
+    return limitIvr(() => new Promise((resolve, reject) => {
       const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 5000);
+      const timer = setTimeout(() => ctrl.abort(), 8000);
       fetch("https://api.ivr.fi/v2/twitch/user?login=" + encodeURIComponent(user), {
         signal: ctrl.signal,
         credentials: "omit",
-        mode: "cors"
+        mode: "cors",
+        referrerPolicy: "no-referrer",
+        headers: { "Accept": "application/json" }
       })
         .then(r => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
         .then(data => {
@@ -225,76 +252,61 @@ embed_max_width: 500px
           if (url) resolve(url);
           else reject(new Error("no logo"));
         })
-        .catch(err => {
-          clearTimeout(timer);
-          reject(err);
-        });
-    });
+        .catch(err => { clearTimeout(timer); reject(err); });
+    }));
   }
 
-  function applyWithFallback(img, user, url) {
-    let done = false;
-    img.onerror = () => {
-      if (done) return;
-      done = true;
-      img.onerror = null;
-      img.src = placeholder(user);
-    };
-    img.onload = () => {
-      done = true;
-      img.onerror = null;
-      img.onload = null;
-    };
-    img.src = url;
-  }
-
-  function tryUnavatarChain(img, user, index) {
-    if (index >= AVATAR_SOURCES.length) {
-      img.onerror = null;
-      img.src = placeholder(user);
-      return;
-    }
+  // ── Single-shot unavatar fallback (no chained retries) ──
+  function tryUnavatar(img, user) {
     let advanced = false;
     img.onerror = () => {
       if (advanced) return;
       advanced = true;
-      tryUnavatarChain(img, user, index + 1);
+      img.onerror = null;
+      img.src = placeholder(user);
     };
     img.onload = () => {
       advanced = true;
       img.onerror = null;
       img.onload = null;
     };
-    img.src = AVATAR_SOURCES[index](user);
+    img.src = "https://unavatar.io/twitch/" + encodeURIComponent(user) + "?fallback=false";
   }
 
+  // ── Load one avatar ──
   function loadAvatar(img, user) {
-    const cached = cache[user];
-    if (cached) {
-      applyWithFallback(img, user, cached);
+    const key = user.toLowerCase();
+
+    // 1) Pre-resolved table → CDN URL (no network, no CORS, no rate limit)
+    const pre = AVATARS[key];
+    if (pre && pre.logo) {
+      img.onerror = () => { img.onerror = null; img.src = placeholder(user); };
+      img.src = pre.logo;
       return;
     }
 
-    let settled = false;
-    const fallbackToChain = () => {
-      if (settled) return;
-      settled = true;
-      tryUnavatarChain(img, user, 0);
-    };
+    // 2) In-memory cache (7 days)
+    if (cache[key]) {
+      img.onerror = () => { img.onerror = null; img.src = placeholder(user); };
+      img.src = cache[key];
+      return;
+    }
 
+    // 3) Live lookup with concurrency limit
     fetchIvr(user)
       .then(url => {
-        if (settled) return;
-        settled = true;
-        cache[user] = url;
+        cache[key] = url;
         writeCache(cache);
-        applyWithFallback(img, user, url);
+        img.onerror = () => { img.onerror = null; img.src = placeholder(user); };
+        img.src = url;
       })
       .catch(() => {
-        fallbackToChain();
+        // 4) Last resort: unavatar
+        tryUnavatar(img, user);
       });
   }
 
+  // ── Build the grid ──
   twitchUsers.forEach(user => {
     const a = document.createElement("a");
     a.href = "https://twitch.tv/" + user;
@@ -311,7 +323,8 @@ embed_max_width: 500px
     const img = document.createElement("img");
     img.className = "tab-icon-svg";
     img.alt = user;
-    img.loading = "lazy";
+    // Eager, not lazy — Chrome's lazy loader leaves below-fold avatars blank
+    img.loading = "eager";
     img.decoding = "async";
     img.referrerPolicy = "no-referrer";
     img.style.width = "60px";
