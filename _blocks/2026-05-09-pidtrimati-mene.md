@@ -224,6 +224,13 @@ embed_max_width: 500px
   const container = document.getElementById("twitch-avatars");
   if (!container) return;
 
+  function forceRepaint(el) {
+    const d = el.style.display;
+    el.style.display = "none";
+    void el.offsetHeight;
+    el.style.display = d;
+  }
+
   function createRow(id) {
     const entry = AVATARS_BY_ID[id];
     const login = entry && entry.login ? entry.login : id;
@@ -258,13 +265,19 @@ embed_max_width: 500px
     return { a, img, wrap, span, entry };
   }
 
-  function commitSrc(img, url) {
+  function commitSrc(img, wrap, url) {
     if (!url || img.dataset.committed === "1") return;
     img.dataset.committed = "1";
+
+    const repaint = () => {
+      if (!img.decode) { forceRepaint(wrap); return; }
+      img.decode().then(() => forceRepaint(wrap)).catch(() => forceRepaint(wrap));
+    };
+
+    if (img.complete && img.naturalWidth > 0) repaint();
+    else img.addEventListener("load", repaint, { once: true });
+
     img.src = url;
-    const nudge = () => { if (img.decode) img.decode().catch(() => {}); };
-    if (img.complete) nudge();
-    else img.addEventListener("load", nudge, { once: true });
   }
 
   const rowsById = new Map();
@@ -285,7 +298,7 @@ embed_max_width: 500px
       failedImgs.set(row.img, id);
     };
 
-    if (entry.logo) commitSrc(row.img, entry.logo);
+    if (entry.logo) commitSrc(row.img, row.wrap, entry.logo);
   }
 
   function refreshLogins() {
@@ -311,7 +324,7 @@ embed_max_width: 500px
           if (failedImgs.get(row.img) === String(entry.id) && entry.logo) {
             failedImgs.delete(row.img);
             row.img.dataset.committed = "";
-            commitSrc(row.img, entry.logo);
+            commitSrc(row.img, row.wrap, entry.logo);
             row.entry.logo = entry.logo;
           }
         }
@@ -327,10 +340,9 @@ embed_max_width: 500px
 
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState !== "visible") return;
-    for (const { img } of rowsById.values()) {
-      if (!img.src) continue;
-      if (img.decode) img.decode().catch(() => {});
-      img.style.willChange = "auto";
+    for (const { img, wrap } of rowsById.values()) {
+      if (!img.src || !img.complete || img.naturalWidth === 0) continue;
+      forceRepaint(wrap);
     }
   });
 })();
@@ -353,12 +365,9 @@ embed_max_width: 500px
     height: 60px;
     border-radius: 50%;
     overflow: hidden;
-    background: transparent;
+    background: #303030;
     border: 2px solid #303030;
     box-sizing: content-box;
-    isolation: isolate;
-    transform: translateZ(0);
-    will-change: transform;
   }
 
   #twitch-avatars .avatar-wrap::before {
@@ -375,7 +384,6 @@ embed_max_width: 500px
     line-height: 1;
     pointer-events: none;
     z-index: 0;
-    background: #303030;
   }
 
   #twitch-avatars .avatar-img {
