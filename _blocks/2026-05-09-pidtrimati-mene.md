@@ -224,12 +224,6 @@ embed_max_width: 500px
   const container = document.getElementById("twitch-avatars");
   if (!container) return;
 
-  function hueOf(id) {
-    let h = 0;
-    for (const ch of id) h = (h + ch.charCodeAt(0)) % 360;
-    return h;
-  }
-
   function createRow(id) {
     const entry = AVATARS_BY_ID[id];
     const login = entry && entry.login ? entry.login : id;
@@ -244,7 +238,6 @@ embed_max_width: 500px
     const wrap = document.createElement("div");
     wrap.className = "avatar-wrap";
     wrap.dataset.letter = (login[0] || "?").toUpperCase();
-    wrap.style.setProperty("--hue", hueOf(id));
 
     const img = document.createElement("img");
     img.className = "avatar-img tab-icon-svg";
@@ -361,7 +354,7 @@ embed_max_width: 500px
     border-radius: 50%;
     overflow: hidden;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid #303030;
     box-sizing: content-box;
     isolation: isolate;
     transform: translateZ(0);
@@ -382,7 +375,7 @@ embed_max_width: 500px
     line-height: 1;
     pointer-events: none;
     z-index: 0;
-    background: hsl(var(--hue, 200) 45% 35%);
+    background: #303030;
   }
 
   #twitch-avatars .avatar-img {
