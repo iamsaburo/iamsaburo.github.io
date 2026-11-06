@@ -150,14 +150,6 @@ embed_max_width: 500px
 
 <script>
 (function () {
-  // ─────────────────────────────────────────────────────────────
-  // TWITCH DATA — keyed by PERMANENT user ID.
-  //   login — last known username (used for links + labels,
-  //           refreshed at runtime to follow renames)
-  //   logo  — Twitch CDN URL, tied to the account
-  //           (survives renames; changes only on a new avatar upload)
-  // Re-run resolve-ids.html periodically to refresh this table.
-  // ─────────────────────────────────────────────────────────────
   const AVATARS_BY_ID = {
     "890047558":  { login: "lamark_sk8",        logo: "https://static-cdn.jtvnw.net/jtv_user_pictures/5a0542bf-3ee2-403f-8181-5d7140587a8e-profile_image-600x600.png" },
     "843757037":  { login: "dmtrnkoo",          logo: "https://static-cdn.jtvnw.net/jtv_user_pictures/a262d41f-deb2-47b5-833c-f2bcdf8ea86b-profile_image-600x600.png" },
@@ -238,9 +230,6 @@ embed_max_width: 500px
     return h;
   }
 
-  // ── Build one row: <a data-twitch-id><div.avatar-wrap><img/></div><span/></a> ──
-  // The circle lives on the wrapper, NOT on the <img>.
-  // The <img> is created with NO src; it is assigned exactly once.
   function createRow(id) {
     const entry = AVATARS_BY_ID[id];
     const login = entry && entry.login ? entry.login : id;
@@ -258,7 +247,7 @@ embed_max_width: 500px
     wrap.style.setProperty("--hue", hueOf(id));
 
     const img = document.createElement("img");
-    img.className = "avatar-img";
+    img.className = "avatar-img tab-icon-svg";
     img.alt = login;
     img.loading = "eager";
     img.decoding = "async";
@@ -276,7 +265,6 @@ embed_max_width: 500px
     return { a, img, wrap, span, entry };
   }
 
-  // Assign img.src exactly once (never swap). Nudge compositor after decode.
   function commitSrc(img, url) {
     if (!url || img.dataset.committed === "1") return;
     img.dataset.committed = "1";
@@ -286,9 +274,8 @@ embed_max_width: 500px
     else img.addEventListener("load", nudge, { once: true });
   }
 
-  // ── Render all rows from the static table (no network, always works) ──
   const rowsById = new Map();
-  const failedImgs = new Map(); // img -> id (images whose static logo 404'd)
+  const failedImgs = new Map();
 
   for (const id of USER_IDS) {
     const entry = AVATARS_BY_ID[id];
@@ -299,8 +286,6 @@ embed_max_width: 500px
     rowsById.set(id, row);
 
     row.img.onerror = () => {
-      // Static logo is dead (user probably uploaded a new avatar).
-      // Keep the coloured wrapper + letter as placeholder; mark for refresh.
       row.img.onerror = null;
       row.img.removeAttribute("src");
       row.img.dataset.committed = "";
@@ -310,8 +295,6 @@ embed_max_width: 500px
     if (entry.logo) commitSrc(row.img, entry.logo);
   }
 
-  // ── One batched refresh to update current logins (for links) and,
-  //    opportunistically, logos for any image whose static URL failed. ──
   function refreshLogins() {
     if (!USER_IDS.length) return;
     const url = "https://api.ivr.fi/v2/twitch/user?id=" +
@@ -326,17 +309,12 @@ embed_max_width: 500px
           const row = rowsById.get(String(entry.id));
           if (!row) continue;
 
-          // 1) Refresh the link + visible label to the CURRENT login
           if (entry.login) {
             row.a.href = "https://www.twitch.tv/" + entry.login;
             row.span.textContent = entry.login;
             row.entry.login = entry.login;
           }
 
-          // 2) If the static logo 404'd, try the fresh one.
-          //    Swapping src on a *failed* image is safe — there's no
-          //    valid texture to lose, so the Chrome compositor bug
-          //    doesn't apply.
           if (failedImgs.get(row.img) === String(entry.id) && entry.logo) {
             failedImgs.delete(row.img);
             row.img.dataset.committed = "";
@@ -345,18 +323,15 @@ embed_max_width: 500px
           }
         }
       })
-      .catch(() => { /* silent — static data already rendered */ });
+      .catch(() => {});
   }
 
-  // Kick off after first paint so it never blocks the grid.
   if ("requestIdleCallback" in window) {
     requestIdleCallback(refreshLogins, { timeout: 3000 });
   } else {
     setTimeout(refreshLogins, 500);
   }
 
-  // Safety net for the Chrome compositor bug: if a tab-visibility
-  // change ever rescues a stuck image, do the same nudge programmatically.
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState !== "visible") return;
     for (const { img } of rowsById.values()) {
@@ -369,8 +344,6 @@ embed_max_width: 500px
 </script>
 
 <style>
-  /* Circle lives on the WRAPPER, never on the <img>. This sidesteps
-     Chrome's stale-rounded-texture compositor bug entirely. */
   #twitch-avatars .avatar-link {
     display: flex;
     flex-direction: column;
@@ -387,7 +360,7 @@ embed_max_width: 500px
     height: 60px;
     border-radius: 50%;
     overflow: hidden;
-    background: hsl(var(--hue, 200) 45% 35%);
+    background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.2);
     box-sizing: content-box;
     isolation: isolate;
@@ -409,6 +382,7 @@ embed_max_width: 500px
     line-height: 1;
     pointer-events: none;
     z-index: 0;
+    background: hsl(var(--hue, 200) 45% 35%);
   }
 
   #twitch-avatars .avatar-img {
@@ -418,7 +392,6 @@ embed_max_width: 500px
     object-fit: cover;
     position: relative;
     z-index: 1;
-    /* Deliberately NO border-radius here — the wrapper clips. */
   }
 
   #twitch-avatars .avatar-name {
