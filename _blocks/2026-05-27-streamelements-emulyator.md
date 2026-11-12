@@ -1,7 +1,7 @@
 ---
 title: Емулятор StreamElements
 slug: se-emulator
-order: 64
+order: 48
 hidden: false
 image: webp/se-emulator.webp
 webm_image: webm/se-emulator.webm

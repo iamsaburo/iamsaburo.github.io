@@ -1,7 +1,7 @@
 ---
 title: Піксель-арт малювалка
 slug: chat-pixel-art
-order: 48
+order: 64
 hidden: false
 image: webp/chat_pixel_art.webp
 webm_image: webm/chat_pixel_art.webm
