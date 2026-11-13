@@ -8,7 +8,7 @@ webm_image: webp/catch-the-snitch.webp
 back_url: /
 categories:
   - Twitch
-  - YouTube
+  - StreamElements
 embed_max_width: 500px
 ---
 <style>
