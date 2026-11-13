@@ -19,7 +19,7 @@ embed_max_width: 500px
 @media(max-width:768px){.wip-cta{max-width:100%}}
 </style>
 
-<img src="webp/snitch.webp" alt="Злови снич" style="max-width:100%;border-radius:16px;display:block;">
+<img src="webp/catch-the-snitch.webp" alt="Злови снич" style="max-width:100%;border-radius:16px;display:block;">
 
 ## ⚡ Злови снич
 
@@ -48,5 +48,5 @@ embed_max_width: 500px
 > 🔊 **Звуки** польоту
 
 ## КОМАНДИ
-> `!снич-лідери` — показати таблицю <br>
-> `!снич-0` — скинути лідерів (стрімер / мод.)
+> `!снич-лідери` - показати таблицю <br>
+> `!снич-0` - скинути лідерів (стрімер / мод.)
