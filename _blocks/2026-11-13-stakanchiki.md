@@ -8,7 +8,7 @@ webm_image: webp/cup-game.webp
 back_url: /
 categories:
   - Twitch
-  - Streamer.bot
+  - StreamElements
 embed_max_width: 500px
 ---
 <style>
